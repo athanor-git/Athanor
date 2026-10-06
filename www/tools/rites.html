@@ -1,0 +1,1143 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Athanor — Rites &amp; Altar</title>
+<style>
+:root{--bg:#faf7f0;--card:#fff;--ink:#1a1712;--sub:#6b6357;--acc:#7a5c2e;--line:#e3ddd0;--hit:#fff3c9;--ok:#3d7a4a;--warn:#a5542c}
+@media(prefers-color-scheme:dark){:root{--bg:#14120e;--card:#1e1b15;--ink:#ece5d8;--sub:#9a9184;--acc:#d0a85c;--line:#33302a;--hit:#4a3f1e;--ok:#7fbf8c;--warn:#e0936a}}
+*{box-sizing:border-box}body{margin:0;font:16px system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--ink)}
+header{padding:10px 14px 6px}h1{font-size:16px;margin:0}
+/* the tabs: Today · Events · Offerings · ⚙ */
+.tabs{position:sticky;top:0;z-index:20;display:flex;background:var(--bg);border-bottom:1px solid var(--line);padding:0 6px}
+.tabs button{flex:1 1 0;min-width:0;min-height:44px;margin:0;background:none;border:none;border-bottom:3px solid transparent;border-radius:0;color:var(--sub);font-size:14px;font-weight:600;padding:6px 4px}
+.tabs button.on{color:var(--acc);border-bottom-color:var(--acc)}
+.tabs .gear{flex:0 0 56px;font-size:19px}
+main{max-width:640px;margin:0 auto;padding:2px 12px 16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin:10px 0}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+input,select,textarea{font-size:15px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink);max-width:100%}
+input{width:9em}
+button{border:1px solid var(--acc);background:var(--acc);color:#fff;border-radius:9px;padding:8px 13px;font-size:14px;cursor:pointer;min-height:40px}
+button.ghost{background:var(--card);color:var(--ink);border-color:var(--line)}
+.sub{color:var(--sub);font-size:13px}
+.sec{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--acc);font-weight:700;margin:2px 0 8px}
+.head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:4px}.head .sec{margin:0}
+.big{font-size:20px;font-weight:700;margin:2px 0}
+.ok{color:var(--ok)}.warn{color:var(--warn)}
+.stat{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;padding:7px 0;border-top:1px solid var(--line);font-size:14px}
+.stat:first-of-type{border-top:none}
+/* Resh rows */
+.resh{border-top:1px solid var(--line);padding:8px 0}
+.resh:first-of-type{border-top:none}
+.rh{display:flex;align-items:center;gap:10px;cursor:pointer;min-height:44px}
+.rh .q{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--hit);color:var(--acc);font-weight:700;font-size:13px;flex:0 0 auto}
+.rh .nm{flex:1;min-width:0}.rh .nm b{display:block}
+.rh .tm{font-variant-numeric:tabular-nums;font-weight:700;font-size:16px;text-align:right}
+.resh.next .q{background:var(--acc);color:#fff}
+.rbody{display:none;margin:4px 0 2px 44px}
+.resh.open .rbody{display:block}
+.txt{white-space:pre-line;font-family:Georgia,'Times New Roman',serif;font-size:15px;line-height:1.5;margin:6px 0 2px}
+.txt .inst{font-family:system-ui,sans-serif;font-style:italic;color:var(--sub);font-size:13px}
+/* switch (its tap area reaches past the drawn switch) */
+.sw{position:relative;width:42px;height:24px;flex:0 0 auto}
+.sw:after{content:"";position:absolute;inset:-10px -6px}
+.sw input{opacity:0;width:0;height:0;position:absolute;padding:0;border:0}
+.sw span{position:absolute;inset:0;background:var(--line);border-radius:12px;transition:.15s}
+.sw span:before{content:"";position:absolute;width:18px;height:18px;left:3px;top:3px;background:#fff;border-radius:50%;transition:.15s}
+.sw input:checked+span{background:var(--acc)}.sw input:checked+span:before{transform:translateX(18px)}
+.sw input:focus-visible+span{outline:2px solid var(--acc);outline-offset:2px}
+.swrow{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 0;min-height:44px;font-size:14px;border-top:1px solid var(--line)}
+/* spirits */
+.spirits{display:grid;grid-template-columns:1fr;gap:10px;margin-top:10px}
+@media(min-width:520px){.spirits{grid-template-columns:1fr 1fr}}
+.sp{border:1px solid var(--line);border-radius:10px;padding:10px 12px;position:relative}
+.sp.now{border-color:var(--acc);box-shadow:0 0 0 1px var(--acc) inset}
+.sp .tag{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--sub);font-weight:700}
+.sp .now-badge{position:absolute;top:8px;right:10px;font-size:11px;background:var(--acc);color:#fff;border-radius:8px;padding:2px 7px}
+.sp .name{font-size:18px;font-weight:700;margin:2px 0}
+.sp .ar,.spb .ar{font-size:18px;color:var(--sub);direction:rtl;display:inline-block;margin-left:6px;font-weight:400}
+.office{font-size:13px;margin:4px 0 8px}
+/* seal from the Lesser Key plates, drawn in the rank's pen colour (ink-only PNG used as a mask) */
+.sp .sealrow{display:flex;gap:6px;float:right;margin:0 0 4px 8px}
+.sp.now .sealrow{margin-top:18px}  /* clear the "rules now" badge */
+.sp .seal{width:72px;height:72px;background:var(--tint);-webkit-mask:var(--src) center/contain no-repeat;mask:var(--src) center/contain no-repeat;cursor:pointer}
+/* the altar on Today: one row a spirit, its details folded */
+.spr{border:1px solid var(--line);border-radius:10px;margin-top:8px}
+.spr.now{border-color:var(--acc);box-shadow:0 0 0 1px var(--acc) inset}
+.sph{display:flex;align-items:center;gap:10px;padding:6px 10px;min-height:56px;cursor:pointer}
+.sph .seal{width:44px;height:44px;flex:0 0 auto;background:var(--tint);-webkit-mask:var(--src) center/contain no-repeat;mask:var(--src) center/contain no-repeat;cursor:pointer}
+.sph .nm{flex:1;min-width:0}
+.sph .tag{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--sub);font-weight:700}
+.nowb{font-size:11px;background:var(--acc);color:#fff;border-radius:8px;padding:2px 7px;white-space:nowrap}
+.chev{color:var(--sub);font-size:22px;line-height:1;transition:transform .15s}
+.spr.open .chev{transform:rotate(90deg)}
+.spb{display:none;padding:0 12px 10px}
+.spr.open .spb{display:block}
+.pen{display:flex;align-items:center;gap:8px;font-size:13px;margin:3px 0}
+.dot{width:18px;height:18px;border-radius:50%;border:1px solid rgba(128,128,128,.5);flex:0 0 auto;background:#888}
+.pen .lbl{font-weight:600}
+.pen.alt{color:var(--sub)}
+.list .it{display:flex;gap:10px;padding:8px 0;border-top:1px solid var(--line);font-size:14px;align-items:flex-start}
+.list .it:first-child{border-top:none}
+.list .it.tap{cursor:pointer;min-height:44px}
+.list .when{min-width:92px;font-variant-numeric:tabular-nums;color:var(--sub);font-size:13px}
+.list .what{min-width:0;overflow-wrap:anywhere}
+.list .what b{color:var(--acc)}
+.mini{display:inline-block;width:10px;height:10px;border-radius:50%;vertical-align:middle;margin:0 3px 1px 0;border:1px solid rgba(128,128,128,.5)}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}
+.chip{border:1px solid var(--line);background:var(--bg);border-radius:14px;padding:4px 10px;font-size:13px}
+.off h3{font-size:15px;margin:12px 0 4px}
+.off .k{font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--sub);font-weight:700;margin-top:8px}
+.off p{margin:4px 0;font-size:14px;line-height:1.45}
+#pick{width:100%;min-height:42px}
+.src{font-size:12px;color:var(--sub);overflow-wrap:anywhere}.src a{color:var(--acc)}
+details summary{cursor:pointer;color:var(--acc);font-weight:600;font-size:14px;margin:6px 0;padding:8px 0;min-height:40px}
+.note{background:var(--hit);border-radius:8px;padding:8px 10px;font-size:13px;margin:8px 0}
+.hidden{display:none!important}
+/* your events */
+.ev{display:flex;align-items:center;gap:12px;padding:10px 0;border-top:1px solid var(--line);cursor:pointer;min-height:52px}
+.ev:first-child{border-top:none}
+.ev .m{flex:1;min-width:0;overflow-wrap:anywhere}
+.ev .m b{display:block;font-size:15px}
+.ev .m .sub{display:block}
+.ev.off .m{opacity:.55}
+.k2{font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:var(--sub);font-weight:700;margin:12px 0 2px}
+.foot{text-align:center}
+/* reading view (?read=…): just the prayer, the seals or your event of a tapped reminder, nothing else */
+body.reading header,body.reading .tabs,body.reading main>section{display:none!important}
+body.reading .sp button{display:none}
+#reading .when{color:var(--sub);font-size:14px;margin:2px 0 10px}
+#reading .prayer{white-space:pre-line;font-family:Georgia,'Times New Roman',serif;font-size:19px;line-height:1.6;margin:10px 0 4px}
+#reading .prayer .inst{display:block;font-family:system-ui,sans-serif;font-style:italic;color:var(--sub);font-size:14px;line-height:1.45;margin-bottom:10px}
+#reading .notes{white-space:pre-line;font-size:17px;line-height:1.55;margin:10px 0 8px;overflow-wrap:anywhere}
+body.reading.has-mc main{padding-bottom:210px}  /* the end of the text can scroll clear of the floating compass */
+/* a compass with a reminder: the small switch under each reminder's own, and what it points to */
+.cmp{display:flex;align-items:center;justify-content:flex-end;flex-wrap:wrap;gap:6px 10px;padding:0 0 8px;font-size:13px}
+.resh .cmp{justify-content:flex-start;margin:8px 0 0;padding:0}
+.cmpch{border:1px solid var(--line);background:var(--bg);color:var(--acc);border-radius:14px;padding:4px 10px;font-size:13px;font-weight:600;text-align:left;max-width:100%;overflow-wrap:anywhere}
+.cmpch .ed{color:var(--sub);font-weight:400}
+.msw{position:relative;display:inline-flex;align-items:center;gap:7px;margin-left:auto;padding:3px 0;min-height:40px;color:var(--sub);font-size:12px;cursor:pointer;-webkit-user-select:none;user-select:none}
+.resh .msw{margin-left:0}
+.msw input{position:absolute;opacity:0;width:0;height:0;padding:0;border:0}
+.msw .tr{position:relative;width:32px;height:18px;border-radius:9px;background:var(--line);transition:.15s;flex:0 0 auto}
+.msw .tr:before{content:"";position:absolute;width:14px;height:14px;left:2px;top:2px;background:#fff;border-radius:50%;transition:.15s}
+.msw input:checked+.tr{background:var(--acc)}.msw input:checked+.tr:before{transform:translateX(14px)}
+.msw input:focus-visible+.tr{outline:2px solid var(--acc);outline-offset:2px}
+/* the question it asks */
+.dlg{position:fixed;inset:0;z-index:40;background:rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;padding:12px}
+.dlg .box{background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:14px;width:min(440px,100%);max-height:100%;overflow:auto;padding:14px 16px;box-shadow:0 10px 30px rgba(0,0,0,.3)}
+.dlg h2{font-size:16px;margin:0}
+.dlg .ask{font-size:14px;margin:10px 0 4px}
+.opt{display:flex;align-items:flex-start;gap:10px;padding:10px 2px;min-height:40px;border-top:1px solid var(--line);font-size:14px;cursor:pointer}
+.opt:first-child{border-top:none}
+.opt input{width:18px;height:18px;margin:1px 0 0;padding:0;flex:0 0 auto;accent-color:var(--acc)}
+.opt .sub{display:block}
+.opt.dis{opacity:.55;cursor:default}
+#cmpOther{display:flex;flex-direction:column;gap:8px;margin:2px 0 4px 30px}
+#cmpOther select,#cmpOther input{width:100%;min-width:0}
+#cmpOther .row{flex-wrap:nowrap}
+#cmpOther #cmpDeg{width:6.5em;flex:0 0 auto}
+#cmpErr{font-size:13px;margin-top:6px}
+.dlg .acts{display:flex;justify-content:flex-end;gap:8px;margin-top:12px}
+/* the event editor: one sheet over the page */
+body.sheet-open{overflow:hidden}
+.sheet{position:fixed;inset:0;z-index:35;background:var(--bg);overflow-y:auto;-webkit-overflow-scrolling:touch}
+.shbar{position:sticky;top:0;z-index:2;display:flex;align-items:center;gap:8px;padding:6px 10px;background:var(--bg);border-bottom:1px solid var(--line)}
+.shbar b{flex:1;min-width:0;font-size:16px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.shbar .x{width:44px;padding:0;font-size:18px}
+.shbody{max-width:640px;margin:0 auto;padding:8px 16px 40px}
+.fld{display:block;margin:12px 0}
+.lb{display:block;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--acc);font-weight:700;margin-bottom:6px}
+.lb .n{text-transform:none;letter-spacing:0;color:var(--sub);font-weight:400}
+.sheet input:not([type=checkbox]):not([type=radio]),.sheet select,.sheet textarea{width:100%;min-height:44px;font-size:16px}
+.sheet textarea{font-family:inherit;line-height:1.4;resize:vertical}
+.row2{display:flex;gap:10px;align-items:flex-end}
+.row2>*{flex:1 1 0;min-width:0}
+.row2>.fld{margin:6px 0}
+.row2 .unit{flex:1.4 1 0;font-size:14px;color:var(--sub);align-self:center}
+.seg{display:flex;flex-wrap:wrap;gap:6px}
+.pk{position:relative;display:flex}
+.pk input{position:absolute;opacity:0;width:0;height:0;padding:0;border:0}
+.pk span{display:flex;align-items:center;justify-content:center;width:100%;min-height:40px;padding:0 12px;border:1px solid var(--line);border-radius:20px;background:var(--card);font-size:14px;cursor:pointer;text-align:center}
+.pk input:checked+span{background:var(--acc);border-color:var(--acc);color:#fff}
+.pk input:focus-visible+span{outline:2px solid var(--acc);outline-offset:2px}
+.wds{display:grid;grid-template-columns:repeat(7,1fr);gap:3px}
+.wds .pk span{padding:0;font-size:13px;border-radius:10px}
+.ph4{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.subopts{margin:0 0 4px 28px}
+.subopts select{margin:2px 0 8px}
+.nextbox{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin:14px 0;font-size:14px}
+.nextbox .lb{display:inline;margin-right:8px}
+.acts2{display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap;margin-top:16px}
+.acts2 .dang{color:var(--warn);margin-right:auto}
+</style></head><body>
+<header><h1>ATHANOR · RITES &amp; ALTAR</h1></header>
+<nav class="tabs" role="tablist" aria-label="Rites &amp; Altar">
+ <button role="tab" data-tab="today" class="on" aria-selected="true">Today</button>
+ <button role="tab" data-tab="events" aria-selected="false">Events</button>
+ <button role="tab" data-tab="offer" id="tabOffer" aria-selected="false">Offerings</button>
+ <button role="tab" data-tab="set" class="gear" aria-selected="false" aria-label="Settings" title="Settings">⚙</button>
+</nav>
+<main>
+<div class="card hidden" id="reading"></div>
+
+<!-- Today: Resh, the altar now, and your next events -->
+<section class="tab" id="tab-today">
+ <div class="card" id="reshCard">
+  <div class="sec">Liber Resh vel Helios — today</div>
+  <div id="resh"></div>
+  <div class="sub" id="reshHelp" style="margin-top:6px"></div>
+ </div>
+ <div class="card" id="altarCard">
+  <div class="sec">The Altar — seals now</div>
+  <div id="altar"></div>
+  <div class="swrow" style="margin-top:8px"><span>Remind me when the seals change (Sun enters a new decan)</span><label class="sw"><input type="checkbox" id="t_sigil_change" onchange="toggle('sigil_change',this.checked)"><span></span></label></div>
+  <div class="cmp" data-ck="sigil_change"></div>
+  <div class="swrow"><span>Remind me at sunrise &amp; sunset which spirit rules</span><label class="sw"><input type="checkbox" id="t_sigil_daynight" onchange="toggle(['sigil_day','sigil_night'],this.checked)"><span></span></label></div>
+  <div class="cmp" data-ck="sigil_daynight"></div>
+ </div>
+ <div class="card" id="soonCard">
+  <div class="sec">Your events — next</div>
+  <div id="soon"></div>
+ </div>
+ <p class="sub hidden" id="todayEmpty"></p>
+</section>
+
+<!-- Events: your own, then the coming seal changes -->
+<section class="tab hidden" id="tab-events">
+ <div class="card">
+  <div class="head"><div class="sec">Your events</div><button onclick="editEvent()">+ Add event</button></div>
+  <div id="evList"></div>
+  <div id="evNote"></div>
+ </div>
+ <div class="card" id="changesCard">
+  <div class="sec">Coming seal changes</div>
+  <div class="list" id="changes"></div>
+ </div>
+</section>
+
+<!-- Offerings: the 72 spirits' offerings & timing -->
+<section class="tab hidden" id="tab-offer">
+ <div class="card off">
+  <div class="sec">Offerings &amp; timing</div>
+  <select id="pick" aria-label="Spirit" onchange="renderOffering(+this.value)"></select>
+  <div id="offer"></div>
+  <div id="offerGeneral"></div>
+ </div>
+</section>
+
+<!-- ⚙: location, notifications, what this page shows -->
+<section class="tab hidden" id="tab-set">
+ <div class="card" id="setup">
+  <div class="sec">Setup</div>
+  <div id="setupRows"></div>
+  <div id="manual" class="row hidden" style="margin-top:8px">
+   <input id="mlat" inputmode="decimal" placeholder="Latitude">
+   <input id="mlon" inputmode="decimal" placeholder="Longitude">
+   <button onclick="saveManual()">Save</button>
+  </div>
+ </div>
+ <div class="card">
+  <div class="sec">Show on this page</div>
+  <p class="sub" id="hideNote" style="margin:0 0 4px"></p>
+  <div id="hideRows"></div>
+  <div class="row" style="margin-top:10px"><button class="ghost" onclick="showAll()">Show everything</button></div>
+ </div>
+ <div class="card" id="testCard">
+  <div class="sec">Test</div>
+  <div class="row">
+   <button class="ghost" onclick="test('resh_dawn')">Test Resh reminder</button>
+   <button class="ghost" onclick="test('sigil_change')">Test seal-change reminder</button>
+  </div>
+ </div>
+ <p class="sub foot" id="foot"></p>
+</section>
+</main>
+
+<!-- an event: made or changed in one sheet -->
+<div class="sheet hidden" id="evSheet" role="dialog" aria-modal="true" aria-labelledby="evHead">
+ <div class="shbar">
+  <button class="ghost x" id="evX" aria-label="Close without saving" title="Close">✕</button>
+  <b id="evHead">New event</b>
+  <button id="evSave">Save</button>
+ </div>
+ <div class="shbody">
+  <label class="fld"><span class="lb">Title</span><input id="evTitle" maxlength="80" autocomplete="off"></label>
+  <label class="fld"><span class="lb">Notes</span><textarea id="evNotes" rows="3" maxlength="4000"></textarea></label>
+  <div class="fld"><span class="lb">When</span><div class="seg" id="evKinds"></div></div>
+  <div id="evWhen"></div>
+  <div class="nextbox" id="evNext" aria-live="polite"></div>
+  <div class="fld" id="evLeadRow"><span class="lb">Remind me early</span>
+   <div class="row2"><input id="evLead" type="number" inputmode="numeric" min="0" max="1440" step="1" placeholder="0" aria-label="Minutes before"><span class="unit">minutes before (0 = at the time)</span></div></div>
+  <div class="fld"><span class="lb">When its reminder is tapped</span><div id="evTap"></div></div>
+  <div id="evMsg" class="sub" aria-live="polite"></div>
+  <div class="acts2"><button class="ghost dang" id="evDel">Delete</button><button class="ghost" id="evTest">Test</button><button id="evSave2">Save</button></div>
+  <p class="sub" id="evTestNote"></p>
+  <p class="sub" id="evFoot"></p>
+ </div>
+</div>
+
+<!-- what a reminder's compass is for: asked when its 🧭 Compass switch is turned on, or its choice is tapped -->
+<div class="dlg hidden" id="cmpDlg" role="dialog" aria-modal="true" aria-labelledby="cmpTitle">
+ <div class="box">
+  <h2 id="cmpTitle">🧭 Compass · <span id="cmpFor"></span></h2>
+  <div class="sub">It floats over the reading when you tap this reminder.</div>
+  <div class="ask">What is it for? Choose a reason or a direction:</div>
+  <div id="cmpOpts"></div>
+  <div id="cmpOther" class="hidden">
+   <div class="row"><select id="cmpDir" aria-label="Direction"></select><input id="cmpDeg" type="number" inputmode="numeric" min="0" max="359" step="1" placeholder="0–359" aria-label="Bearing in degrees from north"></div>
+   <input id="cmpWhy" maxlength="60" placeholder="Reason, e.g. toward the altar" aria-label="Reason">
+  </div>
+  <div id="cmpErr" class="warn hidden"></div>
+  <div class="acts"><button class="ghost" id="cmpCancel">Cancel</button><button id="cmpSave">Save</button></div>
+ </div>
+</div>
+
+<script src="../../data/db/core.js"></script>
+<script src="../../data/db/texts.js"></script>
+<script src="../lib/db.js"></script>
+<script src="../lib/minicompass.js"></script>
+<script src="../lib/events.js"></script>
+<script>
+const $=s=>document.querySelector(s);
+// the page's own texts (tool texts, through lib/db.js)
+$('#reshHelp').innerHTML=DB.text('rites.resh-help'); $('#foot').innerHTML=DB.text('rites.footer');
+$('#hideNote').innerHTML=DB.text('rites.hide-note');
+$('#todayEmpty').innerHTML=DB.text('rites.all-hidden');
+$('#evTestNote').innerHTML=DB.text('rites.ev-test-saves');
+const A=(window.parent&&window.parent.Android)||window.Android||null;
+let G=null, R=null, S=null; // goetia data, resh texts, native state
+const fmtT=new Intl.DateTimeFormat(undefined,{hour:'2-digit',minute:'2-digit'});
+const fmtD=new Intl.DateTimeFormat(undefined,{weekday:'short',month:'short',day:'numeric'});
+const fmtDT=t=>fmtD.format(t)+' · '+fmtT.format(t);
+const fmtDY=new Intl.DateTimeFormat(undefined,{weekday:'short',month:'short',day:'numeric',year:'numeric'});
+const fmtDTY=t=>(new Date(t).getFullYear()===new Date().getFullYear()?fmtD:fmtDY).format(t)+' · '+fmtT.format(t);   // with the year when not this one
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function until(t){const m=Math.round((t-Date.now())/60000);if(m<1)return 'now';if(m<60)return 'in '+m+' min';const h=Math.floor(m/60);if(h<48)return 'in '+h+'h '+(m%60)+'m';return 'in '+Math.floor(h/24)+'d '+(h%24)+'h';}
+
+/* ---------- Browser fallback: same maths as Astro.kt, so the page works without the app ---------- */
+const Mock=(()=>{
+  const DAY=864e5, n360=d=>((d%360)+360)%360, w180=d=>n360(d+180)-180, rad=d=>d*Math.PI/180, deg=r=>r*180/Math.PI;
+  const jd=ms=>ms/DAY+2440587.5;
+  function sun(ms){const t=(jd(ms)+69/86400-2451545)/36525,l0=n360(280.46646+36000.76983*t+.0003032*t*t),m=rad(357.52911+35999.05029*t-.0001537*t*t),
+    c=(1.914602-.004817*t-.000014*t*t)*Math.sin(m)+(.019993-.000101*t)*Math.sin(2*m)+.000289*Math.sin(3*m),om=rad(125.04-1934.136*t),
+    lam=n360(l0+c-.00569-.00478*Math.sin(om)),e0=23+(26+(21.448-t*(46.815+t*(.00059-t*.001813)))/60)/60,e=rad(e0+.00256*Math.cos(om)),lr=rad(lam);
+    return{lon:lam,dec:deg(Math.asin(Math.sin(e)*Math.sin(lr))),ra:n360(deg(Math.atan2(Math.cos(e)*Math.sin(lr),Math.cos(lr))))};}
+  const decan=ms=>Math.min(35,Math.floor(sun(ms).lon/10));
+  function nextIngress(a){const tg=(Math.floor(sun(a).lon/10)+1)*10,df=ms=>w180(sun(ms).lon-tg);let lo=a,hi=a+12*DAY;while(df(hi)<0)hi+=DAY;
+    for(let i=0;i<50;i++){const mid=(lo+hi)/2;if(df(mid)<0)lo=mid;else hi=mid;}return{t:Math.round(hi),i:Math.round(n360(tg)/10)%36};}
+  const ha=(ms,lon)=>w180(n360(280.46061837+360.98564736629*(jd(ms)-2451545))+lon-sun(ms).ra);
+  function solve(g,lon,tg){let t=g;for(let i=0;i<6;i++){const h0=tg(t);if(h0==null)return null;t-=w180(ha(t,lon)-h0)/360*DAY;}return Math.round(t);}
+  function ssha(ms,lat){const d=rad(sun(ms).dec),l=rad(lat),c=(Math.sin(rad(-.833))-Math.sin(l)*Math.sin(d))/(Math.cos(l)*Math.cos(d));return c<-1||c>1?null:deg(Math.acos(c));}
+  function sunDay(date,lat,lon){const ln=new Date(date.getFullYear(),date.getMonth(),date.getDate(),12).getTime(),noon=solve(ln,lon,()=>0);
+    return{rise:solve(noon-DAY/4,lon,t=>{const h=ssha(t,lat);return h==null?null:-h;}),noon,set:solve(noon+DAY/4,lon,t=>ssha(t,lat))};}
+  const iso=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+  const KEY='l777rites';
+  const load=()=>{try{return JSON.parse(localStorage.getItem(KEY))||{};}catch(e){return{};}};
+  const store=o=>{try{localStorage.setItem(KEY,JSON.stringify(o));}catch(e){}};
+  const DEF={resh_dawn:true,resh_noon:true,resh_sunset:true,resh_midnight:true,sigil_change:true,sigil_day:false,sigil_night:false};
+  function state(){
+    const p=load(),now=Date.now(),loc=p.loc||null,enabled=Object.assign({},DEF,p.enabled||{});
+    const at=(d,h,m)=>new Date(d.getFullYear(),d.getMonth(),d.getDate()+0,h,m).getTime();
+    const today=new Date(),days=[],up=[];
+    for(let k=-1;k<=3;k++){const d=new Date(today.getFullYear(),today.getMonth(),today.getDate()+k);
+      const sd=loc?sunDay(d,loc.lat,loc.lon):null;
+      if(k<=1&&sd)days.push({date:iso(d),rise:sd.rise,noon:sd.noon,set:sd.set});
+      up.push({key:'resh_dawn',t:at(d,8,30)},{key:'resh_midnight',t:at(d,24,0)});
+      if(sd){up.push({key:'resh_noon',t:sd.noon});if(sd.set)up.push({key:'resh_sunset',t:sd.set},{key:'sigil_night',t:sd.set});if(sd.rise)up.push({key:'sigil_day',t:sd.rise});}}
+    const ing=[];let t=now;for(let k=0;k<8;k++){const x=nextIngress(t);ing.push(x);t=x.t+6e4;}
+    up.push({key:'sigil_change',t:ing[0].t});
+    return{native:false,now,tz:Intl.DateTimeFormat().resolvedOptions().timeZone,dawnTime:'08:30',location:loc,
+      perms:{notifications:false,exactAlarms:false,location:!!navigator.geolocation},enabled,days,
+      upcoming:up.filter(e=>e.t>now&&e.t<now+3*DAY).sort((a,b)=>a.t-b.t),decan:decan(now),ingresses:ing};
+  }
+  // Moon's longitude, main terms of Meeus ch. 47 (~0.1°), and the Moon's age in days since new
+  function moonLon(ms){const T=(jd(ms)+69/86400-2451545)/36525,L=218.3164477+481267.88123421*T,D=rad(297.8501921+445267.1114034*T),
+    M=rad(357.5291092+35999.0502909*T),Mp=rad(134.9633964+477198.8675055*T),F=rad(93.272095+483202.0175233*T),s=Math.sin;
+    return n360(L+6.288774*s(Mp)+1.274027*s(2*D-Mp)+.658314*s(2*D)+.213618*s(2*Mp)-.185116*s(M)-.114332*s(2*F)
+      +.058793*s(2*D-2*Mp)+.057066*s(2*D-M-Mp)+.053322*s(2*D+Mp)+.045758*s(2*D-M)-.040923*s(M-Mp)-.03472*s(D)-.030383*s(M+Mp));}
+  const moonAge=ms=>n360(moonLon(ms)-sun(ms).lon)/360*29.530589;
+  // where the Sun stands: azimuth from true north, clockwise, and altitude (no refraction) — for a reminder's compass
+  function sunAt(ms,lat,lon){const d=rad(sun(ms).dec),p=rad(lat),H=rad(ha(ms,lon));
+    return{az:n360(deg(Math.atan2(-Math.sin(H)*Math.cos(d),Math.sin(d)*Math.cos(p)-Math.cos(d)*Math.sin(p)*Math.cos(H)))),
+      alt:deg(Math.asin(Math.sin(p)*Math.sin(d)+Math.cos(p)*Math.cos(d)*Math.cos(H)))};}
+  return{state,sunDay,moonAge,sunAt,
+    setRiteEnabled(k,on){const p=load();p.enabled=Object.assign({},p.enabled,{[k]:on});store(p);},
+    setManualLocation(lat,lon){const p=load();p.loc={lat,lon,at:Date.now(),manual:true};store(p);},
+    requestLocation(){navigator.geolocation&&navigator.geolocation.getCurrentPosition(pos=>{const p=load();
+      p.loc={lat:pos.coords.latitude,lon:pos.coords.longitude,at:Date.now(),manual:false};store(p);refresh();},()=>alert('Location unavailable — enter it manually.'));}};
+})();
+
+/* ---------- state ---------- */
+function getState(){ if(A&&A.getRitesState){try{return JSON.parse(A.getRitesState());}catch(e){}} return Mock.state(); }
+window.onNativeUpdate=()=>refresh();
+function refresh(){ S=getState(); render(); readingCompass(); evPlaceChanged(); }
+// k: one key, or several set together (sunrise & sunset) before the page renders again
+function toggle(k,on){ [].concat(k).forEach(k=>{ if(A)A.setRiteEnabled(k,on); else Mock.setRiteEnabled(k,on); }); refresh(); }
+function test(k){ if(A)A.testNotification(k); else alert('Notifications work in the Android app.'); }
+function useGps(){ if(A)A.requestLocation(); else Mock.requestLocation(); }
+function showManual(){ $('#manual').classList.toggle('hidden'); if(S.location){$('#mlat').value=S.location.lat.toFixed(4);$('#mlon').value=S.location.lon.toFixed(4);} }
+function saveManual(){ const lat=parseFloat($('#mlat').value), lon=parseFloat($('#mlon').value);
+  if(!(lat>=-90&&lat<=90&&lon>=-180&&lon<=180)){alert('Latitude −90…90, longitude −180…180 (east positive).');return;}
+  if(A)A.setManualLocation(lat,lon); else Mock.setManualLocation(lat,lon);
+  $('#manual').classList.add('hidden'); refresh(); }
+
+/* ---------- tabs, and what this page shows (⚙ → Show on this page; only the page: reminders stay as they are) ---------- */
+let TAB='today', FORCED=false;
+const READ_Q=!!new URLSearchParams(location.search).get('read');   // a reminder's reading: no tabs to remember
+function setTab(t,force){
+  if(t==='offer'&&hidden('offer')&&!force)t='today';
+  TAB=t; FORCED=t==='offer'&&!!force;
+  if(!FORCED&&!READ_Q){ try{ localStorage.setItem('l777ritesTab',t); }catch(e){} }   // the page opens on the tab last used
+  document.querySelectorAll('.tabs button').forEach(b=>{ const on=b.dataset.tab===t; b.classList.toggle('on',on); b.setAttribute('aria-selected',on); });
+  document.querySelectorAll('main>section.tab').forEach(s=>s.classList.toggle('hidden',s.id!=='tab-'+t));
+  window.scrollTo(0,0);
+}
+document.querySelectorAll('.tabs button').forEach(b=>b.addEventListener('click',()=>setTab(b.dataset.tab)));
+const HK='l777ritesHide';   // {key: true} for each thing hidden
+let HIDE=(()=>{ try{ const o=JSON.parse(localStorage.getItem(HK)); return o&&typeof o==='object'?o:{}; }catch(e){ return {}; } })();
+const hidden=k=>!!HIDE[k];
+function keepHide(){ try{ if(Object.keys(HIDE).length)localStorage.setItem(HK,JSON.stringify(HIDE)); else localStorage.removeItem(HK); }catch(e){} }
+function setHide(k,hide){ if(hide)HIDE[k]=true; else delete HIDE[k]; keepHide(); applyHide(); }
+function showAll(){ HIDE={}; keepHide(); applyHide(); }
+// back on the tab last used (not for a reminder's reading, nor when opened for one spirit's offerings)
+if(!READ_Q&&!new URLSearchParams(location.search).get('spirit')){ let t=null; try{ t=localStorage.getItem('l777ritesTab'); }catch(e){}
+  if(t==='events'||t==='offer'||t==='set')setTab(t); }
+function hideGroups(){ return [
+  ['Today',R.adorations.map(a=>[a.key,'Resh · '+a.station+' · '+a.god]).concat([['altar','The altar — seals now'],['soon','Your next events']])],
+  ['Events',[['changes','Coming seal changes']]],
+  ['Offerings',[['offer','The Offerings tab']]],
+  // folded: the parts of a spirit's offerings (the tab, and a tapped seal reminder's page)
+  ['Parts of a spirit’s offerings',[['off-when','When (by rank)'],['off-best','Best times'],['off-timing','Timing notes · other systems'],
+    ['off-reported','Offerings, incense & colours'],['off-classical','Classical sources & notes'],['off-usual','Usual for the office'],['off-general','General guidance & sources']],true]]; }
+let hideFold=false;   // the folded group stays open while its switches are used
+function renderHideRows(){
+  if(!R)return;
+  const rows=items=>items.map(([k,l])=>
+    `<div class="swrow"><span>${esc(l)}</span><label class="sw"><input type="checkbox" aria-label="${esc(l)}" ${hidden(k)?'':'checked'} onchange="setHide('${k}',!this.checked)"><span></span></label></div>`).join('');
+  $('#hideRows').innerHTML=hideGroups().map(([g,items,folded])=>folded
+    ?`<details${hideFold?' open':''} ontoggle="hideFold=this.open"><summary>${esc(g)} (${items.filter(([k])=>!hidden(k)).length}/${items.length} shown)</summary>${rows(items)}</details>`
+    :`<div class="k2">${esc(g)}</div>`+rows(items)).join('');
+}
+function applyHide(){
+  $('#tabOffer').classList.toggle('hidden',hidden('offer'));
+  if(TAB==='offer'&&hidden('offer')&&!FORCED)setTab('today');
+  render(); if(G){ renderOffering(+$('#pick').value); renderOfferGeneral(); } renderHideRows();
+}
+
+/* ---------- data helpers ---------- */
+const spirit=n=>G.spirits[n-1];
+const decan=i=>G.decans.find(d=>d.i===i);
+function pensFor(rank){
+  return rank.split('/').map(r=>r.trim()).filter(r=>G.ranks[r]).map(r=>({rank:r,...G.ranks[r]}));
+}
+const penHex=code=>(G.pens[code]||{}).hex||'#888';
+function penRow(ref,cls,label){ if(!ref||!ref.label)return '';
+  return `<div class="pen ${cls||''}"><span class="dot" style="background:${penHex(ref.code)}"></span><span><span class="lbl">${esc(ref.label)}</span>${label?' <span class="sub">'+esc(label)+'</span>':''}</span></div>`;}
+function miniPens(rank){ return pensFor(rank).map(p=>`<span class="mini" style="background:${penHex(p.pen.code)}" title="${esc(p.pen.label)}"></span>`).join(''); }
+
+/* ---------- render ---------- */
+function render(){
+  if(!G||!R||!S)return;
+  renderSetup(); renderResh(); renderAltar(); renderChanges(); renderEvents();
+  const dn=!!(S.enabled.sigil_day&&S.enabled.sigil_night);
+  $('#t_sigil_change').checked=!!S.enabled.sigil_change;
+  $('#t_sigil_daynight').checked=dn;
+  // a reminder's compass is offered while the reminder is on
+  document.querySelector('.cmp[data-ck="sigil_change"]').classList.toggle('hidden',!S.enabled.sigil_change);
+  document.querySelector('.cmp[data-ck="sigil_daynight"]').classList.toggle('hidden',!dn);
+  $('#testCard').classList.toggle('hidden',!S.native);
+  const reshOff=R.adorations.every(a=>hidden(a.key));
+  $('#reshCard').classList.toggle('hidden',reshOff);
+  $('#altarCard').classList.toggle('hidden',hidden('altar'));
+  $('#soonCard').classList.toggle('hidden',hidden('soon'));
+  $('#changesCard').classList.toggle('hidden',hidden('changes'));
+  $('#todayEmpty').classList.toggle('hidden',!(reshOff&&hidden('altar')&&hidden('soon')));
+}
+
+function renderSetup(){
+  const rows=[];
+  const L=S.location;
+  rows.push(`<div class="stat"><span>📍 ${L?`<b>${L.lat.toFixed(3)}, ${L.lon.toFixed(3)}</b> <span class="sub">${L.manual?'entered manually':'from GPS'} · ${esc(S.tz)}</span>`:'<span class="warn">No location yet — needed for noon &amp; sunset</span>'}</span>
+    <span class="row"><button class="ghost" onclick="useGps()">Use my location</button><button class="ghost" onclick="showManual()">Enter</button></span></div>`);
+  if(S.native){
+    rows.push(`<div class="stat"><span>🔔 Notifications</span>${S.perms.notifications?'<span class="ok">Allowed</span>':'<button onclick="A.requestNotifications()">Allow</button>'}</div>`);
+    rows.push(`<div class="stat"><span>⏱ On-the-minute timing</span>${S.perms.exactAlarms?'<span class="ok">Allowed</span>':'<button onclick="A.openExactAlarmSettings()">Allow</button>'}</div>`);
+  }else{
+    rows.push(`<div class="note">${DB.text('rites.browser-note')}</div>`);
+  }
+  $('#setupRows').innerHTML=rows.join('');
+}
+
+function reshTime(key){
+  // today's time for display (even if past), plus the next occurrence
+  const today=S.days&&S.days.find(d=>d.date===isoToday());
+  const now=new Date();
+  if(key==='resh_dawn'){const [h,m]=S.dawnTime.split(':').map(Number);return new Date(now.getFullYear(),now.getMonth(),now.getDate(),h,m).getTime();}
+  if(key==='resh_midnight')return new Date(now.getFullYear(),now.getMonth(),now.getDate()+1,0,0).getTime();
+  if(!today)return null;
+  return key==='resh_noon'?today.noon:today.set;
+}
+function isoToday(){const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
+
+// a row each adoration; tapped, it opens to the text and the reminder's compass
+let openResh=null;
+function renderResh(){
+  const nextKey=(S.upcoming.find(e=>e.key.startsWith('resh_'))||{}).key;
+  $('#resh').innerHTML=R.adorations.filter(a=>!hidden(a.key)).map(a=>{
+    const t=reshTime(a.key), nx=S.upcoming.find(e=>e.key===a.key);
+    const lines=a.text.split('\n'), inst=lines.shift();
+    return `<div class="resh ${a.key===nextKey?'next':''} ${openResh===a.key?'open':''}" data-k="${a.key}">
+      <div class="rh" onclick="flip('${a.key}')">
+        <div class="q">${a.quarter[0]}</div>
+        <div class="nm"><b>${esc(a.station)} · ${esc(a.god)}</b><span class="sub">Face ${esc(a.quarter)}${CMP.get(a.key)?' · 🧭':''}${nx&&a.key===nextKey?' · <b style="display:inline;color:var(--acc)">next '+until(nx.t)+'</b>':''}</span></div>
+        <div class="tm">${t?fmtT.format(t):'—'}</div>
+        <label class="sw" onclick="event.stopPropagation()"><input type="checkbox" aria-label="Remind me: ${esc(a.station)}" ${S.enabled[a.key]?'checked':''} onchange="toggle('${a.key}',this.checked)"><span></span></label>
+      </div>
+      <div class="rbody">
+        <div class="sub">${esc(a.when)}</div>
+        <div class="txt"><span class="inst">${esc(inst)}</span>\n${esc(lines.join('\n'))}</div>
+        <div class="cmp" data-ck="${a.key}"></div>
+      </div>
+    </div>`;}).join('');
+  renderCompassRows();
+}
+function flip(k){ openResh=openResh===k?null:k; renderResh(); }
+
+function isDayNow(){
+  const today=S.days&&S.days.find(d=>d.date===isoToday()); if(!today||today.rise==null||today.set==null)return null;
+  const n=Date.now(); return n>=today.rise&&n<today.set;
+}
+
+// a spirit's shem, office, pens and the way to its offerings: under its name on a card, or folded under its row
+function spiritBody(n){
+  const s=spirit(n), pens=pensFor(s.rank);
+  const penHtml=pens.map(p=>penRow(p.pen,'',pens.length>1?p.rank+' · '+p.metal:p.metal)
+    +penRow(p.alt,'alt','alternative')+penRow(p.gd,'alt','planetary colour ('+p.planet+')')).join('');
+  return `<div class="sub">${DB.text('rites.shem-paired',{rank:esc(s.rank),shem:esc(s.shem)})}</div>
+    <div class="office">${esc(s.office)}</div>
+    ${penHtml}
+    ${hidden('offer')?'':`<div style="margin-top:6px"><button class="ghost" onclick="pickSpirit(${n})">Offerings &amp; timing</button></div>`}`;
+}
+const sealSrc=f=>`../seals/fig_${String(f).padStart(2,'0')}.png`;
+const sealTint=s=>{ const p=pensFor(s.rank); return (p[0]&&penHex(p[0].pen.code))||'var(--acc)'; };
+function spiritCard(n,tag,isNow){
+  const s=spirit(n), tint=sealTint(s);
+  const sealHtml=(s.seals||[]).length?`<div class="sealrow" title="Open in the Goetia" onclick="openGoetia(${n})">${s.seals.map(f=>
+    `<span class="seal" role="img" aria-label="Seal of ${esc(s.name)}" style="--src:url('${sealSrc(f)}');--tint:${tint}"></span>`).join('')}</div>`:'';
+  return `<div class="sp ${isNow?'now':''}">${isNow?'<span class="now-badge">rules now</span>':''}
+    ${sealHtml}<div class="tag">${tag}</div>
+    <div class="name">${n} ${esc(s.name)}<span class="ar">${esc(s.arabic)}</span></div>
+    ${spiritBody(n)}
+  </div>`;
+}
+let openSp=null;
+function spiritRow(n,tag,isNow,key){
+  const s=spirit(n), f=(s.seals||[])[0], open=openSp===key;
+  return `<div class="spr${isNow?' now':''}${open?' open':''}">
+    <div class="sph" onclick="flipSp('${key}')" role="button" aria-expanded="${open}">
+      ${f!=null?`<span class="seal" role="img" aria-label="Seal of ${esc(s.name)}" title="Open in the Goetia" style="--src:url('${sealSrc(f)}');--tint:${sealTint(s)}" onclick="event.stopPropagation();openGoetia(${n})"></span>`:''}
+      <div class="nm"><span class="tag">${tag}</span><b>${n} ${esc(s.name)}</b> <span class="sub">${esc(s.rank)}</span></div>
+      ${isNow?'<span class="nowb">rules now</span>':''}<span class="chev" aria-hidden="true">›</span>
+    </div>
+    <div class="spb"><span class="ar">${esc(s.arabic)}</span>${spiritBody(n)}</div>
+  </div>`;
+}
+function flipSp(k){ openSp=openSp===k?null:k; renderAltar(); }
+
+function renderAltar(){
+  const d=decan(S.decan), nx=S.ingresses[0], dn=isDayNow();
+  $('#altar').innerHTML=`
+    <div class="big">☉ in ${esc(d.sign)} ${esc(d.decan)} <span class="sub" style="font-weight:400">${esc(d.degrees)}</span></div>
+    <div class="sub">${esc(d.card)} — ${esc(d.title)} · ruler ${esc(d.ruler)} · ${esc(d.element)}</div>
+    <div style="margin-top:4px;font-size:14px">Next change <b>${fmtDT(nx.t)}</b> <span class="sub">(${until(nx.t)})</span> → ${esc(decan(nx.i).sign)} ${esc(decan(nx.i).decan)}</div>
+    ${spiritRow(d.day,DB.text('rites.by-day'),dn===true,'day')}${spiritRow(d.night,DB.text('rites.by-night'),dn===false,'night')}`;
+}
+
+function renderChanges(){
+  const row=x=>{const d=decan(x.i),a=spirit(d.day),b=spirit(d.night);
+    return `<div class="it"><div class="when">${fmtD.format(x.t)}<br>${fmtT.format(x.t)}</div>
+      <div class="what"><b>${esc(d.sign)} ${esc(d.decan)}</b> · ${esc(d.card)}<br>
+      ☉ ${miniPens(a.rank)}${d.day} ${esc(a.name)} <span class="sub">${esc(a.rank)}</span> &nbsp; ☾ ${miniPens(b.rank)}${d.night} ${esc(b.name)} <span class="sub">${esc(b.rank)}</span></div></div>`;};
+  const xs=S.ingresses||[];
+  $('#changes').innerHTML=xs.slice(0,3).map(row).join('')
+    +(xs.length>3?`<details><summary>${xs.length-3} more</summary><div class="list">${xs.slice(3).map(row).join('')}</div></details>`:'');
+}
+
+/* ---------- offerings ---------- */
+// (in the reading view the page sits in the shell's reminder layer, which closes once the Goetia opens)
+function openGoetia(n){ try{ parent.openTool('goetia','spirit='+n); parent.closeRite&&parent.closeRite(); }catch(e){ location.href='goetia.html?spirit='+n; } }
+function pickSpirit(n,force){ setTab('offer',force); $('#pick').value=n; renderOffering(n); }
+function list(items){ return items&&items.length?`<div class="chips">${items.map(i=>`<span class="chip">${esc(i)}</span>`).join('')}</div>`:''; }
+function sources(arr){ return arr&&arr.length?`<div class="src">Sources: ${arr.map(s=>s.url?`<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.title||s.url)}</a>`:esc(s.title)).join(' · ')}</div>`:''; }
+const fold=(title,body)=>body?`<details><summary>${title}</summary>${body}</details>`:'';
+function renderOffering(n){ $('#offer').innerHTML=offeringHTML(n); }
+function offeringHTML(n){
+  const s=spirit(n), OG=G.offeringsGeneral, o=s.offerings;
+  const ranks=s.rank.split('/').map(r=>r.trim());
+  let h=`<h3>${n} ${esc(s.name)} <span class="sub">· ${esc(s.rank)} · ${esc(s.dayNight)} spirit of ${esc(s.decan)}</span></h3>`;
+  if(OG&&OG.ranks&&!hidden('off-when')){
+    h+=`<div class="k">When (by rank)</div>`+ranks.filter(r=>OG.ranks[r]).map(r=>{const k=OG.ranks[r];
+      return `<p><b>${esc(r)}</b> — ${esc(k.hours||'')}${k.day?' · day: '+esc(k.day):''}${k.place?' · '+esc(k.place):''}</p>`;}).join('');
+  }
+  h+=`<p class="sub">${DB.text('rites.on-altar',{decan:esc(s.decan),when:esc(s.dayNight==='Day'?'by day':'by night')})}</p>`;
+  if(!hidden('off-best'))h+=bestTimes(ranks);
+  if(o){
+    if(o.timing&&!hidden('off-timing'))h+=fold('Timing notes · other systems',`<p>${esc(o.timing)}</p><p class="sub">${DB.text('rites.timing-note')}</p>`);
+    if(!hidden('off-reported')){
+      if(o.offerings&&o.offerings.length)h+=`<div class="k">Offerings reported</div>${list(o.offerings)}`;
+      if(o.incense&&o.incense.length)h+=`<div class="k">Incense</div>${list(o.incense)}`;
+      if(o.colours&&o.colours.length)h+=`<div class="k">Colours</div>${list(o.colours)}`;
+    }
+    if(!hidden('off-classical'))h+=fold('Classical sources &amp; notes',(o.classical?`<div class="k">Classical sources</div><p>${esc(o.classical)}</p>`:'')
+      +(o.notes?`<p class="sub">${esc(o.notes)}</p>`:'')+sources(o.sources));
+  }
+  if(OG&&OG.ranks&&!hidden('off-usual')){
+    const rk=ranks.filter(r=>OG.ranks[r]).map(r=>OG.ranks[r]);
+    const off=[...new Set(rk.flatMap(k=>k.offerings||[]))], inc=[...new Set(rk.flatMap(k=>k.incense||[]))], col=[...new Set(rk.flatMap(k=>k.colours||[]))];
+    if(off.length||inc.length||col.length){
+      h+=`<div class="k">Usual for the office (${esc(rk.map(k=>k.planet).join(' / '))})</div>${list(off)}`;
+      if(inc.length)h+=`<p class="sub">Incense: ${esc(inc.join(', '))}</p>`;
+      if(col.length)h+=`<p class="sub">Colours: ${esc(col.join(', '))}</p>`;
+    }
+  }
+  if(!o&&!OG)h+=`<div class="note">Offering research has not been added yet.</div>`;
+  return h;
+}
+
+/* ---------- reading view: what a tapped reminder opens ----------
+   ?read=resh_dawn|resh_noon|resh_sunset|resh_midnight → that adoration, in full
+   ?read=decan:<0-35>                                  → the seals of the decan the Sun has entered
+   ?read=spirit:<n>:day|night                          → the spirit ruling from sunrise / sunset
+   ?read=event:<id>                                    → one of your events: its title, time, notes, and spirit */
+const READ=new URLSearchParams(location.search).get('read')||'';
+function renderReading(){
+  const box=$('#reading'); let h='';
+  const m=READ.match(/^(resh_\w+)$|^decan:(\d+)$|^spirit:(\d+):(day|night)$|^event:([\w-]+)$/);
+  if(m&&m[1]){
+    const a=R.adorations.find(x=>x.key===m[1]);
+    if(a){
+      const t=reshTime(a.key), lines=a.text.split('\n'), inst=lines.shift();
+      h=`<div class="sec">Liber Resh vel Helios</div>
+        <div class="big">${esc(a.station)} · ${esc(a.god)}</div>
+        <div class="when">Face ${esc(a.quarter)} · ${esc(a.when)}${t?' · '+fmtT.format(t):''}</div>
+        <div class="prayer"><span class="inst">${esc(inst)}</span>${esc(lines.join('\n'))}</div>`;
+    }
+  }else if(m&&m[2]!=null){
+    const d=decan(+m[2]);
+    if(d){
+      const dn=isDayNow();
+      h=`<div class="sec">Change the altar seals</div>
+        <div class="big">☉ enters ${esc(d.sign)} ${esc(d.decan)} <span class="sub" style="font-weight:400">${esc(d.degrees)}</span></div>
+        <div class="sub">${esc(d.card)} — ${esc(d.title)} · ruler ${esc(d.ruler)} · ${esc(d.element)}</div>
+        <div class="spirits">${spiritCard(d.day,DB.text('rites.by-day'),dn===true)}${spiritCard(d.night,DB.text('rites.by-night'),dn===false)}</div>
+        <div class="off">${offeringHTML(dn===false?d.night:d.day)}</div>`;
+    }
+  }else if(m&&m[3]){
+    const n=+m[3], day=m[4]==='day';
+    if(n>=1&&n<=72){
+      h=`<div class="sec">The Altar</div>
+        <div class="big">${day?DB.text('rites.sunrise-rules'):DB.text('rites.sunset-rules')}</div>
+        <div class="spirits">${spiritCard(n,day?DB.text('rites.by-day'):DB.text('rites.by-night'),true)}</div>
+        <div class="off">${offeringHTML(n)}</div>`;
+    }
+  }else if(m&&m[5]){
+    const d=Events.load().find(e=>String(e.id)===m[5]);
+    if(d){
+      const ctx=evCtx(), o=readingOcc(d), n=d.tap&&d.tap.open!=='none'?+d.tap.spirit:0;
+      h=`<div class="sec">Your event</div>
+        <div class="big">${esc(d.title||Events.summary(d,ctx))}</div>
+        <div class="when">${o?esc(fmtDTY(o.t))+(o.t>Date.now()+6e4?' · '+until(o.t):'')+(o.what?' · '+esc(o.what):''):''}</div>
+        ${String(d.notes||'').trim()?`<div class="notes">${esc(d.notes)}</div>`:''}
+        <div class="sub">${esc(Events.summary(d,ctx))}</div>`;
+      if(n>=1&&n<=72){ const s=spirit(n);
+        h+=`<div class="spirits">${spiritCard(n,esc(s.decan)+' · '+(s.dayNight==='Day'?DB.text('rites.by-day'):DB.text('rites.by-night')),false)}</div>`
+          +fold('Offerings &amp; timing',`<div class="off">${offeringHTML(n)}</div>`); }
+    }else h=`<div class="sec">Your event</div><div class="note">${DB.text('rites.ev-gone')}</div>`;
+  }
+  if(!h)h=`<div class="note">This reminder could not be found. Open Rites &amp; Altar from the top bar.</div>`;
+  box.innerHTML=h;
+}
+// the time a tapped event's reminder rang for: the latest whose ring has come, else (a test) the next
+function readingOcc(d){
+  const now=Date.now(), lead=Events.leadOf(d)*6e4, ctx=evCtx();
+  const past=Events.occurrences(d,ctx,now-2*864e5,now+lead+6e4+1,5000).filter(o=>o.t-lead<=now+6e4);
+  return past.length?past[past.length-1]:Events.next(d,ctx,now);
+}
+if(READ){ document.body.classList.add('reading'); $('#reading').classList.remove('hidden'); }
+
+/* ---------- a compass with a reminder ----------
+   Each reminder has a small 🧭 Compass switch under its own (a Resh adoration's inside its opened row). Turned on, it
+   asks what the compass is for: one of the adorations (its god and quarter), the Sun where it stands now, or another
+   quarter or bearing with a reason of your own. The choice is kept in this page's storage; the reminder layer opens
+   this same page (?read=…), which floats a small compass (lib/minicompass.js) pointing that way over the prayer or
+   seals. Your events ask the same question from their editor and keep the choice with the event (tap.compass).
+   A choice: {kind:'resh', of:'resh_dawn'} | {kind:'sun'} | {kind:'quarter', q:'east', reason} | {kind:'bearing', az, reason} */
+const CMP={
+  K:'l777riteCompass',   // {on: {reminder key: choice}, last: the choice made last}
+  all(){ try{const o=JSON.parse(localStorage.getItem(this.K));return o&&typeof o==='object'?o:{};}catch(e){return{};} },
+  get(k){ return (this.all().on||{})[k]||null; },
+  set(k,c){ const o=this.all(); o.on=Object.assign({},o.on); if(c){o.on[k]=c;o.last=c;}else delete o.on[k];
+    try{localStorage.setItem(this.K,JSON.stringify(o));}catch(e){} },
+  last(){ return this.all().last||null; }
+};
+let QUARTERS=[];   // the content tables' four quarters (quarters without 'between'): {id, name, azimuth}
+const n360=a=>((a%360)+360)%360;
+const N16=['N','NNE','NE','ENE','E','ESE','SE','SSE','S','SSW','SW','WSW','W','WNW','NW','NNW'], n16=a=>N16[Math.round(n360(a)/22.5)%16];
+const quarter=v=>QUARTERS.find(q=>q.id===v||q.name===v)||QUARTERS.find(q=>String(q.name).toLowerCase()===String(v).toLowerCase())||null;
+const adoration=k=>R.adorations.find(a=>a.key===k)||null;
+// a choice -> chip (under the reminder), label (on the compass), az (true bearing, or null), note
+function compassTarget(c){
+  if(!c)return null;
+  const why=c.reason?c.reason+' · ':'';
+  if(c.kind==='resh'){ const a=adoration(c.of); if(!a)return null; const q=quarter(a.quarter);
+    return{chip:a.god+' · '+a.quarter,label:a.god+' · face '+a.quarter,az:q?q.azimuth:null,note:q?'':'Direction not found'}; }
+  if(c.kind==='sun'){ const L=S&&S.location, p=L?Mock.sunAt(Date.now(),L.lat,L.lon):null;
+    return{chip:'☉ The Sun now',label:'☉ The Sun'+(p?' · '+Math.round(p.az)%360+'° '+n16(p.az):''),az:p?p.az:null,
+      note:!p?'Needs your location (Rites & Altar → Setup)':p.alt<-0.833?'Below the horizon':''}; }
+  if(c.kind==='quarter'){ const q=quarter(c.q), nm=q?q.name:String(c.q);
+    return{chip:why+nm,label:why+'face '+nm,az:q?q.azimuth:null,note:q?'':'Direction not found'}; }
+  if(c.kind==='bearing'&&isFinite(c.az)){ const z=n360(Math.round(+c.az));
+    return{chip:why+z+'°',label:why+z+'° '+n16(z),az:z,note:''}; }
+  return null;
+}
+function cmpLine(k){
+  const t=compassTarget(CMP.get(k));
+  return (t?`<button class="cmpch" onclick="editCompass('${k}')" title="Change what the compass points to">🧭 ${esc(t.chip)} <span class="ed">✎</span></button>`:'')
+    +`<label class="msw"><span>${t?'':'🧭 '}Compass</span><input type="checkbox" ${t?'checked':''} onchange="compassToggle('${k}',this.checked)"><span class="tr"></span></label>`;
+}
+function renderCompassRows(){ document.querySelectorAll('.cmp[data-ck]').forEach(el=>{ el.innerHTML=cmpLine(el.dataset.ck); }); }
+function compassToggle(k,on){ if(on)openCompassDialog(k); else{ CMP.set(k,null); renderCompassRows(); } }
+function editCompass(k){ openCompassDialog(k,false); }
+
+let DLG=null;   // {k: the reminder the question is open for} or {ev: an event being edited: {name, cur, done(choice, saved)}}
+const reminderName=k=>{ const a=adoration(k); return a?a.station+' · '+a.god:k==='sigil_change'?'Seals change':'Sunrise & sunset spirit'; };
+function openCompassDialog(k,ev){
+  if(!ev||typeof ev!=='object')ev=null;
+  const L=S&&S.location, sp=L?Mock.sunAt(Date.now(),L.lat,L.lon):null, first={kind:'resh',of:R.adorations[0].key};
+  // what it was; else a Resh reminder's own adoration; else (the altar, an event) the last choice made, or the first
+  let pick=ev?(ev.cur||CMP.last()||first):(CMP.get(k)||(adoration(k)?{kind:'resh',of:k}:CMP.last()||first));
+  if(pick.kind==='sun'&&!sp)pick=!ev&&adoration(k)?{kind:'resh',of:k}:first;
+  const opt=(v,html,sub,off)=>`<label class="opt${off?' dis':''}"><input type="radio" name="cmpk" value="${v}"${off?' disabled':''}><span>${html}${sub?`<span class="sub">${sub}</span>`:''}</span></label>`;
+  $('#cmpFor').textContent=ev?ev.name:reminderName(k);
+  $('#cmpOpts').innerHTML=R.adorations.map(a=>opt('resh:'+a.key,`${esc(a.god)} · ${esc(a.station)} · face ${esc(a.quarter)}`)).join('')
+    +opt('sun','☉ The Sun, where it is now',sp?`Now ${Math.round(sp.az)%360}° ${n16(sp.az)}${sp.alt<-0.833?', below the horizon':''}`:'Needs your location: set it under Setup',!sp)
+    +opt('other','Another direction…','A quarter or a bearing, with your own reason');
+  $('#cmpDir').innerHTML=QUARTERS.map(q=>`<option value="${esc(q.id)}">${esc(q.name)} · ${q.azimuth}°</option>`).join('')+'<option value="deg">A bearing in degrees…</option>';
+  const v=pick.kind==='resh'?'resh:'+pick.of:pick.kind==='sun'?'sun':'other';
+  (document.querySelector(`#cmpOpts input[value="${v}"]`)||document.querySelector('#cmpOpts input')).checked=true;
+  const pq=pick.kind==='quarter'&&quarter(pick.q);
+  $('#cmpDir').value=pick.kind==='bearing'?'deg':pq?pq.id:(QUARTERS[0]?QUARTERS[0].id:'deg');
+  $('#cmpDeg').value=pick.kind==='bearing'?pick.az:'';
+  $('#cmpWhy').value=(pick.kind==='quarter'||pick.kind==='bearing')&&pick.reason||'';
+  $('#cmpErr').classList.add('hidden');
+  DLG={k,ev}; dlgSync();
+  $('#cmpDlg').classList.remove('hidden');
+  (document.querySelector('#cmpOpts input:checked')||$('#cmpSave')).focus();
+}
+function dlgSync(){
+  const v=(document.querySelector('#cmpOpts input:checked')||{}).value;
+  $('#cmpOther').classList.toggle('hidden',v!=='other');
+  $('#cmpDeg').classList.toggle('hidden',$('#cmpDir').value!=='deg');
+}
+function closeCompassDialog(saved){
+  if(!DLG)return;
+  const {k,ev}=DLG; DLG=null;
+  $('#cmpDlg').classList.add('hidden');
+  if(ev){ if(saved!==true)ev.done(null,false); return; }
+  if(R&&S)renderResh(); else renderCompassRows();   // a switch just turned on and then cancelled goes back off (renderResh draws them all, and the rows' 🧭)
+  const sw=document.querySelector(`.cmp[data-ck="${k}"] input`); if(sw)sw.focus();
+}
+function saveCompassDialog(){
+  const v=(document.querySelector('#cmpOpts input:checked')||{}).value; let c;
+  if(!DLG||!v)return;
+  if(v.startsWith('resh:'))c={kind:'resh',of:v.slice(5)};
+  else if(v==='sun')c={kind:'sun'};
+  else{
+    const reason=$('#cmpWhy').value.trim().slice(0,60), d=$('#cmpDir').value;
+    if(d==='deg'){ const x=parseFloat($('#cmpDeg').value);
+      if(!(x>=0&&x<360)){ const e=$('#cmpErr'); e.textContent='Enter a bearing from 0 to 359 degrees (0 = north, 90 = east).'; e.classList.remove('hidden'); $('#cmpDeg').focus(); return; }
+      c={kind:'bearing',az:Math.round(x)%360,reason}; }
+    else c={kind:'quarter',q:d,reason};
+  }
+  if(DLG.ev){ const ev=DLG.ev; closeCompassDialog(true); ev.done(c,true); return; }
+  CMP.set(DLG.k,c); closeCompassDialog();
+}
+$('#cmpOpts').addEventListener('change',dlgSync);
+$('#cmpDir').addEventListener('change',()=>{ dlgSync(); if($('#cmpDir').value==='deg')$('#cmpDeg').focus(); });
+$('#cmpCancel').onclick=()=>closeCompassDialog();
+$('#cmpSave').onclick=saveCompassDialog;
+$('#cmpDlg').addEventListener('click',e=>{ if(e.target===e.currentTarget)closeCompassDialog(); });
+$('#cmpDlg').addEventListener('keydown',e=>{
+  if(e.key==='Escape'){ e.preventDefault(); closeCompassDialog(); }
+  else if(e.key==='Enter'&&e.target.tagName==='INPUT'&&e.target.type!=='radio'){ e.preventDefault(); saveCompassDialog(); }
+});
+// Android's Back closes the question first, then the event editor
+window.onBack=()=>{ if(DLG){ closeCompassDialog(); return true; } if(ED){ closeSheet(); return true; } return false; };
+
+// the reading view: a reminder whose compass is on floats it over the prayer or seals
+function readingCompassKey(){
+  const m=READ.match(/^(resh_\w+)$|^(decan:\d+)$|^spirit:\d+:(?:day|night)$/);
+  return !m?null:m[1]||(m[2]?'sigil_change':'sigil_daynight');   // the sunrise & sunset spirit share one switch
+}
+function readingCompass(){
+  if(!READ||!R||!window.MiniCompass)return;
+  let t=null; const ev=READ.match(/^event:([\w-]+)$/);
+  if(ev){ const d=Events.load().find(e=>String(e.id)===ev[1]), c=d&&d.tap&&d.tap.open!=='none'?d.tap.compass:null; t=c?compassTarget(c):null; }
+  else{ const k=readingCompassKey(); t=k?compassTarget(CMP.get(k)):null; }
+  document.body.classList.toggle('has-mc',!!t);
+  if(t)MiniCompass.show({label:t.label,az:t.az,note:t.note}); else MiniCompass.hide();
+}
+// index.html calls this as the reminder layer closes: the compass lets go of the sensor before the page goes
+window.onRiteClose=()=>{ if(window.MiniCompass)MiniCompass.hide(); };
+/* The Goetia: "the best days be when the Moon Luna is 2, 4, 6, 8, 10, 12, or 14 days old".
+   Combined here with the rank's hours and (modern practice) the rank planet's weekday. */
+const WEEKDAYS=DB.rows('weekdays').map(w=>w.name);   // getDay 0 = Sunday
+const PROFITABLE=[2,4,6,8,10,12,14], AHEAD=60;       // the Moon's good ages; how many days ahead to look
+const goodAge=a=>PROFITABLE.includes(Math.floor(a));
+function resolveWindows(k,date){
+  const L=S.location, sd=L?Mock.sunDay(date,L.lat,L.lon):null;
+  const at=v=>{ if(v==='sunrise')return sd&&sd.rise; if(v==='sunset')return sd&&sd.set;
+    if(v==='dawn')return sd&&sd.rise!=null?sd.rise-36*60000:null; // civil dawn ≈ 36 min before sunrise at mid-latitudes
+    const [h,m]=v.split(':').map(Number); return new Date(date.getFullYear(),date.getMonth(),date.getDate(),h,m).getTime(); };
+  return (k.hoursWindows||[]).map(w=>{let a=at(w.start),b=at(w.end); if(a!=null&&b!=null&&b<=a)b+=864e5; return{a,b,w};});
+}
+function fmtWin(r){ const f=(t,v)=>t!=null?fmtT.format(t):v; return r.map(x=>f(x.a,x.w.start)+'–'+f(x.b,x.w.end)).join(', '); }
+function bestTimes(ranks){
+  const OG=G.offeringsGeneral; if(!OG||!OG.ranks)return '';
+  const now=new Date(), ageNow=Mock.moonAge(Date.now());
+  let h=`<div class="k">Best times</div><p>Moon now <b>${Math.floor(ageNow)} days old</b> — ${goodAge(ageNow)?'<span class="ok">'+DB.text('rites.moon-profitable')+'</span>':DB.text('rites.moon-not-profitable')} <span class="sub">${DB.text('rites.profitable-days',{days:PROFITABLE.join(', ')})}</span></p>`;
+  for(const r of ranks){ const k=OG.ranks[r]; if(!k)continue;
+    const want=WEEKDAYS.indexOf(k.day), hits=[];
+    for(let i=0;i<AHEAD&&hits.length<4;i++){
+      const d=new Date(now.getFullYear(),now.getMonth(),now.getDate()+i), noon=new Date(d.getFullYear(),d.getMonth(),d.getDate(),12).getTime();
+      if(d.getDay()===want&&goodAge(Mock.moonAge(noon)))hits.push(d);
+    }
+    h+=`<p>${DB.text('rites.best-rank',{rank:esc(r),day:esc(k.day),planet:esc(k.planet)})}</p>`;
+    h+=hits.length?`<div class="list">${hits.map(d=>`<div class="it"><div class="when">${fmtD.format(d)}</div><div class="what">Moon ${Math.floor(Mock.moonAge(new Date(d.getFullYear(),d.getMonth(),d.getDate(),12).getTime()))} days · ${S.location?fmtWin(resolveWindows(k,d)):esc(k.hours)}</div></div>`).join('')}</div>`
+      :`<p class="sub">${DB.text('rites.best-none',{day:esc(k.day),days_ahead:AHEAD})}</p>`;
+  }
+  return h+`<p class="sub">${DB.text('rites.best-note')}</p>`;
+}
+
+function renderOfferGeneral(){
+  const OG=G.offeringsGeneral; if(!OG||!OG.general||hidden('off-general')){$('#offerGeneral').innerHTML='';return;}
+  const g=OG.general;
+  $('#offerGeneral').innerHTML=`<details><summary>General guidance &amp; sources</summary>
+    ${OG.rankHoursQuote?`<div class="k">The Goetia on the hours of the ranks</div><p style="font-family:Georgia,serif">“${esc(OG.rankHoursQuote)}”</p>${sources(OG.rankHoursSource?[OG.rankHoursSource]:[])}`:''}
+    ${[['Classical texts','classical'],['Modern practice','modern'],['Timing','timingAdvice'],['Disposing of offerings','disposal'],['Cautions','cautions']]
+      .filter(([,k])=>g[k]).map(([t,k])=>`<div class="k">${t}</div><p>${esc(g[k])}</p>`).join('')}
+    ${sources(OG.sources)}</details>`;
+}
+
+/* ---------- your events ----------
+   The rules and their times are lib/events.js. Here: the list (Events tab), the next few (Today), and the editor.
+   Every change is saved with its reminders at once (Events.save → Android.setCustomEvents); the page sets them
+   again each time it loads, and when the place changes. */
+let EVS=[];      // the definitions
+let EVR=null;    // the app's answer when the reminders were last set: {ok, queued, next, canNotify, exact}
+let EVLOC='';    // the place they were worked out for
+const evCtx=()=>({loc:(S&&S.location)||null,G});
+const locKey=()=>S&&S.location?S.location.lat.toFixed(4)+','+S.location.lon.toFixed(4):'';
+const unitMs=x=>x&&+x.n>0?+x.n*(x.unit==='h'?36e5:6e4):0;
+function evStore(){ const r=Events.save(EVS,evCtx()); if(r&&r.native!==false)EVR=r; EVLOC=locKey(); renderEvents(); return r||{ok:false}; }
+function evSync(){ if(!Events.canRing())return; EVR=Events.sync(evCtx()); EVLOC=locKey(); }
+// a new place moves the sky's times: set the reminders again
+function evPlaceChanged(){ if(!G||!Events.canRing()||locKey()===EVLOC)return; evSync(); renderEvents(); }
+
+function evStatusHTML(){
+  if(!A)return `<div class="note">${DB.text('rites.browser-note')}</div>`;
+  if(!Events.canRing())return `<div class="note">${DB.text('rites.ev-old-app')}</div>`;
+  const r=EVR; if(!r||!EVS.length)return '';
+  if(r.ok===false)return `<p class="warn">${DB.text('rites.ev-error',{error:esc(r.error||'')})}</p>`;
+  let h='';
+  if(r.canNotify===false)h+=`<p class="warn">${DB.text('rites.ev-notify-off')}</p>`;
+  else if(r.exact===false)h+=`<p class="sub">${DB.text('rites.ev-exact-off')}</p>`;
+  if(r.queued>0&&r.next)h+=`<p class="sub">${DB.text('rites.ev-status',{n:r.queued,when:esc(fmtDT(r.next))})}</p>`;
+  return h;
+}
+function renderEvents(){
+  if(!G||!S)return;
+  const now=Date.now(), ctx=evCtx(), noPlace=!(S&&S.location);
+  const rows=EVS.map(d=>({d,nx:d.on!==false?Events.next(d,ctx,now):null}))
+    .sort((a,b)=>(a.d.on===false)-(b.d.on===false)||(a.nx?a.nx.t:Infinity)-(b.nx?b.nx.t:Infinity));
+  $('#evList').innerHTML=rows.length?rows.map(({d,nx})=>{ const sum=Events.summary(d,ctx), on=d.on!==false, title=d.title||sum;
+    return `<div class="ev${on?'':' off'}" data-id="${esc(d.id)}" onclick="editEvent(this.dataset.id)">
+      <div class="m"><b>${esc(title)}</b>
+        <span class="sub">${!on?'Off':nx?'Next '+esc(fmtDTY(nx.t))+' · '+until(nx.t):noPlace&&Events.needsLocation(d,ctx)?'<span class="warn">'+DB.text('rites.ev-needs-loc')+'</span>':DB.text('rites.ev-no-next',{days:Events.LOOK_DAYS})}</span>
+        ${title===sum?'':`<span class="sub">${esc(sum)}</span>`}</div>
+      <label class="sw" onclick="event.stopPropagation()"><input type="checkbox" aria-label="On" ${on?'checked':''} onchange="evToggle(this.closest('.ev').dataset.id,this.checked)"><span></span></label>
+    </div>`;}).join(''):`<p class="sub" style="margin:4px 0">${DB.text('rites.ev-none')}</p>`;
+  $('#evNote').innerHTML=evStatusHTML();
+  // Today: the next few (each event's next time)
+  const up=rows.filter(r=>r.nx).slice(0,3).map(r=>({def:r.d,t:r.nx.t,what:r.nx.what}));
+  $('#soon').innerHTML=(up.length?`<div class="list">${up.map(o=>`<div class="it tap" data-id="${esc(o.def.id)}" onclick="editEvent(this.dataset.id)">
+      <div class="when">${fmtD.format(o.t)}<br>${fmtT.format(o.t)}</div><div class="what"><b>${esc(o.def.title||Events.summary(o.def,ctx))}</b>${o.what?'<br><span class="sub">'+esc(o.what)+'</span>':''}</div></div>`).join('')}</div>`
+    :`<p class="sub" style="margin:4px 0">${EVS.length?DB.text('rites.ev-no-next',{days:Events.LOOK_DAYS}):DB.text('rites.ev-none')}</p>`)
+    +`<div class="row" style="margin-top:8px"><button class="ghost" onclick="editEvent()">+ Add event</button>${EVS.length?'<button class="ghost" onclick="setTab(\'events\')">All events</button>':''}</div>`;
+}
+function evToggle(id,on){
+  const d=EVS.find(e=>String(e.id)===String(id)); if(!d)return;
+  const was={on:d.on,start:d.when&&d.when.start};
+  d.on=on;
+  if(on&&d.when&&d.when.kind==='timer')d.when.start=Date.now()+unitMs(d.when.first);   // a timer starts again from now
+  const r=evStore();
+  if(r.ok===false){ d.on=was.on; if(d.when)d.when.start=was.start; renderEvents(); alert(DB.text('rites.ev-error',{error:r.error||''})); }
+}
+
+/* the editor: ED = {id, isNew, orig, title, notes, lead, F (the When fields of every kind), T (on tap)} */
+let ED=null, delArm=0;
+const KINDS=[['once','Date & time'],['repeat','Repeating'],['sky','The sky'],['spirit','A spirit’s best times'],['timer','Timer']];
+const isoOf=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+const hmOf=d=>String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0');
+const opt=(v,l,sel)=>`<option value="${esc(v)}"${sel?' selected':''}>${esc(l)}</option>`;
+const pk=(type,name,v,l,on,re)=>`<label class="pk"><input type="${type}" name="${name}" value="${esc(v)}"${on?' checked':''}${re?' data-re':''}><span>${l}</span></label>`;
+const spiritOpts=sel=>G.spirits.map(s=>opt(s.n,`${s.n} ${s.name} — ${s.rank}`,s.n===sel)).join('');
+function formFrom(d){
+  const now=new Date(), t=new Date(now.getTime()+36e5); t.setMinutes(0,0,0);
+  const dc=decan(S.decan), sp=isDayNow()===false?dc.night:dc.day;
+  const F={kind:'once',date:isoOf(t),time:hmOf(t),every:'day',days:[now.getDay()],mday:now.getDate(),
+    sky:'moon',planet:(DB.rows('weekdays')[now.getDay()]||{}).planet||'sun',hdays:[],phases:['full'],to:'sign',point:'set',off:0,offDir:1,
+    n:sp,onlyDay:true,firstN:10,firstU:'min',rep:false,everyN:30,everyU:'min',timesMode:'off',times:3,start:null};
+  const w=d&&d.when; if(!w)return F;
+  F.kind=KINDS.some(k=>k[0]===w.kind)?w.kind:'once';
+  if(w.kind==='once'){ if(w.date)F.date=w.date; if(w.time)F.time=w.time; }
+  if(w.kind==='repeat'){ F.every=w.every||'day'; if(w.time)F.time=w.time; if(w.every==='week'&&Array.isArray(w.days))F.days=w.days.slice(); if(w.mday)F.mday=+w.mday; }
+  if(w.kind==='sky'){ F.sky=w.sky||'moon'; if(w.planet)F.planet=w.planet; if(w.sky==='hour')F.hdays=(w.days||[]).slice();
+    if(Array.isArray(w.phases))F.phases=w.phases.slice(); if(w.to)F.to=w.to; if(w.point)F.point=w.point;
+    const o=Math.round(+w.offset||0); F.off=Math.abs(o); F.offDir=o<0?-1:1; }
+  if(w.kind==='spirit'){ F.n=+w.n||F.n; F.onlyDay=!w.anyDay; }
+  if(w.kind==='timer'){ if(w.first){ F.firstN=+w.first.n||F.firstN; F.firstU=w.first.unit==='h'?'h':'min'; }
+    if(w.every&&+w.every.n>0){ F.rep=true; F.everyN=+w.every.n; F.everyU=w.every.unit==='h'?'h':'min'; }
+    if(+w.times>0){ F.timesMode='n'; F.times=+w.times; } F.start=+w.start||null; }
+  return F;
+}
+function buildWhen(F){
+  const sorted=a=>a.slice().sort((x,y)=>x-y);
+  switch(F.kind){
+    case 'repeat': return Object.assign({kind:'repeat',every:F.every,time:F.time},F.every==='week'?{days:sorted(F.days)}:{},F.every==='month'?{mday:F.mday}:{});
+    case 'sky': return Object.assign({kind:'sky',sky:F.sky},F.sky==='hour'?{planet:F.planet,days:sorted(F.hdays)}:F.sky==='moon'?{phases:F.phases.slice()}
+      :F.sky==='ingress'?{to:F.to}:{point:F.point,offset:F.off*F.offDir});
+    case 'spirit': return {kind:'spirit',n:F.n,anyDay:!F.onlyDay};
+    case 'timer': return {kind:'timer',first:{n:F.firstN,unit:F.firstU},every:F.rep?{n:F.everyN,unit:F.everyU}:null,times:F.rep&&F.timesMode==='n'?F.times:0,start:F.start};
+    default: return {kind:'once',date:F.date,time:F.time};
+  }
+}
+// a timer (re)starts from now when it is new, its times changed, or it had finished; otherwise it keeps its start
+function timerRestarts(w){
+  const o=ED.orig&&ED.orig.when;
+  if(ED.isNew||!w.start||!o||o.kind!=='timer')return true;
+  if(JSON.stringify([w.first,w.every,w.times])!==JSON.stringify([o.first,o.every||null,o.times||0]))return true;
+  return !Events.next(Object.assign({},ED.orig,{on:true}),evCtx(),Date.now());
+}
+function draftDef(){
+  const when=buildWhen(ED.F), T=ED.T, page=T.open!=='none';
+  if(when.kind==='timer'&&timerRestarts(when))when.start=Date.now()+unitMs(when.first);
+  return {id:ED.id,title:ED.title.trim(),notes:ED.notes,on:ED.orig?ED.orig.on!==false:true,lead:when.kind==='timer'?0:ED.lead,when,
+    tap:{open:page?'page':'none',spirit:page&&T.spOn?T.sp:null,compass:page&&T.cmpOn&&T.cmp?T.cmp:null}};
+}
+function wdChips(id,sel){ return `<div class="wds" id="${id}">${DB.rows('weekdays').map((w,i)=>pk('checkbox',id,i,esc(w.name.slice(0,3)),sel.includes(i))).join('')}</div>`; }
+function whenHTML(F){
+  const time=`<label class="fld"><span class="lb">Time</span><input id="evTime" type="time" value="${esc(F.time)}"></label>`;
+  switch(F.kind){
+    case 'once': return `<div class="row2"><label class="fld"><span class="lb">Date</span><input id="evDate" type="date" value="${esc(F.date)}"></label>${time}</div>`;
+    case 'repeat': return `<label class="fld"><span class="lb">Repeats</span><select id="evEvery" data-re>${opt('day','Every day',F.every==='day')}${opt('week','On chosen weekdays',F.every==='week')}${opt('month','Once a month',F.every==='month')}</select></label>`
+      +(F.every==='week'?`<div class="fld">${wdChips('evDays',F.days)}</div>`:'')
+      +`<div class="row2">${F.every==='month'?`<label class="fld"><span class="lb">Day of month</span><input id="evMday" type="number" inputmode="numeric" min="1" max="31" value="${F.mday}"></label>`:''}${time}</div>`;
+    case 'sky': {
+      let h=`<label class="fld"><span class="lb">Follow</span><select id="evSky" data-re>${opt('hour','A planetary hour',F.sky==='hour')}${opt('moon','A phase of the Moon',F.sky==='moon')}${opt('ingress','The Sun entering a sign or decan',F.sky==='ingress')}${opt('sun','Sunrise, noon, sunset or midnight',F.sky==='sun')}</select></label>`;
+      if(F.sky==='hour'){
+        const P=DB.where('planets',p=>p.chaldean).sort((a,b)=>a.chaldean-b.chaldean);
+        h+=`<label class="fld"><span class="lb">Planet</span><select id="evPlanet">${P.map(p=>opt(p.id,p.glyph+'︎ '+p.name,p.id===F.planet)).join('')}</select></label>
+          <div class="fld"><span class="lb">On these days <span class="n">(none chosen = every day)</span></span>${wdChips('evHDays',F.hdays)}</div>
+          <p class="sub">${DB.text('rites.ev-hour-help')}</p>`;
+      }else if(F.sky==='moon'){
+        h+=`<div class="fld"><span class="lb">Phase</span><div class="ph4" id="evPhases">${['new','first-quarter','full','last-quarter'].map(id=>{const r=DB.get('moon_phases',id);
+          return r?pk('checkbox','evPhases',id,esc(r.name),F.phases.includes(id)):'';}).join('')}</div></div>`;
+      }else if(F.sky==='ingress'){
+        h+=`<label class="fld"><span class="lb">The Sun enters</span><select id="evTo"><optgroup label="Signs">${opt('sign','Any new sign',F.to==='sign')}${DB.rows('signs').map(s=>opt('sign:'+s.id,s.glyph+'︎ '+s.name,F.to==='sign:'+s.id)).join('')}</optgroup>
+          <optgroup label="Decans">${opt('decan','Any new decan (the altar seals change)',F.to==='decan')}${Array.from({length:36},(_,i)=>opt('decan:'+i,Events.decanLabel(i),F.to==='decan:'+i)).join('')}</optgroup></select></label>`;
+      }else{
+        h+=`<label class="fld"><span class="lb">At</span><select id="evPoint">${opt('rise','Sunrise',F.point==='rise')}${opt('noon','Solar noon',F.point==='noon')}${opt('set','Sunset',F.point==='set')}${opt('midnight','Solar midnight (the Sun at its lowest)',F.point==='midnight')}</select></label>
+          <div class="row2"><label class="fld"><span class="lb">Offset</span><input id="evOff" type="number" inputmode="numeric" min="0" max="720" value="${F.off}" aria-label="Minutes"></label>
+          <label class="fld"><span class="lb">&nbsp;</span><select id="evOffDir" aria-label="After or before">${opt('1','minutes after',F.offDir>0)}${opt('-1','minutes before',F.offDir<0)}</select></label></div>`;
+      }
+      return h;
+    }
+    case 'spirit': {
+      const s=spirit(F.n), OG=G.offeringsGeneral||{}, days=s.rank.split('/').map(r=>((OG.ranks||{})[r.trim()]||{}).day).filter(Boolean);
+      return `<label class="fld"><span class="lb">Spirit</span><select id="evSpirit" data-re>${spiritOpts(F.n)}</select></label>
+        <label class="opt" style="border:none"><input type="checkbox" id="evOnlyDay"${F.onlyDay?' checked':''}><span>Only on ${esc(days.join(' / ')||'its day')} (the rank’s day)</span></label>
+        <p class="sub">${DB.text('rites.ev-spirit-help')}</p>`;
+    }
+    case 'timer': {
+      const unit=(id,v)=>`<select id="${id}" aria-label="Unit">${opt('min','minutes',v==='min')}${opt('h','hours',v==='h')}</select>`;
+      return `<div class="fld"><span class="lb">First ring in</span><div class="row2"><input id="evFirstN" type="number" inputmode="numeric" min="1" value="${F.firstN}" aria-label="How long">${unit('evFirstU',F.firstU)}</div></div>
+        <label class="opt" style="border:none"><input type="checkbox" id="evRep" data-re${F.rep?' checked':''}><span>Then repeat</span></label>
+        ${F.rep?`<div class="subopts"><div class="fld"><span class="lb">Every</span><div class="row2"><input id="evEveryN" type="number" inputmode="numeric" min="1" value="${F.everyN}" aria-label="How often">${unit('evEveryU',F.everyU)}</div></div>
+          <label class="opt"><input type="radio" name="evTimes" value="off" data-re${F.timesMode!=='n'?' checked':''}><span>Until I switch it off</span></label>
+          <label class="opt"><input type="radio" name="evTimes" value="n" data-re${F.timesMode==='n'?' checked':''}><span>A set number of times</span></label>
+          ${F.timesMode==='n'?`<div class="row2"><input id="evTimesN" type="number" inputmode="numeric" min="2" max="999" value="${F.times}" aria-label="Times"><span class="unit">times in all</span></div>`:''}</div>`:''}
+        <p class="sub">${DB.text('rites.ev-timer-help')}</p>`;
+    }
+  }
+  return '';
+}
+function tapHTML(T){
+  const page=T.open!=='none', ct=T.cmpOn&&T.cmp?compassTarget(T.cmp):null;
+  return `<label class="opt" style="border:none"><input type="radio" name="evOpen" value="page" data-re${page?' checked':''}><span>Open a page with the title and notes</span></label>
+    ${page?`<div class="subopts">
+      <label class="opt"><input type="checkbox" id="evSpOn" data-re${T.spOn?' checked':''}><span>Show a spirit’s seal and details</span></label>
+      ${T.spOn?`<select id="evSp" aria-label="Spirit">${spiritOpts(T.sp)}</select>`:''}
+      <label class="opt"><input type="checkbox" id="evCmpOn" data-re${ct?' checked':''}><span>🧭 Float the compass over it</span></label>
+      ${ct?`<button type="button" class="cmpch" onclick="evCompass()" title="Change what the compass points to">🧭 ${esc(ct.chip)} <span class="ed">✎</span></button>`:''}
+    </div>`:''}
+    <label class="opt"><input type="radio" name="evOpen" value="none" data-re${page?'':' checked'}><span>Just a notification<span class="sub">Tapping it opens the app</span></span></label>`;
+}
+function renderWhen(){
+  document.querySelectorAll('#evKinds input').forEach(i=>{ i.checked=i.value===ED.F.kind; });
+  $('#evWhen').innerHTML=whenHTML(ED.F);
+  $('#evLeadRow').classList.toggle('hidden',ED.F.kind==='timer');
+}
+function renderTap(){ $('#evTap').innerHTML=tapHTML(ED.T); }
+function readEditor(){
+  const F=ED.F, T=ED.T, q=s=>document.querySelector('#evSheet '+s), v=s=>{ const e=q(s); return e?e.value:null; };
+  const int=(s,lo,hi,d)=>{ const x=Math.round(parseFloat(v(s))); return isFinite(x)?Math.max(lo,Math.min(hi,x)):d; };
+  const ticked=s=>[...document.querySelectorAll('#evSheet '+s+' input:checked')].map(e=>e.value);
+  ED.title=$('#evTitle').value; ED.notes=$('#evNotes').value; ED.lead=int('#evLead',0,1440,0);
+  const k=v('input[name=evk]:checked'); if(k)F.kind=k;
+  if(q('#evDate'))F.date=v('#evDate');
+  if(q('#evTime'))F.time=v('#evTime');
+  if(q('#evEvery'))F.every=v('#evEvery');
+  if(q('#evDays'))F.days=ticked('#evDays').map(Number);
+  if(q('#evMday'))F.mday=int('#evMday',1,31,F.mday);
+  if(q('#evSky'))F.sky=v('#evSky');
+  if(q('#evPlanet'))F.planet=v('#evPlanet');
+  if(q('#evHDays'))F.hdays=ticked('#evHDays').map(Number);
+  if(q('#evPhases'))F.phases=ticked('#evPhases');
+  if(q('#evTo'))F.to=v('#evTo');
+  if(q('#evPoint'))F.point=v('#evPoint');
+  if(q('#evOff'))F.off=int('#evOff',0,720,0);
+  if(q('#evOffDir'))F.offDir=+v('#evOffDir')<0?-1:1;
+  if(q('#evOnlyDay'))F.onlyDay=q('#evOnlyDay').checked;
+  if(q('#evFirstN'))F.firstN=int('#evFirstN',1,9999,F.firstN);
+  if(q('#evFirstU'))F.firstU=v('#evFirstU');
+  if(q('#evRep'))F.rep=q('#evRep').checked;
+  if(q('#evEveryN'))F.everyN=int('#evEveryN',1,9999,F.everyN);
+  if(q('#evEveryU'))F.everyU=v('#evEveryU');
+  if(q('input[name=evTimes]:checked'))F.timesMode=v('input[name=evTimes]:checked');
+  if(q('#evTimesN'))F.times=int('#evTimesN',2,999,F.times);
+  if(q('input[name=evOpen]:checked'))T.open=v('input[name=evOpen]:checked');
+  if(q('#evSpOn'))T.spOn=q('#evSpOn').checked;
+  if(q('#evSp'))T.sp=int('#evSp',1,72,T.sp);
+  if(q('#evCmpOn'))T.cmpOn=q('#evCmpOn').checked;
+  // the seal shown when tapped follows the spirit whose times it rings, unless another was chosen
+  if(q('#evSpirit')){ const n=int('#evSpirit',1,72,F.n);
+    if(n!==F.n){ if(T.sp===F.n){ T.sp=n; const e=q('#evSp'); if(e)e.value=n; } F.n=n; } }
+}
+function evPreview(){
+  if(!ED)return;
+  const D=draftDef(), ctx=evCtx(), now=Date.now();
+  const occ=Events.occurrences(D,ctx,now+1,now+Events.LOOK_DAYS*864e5,3);
+  let h='';
+  if(Events.needsLocation(D,ctx)&&!(S&&S.location))h+=`<p class="warn" style="margin:0 0 6px">${DB.text('rites.ev-needs-loc')}</p>`;
+  if(occ.length){
+    h+=`<div><span class="lb">Next</span><b>${esc(fmtDTY(occ[0].t))}</b> <span class="sub">${until(occ[0].t)}</span></div>`
+      +(occ[0].what?`<div class="sub">${esc(occ[0].what)}</div>`:'')
+      +(occ.length>1?`<div class="sub" style="margin-top:4px">Then ${occ.slice(1).map(o=>esc(fmtDTY(o.t))).join(' · ')}</div>`:'');
+    const L=Events.leadOf(D); if(L)h+=`<div class="sub" style="margin-top:4px">🔔 ${DB.text('rites.ev-lead',{min:L})}</div>`;
+  }else h+=`<div class="sub">${DB.text('rites.ev-no-next',{days:Events.LOOK_DAYS})}</div>`;
+  $('#evNext').innerHTML=h;
+  $('#evTitle').placeholder=Events.summary(Object.assign({},D,{lead:0}),ctx);   // an empty title is saved as this
+}
+function editEvent(id){
+  if(!G||!S)return;
+  const d=id!=null?EVS.find(e=>String(e.id)===String(id)):null, F=formFrom(d), tp=(d&&d.tap)||{};
+  ED={id:d?d.id:Events.newId(),isNew:!d,orig:d?JSON.parse(JSON.stringify(d)):null,title:d?d.title||'':'',notes:d?d.notes||'':'',lead:d?Events.leadOf(d):0,F,
+    T:{open:tp.open==='none'?'none':'page',spOn:!!tp.spirit,sp:+tp.spirit||F.n,cmpOn:!!tp.compass,cmp:tp.compass||null}};
+  $('#evHead').textContent=d?'Edit event':'New event';
+  $('#evTitle').value=ED.title; $('#evNotes').value=ED.notes; $('#evLead').value=ED.lead||'';
+  $('#evKinds').innerHTML=KINDS.map(([v,l])=>pk('radio','evk',v,esc(l),F.kind===v,true)).join('');
+  $('#evDel').classList.toggle('hidden',!d); $('#evDel').textContent='Delete'; delArm=0;
+  const canTest=!!(A&&typeof A.testCustomEvent==='function');
+  $('#evTest').classList.toggle('hidden',!canTest); $('#evTestNote').classList.toggle('hidden',!canTest);
+  $('#evFoot').innerHTML=DB.text('rites.ev-horizon',{days:Events.HORIZON_DAYS,max:Events.MAX_PER});
+  $('#evMsg').textContent='';
+  renderWhen(); renderTap(); evPreview();
+  $('#evSheet').classList.remove('hidden'); document.body.classList.add('sheet-open'); $('#evSheet').scrollTop=0;
+}
+function closeSheet(){ ED=null; $('#evSheet').classList.add('hidden'); document.body.classList.remove('sheet-open'); }
+function evMsg(html,warn){ const e=$('#evMsg'); e.innerHTML=html; e.className=warn?'warn':'sub'; }
+function evCompass(){
+  const T=ED.T;
+  openCompassDialog(null,{name:$('#evTitle').value.trim()||$('#evTitle').placeholder||'Event',cur:T.cmp,
+    done(c,saved){ if(!ED)return; if(saved&&c){ T.cmp=c; T.cmpOn=true; } else if(!T.cmp)T.cmpOn=false; renderTap(); }});
+}
+function evSaveDraft(keepOpen){
+  readEditor();
+  const D=draftDef();
+  if(!D.title)D.title=Events.summary(Object.assign({},D,{lead:0}),evCtx());
+  const before=EVS.slice(), i=EVS.findIndex(e=>String(e.id)===String(D.id));
+  if(i>=0)EVS[i]=D; else EVS.push(D);
+  const r=evStore();
+  if(r.ok===false){ EVS=before; renderEvents(); evMsg(DB.text('rites.ev-error',{error:esc(r.error||'')}),true); return false; }
+  if(!keepOpen){ closeSheet(); return true; }
+  ED.isNew=false; ED.orig=JSON.parse(JSON.stringify(D)); ED.title=D.title; ED.F.start=D.when.start||null;
+  $('#evTitle').value=D.title; $('#evHead').textContent='Edit event'; $('#evDel').classList.remove('hidden');
+  return true;
+}
+function evDelete(){
+  if(Date.now()-delArm>4000){ delArm=Date.now(); $('#evDel').textContent=DB.text('rites.ev-delete-again');
+    setTimeout(()=>{ if(Date.now()-delArm>=4000)$('#evDel').textContent='Delete'; },4100); return; }
+  delArm=0;
+  const before=EVS.slice(); EVS=EVS.filter(e=>String(e.id)!==String(ED.id));
+  const r=evStore();
+  if(r.ok===false){ EVS=before; renderEvents(); evMsg(DB.text('rites.ev-error',{error:esc(r.error||'')}),true); return; }
+  closeSheet();
+}
+// Test: saves the event, then rings its next time now, as the real reminder will look
+function evTest(){
+  if(!(A&&typeof A.testCustomEvent==='function')){ alert('Notifications work in the Android app.'); return; }
+  if(!evSaveDraft(true))return;
+  const D=EVS.find(e=>String(e.id)===String(ED.id)), occ=D&&Events.next(D,evCtx(),Date.now());
+  if(!occ){ evMsg(DB.text('rites.ev-test-none'),true); return; }
+  let r; try{ r=JSON.parse(A.testCustomEvent(JSON.stringify(Events.item(D,occ,evCtx())))); }catch(e){ r={ok:false,error:String(e&&e.message||e)}; }
+  if(r&&r.ok)evMsg('✓ Sent'); else evMsg(DB.text('rites.ev-error',{error:esc((r&&r.error)||'')}),true);
+}
+$('#evSheet').addEventListener('input',e=>{ if(!ED)return; readEditor(); if(!e.target.matches('[data-re]'))evPreview(); });
+$('#evSheet').addEventListener('change',e=>{
+  if(!ED)return;
+  readEditor();
+  const t=e.target;
+  if(t.matches('[data-re]')){
+    // a new spirit event shows that spirit's seal when tapped, unless chosen otherwise
+    if(t.name==='evk'&&t.value==='spirit'&&ED.isNew&&!ED.T.spOn){ ED.T.spOn=true; ED.T.sp=ED.F.n; }
+    if(t.id==='evCmpOn'&&t.checked&&!ED.T.cmp){ renderTap(); evCompass(); }
+    renderWhen(); renderTap();
+  }
+  evPreview();
+});
+$('#evX').onclick=closeSheet;
+$('#evSave').onclick=()=>evSaveDraft(false);
+$('#evSave2').onclick=()=>evSaveDraft(false);
+$('#evDel').onclick=evDelete;
+$('#evTest').onclick=evTest;
+
+/* ---------- boot ---------- */
+// the quarters' bearings, for the reminders' compass (without them the page still works, the compass has no target)
+const quartersLoad=(window.DB?DB.load('quarters').then(db=>db.where('quarters',q=>!q.between)):Promise.resolve([])).catch(()=>[]);
+Promise.all([fetch('../../data/goetia.json').then(r=>r.json()),fetch('../../data/resh.json').then(r=>r.json()),quartersLoad]).then(([g,r,q])=>{
+  G=g; R=r; QUARTERS=q||[]; Events.useGoetia(G);
+  $('#pick').innerHTML=G.spirits.map(s=>`<option value="${s.n}">${s.n} ${esc(s.name)} — ${esc(s.rank)}</option>`).join('');
+  $('#tabOffer').classList.toggle('hidden',hidden('offer'));
+  EVS=Events.load();
+  S=getState(); evSync();   // your events' reminders are set again each time the page loads
+  refresh();
+  const d=decan(S.decan); $('#pick').value=isDayNow()===false?d.night:d.day; renderOffering(+$('#pick').value); renderOfferGeneral(); renderHideRows();
+  // opened from the Goetia tool: that spirit's offerings
+  const asked=+new URLSearchParams(location.search).get('spirit'); if(asked>=1&&asked<=72)pickSpirit(asked,true);
+  if(READ)renderReading();
+  setInterval(refresh,60000);
+}).catch(e=>{document.querySelector('main').insertAdjacentHTML('afterbegin',`<div class="card warn">Could not load data: ${esc(e)}</div>`);});
+</script>
+</body></html>

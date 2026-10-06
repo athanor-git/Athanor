@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Athanor — Tarot Spread Reader</title>
+<style>
+:root{--bg:#faf7f0;--card:#fff;--ink:#1a1712;--sub:#6b6357;--acc:#7a5c2e;--line:#e3ddd0;--hit:#fff3c9}
+@media(prefers-color-scheme:dark){:root{--bg:#14120e;--card:#1e1b15;--ink:#ece5d8;--sub:#9a9184;--acc:#d0a85c;--line:#33302a;--hit:#4a3f1e}}
+*{box-sizing:border-box}body{margin:0;font:16px system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--ink)}
+header{padding:10px 14px;border-bottom:1px solid var(--line)}h1{font-size:16px;margin:0}h1 small{color:var(--sub);font-weight:400}
+main{max-width:720px;margin:0 auto;padding:12px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+.chip{border:1px solid var(--line);background:var(--card);border-radius:16px;padding:6px 12px;cursor:pointer;font-size:13px}
+.chip.dk.on{background:var(--acc);border-color:var(--acc);color:#fff}
+img.mycard{display:block;width:min(220px,60%);margin:6px auto 8px;border-radius:10px;box-shadow:0 2px 10px rgba(0,0,0,.25)}
+img.mycard.rev180{transform:rotate(180deg)}
+.chip.on{background:var(--acc);color:#fff;border-color:var(--acc)}
+button.big{border:1px solid var(--acc);background:var(--acc);color:#fff;border-radius:9px;padding:10px 18px;font-size:15px;cursor:pointer}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin:9px 0;cursor:pointer}
+.pos{font-size:12px;letter-spacing:.06em;color:var(--acc);text-transform:uppercase;font-weight:700}
+.nm{font-size:18px;font-weight:700;margin:2px 0}.nm .rev{color:var(--sub);font-size:12px;font-weight:400}
+.sub{color:var(--sub);font-size:13px}.kv{font-size:13.5px;margin:2px 0}.kv b{color:var(--acc)}
+.sw{display:inline-block;width:12px;height:12px;border-radius:3px;border:1px solid var(--line);vertical-align:-1px;margin-right:3px}
+table{border-collapse:collapse;width:100%}td{border-top:1px solid var(--line);padding:5px 7px;font-size:13px;vertical-align:top}td.n{white-space:nowrap;color:var(--acc);font-weight:600;width:1%}td.t{color:var(--sub);width:32%}
+.back{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:8px;padding:6px 12px;cursor:pointer;margin-bottom:8px}
+</style></head><body>
+<header><h1>ATHANOR · TAROT SPREAD READER <small>· draw, with correspondences</small></h1></header>
+<main>
+<div class="chips" id="spreads"></div>
+<div class="chips"><label class="chip"><input type="checkbox" id="rev" checked> allow reversed</label>
+ <button class="big" onclick="deal()">Shuffle &amp; draw</button> <span id="importSlot"></span></div>
+<div class="chips" style="align-items:center"><span style="font-size:13px;color:var(--sub)">Show my cards:</span><span id="deckChips" style="display:contents"></span></div>
+<div id="out"></div>
+</main>
+<script src="../lib/store.js"></script>
+<script src="../../data/db/core.js"></script>
+<script src="../../data/db/texts.js"></script>
+<script src="../lib/db.js"></script>
+<script src="../lib/divination.js"></script>
+<script src="../lib/decks.js"></script>
+<script src="../../data/777.js"></script>
+<script>
+const D = D777; const COL={}; for(const c of D.cols)COL[c.label]=c;
+const $=s=>document.querySelector(s);const esc=s=>String(s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+const rnd=n=>Math.floor(Math.random()*n);const shuf=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=rnd(i+1);[a[i],a[j]]=[a[j],a[i]];}return a;};
+function cv(l,k){const c=COL[l];return c&&c.cells[k]?c.cells[k]:'';}
+function swatch(l,k){const c=COL[l];if(!c||!c.colors||!c.colors[k])return'';return c.colors[k].map(h=>`<span class="sw" style="background:${h}"></span>`).join('');}
+// The facts come from the content tables (data/db, edited in the content workbook) through lib/db.js
+// Majors: [num,name,key,attr,card] in the order of the Tree's paths (777.js paths: the path's Golden Dawn number and
+// title, its attribution), card = the cards row of that path
+const MAJ=D.paths.map(([key,,,,,attr,num,name])=>[num,name,key,attr,DB.rev('cards','keyscale',key)[0].id]);
+// Suits: [element, 777 column of its court cards, of its small-card titles]
+const SUIT=Object.fromEntries(DB.rows('suits').map(s=>[s.name,[DB.ref(s,'element').name,s.court_column,s.title_column,s.id]]));
+// court ranks: the 777 row of each rank's element (Knight: 31 …), its name, its element
+const RANKS=DB.rows('court_ranks');
+const RANK=['Ace','2','3','4','5','6','7','8','9','10'];const CK=RANKS.map(r=>DB.rev('keyscale','element',r.element)[0].id);const COURT=RANKS.map(r=>r.name);
+function buildDeck(){
+ const d=[];
+ // id = the card key shared with the divination data, the Tarot Deck and the Card Scanner (the cards table's ID)
+ MAJ.forEach(m=>d.push({t:'major',id:m[4],name:'Atu '+m[0]+' · '+m[1],key:m[2],sub:m[3]+' · path',col:'CLXXX'}));
+ for(const s in SUIT){ for(let n=1;n<=10;n++) d.push({t:'minor',id:SUIT[s][3]+'-'+n,name:RANK[n-1]+' of '+s,key:String(n),sub:SUIT[s][0]+' · Sephira '+n,col:SUIT[s][2]});
+  for(let r=0;r<RANKS.length;r++) d.push({t:'court',id:SUIT[s][3]+'-'+RANKS[r].id,name:COURT[r]+' of '+s,key:CK[r],sub:DB.ref(RANKS[r],'element').name+' of '+SUIT[s][0],col:SUIT[s][1]}); }
+ return d;
+}
+const DECK=buildDeck();
+// the spreads: name → what each position means (the spreads table, fetched below)
+const SPREADS={};
+let spread='';
+$('#rev').parentNode.title=DB.text('spread.reversed');
+function buildSpreads(){ $('#spreads').innerHTML=Object.keys(SPREADS).map((s,i)=>`<span class="chip${s===spread?' on':''}" onclick="setSpread('${s}')">${s} (${SPREADS[s].length})</span>`).join(''); }
+function setSpread(s){ spread=s; buildSpreads(); }
+function deal(){
+ const pos=SPREADS[spread]; if(!pos)return; const drawn=shuf(DECK).slice(0,pos.length); const allowRev=$('#rev').checked;
+ let h='';
+ const dk=window.Decks?Decks.current():'';
+ drawn.forEach((c,i)=>{ const reversed=allowRev&&Math.random()<0.5;
+  const title=cv(c.col,c.key);
+  // your own photo of this card from the chosen deck (turned over when reversed)
+  const img=dk&&window.Decks?Decks.imageFor(c.id,dk):null;
+  h+=`<div class="card" onclick="rowView('${c.key}')"><div class="pos">${esc(pos[i])}</div>
+   ${img?`<img class="mycard${reversed?' rev180':''}" src="${esc(img.imageUrl)}" alt="${esc(c.name)} — ${esc(dk)}">`:''}
+   <div class="nm">${esc(c.name)} ${reversed?'<span class="rev">· reversed</span>':''}</div>
+   <div class="sub">${esc(c.sub)}</div>
+   ${title?`<div class="kv"><b>Title</b>: ${esc(title)}</div>`:''}
+   ${cv('III',c.key)&&c.t!=='court'?`<div class="kv"><b>Key ${c.key}</b>: ${swatch('XV',c.key)}${esc(cv('III',c.key))}${cv('XLV',c.key)?' · '+esc(cv('XLV',c.key)):''}</div>`:''}
+   <div class="sub" style="margin-top:3px">tap for full 777 correspondences →</div>
+   <div class="divslot" data-id="${c.id}" data-name="${esc(c.name)}"></div></div>`;
+ });
+ $('#out').innerHTML=h; fillDivination(); window.scrollTo(0,document.querySelector('#out').offsetTop-60);
+}
+// Divination panel under each drawn card (meanings + your own editable version); taps inside it
+// don't open the 777 row view
+if(window.Div) Div.importButton(document.getElementById('importSlot'), ()=>fillDivination());
+if(window.Decks) Decks.chips(document.getElementById('deckChips'),{value:Decks.current(),withOff:true,onPick:v=>{Decks.setCurrent(v);deal();}});
+function fillDivination(){
+ if(!window.Div)return;
+ Div.ready.then(()=>document.querySelectorAll('#out .divslot').forEach(el=>Div.render(el,el.dataset.id,{name:el.dataset.name})));
+}
+function rowView(k){
+ let h='<button class="back" onclick="deal.lastHTML?null:0;document.getElementById(\'out\').scrollIntoView()">← back to spread</button>';
+ h='<button class="back" onclick="history.back?location.reload():0" style="display:none"></button>';
+ let t=`<button class="back" onclick="restore()">← back</button><div class="card" style="cursor:default"><div class="nm">Key Scale ${k} — full row</div><table>`;
+ for(const c of D.cols){const v=c.cells[k];if(!v)continue;t+=`<tr><td class="n">${c.label}</td><td class="t">${esc(c.title)}</td><td>${swatch(c.label,k)}${esc(v)}</td></tr>`;}
+ t+='</table></div>';
+ window._prev=$('#out').innerHTML; $('#out').innerHTML=t; window.scrollTo(0,0);
+}
+function restore(){ if(window._prev){ $('#out').innerHTML=window._prev; fillDivination(); } }
+DB.load('spreads').then(()=>{
+ for(const s of DB.rows('spreads')) SPREADS[s.name]=DB.items(s.positions);
+ spread=(DB.get('spreads','three-card')||DB.rows('spreads')[0]).name;   // the spread offered first
+ buildSpreads(); deal();
+});
+</script></body></html>

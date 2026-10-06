@@ -1,0 +1,14 @@
+{"table": "spirit_charges", "rows": [
+{"id": "goetia-01", "phrase": "His character must be worn as a lamen before the one who calls him forth, or he will not do homage", "kinds": "lamen", "also": "lamen"},
+{"id": "goetia-29", "phrase": "Hold the magical ring near your face against his breath, and wear his seal as a lamen or he will not appear or obey", "kinds": "ring\nlamen", "also": "ring", "lesson_only": true},
+{"id": "goetia-32", "phrase": "Call him abroad, standing, with cap or head-dress off", "kinds": "cap", "also": "cap"},
+{"id": "goetia-13", "phrase": "a silver ring is worn on the middle finger of the left hand, held against the face", "kinds": "ring", "also": "ring\ntri"},
+{"id": "goetia-28", "phrase": "Use a ring in calling him, as with Beleth", "kinds": "ring", "also": "ring"},
+{"id": "goetia-34", "phrase": "Never speaks truth unless compelled or brought up within a triangle", "kinds": "tri\ncompel", "also": "tri\ncompel"},
+{"id": "goetia-44", "phrase": "Must first be commanded into a triangle, or he deceives and tells many lies", "kinds": "tri", "also": "tri"},
+{"id": "goetia-64", "phrase": "if he is not commanded into a triangle he lies", "kinds": "tri", "also": "tri"},
+{"id": "goetia-09", "phrase": "If called alone, he must be made some offering", "kinds": "offer", "also": "offer"},
+{"id": "goetia-68", "phrase": "must have offerings, sacrifices and gifts presented by the exorcist or he will not give true answers", "kinds": "offer", "also": "offer\ncompel"},
+{"id": "goetia-39", "phrase": "Receives sacrifice kindly and willingly but deceives the one who offers it", "kinds": "offer", "also": "offer"},
+{"id": "goetia-37", "field": "appearance", "phrase": "He sings many sweet notes before the exorcist, which the exorcist must not heed", "kinds": "heed", "also": "heed"}
+]}

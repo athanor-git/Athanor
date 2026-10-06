@@ -1,0 +1,6 @@
+{"table": "dignity_kinds", "rows": [
+{"id": "domicile", "name": "Domicile", "key_label": "Ruler", "reading": "The card's native mode – its habitat.", "planet_reading": "native mode – its habitat", "effect": "strengthens", "abbr": "R", "phrase": "it rules the sign", "spellings": "Rulership\nRules"},
+{"id": "exaltation", "name": "Exaltation", "key_label": "Exaltation", "reading": "Its highest expression – best behavior.", "planet_reading": "highest expression – best behavior", "short_label": "Exalted", "effect": "strengthens", "abbr": "E", "phrase": "it is exalted there"},
+{"id": "detriment", "name": "Detriment", "key_label": "Detriment", "reading": "Out of place – what the card struggles with.", "planet_reading": "out of place – what it struggles with", "effect": "weakens", "abbr": "D", "phrase": "it is in detriment there"},
+{"id": "fall", "name": "Fall", "key_label": "Fall", "reading": "Humiliated – what the card cannot hold on to.", "planet_reading": "humiliated – what it cannot hold on to", "effect": "weakens", "abbr": "F", "phrase": "it is in its fall there"}
+]}

@@ -1,0 +1,1415 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Athanor — Pathworking</title>
+<style>
+:root{color-scheme:light dark;--bg:#faf7f0;--card:#fff;--ink:#1a1712;--sub:#6b6357;--acc:#7a5c2e;--onacc:#fff;--line:#e3ddd0;--hit:#fff3c9;--ok:#3d7a4a;--warn:#a5542c;--path:#d2c8b1;--seph:#efe9dc;--next:#2a78a6;--onnext:#fff;--ondanger:#fff}
+@media(prefers-color-scheme:dark){:root{--bg:#14120e;--card:#1e1b15;--ink:#ece5d8;--sub:#9a9184;--acc:#d0a85c;--onacc:#1a1712;--line:#33302a;--hit:#4a3f1e;--ok:#7fbf8c;--warn:#e0936a;--path:#4a4436;--seph:#2a271f;--next:#62b6e0;--onnext:#0e0d0b;--ondanger:#1a1712}}
+*{box-sizing:border-box}
+body{margin:0;font:16px/1.45 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--ink);-webkit-text-size-adjust:100%}
+body.playing{overflow:hidden}
+header{display:flex;align-items:center;gap:10px;padding:8px 12px 8px 14px;border-bottom:1px solid var(--line)}
+h1{font-size:16px;margin:0;flex:1;min-width:0}h1 small{color:var(--sub);font-weight:400}
+main{max-width:680px;margin:0 auto;padding:12px 12px 48px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin:10px 0}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.grow{flex:1}
+button{font:inherit;font-size:15px;border:1px solid var(--acc);background:var(--acc);color:var(--onacc);border-radius:10px;padding:10px 15px;min-height:44px;cursor:pointer;-webkit-tap-highlight-color:transparent}
+button:disabled{opacity:.4;cursor:default}
+button.ghost{background:var(--card);color:var(--ink);border-color:var(--line)}
+button.danger{background:var(--warn);border-color:var(--warn);color:var(--ondanger)}
+button.sm{min-height:38px;padding:6px 12px;font-size:14px}
+button.wide{width:100%}
+.cta{width:100%;min-height:58px;font-size:17px;font-weight:600;margin:10px 0;display:block}
+.cta small{display:block;font-weight:400;font-size:13px;opacity:.85}
+.sub{color:var(--sub);font-size:13px}
+.sec{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--acc);font-weight:700;margin:2px 0 8px}
+.big{font-size:21px;font-weight:700;margin:2px 0}
+.ok{color:var(--ok)}.warn{color:var(--warn)}
+.note{background:var(--hit);border-radius:8px;padding:9px 11px;font-size:13.5px;margin:8px 0;line-height:1.45}
+.hidden{display:none!important}
+details>summary{cursor:pointer;color:var(--acc);font-weight:600;font-size:15px;padding:8px 0;list-style-position:inside}
+.prose p,.prose li{font-size:15px;line-height:1.55;margin:8px 0}
+.prose ol{padding-left:22px;margin:6px 0}
+.heb{font-family:"Noto Serif Hebrew","SBL Hebrew","Times New Roman",serif}
+/* switch (as in Rites) */
+.sw{position:relative;width:46px;height:26px;flex:0 0 auto}
+.sw input{opacity:0;width:0;height:0;position:absolute}
+.sw span{position:absolute;inset:0;background:var(--line);border-radius:13px;transition:.15s;cursor:pointer}
+.sw span:before{content:"";position:absolute;width:20px;height:20px;left:3px;top:3px;background:#fff;border-radius:50%;transition:.15s}
+.sw input:checked+span{background:var(--acc)}.sw input:checked+span:before{transform:translateX(20px)}
+.sw input:disabled+span{opacity:.4}
+.sw input:focus-visible+span{outline:2px solid var(--next)}
+.swrow{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 0;font-size:15px;border-top:1px solid var(--line)}
+.swrow:first-child{border-top:none}
+.setrow{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:8px 0;border-top:1px solid var(--line);font-size:15px}
+.setrow label{display:flex;align-items:center;gap:8px;flex:1;min-width:0}
+.setrow select{flex:1;min-width:0}
+input[type=range]{accent-color:var(--acc);flex:1;min-width:90px}
+select,.inp,textarea{font:inherit;font-size:16px;padding:10px 11px;border:1px solid var(--line);border-radius:9px;background:var(--card);color:var(--ink);min-height:44px}
+.inp,textarea{width:100%}
+textarea{min-height:100px;resize:vertical;line-height:1.45}
+/* tree */
+svg.tree{width:100%;max-width:400px;height:auto;display:block;margin:4px auto;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+.pl{stroke:var(--path);stroke-width:7;stroke-linecap:round}
+.pl.done{stroke:var(--acc)}
+.pl.next{stroke:var(--next);stroke-width:10;animation:pulse 2.4s ease-in-out infinite}
+@keyframes pulse{50%{stroke-opacity:.35}}
+.ph{stroke:transparent;stroke-width:26;cursor:pointer}
+.lb{cursor:pointer;outline:none}
+.lb circle{fill:var(--card);stroke:var(--path);stroke-width:1.5}
+.lb text{font-size:17px;text-anchor:middle;dominant-baseline:central;fill:var(--ink);pointer-events:none}
+.lb.done circle{fill:var(--acc);stroke:var(--acc)}.lb.done text{fill:var(--onacc)}
+.lb.next circle{fill:var(--next);stroke:var(--next)}.lb.next text{fill:var(--onnext)}
+.lb:focus-visible circle{stroke:var(--next);stroke-width:4}
+.sp circle{fill:var(--seph);stroke:var(--acc);stroke-width:1.5}
+.sp text{text-anchor:middle;pointer-events:none}
+.sp .n{font-size:13px;font-weight:700;fill:var(--ink)}
+.sp .nm{font-size:11px;fill:var(--sub)}
+svg.mini{width:62px;height:auto;flex:0 0 auto}
+.mini .pl{stroke-width:9}
+.mini .pl.sel{stroke:var(--acc);stroke-width:30}
+.mini .sc{fill:var(--seph);stroke:var(--sub);stroke-width:5}
+.legend{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;font-size:13px;color:var(--sub);margin:6px 0 10px}
+.legend i{display:inline-block;width:18px;height:6px;border-radius:3px;vertical-align:middle;margin-right:5px}
+.pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(58px,1fr));gap:6px}
+.pchip{min-height:54px;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:4px 2px;gap:2px}
+.pchip .g{font-size:21px;line-height:1}
+.pchip .k{font-size:11px;color:var(--sub)}
+.pchip.done{background:var(--acc);border-color:var(--acc);color:var(--onacc)}.pchip.done .k{color:var(--onacc);opacity:.85}
+.pchip.next{border-color:var(--next);box-shadow:0 0 0 2px var(--next) inset}
+/* entries */
+.elist{display:flex;flex-direction:column;gap:8px}
+.entry{display:flex;gap:12px;align-items:flex-start;text-align:left;width:100%;background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+.entry .eg{font-size:26px;line-height:1.1;width:34px;text-align:center;color:var(--acc);flex:0 0 auto}
+.entry .em{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.entry .snip{font-size:13.5px;color:var(--sub);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+/* path page */
+.topbar{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin:2px 0 4px}
+.hero{display:flex;gap:14px;align-items:flex-start}
+.hg{flex:0 0 auto;width:74px;height:74px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:48px;line-height:1;border:3px solid var(--kc,var(--acc));background:var(--bg);
+  box-shadow:0 0 0 1px rgba(128,128,128,.5)} /* keeps very dark or very pale King-scale borders visible */
+.ht{flex:1;min-width:0}
+.ht div{margin:1px 0}
+.jt{font-family:Georgia,'Times New Roman',serif;font-size:20px;font-style:italic;margin:0 0 6px}
+.kv{display:grid;grid-template-columns:minmax(92px,32%) 1fr;gap:0 12px;font-size:14.5px}
+.kv>div{padding:7px 0;border-top:1px solid var(--line)}
+.kv>div:nth-child(-n+2){border-top:none}
+.kv .k{color:var(--sub);font-size:12.5px;font-weight:600;text-transform:uppercase;letter-spacing:.03em;padding-top:9px}
+.swb{display:inline-block;width:30px;height:18px;border-radius:5px;border:1px solid rgba(128,128,128,.5);vertical-align:-4px;margin-right:7px}
+.names div{padding:7px 0;border-top:1px solid var(--line);font-size:15px}
+.names div:first-child{border-top:none}
+.names .k{display:block;font-size:12px;color:var(--sub);text-transform:uppercase;letter-spacing:.04em;font-weight:600}
+.names .heb{font-size:22px;margin-right:8px}
+.chk{display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-top:1px solid var(--line);cursor:pointer;font-size:15px}
+.chk:first-child{border-top:none}
+.chk input{width:22px;height:22px;flex:0 0 auto;margin:1px 0 0;accent-color:var(--acc)}
+.chk.on>span>b{text-decoration:line-through;text-decoration-color:var(--sub);color:var(--sub)}
+.night{background:#17131d;color:#e6dff0;border-color:#3a2f48}
+.night .sec{color:#b99be0}.night .sub{color:#a79bb8}
+.night .note{background:#2c2034;color:#f1d9c9}
+.reflect{font-family:Georgia,'Times New Roman',serif;font-size:16px;line-height:1.55;font-style:italic}
+/* form */
+.fl{display:block;font-size:13px;color:var(--sub);font-weight:600;margin:12px 0 5px}
+.fl:first-child{margin-top:0}
+.astro{font-size:14px;line-height:1.5;margin-top:10px}
+.seg{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+.seg label{position:relative}
+.seg input{position:absolute;opacity:0;width:1px;height:1px}
+.seg span{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:54px;border:1px solid var(--line);border-radius:10px;background:var(--card);cursor:pointer;font-weight:700;font-size:17px}
+.seg small{font-weight:400;font-size:11px;color:var(--sub)}
+.seg input:checked+span{background:var(--acc);border-color:var(--acc);color:var(--onacc)}
+.seg input:checked+span small{color:inherit}
+.seg input:focus-visible+span{outline:2px solid var(--next)}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:7px 0 2px}
+.chip{border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:16px;padding:6px 12px;font-size:14px;min-height:36px}
+.chip.on{background:var(--acc);border-color:var(--acc);color:var(--onacc)}
+.score{font-weight:700;font-size:16px;margin:4px 0 2px}
+iframe.doc{width:100%;border:1px solid var(--line);border-radius:12px;min-height:300px;display:block;background:var(--card)}
+/* session player: always a calm dark room */
+.player{--bg:#0e0d0b;--card:#1c1a16;--ink:#e8e1d3;--sub:#a79d8c;--acc:#d0a85c;--onacc:#1a1712;--line:#37322a;--hit:#3a3120;--next:#62b6e0;
+  color-scheme:dark;position:fixed;inset:0;z-index:50;background:var(--bg);color:var(--ink);display:flex;flex-direction:column}
+.ptop{display:flex;align-items:center;gap:8px;padding:8px 12px;border-bottom:1px solid var(--line)}
+.pttl{flex:1;min-width:0;font-size:14px;color:var(--sub);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pbtn{background:transparent;border:1px solid var(--line);color:var(--ink);min-height:40px;padding:6px 12px;font-size:14px}
+.segs{display:flex;gap:3px;padding:8px 14px 0;max-width:700px;margin:0 auto;width:100%}
+.segs i{flex:1;height:5px;border-radius:3px;background:#2d2a24;overflow:hidden;position:relative}
+.segs i b{position:absolute;left:0;top:0;bottom:0;width:0;background:var(--acc)}
+.pbody{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:14px 18px 10px}
+.pinner{max-width:640px;margin:0 auto}
+.pstep{font-size:12px;letter-spacing:.09em;text-transform:uppercase;color:var(--acc);font-weight:700}
+.ptitle{font-size:24px;margin:4px 0 12px;font-weight:600;line-height:1.25}
+.ptext{font-family:Georgia,'Times New Roman',serif;font-size:19px;line-height:1.65;transition:opacity 1.2s;cursor:default}
+.ptext p{margin:0 0 .8em}
+.ptext.dim{opacity:.22}.ptext.dim.peek{opacity:1}
+.pnames{border:1px solid var(--line);border-radius:12px;padding:6px 14px;margin:14px 0}
+.hold{padding:8px 18px 2px;max-width:676px;margin:0 auto;width:100%}
+.hold .lbl{font-size:14px;color:var(--sub);margin-bottom:6px;font-variant-numeric:tabular-nums;min-height:20px}
+.hbar{height:9px;background:#2d2a24;border-radius:5px;overflow:hidden}
+.hbar i{display:block;height:100%;width:0;background:var(--acc);transition:width .3s linear}
+.hbar i.read,.hbar i.speak{background:#6b6352}
+.pctl{display:grid;grid-template-columns:1fr 1.15fr 1.15fr .85fr;gap:8px;padding:10px 14px 14px;max-width:676px;margin:0 auto;width:100%}
+.pctl button{min-height:56px;font-size:16px;border-radius:12px;background:var(--card);border:1px solid var(--line);color:var(--ink);padding:6px}
+.pctl button.pri{background:var(--acc);border-color:var(--acc);color:var(--onacc);font-weight:700}
+.pctl button.nudge{animation:nudge 1.8s ease-in-out infinite}
+@keyframes nudge{50%{box-shadow:0 0 0 5px rgba(208,168,92,.28)}}
+.pacer{display:flex;align-items:center;gap:16px;margin:0 0 14px}
+.pacer svg{width:112px;height:112px;flex:0 0 auto}
+.pacer .pbox{fill:none;stroke:#3d382f;stroke-width:3}
+.pacer #pcore{fill:rgba(98,182,224,.22);stroke:rgba(98,182,224,.6);stroke-width:2}
+.pacer #pdot{fill:var(--acc)}
+.pacer .plbl{font-size:18px}
+.pacer .plbl b{display:block;font-size:20px}
+.pacer .plbl span{font-size:34px;font-weight:700;font-variant-numeric:tabular-nums;color:var(--acc)}
+.sheet{position:absolute;inset:0;background:rgba(0,0,0,.55);display:flex;align-items:flex-end;justify-content:center;z-index:5}
+.sheetbox{background:var(--card);border:1px solid var(--line);border-radius:16px 16px 0 0;padding:16px;width:100%;max-width:560px;max-height:85%;overflow-y:auto}
+/* modal + toast */
+.modal{position:fixed;inset:0;z-index:100;background:rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center;padding:16px}
+.mbox{background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:14px;padding:18px;width:100%;max-width:420px;box-shadow:0 10px 40px rgba(0,0,0,.35)}
+.mbox h2{font-size:18px;margin:0 0 8px}
+.mbox #mBody{font-size:15px;line-height:1.5;color:var(--ink)}
+.mbtns{display:flex;flex-direction:column;gap:8px;margin-top:14px}
+.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:10px;font-size:14px;opacity:0;pointer-events:none;transition:.25s;z-index:120;max-width:90vw;text-align:center}
+.toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+@media(max-width:400px){main{padding:10px 10px 40px}.card{padding:12px 13px}.hg{width:62px;height:62px;font-size:40px}.ptext{font-size:18px}.pctl{gap:6px;padding:8px 10px 12px}.pctl button{font-size:15px}}
+@media(prefers-reduced-motion:reduce){.pl.next,.pctl button.nudge{animation:none}}
+</style></head><body>
+<header><h1>ATHANOR · PATHWORKING <small>· guided journeys on the 22 paths</small></h1><button class="ghost sm" data-act="journal">Journal</button></header>
+<main>
+ <div id="err"></div>
+ <section id="vHome" class="view"><div class="card sub">Loading the Tree…</div></section>
+ <section id="vPath" class="view hidden"></section>
+ <section id="vJournal" class="view hidden"></section>
+ <section id="vEntry" class="view hidden"></section>
+ <section id="vForm" class="view hidden"></section>
+</main>
+
+<!-- session player -->
+<div id="player" class="player hidden" role="dialog" aria-modal="true" aria-label="Pathworking session">
+ <div class="ptop">
+  <div class="pttl" id="plTtl"></div>
+  <button class="pbtn" data-act="plNames" id="plNamesBtn" aria-expanded="false">Names</button>
+  <button class="pbtn" data-act="plSettings" aria-label="Session settings">Settings</button>
+ </div>
+ <div class="segs" id="plSegs" aria-hidden="true"></div>
+ <div class="pbody" id="plBody"><div class="pinner">
+  <div id="pacer" class="pacer hidden" aria-hidden="true">
+   <svg viewBox="0 0 140 140"><rect x="20" y="20" width="100" height="100" rx="8" class="pbox"/><circle id="pcore" cx="70" cy="70" r="14"/><circle id="pdot" cx="20" cy="120" r="7"/></svg>
+   <div class="plbl"><b id="pWord">Breathe in</b><span id="pCount">4</span></div>
+  </div>
+  <div class="pstep" id="plStep"></div>
+  <h2 class="ptitle" id="plTitle" aria-live="polite"></h2>
+  <div class="ptext" id="plText" data-act="plPeek"></div>
+  <div id="plNames" class="pnames names hidden"></div>
+ </div></div>
+ <div class="hold"><div class="lbl" id="plHoldLbl"></div><div class="hbar"><i id="plHoldBar"></i></div></div>
+ <div class="pctl">
+  <button data-act="plBack" id="plBackBtn">‹ Back</button>
+  <button data-act="plPause" id="plPauseBtn">Pause</button>
+  <button data-act="plNext" id="plNextBtn">Next ›</button>
+  <button data-act="plEnd">End</button>
+ </div>
+ <div id="plSheet" class="sheet hidden" data-act="plSettingsClose"><div class="sheetbox" data-act="noop">
+  <div class="sec">Session settings</div>
+  <div id="plSettings" class="settings"></div>
+  <button class="wide" data-act="plSettingsClose" style="margin-top:12px">Done</button>
+ </div></div>
+</div>
+
+<div id="modal" class="modal hidden" data-act="modalBg"><div class="mbox" role="dialog" aria-modal="true" aria-labelledby="mTitle" data-act="noop">
+ <h2 id="mTitle"></h2><div id="mBody"></div><div id="mBtns" class="mbtns"></div>
+</div></div>
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+<script src="../lib/store.js"></script>
+<script src="../../data/db/core.js"></script>
+<script src="../../data/db/texts.js"></script>
+<script src="../lib/db.js"></script>
+<!-- read-aloud: inside the app it supplies speechSynthesis (Android's own voices); and the names' pronunciations -->
+<script src="../lib/speech.js"></script>
+<script>
+'use strict';
+/* ================================================================
+   Pathworking — guided journeys on the 22 paths of the Tree of Life.
+   Views: home · path · journal · entry · form, plus a full-screen session player.
+   Data: ../../data/777.json, goetia.json (Tunnels of Set), pathworking.json (journeys; optional), and the content
+   tables through lib/db.js (data/db, edited in the content workbook): the core tables (Sephiroth, cards, letters,
+   planets, signs, elements, quarters, weekdays, Moon phases), journey_template, journey_template_symbols and
+   journey_checklist (DB.load at boot), pronunciations (loaded by lib/speech.js, for the voice only), and the tool
+   texts pathwork.… (texts.js).
+   Journal entries are saved with Store kind "journal" (data.tool === 'pathwork').
+   ================================================================ */
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const he=s=>`<span class="heb" dir="rtl" lang="he">${esc(s)}</span>`;
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+const lc=s=>s?s.charAt(0).toLowerCase()+s.slice(1):'';
+const pad=n=>String(n).padStart(2,'0');
+
+/* ---------- per-viewer preferences (localStorage, always guarded) ---------- */
+const LSK='l777pathwork.';
+function lsGet(k,def){try{const v=localStorage.getItem(LSK+k);return v==null?def:JSON.parse(v);}catch(e){return def;}}
+function lsSet(k,v){try{localStorage.setItem(LSK+k,JSON.stringify(v));}catch(e){}}
+function lsDel(k){try{localStorage.removeItem(LSK+k);}catch(e){}}
+/* Read-aloud: in the app, lib/speech.js supplies speechSynthesis from Android's own voices (the WebView has none).
+   A browser with no voices installed can expose speechSynthesis yet never speak, so it only counts as usable once
+   voices are listed and it has not failed to start. */
+const hasSpeechAPI=(()=>{try{return !!(window.speechSynthesis&&window.SpeechSynthesisUtterance);}catch(e){return false;}})();
+let voiceCount=0,speechBroken=false;
+function countVoices(){try{voiceCount=hasSpeechAPI?(speechSynthesis.getVoices()||[]).length:0;}catch(e){voiceCount=0;}return voiceCount;}
+const canSpeak=()=>hasSpeechAPI&&voiceCount>0&&!speechBroken;
+countVoices();
+// "speak" is only a wish: every use also checks canSpeak(), so it stays silent until voices are confirmed
+const prefs=Object.assign({night:false,speak:true,voice:'',rate:0.85,bell:true,auto:true},lsGet('prefs',{})||{});
+prefs.rate=clamp(+prefs.rate||0.85,0.5,1.5);
+const savePrefs=()=>lsSet('prefs',prefs);
+
+/* ---------- fixed tables: built from the content tables (data/db, through lib/db.js) ---------- */
+const ROMAN=['0','I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII','XIII','XIV','XV','XVI','XVII','XVIII','XIX','XX','XXI'];
+const KS=n=>DB.get('keyscale',String(n));
+const name777=p=>p.name_777||p.name;   // Liber 777's name of a planet (Sol, Luna)
+const attrName=k=>k.planet?name777(DB.get('planets',k.planet)):k.sign?DB.get('signs',k.sign).name:k.element?DB.get('elements',k.element).name:'';
+const ORDER=DB.where('keyscale',k=>DB.ids(k.joins).length===2).map(k=>+k.id).reverse(); // the climb from Malkuth: 32 … 11
+// The Thoth trump of a path: the trump whose (Thoth) letter is the path's letter. 15/28 follow Liber AL I:57 ("Tzaddi
+// is not the Star"): there the trump's own 777 row is the other path's (tab Cards: keyscale, thoth_letter).
+const thothCard=n=>DB.where('cards',c=>c.keyscale&&(c.thoth_letter||KS(c.keyscale).letter)===KS(n).letter)[0];
+const swapRow=n=>{const c=thothCard(n);return c?c.keyscale:String(n);};   // the 777 row the path's sign is read from
+// Thoth (Crowley) numbering and titles
+const THOTH=Object.fromEntries(ORDER.map(n=>{const c=thothCard(n);return [n,[ROMAN[c.n],c.name]];}));
+// The Golden Dawn trump of a path (its 777 row), where it is not the Thoth one: number and title, with the sign where
+// Crowley moved the trump (gd_own_name: the Golden Dawn's own title where gd_name is the Rider-Waite one, XXI)
+const GD_TRUMP={};
+for(const n of ORDER){const g=DB.rev('cards','keyscale',String(n))[0],t=thothCard(n),gt=g&&(g.gd_own_name||g.gd_name);
+  if(g&&t&&(g!==t||gt!==t.name||g.gd_n!==t.n))GD_TRUMP[n]=`${ROMAN[g.gd_n]} ${gt}`+(g!==t?` (${attrName(KS(n))})`:'');}
+// The trump's whole scene (the picture on the veil) and its figure, the guardian met on the path (for generated journeys)
+const TRUMP_IMG=Object.fromEntries(ORDER.map(n=>[n,thothCard(n).imagery]).filter(x=>x[1]));
+const TRUMP_FIGURE=Object.fromEntries(ORDER.map(n=>[n,thothCard(n).figure]).filter(x=>x[1]));
+// Divine names and archangels of the Sephiroth (Assiah: Liber 777 cols. V and XCIX; tab Sephiroth)
+const DIVINE=Object.fromEntries(DB.rows('sephiroth').map(s=>[s.n,{god:[s.god_name_hebrew,s.god_name],arch:[s.archangel_hebrew,s.archangel]}]));
+const SYM=Object.fromEntries([...DB.rows('elements').map(e=>[e.name,e.glyph]),...DB.where('planets',{kind:'classical'}).map(p=>[name777(p),p.glyph]),
+  ...DB.rows('signs').map(s=>[s.name,s.glyph])]);
+// a sign's element; an element that has a quarter, itself
+const ELEMENT_OF=Object.fromEntries([...DB.rows('signs').map(s=>[s.name,DB.ref(s,'element').name]),
+  ...DB.rows('elements').filter(e=>DB.rev('quarters','element',e.id).length).map(e=>[e.name,e.name])]);
+const FACING=Object.fromEntries(DB.where('quarters',q=>q.element).map(q=>[DB.ref(q,'element').name,q.name]));
+const RULER=Object.fromEntries(DB.rows('signs').map(s=>[s.name,name777(DB.get('planets',DB.where('dignities',{sign:s.id,kind:'domicile'})[0].planet))]));
+const PLANET_DAY=Object.fromEntries(DB.rows('weekdays').map(w=>[name777(DB.ref(w,'planet')),w.name]));
+const DAYS=DB.rows('weekdays').map(w=>{const p=DB.ref(w,'planet');return [w.name,p.name,p.glyph];});
+const SIGNS=DB.rows('signs').map(s=>s.name);
+const CLARITY=['','faint','hazy','steady','clear','vivid'];
+const MOODS=['calm','peaceful','clear','open','joyful','moved','tired','restless','anxious','heavy','scattered','elated'];
+const symOf=attr=>String(attr||'').split(/\s*\/\s*/).map(a=>SYM[a.trim()]?SYM[a.trim()]+'︎':'').join(' ').trim();
+
+/* ---------- data ---------- */
+let D=null,G=null;          // 777 and goetia data
+const COL={},SEPH={},PATHS={},J={}; // columns by label, spheres by n, paths by n, journeys by path n
+
+// Clean editorial marks from a 777 cell: [[additions]], footnote asterisks, broken hyphenation.
+function clean(s){
+  if(s==null)return '';
+  // "Nightshade [[Elm]]" -> "Nightshade, Elm": an editorial addition joins the list it follows
+  let t=String(s).replace(/([^\s.,;:(\[])\s*\[\[/g,'$1, ').replace(/\[\[|\]\]/g,'').replace(/^\s*\*+\s*/,'').replace(/\s*\*+\s*$/,'').replace(/\s\*\s/g,' ');
+  t=t.replace(/(\p{Ll})- (\p{Ll})/gu,'$1$2').replace(/([œæ]) (?=\p{Ll})/gu,'$1');
+  return t.replace(/\s+/g,' ').trim();
+}
+const isDitto=v=>/^[\s"”„〃]+$/.test(v);
+const rawCell=(label,key)=>{const c=COL[label];return c&&c.cells?c.cells[key]:'';};
+function cell(label,key){
+  const v=clean(rawCell(label,key));
+  if(v&&isDitto(v)){ // ditto: take the nearest real value above
+    const i=D.keys.indexOf(key);
+    for(let k=i-1;k>=0&&k>=i-5;k--){const w=clean(rawCell(label,D.keys[k]));if(w&&!isDitto(w))return w;}
+    return '';
+  }
+  return v;
+}
+function hexes(label,key){const c=COL[label];const a=(c&&c.colors&&c.colors[key])||[];return (Array.isArray(a)?a:[a]).filter(h=>/^#[0-9a-f]{3,8}$/i.test(h));}
+function swatch(label,key){
+  const hs=hexes(label,key); if(!hs.length)return '';
+  const bg=hs.length===1?hs[0]:`linear-gradient(90deg,${hs.map((c,i)=>`${c} ${(i*100/hs.length).toFixed(1)}% ${((i+1)*100/hs.length).toFixed(1)}%`).join(',')})`;
+  return `<span class="swb" style="background:${bg}"></span>`;
+}
+// "Tiger Lily, Geranium (x)" -> ["Tiger Lily","Geranium"]; "[Athena] Ganymede" -> ["Ganymede","Athena"]
+function items(s,n){
+  const parts=String(s||'')
+    .replace(/\([^)]*\)/g,'')                   // parenthetical notes
+    .replace(/\s*\[[a-z][^\]]*\]/g,'')          // lower-case qualifiers: "Demeter [borne by lions]", "Isis [as Virgin]"
+    .replace(/\]\s+(?=[^\s,;])/g,'], ')         // "[Athena] Ganymede" -> "[Athena], Ganymede"
+    .replace(/([^\s,;\[])\s+\[/g,'$1, [')       // "Priapus [Erect Hermes…]" -> "Priapus, [Erect Hermes…]"
+    .split(/[,;]/).map(x=>x.trim()).filter(Boolean);
+  // single-bracketed entries are Crowley's own tentative additions: list them after the printed ones
+  const ordered=parts.filter(x=>x[0]!=='[').concat(parts.filter(x=>x[0]==='['));
+  return ordered.map(x=>x.replace(/[\[\]]/g,'').replace(/\s+and many others$/i,'').replace(/\.$/,'').trim())
+    .filter(x=>x&&!/^&c\.?$/i.test(x)).slice(0,n||99);
+}
+// items that can stand as a single image: drops catch-alls such as "all giant trees" or "any solitary person"
+const picks=(s,n,skip)=>items(s).filter(x=>!/^(all|any|various|many|every)\b/i.test(x)&&!(skip&&skip.test(x))).slice(0,n||99);
+const NOT_INCENSE=/menstrual|fluid|semen/i; // 777 perfumes that are not burned
+const SINGULAR_S=/(ss|us|is|os)$/i;         // cross, ass, lotus, ibis, rhinoceros end in -s but are singular
+function withArticle(s){
+  s=String(s||'').trim(); if(!s)return '';
+  if(/\s+or\s+/i.test(s))return s.split(/\s+or\s+/i).map(withArticle).join(' or '); // "a man or an eagle"
+  if(/^(the|a|an|some|two|twin)\s/i.test(s)||/^(water|air|fire|earth|light)$/i.test(s))return s;
+  if(/s$/i.test(s)&&!SINGULAR_S.test(s))return s; // plural
+  return (/^[aeiou]/i.test(s)?'an ':'a ')+s;
+}
+const lower=s=>String(s||'').toLowerCase();
+const noParen=s=>String(s||'').replace(/\s*\([^)]*\)/g,'').trim();
+const MEANING_PHRASE={'Back of head':'the back of the head'}; // letter meanings that need their own phrasing
+const ANIMAL_WORD={scorpio:'scorpion'};                     // 777 names the sign where an animal is meant
+const joinAnd=a=>a.length<2?(a[0]||''):a.slice(0,-1).join(', ')+' and '+a[a.length-1];
+const sphereOf=s=>'the sphere of '+(/^(Crown|Kingdom|Foundation)$/.test(s.meaning)?'the ':'')+s.meaning;
+const andOf=attr=>String(attr||'').replace(/\s*\/\s*/g,' and '); // "Saturn / Earth" -> "Saturn and Earth" (reads and speaks better)
+
+/* Crowley's swap (Liber AL I:57) moves Aries/The Emperor to Tzaddi (28) and Aquarius/The Star to Hé (15);
+   the letters stay on their paths. Liber 777 prints each sign's row under its Golden Dawn letter, so where the
+   Thoth trump's own row is another path's (swapRow: 15 and 28) the sign-derived columns are read from that row.
+   The letter's own columns (II, XIII) stay. */
+const SIGN_COLS=new Set(['IV-a','IV-b','XV','XVI','XIX','XXXIV','XXXVIII','XXXIX','XL','XLI','XLII','XLV']);
+const rowFor=(n,label)=>SIGN_COLS.has(label)?swapRow(n):String(n);
+const pc=(n,label)=>cell(label,rowFor(n,label));   // a path's cell, after the swap
+
+function buildModel(){
+  for(const c of D.cols)COL[c.label]=c;
+  for(const s of D.seph){const [n,name,meaning,planet,x,y]=s;SEPH[n]={n,name,meaning,planet,x,y};}
+  const row={};for(const p of D.paths)row[p[0]]=p;
+  for(const p of D.paths){
+    const [key,[a,b],letter,glyph,meaning,attr,atu,title]=p, n=+key, th=THOTH[n]||[atu,title], sw=swapRow(n);
+    PATHS[n]={n,key,a,b,lo:Math.max(a,b),hi:Math.min(a,b),letter,glyph,meaning,gdAttr:attr,gdAtu:atu,gdTitle:title,
+      attr:sw!==key&&row[sw]?row[sw][5]:attr,atu:th[0],trump:th[1],   // the attribution goes with the Thoth trump
+      hebName:(DB.ref(KS(n),'letter')||{}).spelled||glyph};   // the letter's own name in Hebrew (777 col. II has מים for Mem)
+  }
+}
+function dayFor(attr){ // planetary day suiting the attribution
+  const a=String(attr).split(/\s*\/\s*/)[0], pl=PLANET_DAY[a]?a:RULER[a];
+  return pl?{planet:pl,day:PLANET_DAY[pl]}:null;
+}
+
+/* ---------- a basic journey built from the 777 tables (fallback) ----------
+   Its wording is content: the steps (tab Journey template), the symbols to tick (tab Journey template symbols) and the
+   texts pathwork.gen-… (tool texts), each {name} filled from the path. */
+const fill=(s,v)=>String(s||'').replace(/\{(\w+)\}/g,(m,k)=>v[k]!=null?String(v[k]):m);
+function genJourney(n){
+  const p=PATHS[n],lo=SEPH[p.lo],hi=SEPH[p.hi],dv=DIVINE[p.lo],sw=swapRow(n),swap=sw!==String(n);
+  const kc=noParen(pc(n,'XV'))||DB.text('pathwork.gen-colour-none'),qc=noParen(pc(n,'XVI'))||kc;
+  const fq=noParen(cell('XVI',String(p.lo)))||DB.text('pathwork.gen-light-none'),tq=noParen(cell('XVI',String(p.hi)))||DB.text('pathwork.gen-radiance-none');
+  const animals=picks(pc(n,'XXXVIII'),2).map(a=>ANIMAL_WORD[lower(a)]||lower(a)),
+    plants=picks(pc(n,'XXXIX'),2).map(lower),stones=picks(pc(n,'XL'),1).map(lower),
+    perf=picks(pc(n,'XLII'),2,NOT_INCENSE); // burnable perfumes only
+  const mp=MEANING_PHRASE[p.meaning]||withArticle(lower(p.meaning));
+  const greek=picks(pc(n,'XXXIV'),1),egypt=picks(pc(n,'XIX'),1);
+  const img=TRUMP_IMG[n]||DB.text('pathwork.gen-imagery-none',{atu:p.atu,trump:p.trump});
+  const fig=TRUMP_FIGURE[n]||DB.text('pathwork.gen-figure-none',{trump:p.trump});
+  const el=String(p.attr).split(/\s*\/\s*/).map(a=>ELEMENT_OF[a]).find(Boolean); // "Saturn / Earth" -> Earth
+  const aw=andOf(p.attr),dy=dayFor(p.attr);
+  const god=dv.god[1],arch=dv.arch[1];
+  const land=[
+    plants.length?DB.text('pathwork.gen-land-plants',{plants:joinAnd(plants)}):'',
+    stones.length?DB.text('pathwork.gen-land-stone',{stone:stones[0]}):'',
+    perf.length?DB.text('pathwork.gen-land-scent',{scent:lower(perf[0])}):'',
+    animals.length?DB.text('pathwork.gen-land-animal',{animal:withArticle(animals[0])}):''
+  ].filter(Boolean).join(' ');
+  const v={from:lo.name,from_sphere:sphereOf(lo),from_light:lc(fq),to:hi.name,to_sphere:sphereOf(hi),to_light:lc(tq),
+    god_name:god,archangel:arch,veil_colour:lc(kc),path_colour:lc(qc),trump:p.trump,trump_image:img,guardian:fig,
+    letter:p.letter,letter_meaning:mp,attribution:aw,landscape:land};
+  const steps=DB.rows('journey_template').map(s=>({title:fill(s.title,v),holdSeconds:s.hold_seconds,text:fill(s.text,v)}));
+  const sy=[];
+  const add=(symbol,source)=>{if(symbol&&!sy.some(s=>s.symbol.toLowerCase()===symbol.toLowerCase()))sy.push({symbol,source});};
+  // the values of each kind of symbol ([value, {more}] where the wording has more than {value}), in the table's order
+  const SV={letter:[[p.letter,{glyph:p.glyph}]],meaning:[mp],king:[lc(kc)],queen:qc&&qc!==kc?[lc(qc)]:[],
+    trump:[[p.trump,{atu:p.atu}]],attribution:[aw],animal:animals.map(withArticle),plant:plants,stone:stones,
+    perfume:perf.slice(0,1).map(lower),greek,egyptian:egypt};
+  for(const r of DB.rows('journey_template_symbols'))
+    for(const x of SV[r.id]||[]){const [value,more]=Array.isArray(x)?x:[x,{}];add(fill(r.symbol,Object.assign({value},more)),r.source||'');}
+  const kw=pc(n,'IV-a'),med=pc(n,'IV-b'),evil=/evil odours/i.test(pc(n,'XLII')),stoneCell=pc(n,'XL');
+  const t=(G.tunnels||[]).find(x=>+x.path===n),sk=KS(sw);
+  return {path:n,generated:true,
+    title:kw?DB.text('pathwork.gen-title-keyword',{letter:p.letter,keyword:kw}):DB.text('pathwork.gen-title',{letter:p.letter}),
+    summary:DB.text('pathwork.gen-summary',{letter:p.letter,meaning:p.meaning,from:lo.name,to:hi.name,attribution:aw,trump:p.trump})
+      +(med?' '+DB.text('pathwork.gen-meditation',{meditation:med}):''),
+    prepare:{incense:perf.length?DB.text('pathwork.gen-incense',{perfumes:perf.join(', ')})+(evil?'. '+DB.text('pathwork.gen-incense-evil'):'')
+        :DB.text('pathwork.gen-incense-none'),
+      candle:DB.text('pathwork.gen-candle',{king:kc})+(qc&&qc!==kc?'; '+DB.text('pathwork.gen-candle-queen',{queen:lc(qc)}):''),
+      stone:stoneCell?DB.text('pathwork.gen-stone',{stone:stoneCell}):'—',
+      facing:el?DB.text('pathwork.gen-facing',{quarter:FACING[el],element:el}):DB.text('pathwork.gen-facing-default'),
+      notes:dy?DB.text('pathwork.gen-day',{day:dy.day,planet:dy.planet}):''},
+    opening:{from:lo.name,to:hi.name,godName:{hebrew:dv.god[0],translit:god},archangel:{hebrew:dv.arch[0],translit:arch},pathName:{hebrew:p.hebName,translit:p.letter}},
+    steps,symbols:sy.slice(0,16),
+    closing:DB.text('pathwork.gen-closing'),
+    // the averse meaning itself is shown beside this on the Nightside card, so it is not repeated here
+    tunnel:{genius:t?t.genius:'',reflection:t?DB.text('pathwork.gen-tunnel',{genius:t.genius,letter:p.letter}):DB.text('pathwork.gen-tunnel-none')},
+    notes:DB.text('pathwork.gen-notes')+(swap?' '+DB.text('pathwork.gen-notes-swap',{sign:attrName(sk),trump:p.trump,letter:p.letter,
+      row_letter:DB.ref(sk,'letter').name,row:sw}):'')};
+}
+
+// Merge a journey from pathworking.json over the generated one, field by field, so partial data still works.
+function normJourney(raw,gen){
+  if(!raw||typeof raw!=='object')return gen;
+  const j=Object.assign({},gen,{generated:false});
+  const str=v=>typeof v==='string'&&v.trim()?v:null;
+  ['title','summary','closing','notes'].forEach(f=>{if(str(raw[f]))j[f]=raw[f];});
+  if(raw.prepare&&typeof raw.prepare==='object'){j.prepare=Object.assign({},gen.prepare);
+    ['incense','candle','stone','facing','notes'].forEach(f=>{if(str(raw.prepare[f]))j.prepare[f]=raw.prepare[f];});}
+  if(raw.opening&&typeof raw.opening==='object'){const o=raw.opening;j.opening=Object.assign({},gen.opening);
+    ['from','to'].forEach(f=>{if(str(o[f]))j.opening[f]=o[f];});
+    ['godName','archangel','pathName'].forEach(f=>{if(o[f]&&(str(o[f].hebrew)||str(o[f].translit)))
+      j.opening[f]={hebrew:str(o[f].hebrew)||gen.opening[f].hebrew,translit:str(o[f].translit)||gen.opening[f].translit};});}
+  const steps=Array.isArray(raw.steps)?raw.steps.filter(s=>s&&str(s.text)):[];
+  if(steps.length>=3)j.steps=steps.map(s=>({title:str(s.title)||'Step',text:s.text,holdSeconds:clamp(Math.round(+s.holdSeconds)||60,5,600)}));
+  else j.generated=true;
+  const syms=Array.isArray(raw.symbols)?raw.symbols.filter(s=>s&&str(s.symbol)):[];
+  if(syms.length)j.symbols=syms.map(s=>({symbol:s.symbol,source:str(s.source)||''}));
+  if(raw.tunnel&&typeof raw.tunnel==='object')j.tunnel={genius:str(raw.tunnel.genius)||gen.tunnel.genius,reflection:str(raw.tunnel.reflection)||gen.tunnel.reflection};
+  return j;
+}
+function journeyList(raw){
+  if(Array.isArray(raw))return raw;
+  if(raw&&Array.isArray(raw.journeys))return raw.journeys;
+  if(raw&&typeof raw==='object')return Object.values(raw).filter(v=>v&&typeof v==='object');
+  return [];
+}
+const readSecs=text=>clamp(Math.round(String(text).split(/\s+/).length/2.5),6,90); // ~150 words a minute
+const estMinutes=j=>Math.round(j.steps.reduce((s,st)=>s+readSecs(st.text)+st.holdSeconds,0)/60);
+
+/* ---------- Moon & day (approximate; same series as the Rites page) ---------- */
+const Astro=(()=>{
+  const DAY=864e5,n360=d=>((d%360)+360)%360,rad=d=>d*Math.PI/180,jd=ms=>ms/DAY+2440587.5;
+  function sunLon(ms){const t=(jd(ms)+69/86400-2451545)/36525,l0=n360(280.46646+36000.76983*t+.0003032*t*t),m=rad(357.52911+35999.05029*t-.0001537*t*t),
+    c=(1.914602-.004817*t-.000014*t*t)*Math.sin(m)+(.019993-.000101*t)*Math.sin(2*m)+.000289*Math.sin(3*m),om=rad(125.04-1934.136*t);
+    return n360(l0+c-.00569-.00478*Math.sin(om));}
+  function moonLon(ms){const T=(jd(ms)+69/86400-2451545)/36525,L=218.3164477+481267.88123421*T,D=rad(297.8501921+445267.1114034*T),
+    M=rad(357.5291092+35999.0502909*T),Mp=rad(134.9633964+477198.8675055*T),F=rad(93.272095+483202.0175233*T),s=Math.sin;
+    return n360(L+6.288774*s(Mp)+1.274027*s(2*D-Mp)+.658314*s(2*D)+.213618*s(2*Mp)-.185116*s(M)-.114332*s(2*F)
+      +.058793*s(2*D-2*Mp)+.057066*s(2*D-M-Mp)+.053322*s(2*D+Mp)+.045758*s(2*D-M)-.040923*s(M-Mp)-.03472*s(D)-.030383*s(M+Mp));}
+  const PH=DB.rows('moon_phases').map(p=>p.name);   // New Moon … Waning Crescent, 45° apart (tab Moon phases)
+  function moon(ms){const ml=moonLon(ms),e=n360(ml-sunLon(ms));
+    return{age:e/360*29.530589,illum:(1-Math.cos(rad(e)))/2,phase:PH[Math.floor(n360(e+22.5)/45)%8],sign:SIGNS[Math.floor(ml/30)%12]};}
+  return{moon};
+})();
+function astroFor(date){
+  const m=Astro.moon(date.getTime()),d=DAYS[date.getDay()];
+  return{moon:{phase:m.phase,age:Math.round(m.age*10)/10,illum:Math.round(m.illum*100),sign:m.sign},weekday:d[0],dayPlanet:d[1],dayGlyph:d[2]};
+}
+
+/* ---------- journal records ---------- */
+function entries(){
+  let L=[]; try{L=(window.Store&&Store.list('journal'))||[];}catch(e){L=[];}
+  return L.filter(r=>r&&r.data&&r.data.tool==='pathwork'&&PATHS[+r.data.path])
+    .sort((a,b)=>(b.data.ts||b.created||0)-(a.data.ts||a.created||0));
+}
+const doneSet=es=>new Set(es.map(e=>+e.data.path));
+const nextPath=done=>ORDER.find(n=>!done.has(n))||null;
+const fmtDay=new Intl.DateTimeFormat(undefined,{weekday:'short',day:'numeric',month:'short',year:'numeric'});
+const fmtTime=new Intl.DateTimeFormat(undefined,{hour:'2-digit',minute:'2-digit'});
+const fmtWhen=ts=>{const d=new Date(ts);return isNaN(d)?'':fmtDay.format(d)+' · '+fmtTime.format(d);};
+const localInput=d=>`${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
+function parseLocal(v){const m=/^(\d{4})-(\d\d)-(\d\d)T(\d\d):(\d\d)/.exec(v||'');return m?new Date(+m[1],+m[2]-1,+m[3],+m[4],+m[5]):null;}
+
+function entryItem(e){
+  const d=e.data,p=PATHS[+d.path],sc=d.score&&d.score.total?` · ${d.score.seen} of ${d.score.total} symbols`:'';
+  const snip=(d.saw||d.message||d.notes||'').replace(/\s+/g,' ').slice(0,110);
+  return `<button class="entry" data-act="entry" data-v="${esc(e.id)}">
+    <span class="eg">${he(p.glyph)}</span>
+    <span class="em"><b>Path ${p.n} · ${esc(p.letter)}${d.session&&!d.session.completed?' <span class="sub">(ended early)</span>':''}</b>
+    <span class="sub">${esc(fmtWhen(d.ts))}${d.clarity?` · clarity ${d.clarity}/5`:''}${sc}</span>
+    ${snip?`<span class="snip">${esc(snip)}</span>`:''}</span></button>`;
+}
+
+/* ---------- navigation ---------- */
+let cur={v:'home'}; const stack=[];
+function go(v,params,opt){
+  opt=opt||{};
+  flushDraft();
+  if(!opt.replace)stack.push(cur);
+  cur=Object.assign({v},params||{});
+  render(); try{window.scrollTo(0,0);}catch(e){}
+}
+function back(){
+  if(cur.v==='form'&&FS&&!FS.editId){flushDraft();const dr=lsGet('draft',null);if(dr&&+dr.path===+FS.path)toast('Draft kept. It will be restored next time.');}
+  if(stack.length){cur=stack.pop();render();return true;}
+  if(cur.v!=='home'){cur={v:'home'};render();return true;}
+  return false;
+}
+function dropFromStack(pred){for(let i=stack.length-1;i>=0;i--)if(pred(stack[i]))stack.splice(i,1);}
+function goHome(){flushDraft();stack.length=0;cur={v:'home'};render();try{window.scrollTo(0,0);}catch(e){}}
+function render(){
+  if(!D)return;
+  document.querySelectorAll('.view').forEach(el=>el.classList.add('hidden'));
+  const id='v'+cur.v.charAt(0).toUpperCase()+cur.v.slice(1);
+  $('#'+id).classList.remove('hidden');
+  if(cur.v==='home')renderHome();
+  else if(cur.v==='path')renderPath(cur.n);
+  else if(cur.v==='journal')renderJournal();
+  else if(cur.v==='entry')renderEntry();
+  else if(cur.v==='form')renderForm();
+}
+
+/* ---------- Tree map ---------- */
+function treeSVG(o){
+  o=o||{}; const done=o.done||new Set(),mini=!!o.mini;
+  let lines='',hits='',labels='',spheres='';
+  for(let n=11;n<=32;n++){
+    const p=PATHS[n]; if(!p)continue;
+    const A=SEPH[p.a],B=SEPH[p.b],xy=`x1="${A.x}" y1="${A.y}" x2="${B.x}" y2="${B.y}"`;
+    const st=o.sel===n?'sel':done.has(n)?'done':o.next===n?'next':'';
+    lines+=`<line class="pl ${st}" ${xy}/>`;
+    if(!mini){
+      // path 25's midpoint sits just above path 27's: set its label 40% of the way down so they don't touch
+      const f=n===25?0.4:0.5,mx=A.x+(B.x-A.x)*f,my=A.y+(B.y-A.y)*f;
+      hits+=`<g data-act="path" data-v="${n}"><line class="ph" ${xy}/></g>`;
+      labels+=`<g class="lb ${st}" data-act="path" data-v="${n}" role="button" tabindex="0" aria-label="Path ${n}, ${esc(p.letter)}"><circle cx="${mx}" cy="${my}" r="15"/><text x="${mx}" y="${my+1}" lang="he">${p.glyph}</text></g>`;
+    }
+  }
+  for(const s of Object.values(SEPH))
+    spheres+=mini?`<circle class="sc" cx="${s.x}" cy="${s.y}" r="27"/>`
+      :`<g class="sp"><circle cx="${s.x}" cy="${s.y}" r="25"/><text class="n" x="${s.x}" y="${s.y-2}">${s.n}</text><text class="nm" x="${s.x}" y="${s.y+11}">${esc(s.name)}</text></g>`;
+  return `<svg class="${mini?'mini':'tree'}" viewBox="0 0 400 640" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Tree of Life">${lines}${hits}${spheres}${labels}</svg>`;
+}
+
+/* ---------- Home ---------- */
+// open/closed state of Home's explainer sections, so a re-render (e.g. the app returning to the
+// foreground) doesn't fold up what the reader has open
+const detOpen={};
+document.addEventListener('toggle',e=>{const d=e.target;if(d&&d.dataset&&d.dataset.k)detOpen[d.dataset.k]=d.open;},true);
+function renderHome(){
+  const es=entries(),done=doneSet(es),next=nextPath(done),np=next&&PATHS[next];
+  const chips=ORDER.map(n=>{const p=PATHS[n],st=done.has(n)?'done':n===next?'next':'';
+    return `<button class="pchip ${st}" data-act="path" data-v="${n}" aria-label="Path ${n} ${esc(p.letter)}${st==='done'?' (walked)':st==='next'?' (next)':''}"><span class="g">${he(p.glyph)}</span><span class="k">${n}</span></button>`;}).join('');
+  // a journey that was never recorded (interrupted, or its form left unsaved)
+  const dr=lsGet('draft',null),dd=dr&&dr.data,dp=dd&&dd.session&&PATHS[+dr.path];
+  const pending=dp?`<div class="card"><div class="note" style="margin:0 0 10px">${dr.interrupted
+      ?`Your journey on <b>Path ${dp.n} · ${esc(dp.letter)}</b> (${esc(fmtWhen(dd.session.startedAt))}) was interrupted before it was recorded.`
+      :`You have an unsaved journal draft for <b>Path ${dp.n} · ${esc(dp.letter)}</b> from ${esc(fmtWhen(dr.saved))}.`}</div>
+    <div class="row"><button class="grow" data-act="resumeDraft" data-v="${dp.n}">Record it</button><button class="ghost grow" data-act="dismissDraft">Dismiss</button></div></div>`:'';
+  const isOpen=(k,def)=>(detOpen[k]??def)?'open':'';
+  $('#vHome').innerHTML=`${pending}
+  <div class="card">
+   <details data-k="what" ${isOpen('what',!es.length)}><summary>What is pathworking?</summary><div class="prose">
+    ${DB.text('pathwork.what')}
+    ${DB.text('pathwork.what-why')}
+    ${DB.text('pathwork.what-climb')}
+    <div class="note">${DB.text('pathwork.stay-safe')}</div>
+   </div></details>
+   <details data-k="how" ${isOpen('how',false)}><summary>How to use this tool</summary><div class="prose"><ol>
+    ${DB.text('pathwork.how')}
+   </ol></div></details>
+  </div>
+  <div class="card">
+   <div class="sec">The Tree · ${done.size} of 22 paths walked</div>
+   ${treeSVG({done,next})}
+   <div class="legend"><span><i style="background:var(--acc)"></i>walked</span><span><i style="background:var(--next)"></i>next in the climb</span><span><i style="background:var(--path)"></i>not yet</span></div>
+   <div class="pgrid">${chips}</div>
+  </div>
+  ${np?`<button class="cta" data-act="path" data-v="${next}">Continue: Path ${next} · ${esc(np.letter)}<small>${esc(np.trump)} · from ${esc(SEPH[np.lo].name)} to ${esc(SEPH[np.hi].name)}</small></button>`
+    :`<div class="card"><b>All 22 paths walked.</b> <span class="sub">Begin the climb again at path 32, or return to any path that asked for more.</span></div>`}
+  <div class="card">
+   <div class="sec">Recent journal entries</div>
+   ${es.length?`<div class="elist">${es.slice(0,4).map(entryItem).join('')}</div>
+     <button class="ghost wide" style="margin-top:10px" data-act="journal">All entries (${es.length})</button>`
+     :'<div class="sub">No journeys recorded yet. When you finish a session, the journal form opens automatically.</div>'}
+  </div>
+  <div class="card">
+   <div class="swrow"><span><b>Show the Nightside (Tunnels of Set)</b></span><label class="sw"><input type="checkbox" data-pref="night" ${prefs.night?'checked':''} aria-label="Show the Nightside"><span></span></label></div>
+   <div class="sub">${DB.text('pathwork.nightside')}</div>
+  </div>
+  <p class="sub" style="text-align:center">${DB.text('pathwork.sources')}</p>`;
+}
+
+/* ---------- Path page ---------- */
+const prepState={}; // checklist ticks, kept only while this page is open
+function renderPath(n){
+  const p=PATHS[n]; if(!p||!J[n]){goHome();return;}
+  const j=J[n],lo=SEPH[p.lo],hi=SEPH[p.hi],es=entries(),mine=es.filter(e=>+e.data.path===n);
+  const done=doneSet(es),next=nextPath(done),kc=hexes('XV',rowFor(n,'XV'))[0]||'';
+  const row=(label,val)=>val?`<div class="k">${label}</div><div>${val}</div>`:'';
+  const div=s=>`${he(DIVINE[s].god[0])} ${esc(DIVINE[s].god[1])}`,arc=s=>`${he(DIVINE[s].arch[0])} ${esc(DIVINE[s].arch[1])}`;
+  const sc=label=>pc(n,label)?swatch(label,rowFor(n,label))+esc(pc(n,label)):'';
+  const dy=dayFor(p.attr);
+  const grid=[
+    row('King scale',sc('XV')),
+    row('Queen scale',sc('XVI')),
+    row('God-names',`${esc(lo.name)}: ${div(p.lo)}<br>${esc(hi.name)}: ${div(p.hi)}`),
+    row('Archangels',`${esc(lo.name)}: ${arc(p.lo)}<br>${esc(hi.name)}: ${arc(p.hi)}`),
+    row('Egyptian gods',esc(pc(n,'XIX'))),
+    row('Greek gods',esc(pc(n,'XXXIV'))),
+    row('Animals',esc(pc(n,'XXXVIII'))),
+    row('Plants',esc(pc(n,'XXXIX'))),
+    row('Stones',esc(pc(n,'XL'))),
+    row('Perfumes',esc(pc(n,'XLII'))),
+    row('Magical power',esc(pc(n,'XLV'))),
+    row('Magical weapon',esc(pc(n,'XLI'))),
+    row('Intelligence',esc(pc(n,'XIII').replace(/\bI\.(?=\s|$)/g,'Intelligence'))), // 777 abbreviates "Intelligence" to "I."
+    row('Good day',dy?`${esc(dy.day)} <span class="sub">(${esc(dy.planet)})</span>`:'')].join('');
+  const sw=swapRow(n),sk=KS(sw);   // where the Thoth trump's own 777 row is another path's (15, 28): read from that row
+  const swapNote=sw!==String(n)?`<div class="note">${DB.text('pathwork.swap-note',{sign:esc(attrName(sk)),row_letter:esc(DB.ref(sk,'letter').name),row:sw,gd:esc(GD_TRUMP[n]||'')})}</div>`
+    :GD_TRUMP[n]?`<div class="sub" style="margin-top:6px">Golden Dawn: ${esc(GD_TRUMP[n])}</div>`:'';
+  const o=j.opening,pr=j.prepare,ck=prepState[n]||(prepState[n]={});
+  // the checklist (tab Journey checklist): [key, label, the journey's own preparation of that kind]; '—' = none
+  const prep=DB.rows('journey_checklist').map(x=>[x.id,x.label,x.prepare&&pr[x.prepare]!=='—'?pr[x.prepare]:'',x.optional])
+    .filter(x=>!x[3]||x[2]);
+  const nChecked=prep.filter(x=>ck[x[0]]).length;
+  const t=(G.tunnels||[]).find(x=>+x.path===n);
+  $('#vPath').innerHTML=`
+  <div class="topbar"><button class="ghost sm" data-act="back">‹ Back</button><span class="grow"></span>
+   ${PATHS[n+1]?`<button class="ghost sm" data-act="pathSwap" data-v="${n+1}" aria-label="Path ${n+1}, below">↓ ${n+1}</button>`:''}
+   ${PATHS[n-1]?`<button class="ghost sm" data-act="pathSwap" data-v="${n-1}" aria-label="Path ${n-1}, above">${n-1} ↑</button>`:''}</div>
+  <div class="card">
+   <div class="hero">
+    <div class="hg" style="${kc?'--kc:'+kc:''}">${he(p.glyph)}</div>
+    <div class="ht">
+     <div class="sub">Path ${n}${done.has(n)?' · <span class="ok">walked ✓</span>':n===next?' · <b style="color:var(--next)">next in the climb</b>':''}</div>
+     <div class="big">${esc(p.letter)} <span class="sub" style="font-weight:400">· “${esc(p.meaning)}”</span></div>
+     <div>Atu ${esc(p.atu)} · <b>${esc(p.trump)}</b> <span class="sub">(Thoth)</span></div>
+     <div>${symOf(p.attr)} ${esc(p.attr)}</div>
+     <div class="sub">from ${esc(lo.name)} to ${esc(hi.name)}</div>
+    </div>
+    ${treeSVG({mini:true,sel:n})}
+   </div>
+   ${swapNote}
+  </div>
+  <div class="card">
+   <div class="sec">The journey · about ${estMinutes(j)} min</div>
+   <div class="jt">${esc(j.title)}</div>
+   <div style="font-size:15px">${esc(j.summary)}</div>
+   ${j.generated?'<div class="sub" style="margin-top:6px">This journey was assembled from the 777 tables.</div>':''}
+   <details><summary>The names you will vibrate</summary><div class="names">
+    <div><span class="k">Divine name of ${esc(o.from)}</span>${he(o.godName.hebrew)} <b>${esc(o.godName.translit)}</b></div>
+    <div><span class="k">Archangel of ${esc(o.from)}</span>${he(o.archangel.hebrew)} <b>${esc(o.archangel.translit)}</b></div>
+    <div><span class="k">The letter of the path, traced at the veil</span>${he(o.pathName.hebrew)} <b>${esc(o.pathName.translit)}</b></div>
+   </div></details>
+  </div>
+  <div class="card">
+   <div class="sec">Correspondences · Liber 777</div>
+   <div class="kv">${grid}</div>
+  </div>
+  <div class="card">
+   <div class="sec">Prepare · <span id="prepCount">${nChecked} of ${prep.length}</span> ready</div>
+   <div id="prepList">${prep.map(x=>`<label class="chk ${ck[x[0]]?'on':''}"><input type="checkbox" data-prep="${x[0]}" ${ck[x[0]]?'checked':''}><span><b>${esc(x[1])}</b>${x[2]?`<br><span class="sub" style="font-size:14px">${esc(x[2])}</span>`:''}</span></label>`).join('')}</div>
+   ${pr.notes?`<div class="note">${esc(pr.notes)}</div>`:''}
+   <button class="cta" data-act="begin" data-v="${n}">Begin journey</button>
+   <details><summary>Session settings</summary><div class="settings">${settingsHTML()}</div></details>
+  </div>
+  <div class="card">
+   <div class="sec">Your journal for this path</div>
+   ${mine.length?`<div class="elist">${mine.map(entryItem).join('')}</div>`:'<div class="sub">No entries yet.</div>'}
+   <button class="ghost wide" style="margin-top:10px" data-act="write" data-v="${n}">Write an entry without a session</button>
+  </div>
+  ${prefs.night?`<div class="card night">
+   <div class="sec">Nightside · the Tunnel of Set behind path ${n}</div>
+   <div class="big">${esc((t&&t.genius)||j.tunnel.genius||'—')}</div>
+   <div class="sub">Genius of the tunnel of ${esc(p.letter)}</div>
+   ${t&&t.averse?`<p><b>Averse meaning.</b> ${esc(t.averse)}</p>`:''}
+   <p class="reflect">${esc(j.tunnel.reflection)}</p>
+   <div class="note">${DB.text('pathwork.nightside-caution')}</div>
+  </div>`:''}`;
+}
+
+/* ---------- settings (shared by the path page and the player) ---------- */
+function voiceOptions(){
+  let vs=[]; try{vs=(speechSynthesis.getVoices()||[]).slice();}catch(e){}
+  const en=v=>/^en/i.test(v.lang||'')?1:0;
+  vs.sort((a,b)=>(en(b)-en(a))||String(a.name).localeCompare(String(b.name)));
+  return '<option value="">Default voice</option>'+vs.map(v=>`<option value="${esc(v.voiceURI)}" ${v.voiceURI===prefs.voice?'selected':''}>${esc(v.name)} (${esc(v.lang)})</option>`).join('');
+}
+function speechNote(){
+  const tail=' Read each step, then close your eyes; the bell calls you back.';
+  if(!hasSpeechAPI)return 'Not available on this device.'+tail;
+  if(speechBroken)return 'Read-aloud did not start on this device, so steps are shown as text for now.'+tail;
+  if(!voiceCount)return 'No voices are installed for read-aloud on this device.'+tail;
+  return '';
+}
+function settingsHTML(){
+  const can=canSpeak();
+  return `<div class="swrow"><span>Read each step aloud${can?'':`<br><span class="sub">${esc(speechNote())}</span>`}</span>
+    <label class="sw"><input type="checkbox" data-pref="speak" ${prefs.speak&&can?'checked':''} ${can?'':'disabled'} aria-label="Read aloud"><span></span></label></div>
+   ${can?`<div class="setrow"><label>Voice <select data-pref="voice">${voiceOptions()}</select></label></div>
+   <div class="setrow"><label>Speed <input type="range" min="0.6" max="1.2" step="0.05" data-pref="rate" value="${prefs.rate}"> <span class="rateVal">${prefs.rate.toFixed(2)}</span></label>
+    <button class="ghost sm" data-act="testVoice">Test</button></div>`:''}
+   <div class="swrow"><span>Soft bell between steps</span><span class="row"><button class="ghost sm" data-act="testBell">Test</button>
+    <label class="sw"><input type="checkbox" data-pref="bell" ${prefs.bell?'checked':''} aria-label="Bell"><span></span></label></span></div>
+   <div class="swrow"><span>Move on to the next step automatically after each silence</span>
+    <label class="sw"><input type="checkbox" data-pref="auto" ${prefs.auto?'checked':''} aria-label="Auto-advance"><span></span></label></div>`;
+}
+function onPref(el){
+  const k=el.dataset.pref;
+  if(k==='rate'){prefs.rate=clamp(+el.value||0.85,0.5,1.5);document.querySelectorAll('.rateVal').forEach(s=>s.textContent=prefs.rate.toFixed(2));}
+  else if(k==='voice')prefs.voice=el.value;
+  else prefs[k]=!!el.checked;
+  savePrefs();
+  // keep every copy of the control in step
+  document.querySelectorAll(`[data-pref="${k}"]`).forEach(x=>{if(x!==el){if(x.type==='checkbox')x.checked=!!prefs[k];else x.value=prefs[k];}});
+  if(k==='night'&&(cur.v==='home'||cur.v==='path'))render();
+  if(k==='speak'&&!prefs.speak&&PL.on&&PL.phase==='speak'){stopSpeech();const st=PL.j.steps[PL.idx];if(st)setPhase('hold',st.holdSeconds);}
+}
+// Voices load late in some browsers (and never in some web views): re-check and redraw the settings when they change
+function refreshSpeech(){
+  const before=canSpeak(),n=voiceCount;countVoices();
+  if(before!==canSpeak()||n!==voiceCount)document.querySelectorAll('.settings').forEach(el=>{el.innerHTML=settingsHTML();});
+}
+if(hasSpeechAPI){
+  try{speechSynthesis.addEventListener('voiceschanged',refreshSpeech);}catch(e){}
+  setTimeout(refreshSpeech,700);setTimeout(refreshSpeech,2500); // for engines that never fire voiceschanged
+}
+
+/* ---------- speech, bell, wake lock ---------- */
+let sayTok=0,liveUtter=null; // keep a reference: some engines drop onend for garbage-collected utterances
+function stopSpeech(){sayTok++;try{if(hasSpeechAPI)speechSynthesis.cancel();}catch(e){}}
+// What the voice should say where the page shows something else: the names as the table Pronunciations spells them for
+// the voice (lib/speech.js; "YHVH" would be spelt out), " / " not read as "slash"
+const spoken=t=>(window.Speech?Speech.pronounce(t):String(t)).replace(/\s+\/\s+/g,' and ').replace(/&c\./g,'etcetera');
+function chunks(text){ // short utterances avoid the engines that stop after ~15 s
+  const parts=(String(text).replace(/\s+/g,' ').match(/[^.!?;:]+[.!?;:]*["'”’)]*\s*/g)||[String(text)])
+    .flatMap(p=>p.length>200?p.split(/(?<=[,—–])\s+/).map(x=>x+' '):[p]); // long sentences break at commas
+  const out=[];let c='';
+  for(const p of parts){if((c+p).length>180&&c){out.push(c.trim());c=p;}else c+=p;}
+  if(c.trim())out.push(c.trim());
+  return out;
+}
+function pickVoice(){try{return (speechSynthesis.getVoices()||[]).find(v=>v.voiceURI===prefs.voice)||null;}catch(e){return null;}}
+/* Speak text in short chunks, then call done(). If the engine never starts (it exists but is silent),
+   read-aloud is switched off for this visit and fail() is called instead, so the step can fall back
+   to its reading time rather than sitting silently until the end-of-chunk watchdog fires. */
+const SPEECH_START_MS=4000;
+function say(text,done,fail){
+  if(!canSpeak()){done&&done();return;}
+  stopSpeech();
+  const my=sayTok,list=chunks(spoken(text)),voice=pickVoice();let i=0;
+  const next=()=>{
+    if(my!==sayTok)return;
+    if(i>=list.length){done&&done();return;}
+    const t=list[i++];let fired=false,wd=0,sw=0;
+    const fin=()=>{if(fired)return;fired=true;clearTimeout(wd);clearTimeout(sw);next();};
+    try{
+      const u=new SpeechSynthesisUtterance(t);u.rate=prefs.rate;if(voice){u.voice=voice;u.lang=voice.lang;}
+      u.onend=fin;u.onerror=fin;u.onstart=()=>clearTimeout(sw);liveUtter=u;
+      wd=setTimeout(fin,(t.split(/\s+/).length/(2.2*prefs.rate)+8)*1000); // watchdog if onend never fires
+      sw=setTimeout(()=>{ // start watchdog: nothing was heard
+        if(fired||my!==sayTok)return;
+        try{if(speechSynthesis.speaking)return;}catch(e){} // speaking without an onstart: let the end watchdog handle it
+        fired=true;clearTimeout(wd);speechBroken=true;stopSpeech();
+        document.querySelectorAll('.settings').forEach(el=>{el.innerHTML=settingsHTML();});
+        (fail||done)&&(fail||done)();
+      },SPEECH_START_MS);
+      speechSynthesis.speak(u);
+    }catch(e){fin();}
+  };
+  setTimeout(next,80);
+}
+let AC=null;
+function audioCtx(){
+  try{if(!AC){const C=window.AudioContext||window.webkitAudioContext;if(!C)return null;AC=new C();}
+    if(AC.state==='suspended')AC.resume();}catch(e){return null;}
+  return AC;
+}
+function bell(force){ // a soft sine bell: a few inharmonic partials, gentle attack, long decay
+  if(!prefs.bell&&!force)return;
+  const ac=audioCtx();if(!ac)return;
+  try{
+    const t=ac.currentTime+0.05,out=ac.createGain();out.gain.value=0.6;out.connect(ac.destination);
+    [[1,0.28,6],[2.0,0.1,4],[2.76,0.06,2.8],[5.4,0.02,1.5]].forEach(([m,a,d])=>{
+      const o=ac.createOscillator(),g=ac.createGain();o.type='sine';o.frequency.value=392*m;
+      g.gain.setValueAtTime(0.0001,t);g.gain.linearRampToValueAtTime(a,t+0.05);g.gain.exponentialRampToValueAtTime(0.0001,t+d);
+      o.connect(g);g.connect(out);o.start(t);o.stop(t+d+0.1);});
+  }catch(e){}
+}
+// Screen wake lock. The request is async: track it so a pause during the request, or two overlapping
+// calls, can't leave a lock held that nobody releases.
+let wake=null,wakeReq=null;
+async function wakeOn(){
+  if(wake||wakeReq||!('wakeLock' in navigator))return;
+  try{
+    wakeReq=navigator.wakeLock.request('screen');
+    const s=await wakeReq;
+    if(!PL.on||PL.paused){try{s.release();}catch(e){}return;} // paused or ended while waiting
+    wake=s;s.addEventListener('release',()=>{if(wake===s)wake=null;});
+  }catch(e){}
+  finally{wakeReq=null;}
+}
+function wakeOff(){try{if(wake)wake.release();}catch(e){}wake=null;}
+
+/* In the Android app a foreground service keeps the session running with the screen locked
+   (the same bridge breath.html uses); its notification's Stop button calls window.onSessionStop. */
+const NATIVE=(()=>{try{return (parent.Android&&parent.Android.keepAlive)?parent.Android:(window.Android&&window.Android.keepAlive?window.Android:null);}catch(e){return null;}})();
+function nativeSession(on){try{if(NATIVE)NATIVE.keepAlive(!!on,on?'Pathworking · Path '+PL.n:'');}catch(e){}}
+// pause and ask how to end (the dialog reminds to banish and ground); if it is already open, the session is already paused
+window.onSessionStop=()=>{if(PL.on&&!modalOpen())plEndAsk();};
+
+/* With the screen locked, timers can stall, but media events keep coming. While the page is hidden a
+   silent looping clip plays and its timeupdate events drive tick(), so holds end and the bell rings on time. */
+let pump=null;
+function silentWav(){ // 1 s of 8 kHz 16-bit mono silence
+  const sr=8000,len=sr*2,b=new ArrayBuffer(44+len),v=new DataView(b);
+  const w=(o,s)=>{for(let i=0;i<s.length;i++)v.setUint8(o+i,s.charCodeAt(i));};
+  w(0,'RIFF');v.setUint32(4,36+len,true);w(8,'WAVE');w(12,'fmt ');v.setUint32(16,16,true);v.setUint16(20,1,true);v.setUint16(22,1,true);
+  v.setUint32(24,sr,true);v.setUint32(28,sr*2,true);v.setUint16(32,2,true);v.setUint16(34,16,true);w(36,'data');v.setUint32(40,len,true);
+  return URL.createObjectURL(new Blob([b],{type:'audio/wav'}));
+}
+function pumpInit(){
+  try{if(!pump&&window.Audio){pump=new Audio();pump.loop=true;pump.preload='auto';pump.src=silentWav();
+    pump.addEventListener('timeupdate',()=>{if(PL.on&&!PL.paused)tick();});}}catch(e){pump=null;}
+}
+function pumpOn(){try{if(pump&&pump.paused){const p=pump.play();if(p&&p.catch)p.catch(()=>{});}}catch(e){}}
+function pumpOff(){try{if(pump&&!pump.paused)pump.pause();}catch(e){}}
+document.addEventListener('visibilitychange',()=>{
+  if(!PL.on)return;
+  if(document.visibilityState==='visible'){pumpOff();if(!PL.paused)wakeOn();tick();}
+  else if(!PL.paused)pumpOn();
+});
+
+/* ---------- session player ----------
+   Each step: text (spoken, or an estimated reading time) → silent hold for holdSeconds → bell → next.
+   The step after the last is the closing screen, which leads to the journal form. */
+const PL={on:false,n:0,j:null,idx:0,phase:'',dur:0,acc:0,t0:0,paused:false,tok:0,timer:0,started:0,settleIdx:0};
+const elapsed=()=>PL.acc+(PL.paused?0:(performance.now()-PL.t0)/1000);
+const mmss=s=>{s=Math.max(0,Math.ceil(s));return Math.floor(s/60)+':'+pad(s%60);};
+
+function plStart(n){
+  const j=J[n];if(!j||!j.steps.length)return;
+  audioCtx(); // unlock audio inside the tap
+  // the breath pacer shows on the first "Settle" step (or step 1 if it is about the breath)
+  const si=j.steps.findIndex(s=>/settl|breath|relax/i.test(s.title));
+  Object.assign(PL,{on:true,n,j,idx:0,paused:false,started:Date.now(),
+    settleIdx:si>=0&&si<3?si:(/breath/i.test(j.steps[0].text)?0:-1)});
+  $('#plTtl').textContent=`Path ${n} · ${PATHS[n].letter} · ${j.title}`;
+  $('#plNames').innerHTML=namesHTML(j);$('#plNames').classList.add('hidden');$('#plNamesBtn').setAttribute('aria-expanded','false');
+  $('#plSegs').innerHTML='<i><b></b></i>'.repeat(j.steps.length);
+  $('#plSheet').classList.add('hidden');
+  $('#player').classList.remove('hidden');document.body.classList.add('playing');
+  pauseUI();wakeOn();nativeSession(true);pumpInit();
+  // while the page is hidden (screen off) the silent clip's timeupdate drives tick() instead: the next step's narration,
+  // begun from a tick, then never waits on the throttling that long-hidden pages apply to timers set from timers
+  clearInterval(PL.timer);PL.timer=setInterval(()=>{if(!(document.hidden&&pump&&!pump.paused))tick();},250);
+  plEnter(0);
+}
+// leave the paused state (Resume, or Next/Back pressed while paused)
+function unpause(){PL.paused=false;PL.t0=performance.now();audioCtx();wakeOn();nativeSession(true);pauseUI();}
+function namesHTML(j){const o=j.opening;return `
+  <div><span class="k">Divine name of ${esc(o.from)}</span>${he(o.godName.hebrew)} <b>${esc(o.godName.translit)}</b></div>
+  <div><span class="k">Archangel</span>${he(o.archangel.hebrew)} <b>${esc(o.archangel.translit)}</b></div>
+  <div><span class="k">Letter of the path</span>${he(o.pathName.hebrew)} <b>${esc(o.pathName.translit)}</b></div>`;}
+function plEnter(i){
+  const steps=PL.j.steps;
+  PL.idx=clamp(i,0,steps.length);PL.tok++;stopSpeech();
+  $('#plBody').scrollTop=0;
+  if(PL.idx===steps.length){ // closing screen
+    pacer(false);
+    $('#plStep').textContent='Journey complete';
+    $('#plTitle').textContent='Return and ground';
+    $('#plText').innerHTML=paras(PL.j.closing);
+    setPhase('closing',0);
+    if(prefs.speak&&canSpeak())say(PL.j.closing);
+    return;
+  }
+  const st=steps[PL.idx];
+  pacer(PL.idx===PL.settleIdx);
+  $('#plStep').textContent=`Step ${PL.idx+1} of ${steps.length}`;
+  $('#plTitle').textContent=st.title;
+  $('#plText').innerHTML=paras(st.text);
+  if(prefs.speak&&canSpeak()&&!PL.paused){
+    setPhase('speak',0);const tok=PL.tok,live=()=>PL.on&&PL.tok===tok&&PL.phase==='speak'&&!PL.paused;
+    say(st.text,()=>{if(live())setPhase('hold',st.holdSeconds);},
+      ()=>{if(live()){toast('Read-aloud did not start. Read the step, then close your eyes.');setPhase('read',readSecs(st.text));}});
+  }else if(prefs.speak&&canSpeak())setPhase('speak',0); // paused: speaks on resume
+  else setPhase('read',readSecs(st.text));
+}
+const paras=t=>String(t||'').split(/\n\s*\n/).map(x=>`<p>${esc(x.trim()).replace(/\n/g,'<br>')}</p>`).join('');
+function setPhase(ph,dur){
+  PL.phase=ph;PL.dur=dur||0;PL.acc=0;PL.t0=performance.now();
+  const tx=$('#plText');tx.classList.toggle('dim',ph==='hold');tx.classList.remove('peek');
+  controlsUI();holdUI();
+}
+function tick(){
+  if(!PL.on)return;
+  if(!PL.paused&&(PL.phase==='read'||PL.phase==='hold'||PL.phase==='gap')&&elapsed()>=PL.dur)phaseDone();
+  holdUI();
+}
+function phaseDone(){
+  if(PL.phase==='read'){setPhase('hold',PL.j.steps[PL.idx].holdSeconds);return;}
+  if(PL.phase==='hold'){bell();setPhase(prefs.auto?'gap':'wait',prefs.auto?3:0);return;}
+  if(PL.phase==='gap')plEnter(PL.idx+1);
+}
+function stepFrac(){
+  switch(PL.phase){
+    case 'speak':return .12;
+    case 'read':return .2*Math.min(1,elapsed()/(PL.dur||1));
+    case 'hold':return .2+.8*Math.min(1,elapsed()/(PL.dur||1));
+    case 'gap':case 'wait':case 'closing':return 1;
+  }return 0;
+}
+function holdUI(){
+  if(!PL.on)return;
+  const lbl=$('#plHoldLbl'),bar=$('#plHoldBar');let pct=0,txt='';
+  const pz=PL.paused?'Paused · ':'';
+  switch(PL.phase){
+    case 'speak':txt=PL.paused?'Paused':'Listen…';pct=0;break;
+    case 'read':pct=Math.min(1,elapsed()/(PL.dur||1));txt=pz+'Read slowly, then close your eyes';break;
+    case 'hold':pct=Math.min(1,elapsed()/(PL.dur||1));txt=pz+'Silence · eyes closed · '+mmss(PL.dur-elapsed());break;
+    case 'gap':pct=1;txt='…';break;
+    case 'wait':pct=1;txt='Take your time. Tap Next when you are ready.';break;
+    case 'closing':pct=1;txt='When you are grounded, open the journal.';break;
+  }
+  bar.style.width=(pct*100).toFixed(1)+'%';bar.className=PL.phase;lbl.textContent=txt;
+  const segs=$('#plSegs').children,f=stepFrac();
+  for(let i=0;i<segs.length;i++){const w=i<PL.idx?1:i===PL.idx?f:0;segs[i].firstChild.style.width=(w*100).toFixed(1)+'%';}
+}
+function controlsUI(){
+  const n=PL.j.steps.length,b=$('#plNextBtn');
+  b.textContent=PL.idx>=n?'Journal ›':PL.idx===n-1?'Finish ›':'Next ›';
+  b.classList.toggle('pri',PL.phase==='wait'||PL.phase==='closing');
+  b.classList.toggle('nudge',PL.phase==='wait');
+  $('#plBackBtn').disabled=PL.idx===0;
+}
+function pauseUI(){const b=$('#plPauseBtn');b.textContent=PL.paused?'Resume':'Pause';b.classList.toggle('pri',PL.paused);}
+function plPause(){
+  if(!PL.on||PL.paused)return;
+  PL.acc=elapsed();PL.paused=true;
+  if(PL.phase==='speak'||PL.phase==='closing')stopSpeech();
+  wakeOff();pumpOff();nativeSession(false);pauseUI();holdUI();
+}
+function plResume(){
+  if(!PL.on||!PL.paused)return;
+  unpause();
+  if(PL.phase==='speak')plEnter(PL.idx); // narration cannot resume mid-sentence reliably: start the step again
+  holdUI();
+}
+function plNext(){
+  if(!PL.on)return;
+  if(PL.idx>=PL.j.steps.length){plFinish(true);return;}
+  if(PL.paused)unpause();
+  plEnter(PL.idx+1);
+}
+function plBack(){
+  if(!PL.on||PL.idx===0)return;
+  if(PL.paused)unpause();
+  plEnter(PL.idx-1);
+}
+function plEndAsk(){
+  if(!PL.on)return;
+  if(PL.idx>=PL.j.steps.length){plFinish(true);return;}
+  // the last step's silence is over, so nothing is cut short: go on to the closing (grounding) screen,
+  // from which End or "Journal ›" records the journey as completed
+  if(PL.idx===PL.j.steps.length-1&&(PL.phase==='wait'||PL.phase==='gap')){if(PL.paused)unpause();plEnter(PL.j.steps.length);return;}
+  const was=PL.paused;plPause();
+  ask('End the journey here?',DB.text('pathwork.end-early',{step:PL.idx+1,total:PL.j.steps.length}),
+    [{label:'Keep going',value:'resume'},{label:'End and write the journal',value:'journal',cls:'ghost'},{label:'End without a journal entry',value:'discard',cls:'ghost'}])
+  .then(v=>{
+    if(v==='journal')plFinish(false);
+    else if(v==='discard'){plClose();toast('Session ended. Remember to banish and ground.');}
+    else if(!was)plResume();
+  });
+}
+function plClose(){
+  PL.on=false;PL.tok++;clearInterval(PL.timer);stopSpeech();pacer(false);wakeOff();pumpOff();nativeSession(false);
+  $('#player').classList.add('hidden');document.body.classList.remove('playing');
+}
+function sessionInfo(completed){
+  const steps=PL.j.steps.length;
+  const reached=PL.idx>=steps?steps:PL.idx+((PL.phase==='wait'||PL.phase==='gap')?1:0); // steps whose silence was finished
+  return {completed:!!completed,stepsDone:completed?steps:reached,total:steps,startedAt:PL.started,endedAt:Date.now(),
+    minutes:Math.max(1,Math.round((Date.now()-PL.started)/60000))};
+}
+// "Ended early after 3 of 10 steps"
+const sessionText=s=>s.completed?'Journey completed':`Journey ended early after ${s.stepsDone} of ${s.total} steps`;
+function plFinish(completed){
+  const n=PL.n,session=sessionInfo(completed);
+  plClose();
+  go('form',{path:n,session});
+}
+// The page is going away mid-journey (e.g. another tool opened from the sidebar): keep the session as a
+// draft so Home can offer to record it. Never overwrite a draft that already holds writing.
+function saveInterrupted(){
+  const old=lsGet('draft',null);if(old&&hasWords(old.data))return;
+  lsSet('draft',{path:PL.n,saved:Date.now(),interrupted:true,data:{tool:'pathwork',path:PL.n,when:localInput(new Date(PL.started)),
+    symbols:PL.j.symbols.map(s=>({symbol:s.symbol,source:s.source||'',seen:false})),session:sessionInfo(PL.idx>=PL.j.steps.length)}});
+}
+
+/* box-breathing pacer (4-4-4-4): a dot walks round a square while a circle swells and empties */
+let pacerId=0;
+function pacer(on){
+  pacerId++;$('#pacer').classList.toggle('hidden',!on);if(!on)return;
+  const id=pacerId,C=[[20,120],[20,20],[120,20],[120,120],[20,120]],W=['Breathe in','Hold','Breathe out','Hold'];
+  const dot=$('#pdot'),core=$('#pcore'),word=$('#pWord'),cnt=$('#pCount');
+  let clock=0,last=performance.now();
+  const frame=now=>{
+    if(id!==pacerId||!PL.on)return;
+    // rAF timestamps can precede the performance.now() we started from: never let the clock run backwards
+    const dt=clamp((now-last)/1000,0,0.5);last=Math.max(last,now);if(!PL.paused)clock+=dt;
+    const t=clock%16,ph=clamp(Math.floor(t/4),0,3),f=(t%4)/4,a=C[ph],b=C[ph+1];
+    const e=f<.5?2*f*f:1-Math.pow(-2*f+2,2)/2;
+    dot.setAttribute('cx',(a[0]+(b[0]-a[0])*f).toFixed(1));dot.setAttribute('cy',(a[1]+(b[1]-a[1])*f).toFixed(1));
+    core.setAttribute('r',(ph===0?14+22*e:ph===1?36:ph===2?36-22*e:14).toFixed(1));
+    word.textContent=W[ph];cnt.textContent=String(4-Math.floor(t%4));
+    requestAnimationFrame(frame);
+  };
+  requestAnimationFrame(frame);
+}
+
+/* ---------- journal form ---------- */
+let FS=null; // form state: {editId, path, session, symbols:[{symbol,source,seen}]}
+function renderForm(){
+  const o=cur;let d=null,note='',offer=null;
+  if(o.editId){let r=null;try{r=Store.get('journal',o.editId);}catch(e){}d=r&&r.data;if(!d){$('#vForm').innerHTML='<div class="card warn">That entry could not be found.</div>';return;}}
+  else{
+    const dr=lsGet('draft',null);
+    if(dr&&dr.data&&+dr.path===+o.path){
+      // after a new session, only a draft written since it began belongs to it; an older one is offered, not loaded
+      const fresh=o.session?(dr.saved||0)>=(o.session.startedAt||0):Date.now()-(dr.saved||0)<24*3600e3;
+      if(o.restore||fresh){d=dr.data;note=`Restored your unsaved draft from ${fmtWhen(dr.saved)}.`;}
+      else if(o.session)offer=dr;
+    }
+  }
+  const n=+(d?d.path:o.path),j=J[n];
+  FS={editId:o.editId||null,path:n,session:(d&&d.session)||o.session||null,
+    symbols:(d&&Array.isArray(d.symbols)&&+d.path===n?d.symbols:j.symbols).map(s=>({symbol:s.symbol,source:s.source||'',seen:!!s.seen}))};
+  const when=d&&d.when?d.when:localInput(new Date()),ss=FS.session;
+  const moodChips=id=>`<div class="chips" data-for="${id}">${MOODS.map(m=>`<button type="button" class="chip" data-act="mood" data-v="${m}">${m}</button>`).join('')}</div>`;
+  $('#vForm').innerHTML=`
+  <div class="topbar"><button class="ghost sm" data-act="back">‹ Back</button><span class="grow"></span>${o.editId?'<span class="sub">Editing entry</span>':''}</div>
+  ${note?`<div class="note">${esc(note)} <button class="ghost sm" data-act="discardDraft">Discard draft</button></div>`:''}
+  ${offer?`<div class="note">You also have an unsaved draft for this path from ${esc(fmtWhen(offer.saved))}. Writing here replaces it. <button class="ghost sm" data-act="restoreDraft">Restore that draft</button></div>`:''}
+  <div class="card">
+   <div class="sec">Journal · Path <span id="fHeadN">${n}</span></div>
+   ${ss?`<div class="sub" style="margin-bottom:6px">${esc(sessionText(ss))} · about ${esc(ss.minutes)} min</div>`:''}
+   <label class="fl" for="fWhen">Date and time</label><input id="fWhen" class="inp" type="datetime-local">
+   <label class="fl" for="fPath">Path</label>
+   <select id="fPath" class="inp">${ORDER.map(k=>`<option value="${k}">${k} · ${esc(PATHS[k].letter)} · ${esc(PATHS[k].trump)}</option>`).join('')}</select>
+   <div class="astro" id="fAstro"></div>
+  </div>
+  <div class="card">
+   <div class="sec">How it went</div>
+   <span class="fl">Clarity of the vision</span>
+   <div class="seg" role="radiogroup" aria-label="Clarity">${[1,2,3,4,5].map(v=>`<label><input type="radio" name="fClar" value="${v}"><span>${v}<small>${CLARITY[v]}</small></span></label>`).join('')}</div>
+   <label class="fl" for="fMoodB">Mood before</label><input id="fMoodB" class="inp" autocomplete="off" placeholder="e.g. restless, tired">${moodChips('fMoodB')}
+   <label class="fl" for="fMoodA">Mood after</label><input id="fMoodA" class="inp" autocomplete="off" placeholder="e.g. calm, clear">${moodChips('fMoodA')}
+  </div>
+  <div class="card">
+   <div class="sec">The vision</div>
+   <label class="fl" for="fSaw">What you saw</label><textarea id="fSaw" placeholder="Landscape, colours, light, sounds, scents…"></textarea>
+   <label class="fl" for="fBeings">Beings met</label><textarea id="fBeings" placeholder="Who appeared, how they looked, whether they held when tested…"></textarea>
+   <label class="fl" for="fMsg">Message or teaching received</label><textarea id="fMsg" placeholder="Words, images, gestures, gifts…"></textarea>
+  </div>
+  <div class="card">
+   <div class="sec">Symbols · verification</div>
+   <div class="sub">${DB.text('pathwork.symbols-help')}</div>
+   <div class="score" id="fScore"></div>
+   <div id="fSyms"></div>
+  </div>
+  <div class="card">
+   <div class="sec">Notes</div>
+   <textarea id="fNotes" placeholder="Anything else: dreams since, synchronicities, what to try next time…"></textarea>
+  </div>
+  <button class="cta" data-act="saveEntry">${o.editId?'Save changes':'Save to journal'}</button>
+  <p class="sub" style="text-align:center">${window.Store&&Store.native?'Saved entries are also written as readable pages to your phone\'s Documents/Athanor/Journal folder.':'In a browser, entries are kept in this browser\'s storage.'}</p>`;
+  $('#fWhen').value=when;$('#fPath').value=String(n);
+  if(d){
+    const c=document.querySelector(`input[name="fClar"][value="${+d.clarity||0}"]`);if(c)c.checked=true;
+    $('#fMoodB').value=d.moodBefore||'';$('#fMoodA').value=d.moodAfter||'';
+    $('#fSaw').value=d.saw||'';$('#fBeings').value=d.beings||'';$('#fMsg').value=d.message||'';$('#fNotes').value=d.notes||'';
+  }
+  renderSyms();formAstro();syncChips();
+}
+function renderSyms(){
+  $('#fSyms').innerHTML=FS.symbols.map((s,i)=>`<label class="chk"><input type="checkbox" data-sym="${i}" ${s.seen?'checked':''}><span><b>${esc(s.symbol)}</b>${s.source?`<span class="sub"> · ${esc(s.source)}</span>`:''}</span></label>`).join('');
+  scoreUI();
+}
+function scoreUI(){const t=FS.symbols.length,s=FS.symbols.filter(x=>x.seen).length;$('#fScore').textContent=`${s} of ${t} expected symbols appeared`;}
+function formAstro(){
+  const t=parseLocal($('#fWhen').value)||new Date(),a=astroFor(t);
+  $('#fAstro').innerHTML=`<div>☾ <b>${esc(a.moon.phase)}</b> · ${a.moon.age.toFixed(1)} days old · ${a.moon.illum}% lit · Moon in ${esc(a.moon.sign)} <span class="sub">(approximate)</span></div>
+    <div>${a.dayGlyph}︎ <b>${esc(a.weekday)}</b>, day of ${esc(a.dayPlanet==='Sun'||a.dayPlanet==='Moon'?'the '+a.dayPlanet:a.dayPlanet)} <span class="sub">(by the calendar; the magical day begins at sunrise)</span></div>`;
+}
+function syncChips(){
+  document.querySelectorAll('#vForm .chips').forEach(box=>{
+    const inp=$('#'+box.dataset.for),have=inp.value.toLowerCase().split(',').map(s=>s.trim());
+    box.querySelectorAll('.chip').forEach(c=>c.classList.toggle('on',have.includes(c.dataset.v)));});
+}
+function collectForm(){
+  const when=$('#fWhen').value||localInput(new Date()),t=parseLocal(when)||new Date(),n=+$('#fPath').value,p=PATHS[n],a=astroFor(t);
+  const clar=document.querySelector('input[name="fClar"]:checked');
+  const syms=FS.symbols.map(s=>({symbol:s.symbol,source:s.source,seen:!!s.seen}));
+  return {tool:'pathwork',v:1,path:n,letter:p.letter,glyph:p.glyph,trump:`${p.atu} ${p.trump}`,attribution:p.attr,
+    from:SEPH[p.lo].name,to:SEPH[p.hi].name,journey:J[n].title,when,ts:t.getTime(),
+    weekday:a.weekday,dayPlanet:a.dayPlanet,moon:a.moon,clarity:clar?+clar.value:0,
+    moodBefore:$('#fMoodB').value.trim(),moodAfter:$('#fMoodA').value.trim(),
+    saw:$('#fSaw').value.trim(),beings:$('#fBeings').value.trim(),message:$('#fMsg').value.trim(),notes:$('#fNotes').value.trim(),
+    symbols:syms,score:{seen:syms.filter(s=>s.seen).length,total:syms.length},session:FS.session||null};
+}
+function saveDraft(){saveDraft.t=0;if(FS&&!FS.editId&&cur.v==='form')lsSet('draft',{path:FS.path,saved:Date.now(),data:collectForm()});}
+const hasWords=d=>!!(d&&(d.saw||d.beings||d.message||d.notes||d.moodBefore||d.moodAfter));
+// Called before leaving the form: write the debounced draft now, or it would be lost with the view.
+function flushDraft(){
+  if(cur.v!=='form'||!FS||FS.editId)return;
+  if(saveDraft.t){clearTimeout(saveDraft.t);saveDraft();return;}
+  // an untouched form after a session: keep the session so it can still be recorded,
+  // unless that would replace an older draft that holds writing
+  if(FS.session){const o=lsGet('draft',null);if(!o||!hasWords(o.data)||(o.data.session&&o.data.session.startedAt===FS.session.startedAt))saveDraft();}
+}
+function entryName(d){ // "Path 25 · Samekh · 2026-09-28", plus the time when another record already has that name
+  let all=[];try{all=(window.Store&&Store.list('journal'))||[];}catch(e){}
+  const taken=nm=>all.some(r=>r&&r.name===nm&&r.id!==FS.editId);
+  const base=`Path ${d.path} · ${d.letter} · ${d.when.slice(0,10)}`;
+  if(!taken(base))return base;
+  const timed=`${base} · ${d.when.slice(11,13)}h${d.when.slice(14,16)}`; // no ":" (it is not allowed in file names)
+  let nm=timed;for(let i=2;taken(nm);i++)nm=`${timed} (${i})`;
+  return nm;
+}
+function saveEntry(){
+  if(!window.Store){ask('Could not save','The storage library did not load.',[{label:'OK',value:1}]);return;}
+  const d=collectForm(),name=entryName(d);
+  let out;
+  try{out=Store.put('journal',{id:FS.editId||undefined,name,data:d,html:entryDoc(d,name)});}
+  catch(e){ask('Could not save',esc(e&&e.message||e)+'<br><span class="sub">Your text is still here; nothing was lost.</span>',[{label:'OK',value:1}]);return;}
+  if(!FS.editId)lsDel('draft');
+  const id=out&&out.id||FS.editId;
+  clearTimeout(saveDraft.t);saveDraft.t=0;FS=null; // saved: nothing left to keep as a draft when the view changes
+  dropFromStack(s=>s.v==='entry'&&s.id===id); // editing came from this entry's view: don't return to a stale copy
+  go('entry',{id,saved:true},{replace:true});
+}
+
+/* standalone, script-free HTML page for an entry: this becomes the file on the phone */
+function entryDoc(d,name){
+  const p=PATHS[+d.path]||{},c=+d.clarity||0,s=d.session,sc=d.score||{seen:0,total:0};
+  const sec=(t,v)=>v?`<h2>${esc(t)}</h2><div class="txt">${esc(v)}</div>`:'';
+  const row=(k,v)=>v?`<tr><th>${esc(k)}</th><td>${v}</td></tr>`:'';
+  const m=d.moon||{};
+  return `<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light dark">
+<title>${esc(name)}</title><style>
+:root{--bg:#faf7f0;--card:#fff;--ink:#1a1712;--sub:#6b6357;--acc:#7a5c2e;--line:#e3ddd0}
+@media(prefers-color-scheme:dark){:root{--bg:#14120e;--card:#1e1b15;--ink:#ece5d8;--sub:#9a9184;--acc:#d0a85c;--line:#33302a}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:680px;margin:0 auto;padding:18px 16px 28px}
+.head{display:flex;gap:14px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.g{font-size:46px;line-height:1;color:var(--acc);font-family:"Noto Serif Hebrew","Times New Roman",serif}
+h1{font-size:20px;margin:0}.sub{color:var(--sub);font-size:13.5px}
+.jt{font-family:Georgia,"Times New Roman",serif;font-style:italic}
+table{width:100%;border-collapse:collapse;margin:14px 0;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+th,td{text-align:left;vertical-align:top;padding:8px 12px;border-top:1px solid var(--line);font-size:14.5px}tr:first-child th,tr:first-child td{border-top:none}
+th{color:var(--sub);font-weight:600;width:34%;font-size:13px;text-transform:uppercase;letter-spacing:.03em}
+h2{font-size:12.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--acc);margin:18px 0 6px}
+.txt{white-space:pre-wrap;font-family:Georgia,"Times New Roman",serif;font-size:16.5px;line-height:1.6}
+ul{list-style:none;padding:0;margin:6px 0}li{padding:5px 0;border-top:1px solid var(--line);font-size:15px}li:first-child{border-top:none}
+.y{color:var(--acc);font-weight:700}.n{color:var(--sub)}
+.dots{color:var(--acc);letter-spacing:2px}
+footer{margin-top:24px;color:var(--sub);font-size:12px;text-align:center}
+</style></head><body><main>
+<div class="head"><div class="g" dir="rtl" lang="he">${esc(p.glyph||d.glyph||'')}</div><div>
+<h1>Path ${esc(d.path)} · ${esc(d.letter)}</h1>
+<div class="jt">${esc(d.journey||'')}</div>
+<div class="sub">Atu ${esc(d.trump||'')} · ${esc(d.attribution||'')} · from ${esc(d.from||'')} to ${esc(d.to||'')}</div></div></div>
+<table>
+${row('When',esc(fmtWhen(d.ts)))}
+${row('Day',`${esc(d.weekday||'')}${d.dayPlanet?' · day of '+(/^(Sun|Moon)$/.test(d.dayPlanet)?'the ':'')+esc(d.dayPlanet):''}`)}
+${row('Moon',m.phase?`${esc(m.phase)} · ${esc(m.age)} days · ${esc(m.illum)}% lit · in ${esc(m.sign)} <span class="sub">(approx.)</span>`:'')}
+${row('Clarity',c?`<span class="dots">${'●'.repeat(c)}${'○'.repeat(5-c)}</span> ${c}/5 · ${esc(CLARITY[c])}`:'')}
+${row('Mood',(d.moodBefore||d.moodAfter)?`${esc(d.moodBefore||'—')} → ${esc(d.moodAfter||'—')}`:'')}
+${row('Session',s?`${esc(sessionText(s))} · about ${esc(s.minutes)} min`:'')}
+${row('Symbols',sc.total?`${esc(sc.seen)} of ${esc(sc.total)} expected symbols appeared`:'')}
+</table>
+${sec('What I saw',d.saw)}${sec('Beings met',d.beings)}${sec('Message or teaching',d.message)}
+${d.symbols&&d.symbols.length?`<h2>Expected symbols</h2><ul>${d.symbols.map(x=>`<li><span class="${x.seen?'y':'n'}">${x.seen?'✓':'○'}</span> ${esc(x.symbol)}${x.source?` <span class="sub">· ${esc(x.source)}</span>`:''}</li>`).join('')}</ul>`:''}
+${sec('Notes',d.notes)}
+<footer>Liber 777 · Pathworking journal</footer>
+</main></body></html>`;
+}
+
+/* ---------- journal list & entry view ---------- */
+function renderJournal(){
+  const all=entries(),f=+cur.filter||0,list=f?all.filter(e=>+e.data.path===f):all,counts={};
+  all.forEach(e=>{counts[e.data.path]=(counts[e.data.path]||0)+1;});
+  $('#vJournal').innerHTML=`
+  <div class="topbar"><button class="ghost sm" data-act="back">‹ Back</button></div>
+  <div class="card">
+   <div class="sec">Pathworking journal · ${all.length} ${all.length===1?'entry':'entries'}</div>
+   <label class="fl" for="jFilter">Show</label>
+   <select id="jFilter" class="inp"><option value="0">All paths</option>${ORDER.map(n=>`<option value="${n}" ${n===f?'selected':''}>Path ${n} · ${esc(PATHS[n].letter)}${counts[n]?` (${counts[n]})`:''}</option>`).join('')}</select>
+   ${window.Store&&Store.native?`<div class="sub" style="margin-top:8px">Readable copies: ${esc(safeFolder())}</div>`:''}
+  </div>
+  ${list.length?`<div class="elist">${list.map(entryItem).join('')}</div>`
+    :`<div class="card sub">${f?'No entries for this path yet.':'No journeys recorded yet.'} <button class="ghost sm" data-act="${f?'path':'home'}" data-v="${f||''}" style="margin-left:6px">${f?'Open path '+f:'Choose a path'}</button></div>`}`;
+  $('#jFilter').onchange=e=>{cur.filter=+e.target.value;renderJournal();};
+}
+function safeFolder(){try{return Store.folder('journal')||'';}catch(e){return '';}}
+function renderEntry(){
+  let r=null;try{r=Store.get('journal',cur.id);}catch(e){}
+  if(!r||!r.data){$('#vEntry').innerHTML='<div class="topbar"><button class="ghost sm" data-act="back">‹ Back</button></div><div class="card warn">This entry could not be found.</div>';return;}
+  const d=r.data,html=r.html||entryDoc(d,r.name||'Journal entry'),fold=window.Store&&Store.native?safeFolder():'';
+  const justSaved=!!cur.saved;delete cur.saved; // the banner shows once, not again when coming Back to this view
+  $('#vEntry').innerHTML=`
+  <div class="topbar"><button class="ghost sm" data-act="back">‹ Back</button><span class="grow"></span><button class="ghost sm" data-act="path" data-v="${+d.path}">Path ${+d.path} ›</button></div>
+  ${justSaved?`<div class="note"><b>Saved.</b> ${fold?`A readable copy is in <b>${esc(fold)}</b> on your phone.`:'Kept in this browser\'s storage.'}</div>`:''}
+  <iframe class="doc" id="eDoc" sandbox="allow-same-origin" title="${esc(r.name||'Journal entry')}"></iframe>
+  <div class="row" style="margin-top:10px">
+   <button class="grow" data-act="editEntry" data-v="${esc(r.id)}">Edit</button>
+   <button class="ghost grow" data-act="shareEntry" data-v="${esc(r.id)}">${window.Store&&Store.native?'Share':'Download'}</button>
+   <button class="ghost grow" data-act="deleteEntry" data-v="${esc(r.id)}" style="color:var(--warn)">Delete</button>
+  </div>`;
+  const f=$('#eDoc');
+  const fit=()=>{try{const h=f.contentDocument&&f.contentDocument.documentElement.scrollHeight;if(h)f.style.height=(h+4)+'px';}catch(e){}};
+  f.onload=()=>{fit();setTimeout(fit,150);};
+  f.srcdoc=html;
+}
+
+/* ---------- modal & toast ---------- */
+let modalResolve=null;
+function ask(title,bodyHtml,buttons){
+  return new Promise(res=>{
+    if(modalResolve)modalResolve(null);
+    modalResolve=res;
+    $('#mTitle').textContent=title;$('#mBody').innerHTML=bodyHtml;
+    $('#mBtns').innerHTML=buttons.map((b,i)=>`<button class="${b.cls||''}" data-mi="${i}">${esc(b.label)}</button>`).join('');
+    $('#mBtns').onclick=e=>{const t=e.target.closest('button[data-mi]');if(t)closeModal(buttons[+t.dataset.mi].value);};
+    $('#modal').classList.remove('hidden');
+    setTimeout(()=>{const b=$('#mBtns button');if(b)b.focus();},30);
+  });
+}
+function closeModal(v){$('#modal').classList.add('hidden');const r=modalResolve;modalResolve=null;if(r)r(v);}
+const modalOpen=()=>!$('#modal').classList.contains('hidden');
+function toast(msg){const t=$('#toast');t.textContent=msg;t.classList.add('on');clearTimeout(toast.t);toast.t=setTimeout(()=>t.classList.remove('on'),2800);}
+
+/* ---------- actions (event delegation on data-act) ---------- */
+const ACT={
+  noop(){},
+  home:()=>goHome(),
+  back:()=>back(),
+  journal:()=>{if(cur.v!=='journal')go('journal',{filter:0});},
+  path:v=>{if(PATHS[+v])go('path',{n:+v});},
+  pathSwap:v=>{if(PATHS[+v]){go('path',{n:+v},{replace:true});}},
+  entry:v=>go('entry',{id:v}),
+  begin:v=>plStart(+v),
+  write:v=>go('form',{path:+v,session:null}),
+  saveEntry:()=>saveEntry(),
+  discardDraft:()=>{clearTimeout(saveDraft.t);saveDraft.t=0;lsDel('draft');cur.restore=false;renderForm();},
+  restoreDraft:()=>{clearTimeout(saveDraft.t);saveDraft.t=0;cur.restore=true;renderForm();},
+  resumeDraft:v=>{if(PATHS[+v])go('form',{path:+v,restore:true});},
+  dismissDraft:()=>{
+    const dr=lsGet('draft',null);
+    const drop=()=>{lsDel('draft');if(cur.v==='home')render();};
+    if(dr&&hasWords(dr.data))ask('Discard this draft?','What you wrote in it will be lost.',
+      [{label:'Discard',value:true,cls:'danger'},{label:'Keep it',value:false,cls:'ghost'}]).then(ok=>{if(ok)drop();});
+    else drop();
+  },
+  editEntry:v=>go('form',{editId:v}),
+  shareEntry:v=>{try{if(!Store.share('journal',v))toast('Nothing to share yet.');}catch(e){toast('Could not share: '+(e&&e.message||e));}},
+  deleteEntry:v=>ask('Delete this entry?',`This removes the entry${window.Store&&Store.native?' and its copy in the phone\'s Journal folder':''}. It cannot be undone.`,
+    [{label:'Delete',value:true,cls:'danger'},{label:'Cancel',value:false,cls:'ghost'}])
+    .then(ok=>{if(!ok)return;
+      try{Store.remove('journal',v);toast('Entry deleted.');}catch(e){toast('Could not delete: '+(e&&e.message||e));}
+      dropFromStack(s=>(s.v==='entry'&&s.id===v)||(s.v==='form'&&s.editId===v));
+      back();}),
+  mood:(v,t)=>{
+    const box=t.closest('.chips'),inp=$('#'+box.dataset.for);
+    let a=inp.value.split(',').map(s=>s.trim()).filter(Boolean);
+    a=a.some(x=>x.toLowerCase()===v)?a.filter(x=>x.toLowerCase()!==v):a.concat(v);
+    inp.value=a.join(', ');syncChips();saveDraft();
+  },
+  testBell:()=>bell(true),
+  testVoice:()=>{
+    if(!canSpeak())return;
+    const again=PL.on&&PL.phase==='speak'&&!PL.paused; // the test interrupts a narrated step: restart it afterwards
+    const after=()=>{if(again&&PL.on&&PL.phase==='speak'&&!PL.paused)plEnter(PL.idx);};
+    say('Breathe in, and let the day fall away. The path is open before you.',after,
+      ()=>{toast('Read-aloud did not start on this device.');after();});
+  },
+  modalBg:()=>closeModal(null),
+  plPause:()=>PL.paused?plResume():plPause(),
+  plNext:()=>plNext(),
+  plBack:()=>plBack(),
+  plEnd:()=>plEndAsk(),
+  plPeek:()=>{const t=$('#plText');if(t.classList.contains('dim'))t.classList.toggle('peek');},
+  plNames:()=>{const b=$('#plNames'),open=b.classList.toggle('hidden')===false;$('#plNamesBtn').setAttribute('aria-expanded',String(open));},
+  plSettings:()=>{$('#plSettings').innerHTML=settingsHTML();$('#plSheet').classList.remove('hidden');},
+  plSettingsClose:()=>$('#plSheet').classList.add('hidden'),
+};
+document.addEventListener('click',e=>{
+  const t=e.target.closest('[data-act]');if(!t)return;
+  // clicks inside a box marked "noop" must not fall through to its backdrop
+  if(t.dataset.act==='noop'){return;}
+  const fn=ACT[t.dataset.act];if(fn){e.preventDefault();fn(t.dataset.v,t,e);}
+});
+document.addEventListener('change',e=>{
+  const t=e.target;
+  if(t.matches('[data-pref]'))onPref(t);
+  else if(t.matches('[data-prep]')&&cur.v==='path'){
+    const ck=prepState[cur.n]||(prepState[cur.n]={});ck[t.dataset.prep]=t.checked;
+    t.closest('.chk').classList.toggle('on',t.checked);
+    const all=document.querySelectorAll('#prepList [data-prep]');
+    $('#prepCount').textContent=`${[...all].filter(x=>x.checked).length} of ${all.length}`;
+  }
+  else if(t.matches('[data-sym]')&&FS){FS.symbols[+t.dataset.sym].seen=t.checked;scoreUI();saveDraft();}
+  else if(t.id==='fWhen'){formAstro();saveDraft();}
+  else if(t.id==='fPath'&&FS){
+    const n=+t.value;FS.path=n;FS.symbols=J[n].symbols.map(s=>({symbol:s.symbol,source:s.source||'',seen:false}));
+    $('#fHeadN').textContent=n;renderSyms();saveDraft();
+  }
+  else if(t.name==='fClar')saveDraft();
+});
+document.addEventListener('input',e=>{
+  const t=e.target;
+  if(t.matches('input[type=range][data-pref]'))onPref(t);
+  else if(cur.v==='form'&&t.closest('#vForm')&&(t.tagName==='TEXTAREA'||t.classList.contains('inp'))){
+    if(t.id==='fMoodB'||t.id==='fMoodA')syncChips();
+    clearTimeout(saveDraft.t);saveDraft.t=setTimeout(saveDraft,600);
+  }
+});
+document.addEventListener('keydown',e=>{
+  // Enter/Space on a non-button control (the Tree's path labels are SVG groups)
+  const tg=e.target;
+  if((e.key==='Enter'||e.key===' ')&&tg&&tg.tagName!=='BUTTON'&&tg.getAttribute&&tg.getAttribute('role')==='button'&&tg.dataset&&ACT[tg.dataset.act]){
+    e.preventDefault();ACT[tg.dataset.act](tg.dataset.v,tg,e);return;}
+  if(e.key==='Escape'){if(modalOpen()){closeModal(null);return;}if(PL.on&&!$('#plSheet').classList.contains('hidden')){ACT.plSettingsClose();return;}if(PL.on){plEndAsk();return;}}
+  if(!PL.on||modalOpen()||/^(INPUT|TEXTAREA|SELECT)$/.test((e.target&&e.target.tagName)||''))return;
+  if(e.key===' '){e.preventDefault();ACT.plPause();}
+  else if(e.key==='ArrowRight')plNext();
+  else if(e.key==='ArrowLeft')plBack();
+});
+
+/* Android back button: the shell calls its own onBack(); let this page step back first. */
+function handleBack(){
+  if(modalOpen()){closeModal(null);return true;}
+  if(PL.on){if(!$('#plSheet').classList.contains('hidden'))ACT.plSettingsClose();else plEndAsk();return true;}
+  if(cur.v!=='home')return back();
+  return false;
+}
+function hookBack(){
+  let P;try{P=window.parent;if(!P||P===window||typeof P.onBack!=='function')return;}catch(e){return;}
+  const orig=P.onBack;
+  const mine=function(){
+    try{const drawer=P.document.body.classList.contains('open'); // the shell's drawer closes first
+      if(!drawer&&handleBack())return true;}catch(e){}
+    return orig.apply(this,arguments);
+  };
+  try{P.onBack=mine;}catch(e){return;}
+  addEventListener('pagehide',()=>{try{if(P.onBack===mine)P.onBack=orig;}catch(e){}});
+}
+window.onNativeUpdate=()=>{if(!PL.on&&!modalOpen()&&(cur.v==='home'||cur.v==='journal'))render();};
+addEventListener('pagehide',()=>{
+  flushDraft();
+  if(PL.on){saveInterrupted();stopSpeech();wakeOff();pumpOff();nativeSession(false);}
+});
+
+/* ---------- boot ---------- */
+const getJSON=u=>fetch(u).then(r=>{if(!r.ok)throw new Error(u+' ('+r.status+')');return r.json();});
+Promise.all([
+  getJSON('../../data/777.json'),
+  getJSON('../../data/goetia.json'),
+  fetch('../../data/pathworking.json').then(r=>r.ok?r.json():null).catch(()=>null), // optional
+  DB.load('journey_template','journey_template_symbols','journey_checklist')
+]).then(([d,g,pw])=>{
+  D=d;G=g||{};buildModel();
+  const raw={};journeyList(pw).forEach(x=>{const n=+(x&&x.path);if(PATHS[n])raw[n]=x;});
+  for(let n=11;n<=32;n++){
+    let gen;try{gen=genJourney(n);}catch(e){console.warn('journey',n,e);continue;}
+    try{J[n]=normJourney(raw[n],gen);}catch(e){J[n]=gen;}
+  }
+  hookBack();
+  const q=new URLSearchParams(location.search),qp=+q.get('path');
+  if(PATHS[qp])go('path',{n:qp});
+  else if(q.get('entry'))go('entry',{id:q.get('entry')});
+  else if(q.get('view')==='journal')go('journal',{filter:0});
+  else render();
+}).catch(e=>{
+  $('#vHome').innerHTML='';
+  $('#err').innerHTML=`<div class="card warn">Could not load the correspondence data: ${esc(e&&e.message||e)}</div>`;
+});
+</script>
+</body></html>

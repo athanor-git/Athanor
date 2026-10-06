@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Athanor — Ritual Calendar</title>
+<style>
+:root{--bg:#faf7f0;--card:#fff;--ink:#1a1712;--sub:#6b6357;--acc:#7a5c2e;--line:#e3ddd0;--hit:#fff3c9;--sun:#c58a2e;--moon:#5b7fa5;--holy:#8a3d6b;--cross:#4a8c6a}
+@media(prefers-color-scheme:dark){:root{--bg:#14120e;--card:#1e1b15;--ink:#ece5d8;--sub:#9a9184;--acc:#d0a85c;--line:#33302a;--hit:#4a3f1e;--sun:#d8a24a;--moon:#89a7cc;--holy:#c98ab0;--cross:#6bbf95}}
+*{box-sizing:border-box}body{margin:0;font:16px system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--ink)}
+header{padding:10px 14px;border-bottom:1px solid var(--line)}h1{font-size:16px;margin:0}h1 small{color:var(--sub);font-weight:400}
+main{max-width:680px;margin:0 auto;padding:12px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin:10px 0}
+.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+button{border:1px solid var(--acc);background:var(--acc);color:#fff;border-radius:8px;padding:7px 13px;font-size:14px;cursor:pointer}
+button.ghost{background:var(--card);color:var(--ink);border-color:var(--line)}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+.chip{border:1px solid var(--line);background:var(--card);border-radius:16px;padding:5px 11px;cursor:pointer;font-size:13px}
+.chip.on{background:var(--acc);color:#fff;border-color:var(--acc)}
+.sec{font-size:12px;letter-spacing:.07em;text-transform:uppercase;color:var(--acc);font-weight:700;margin:14px 0 4px}
+.ev{border-top:1px solid var(--line);padding:9px 2px;display:grid;grid-template-columns:74px 1fr;gap:10px}
+.ev .dt{font-size:13px;font-weight:700;color:var(--acc)}.ev .dt small{display:block;color:var(--sub);font-weight:400;font-size:11px}
+.ev .nm{font-size:15px;font-weight:600}
+.ev .tag{font-size:10.5px;text-transform:uppercase;letter-spacing:.05em;padding:1px 7px;border-radius:8px;color:#fff;vertical-align:1px;margin-left:6px}
+.ev .note{font-size:13px;color:var(--sub);margin-top:2px}
+.next{background:var(--hit)}
+.daily{font-size:13.5px}.daily b{color:var(--acc)}
+</style></head><body>
+<header><h1>ATHANOR · RITUAL CALENDAR <small>· significant days &amp; the rites to do</small></h1></header>
+<main>
+<div class="card daily">
+ <div class="sec" style="margin-top:0">Daily practice</div>
+ <div></div>
+ <div style="margin-top:4px"></div>
+ <div style="margin-top:4px"></div>
+</div>
+<div class="row"><button class="ghost" onclick="chYear(-1)">‹</button><b id="yr" style="min-width:64px;text-align:center"></b><button class="ghost" onclick="chYear(1)">›</button>
+ <button class="ghost" onclick="thisYear()">This year</button></div>
+<div class="chips" id="filters"></div>
+<div id="out"></div>
+</main>
+<script src="../../data/db/core.js"></script>
+<script src="../../data/db/texts.js"></script>
+<script src="../lib/db.js"></script>
+<script>
+// Compact ephemeris: JPL Keplerian elements (1800-2050) + truncated lunar theory.
+const D2R = Math.PI/180;
+function jd(y,mo,d,h){ if(mo<=2){y--;mo+=12;} const A=Math.floor(y/100),B=2-A+Math.floor(A/4);
+  return Math.floor(365.25*(y+4716))+Math.floor(30.6001*(mo+1))+d+B-1524.5+h/24; }
+const EL = { // a, e, I, L, varpi, Omega  + rates/century
+ mercury:[0.38709927,0.20563593,7.00497902,252.25032350,77.45779628,48.33076593,
+          0.00000037,0.00001906,-0.00594749,149472.67411175,0.16047689,-0.12534081],
+ venus:[0.72333566,0.00677672,3.39467605,181.97909950,131.60246718,76.67984255,
+        0.00000390,-0.00004107,-0.00078890,58517.81538729,0.00268329,-0.27769418],
+ earth:[1.00000261,0.01671123,-0.00001531,100.46457166,102.93768193,0.0,
+        0.00000562,-0.00004392,-0.01294668,35999.37244981,0.32327364,0.0],
+ mars:[1.52371034,0.09339410,1.84969142,-4.55343205,-23.94362959,49.55953891,
+       0.00001847,0.00007882,-0.00813131,19140.30268499,0.44441088,-0.29257343],
+ jupiter:[5.20288700,0.04838624,1.30439695,34.39644051,14.72847983,100.47390909,
+          -0.00011607,-0.00013253,-0.00183714,3034.74612775,0.21252668,0.20469106],
+ saturn:[9.53667594,0.05386179,2.48599187,49.95424423,92.59887831,113.66242448,
+         -0.00125060,-0.00050991,0.00193609,1222.49362201,-0.41897216,-0.28867794],
+ uranus:[19.18916464,0.04725744,0.77263783,313.23810451,170.95427630,74.01692503,
+         -0.00196176,-0.00004397,-0.00242939,428.48202785,0.40805281,0.04240589],
+ neptune:[30.06992276,0.00859048,1.77004347,-55.12002969,44.96476227,131.78422574,
+          0.00026291,0.00005105,0.00035372,218.45945325,-0.32241464,-0.00508664],
+ pluto:[39.48211675,0.24882730,17.14001206,238.92903833,224.06891629,110.30393684,
+        -0.00031596,0.00005170,0.00004818,145.20780515,-0.04062942,-0.01183482]};
+function helio(p, T){
+  const e0=EL[p], a=e0[0]+e0[6]*T, ec=e0[1]+e0[7]*T, I=(e0[2]+e0[8]*T)*D2R,
+        L=e0[3]+e0[9]*T, vp=e0[4]+e0[10]*T, Om=(e0[5]+e0[11]*T);
+  let M=(L-vp)%360; if(M>180)M-=360; if(M<-180)M+=360;
+  const w=(vp-Om)*D2R, OmR=Om*D2R;
+  let E=M*D2R + ec*Math.sin(M*D2R);
+  for(let i=0;i<8;i++){ const dE=(E-ec*Math.sin(E)-M*D2R)/(1-ec*Math.cos(E)); E-=dE; }
+  const xp=a*(Math.cos(E)-ec), yp=a*Math.sqrt(1-ec*ec)*Math.sin(E);
+  const cw=Math.cos(w),sw=Math.sin(w),cO=Math.cos(OmR),sO=Math.sin(OmR),ci=Math.cos(I),si=Math.sin(I);
+  return [ (cw*cO-sw*sO*ci)*xp + (-sw*cO-cw*sO*ci)*yp,
+           (cw*sO+sw*cO*ci)*xp + (-sw*sO+cw*cO*ci)*yp,
+           (sw*si)*xp + (cw*si)*yp ];
+}
+function lon(x,y){ let l=Math.atan2(y,x)/D2R; return (l%360+360)%360; }
+function positions(JD){
+  const T=(JD-2451545)/36525, E=helio('earth',T), out={};
+  out.sun = lon(-E[0],-E[1]);
+  for(const p of ['mercury','venus','mars','jupiter','saturn','uranus','neptune','pluto']){
+    const P=helio(p,T); out[p]=lon(P[0]-E[0],P[1]-E[1]);
+  }
+  // Moon (Meeus ch.47, principal terms)
+  const Lp=218.3164477+481267.88123421*T-0.0015786*T*T,
+        D=297.8501921+445267.1114034*T-0.0018819*T*T,
+        M=357.5291092+35999.0502909*T-0.0001536*T*T,
+        Mp=134.9633964+477198.8675055*T+0.0087414*T*T,
+        F=93.2720950+483202.0175233*T-0.0036539*T*T;
+  const t=[[6288774,0,0,1,0],[1274027,2,0,-1,0],[658314,2,0,0,0],[213618,0,0,2,0],
+    [-185116,0,1,0,0],[-114332,0,0,0,2],[58793,2,0,-2,0],[57066,2,-1,-1,0],
+    [53322,2,0,1,0],[45758,2,-1,0,0],[-40923,0,1,-1,0],[-34720,1,0,0,0],
+    [-30383,0,1,1,0],[15327,2,0,0,-2],[-12528,0,0,1,2],[10980,0,0,1,-2],
+    [10675,4,0,-1,0],[10034,0,0,3,0],[8548,4,0,-2,0],[-7888,2,1,-1,0],
+    [-6766,2,1,0,0],[-5163,1,0,-1,0],[4987,1,1,0,0],[4036,2,-1,1,0]];
+  let s=0;
+  for(const [c,d1,m1,mp1,f1] of t){
+    let arg=(d1*D+m1*M+mp1*Mp+f1*F)*D2R, coef=c;
+    if(m1) coef*= (1-0.002516*T-0.0000074*T*T)**Math.abs(m1);
+    s+=coef*Math.sin(arg);
+  }
+  out.moon=((Lp+s/1e6)%360+360)%360;
+  const _pr=(5029.0966*T+1.11161*T*T)/3600;
+  for(const _k in out){ if(_k!=='moon'){ out[_k]=((out[_k]+_pr)%360+360)%360; } }
+  out.sun=((out.sun-20.4955/3600)%360+360)%360;
+  return out;
+}
+function ascmc(JD, lat, lonE){
+  const T=(JD-2451545)/36525;
+  let th=280.46061837+360.98564736629*(JD-2451545)+0.000387933*T*T + lonE;
+  th=((th%360)+360)%360;
+  const eps=(23.4392911-0.0130042*T)*D2R, thR=th*D2R, phi=lat*D2R;
+  let asc=Math.atan2(Math.cos(thR), -(Math.sin(thR)*Math.cos(eps)+Math.tan(phi)*Math.sin(eps)))/D2R;
+  asc=((asc%360)+360)%360;
+  let mc=Math.atan2(Math.sin(thR), Math.cos(thR)*Math.cos(eps))/D2R;
+  mc=((mc%360)+360)%360;
+  return {asc, mc, lst:th};
+}
+if (typeof module!=='undefined'){ module.exports={jd,positions,ascmc}; }
+
+const $=s=>document.querySelector(s);const esc=s=>String(s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+// The facts come from the content tables (data/db, edited in the content workbook) through lib/db.js
+const SIGNS=DB.rows('signs').map(s=>s.name);
+const DOW=DB.rows('weekdays').map(w=>w.name.slice(0,3));const MON=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+function sunLon(y,mo,d){return((positions(jd(y,mo,d,12)).sun%360)+360)%360;}
+function elong(y,mo,d){const p=positions(jd(y,mo,d,12));return((p.moon-p.sun)%360+360)%360;}
+function sdist(a,t){return((a-t+540)%360)-180;}
+function crossDays(fn,target,y){const out=[];let prev=null,pd=null;let dt=new Date(y,0,1);
+ while(dt.getFullYear()===y){const L=fn(dt.getFullYear(),dt.getMonth()+1,dt.getDate());const d=sdist(L,target);
+  if(prev!==null&&prev<0&&d>=0)out.push(Math.abs(prev)<Math.abs(d)?pd:new Date(dt));
+  prev=d;pd=new Date(dt);dt.setDate(dt.getDate()+1);}return out;}
+const CATCOL={holy:'var(--holy)',sun:'var(--sun)',moon:'var(--moon)',cross:'var(--cross)',ingress:'var(--sub)'};
+// The festivals table (loaded below): its date rule finds each one's days in a year; {sign} and {years} in its texts
+// are the sign of the day and the years since 1904
+let FEST=[];
+const fill=(s,v)=>String(s||'').replace(/\{(\w+)\}/g,(m,k)=>v[k]!=null?String(v[k]):m);
+function buildYear(y){
+ const ev=[];
+ const push=(dt,f,sign)=>{const v={sign,years:y-1904};
+  ev.push({dt:new Date(dt),name:fill(f.name,v),cat:f.category,note:[f.about,f.practice].filter(Boolean).map(t=>fill(t,v)).join(' ')});};
+ const withRule=rule=>FEST.filter(f=>f.rule===rule&&filters[f.category]!==false);   // a hidden filter's days are not computed
+ // sun stations: the day the Sun reaches the longitude
+ for(const f of withRule('sun')){const ds=crossDays(sunLon,f.degrees,y);if(ds[0])push(ds[0],f,SIGNS[Math.floor(f.degrees/30)%12]);}
+ // moons: every day the Moon is that far from the Sun, in the Moon's sign
+ for(const f of withRule('moon'))for(const d of crossDays(elong,f.degrees,y))push(d,f,SIGNS[Math.floor((sunLon(d.getFullYear(),d.getMonth()+1,d.getDate())+f.degrees)/30)%12]);
+ // fixed days
+ for(const f of withRule('date'))push(new Date(y,f.month-1,f.day),f);
+ // the Sun entering each sign
+ for(const f of withRule('ingress'))for(let s=0;s<12;s++){const ds=crossDays(sunLon,s*30,y);if(ds[0])push(ds[0],f,SIGNS[s]);}
+ ev.sort((a,b)=>a.dt-b.dt);
+ return ev;
+}
+let year=new Date().getFullYear();
+const filters={holy:true,sun:true,moon:true,cross:true,ingress:false};
+function buildFilters(){$('#filters').innerHTML=[['holy','Holy days'],['sun','Sun stations'],['moon','Moons'],['cross','Cross-quarter'],['ingress','Sun ingresses']].map(([k,l])=>`<span class="chip${filters[k]?' on':''}" onclick="tf('${k}')">${l}</span>`).join('');}
+function tf(k){filters[k]=!filters[k];buildFilters();render();}
+function evHTML(e,next){const d=e.dt;return `<div class="ev${next?' next':''}"><div class="dt">${MON[d.getMonth()]} ${d.getDate()}<small>${DOW[d.getDay()]} ${d.getFullYear()}</small></div>
+ <div><div class="nm">${esc(e.name)}<span class="tag" style="background:${CATCOL[e.cat]}">${e.cat}</span></div><div class="note">${esc(e.note)}</div></div></div>`;}
+function render(){
+ $('#yr').textContent=year;
+ const evs=buildYear(year);
+ // upcoming across this + next year
+ const today=new Date();today.setHours(0,0,0,0);
+ let up=buildYear(year).concat(buildYear(year+1)).filter(e=>e.dt>=today).slice(0,6);
+ let h='';
+ if(up.length){h+='<div class="sec">Coming up — what to do next</div>'+up.map(e=>evHTML(e,true)).join('');}
+ h+=`<div class="sec">${year} — full year</div>`+evs.map(e=>evHTML(e,false)).join('');
+ $('#out').innerHTML=h;
+}
+function chYear(d){year+=d;render();}
+function thisYear(){year=new Date().getFullYear();render();}
+// the daily practice (tool texts)
+{ const d=document.querySelectorAll('.daily > div:not(.sec)');
+  d[0].innerHTML=DB.text('cal.daily-resh'); d[1].innerHTML=DB.text('cal.daily-will'); d[2].innerHTML=DB.text('cal.daily-banishing'); }
+buildFilters();
+DB.load('festivals').then(()=>{FEST=DB.rows('festivals');render();})
+ .catch(e=>{$('#out').innerHTML='<div class="card">The festivals could not be loaded: '+esc(e.message||e)+'</div>';});
+</script></body></html>

@@ -1,0 +1,788 @@
+{
+ "source": {
+  "bookT": "Golden Dawn, \"Book T\", in The Equinox Vol. I No. 8 (1912), 'A Description of the Cards of the Tarot' — public domain. Transcribed from scans of the 1912 printing.",
+  "brief": "Keywords and 'In brief' summaries are original wording written for this app."
+ },
+ "cards": {
+  "atu-0": {
+   "name": "Atu 0 · The Fool",
+   "bookTName": "The Foolish Man — The Spirit of Αἰθήρ",
+   "meaning": "If the question refers to spiritual matters, the Fool means idea, thought, spirituality, that which endeavours to transcend Earth. But if question is material, it means folly, stupidity, eccentricity, or even mania.",
+   "wellDignified": "",
+   "illDignified": "",
+   "keywords": "Transcendent ideas; materially, folly and madness",
+   "brief": "A bolt from the blue: a fresh, unexpected urge that proves good when met in the right spirit. Spiritually it brings inspiration and idealism; in practical affairs, poorly supported, it can mean recklessness, oddity or foolishness.",
+   "source": "The Equinox Vol. I No. VIII (Sept. 1912), \"A Description of the Cards of the Tarot\" (Book T), \"Brief Meaning of Twenty-Two Keys\", item 0, p. 203; title from table \"The Twenty-Two Keys of the Book\", no. 57, p. 150. Checked word for word against page images of the original 1912 letterpress setting: https://archive.org/details/crowley-equinox_202110 (file \"The Equinox Vol. 1, No. 8\", leaves 180 and 233). The small-capitals \"IF\" is written \"If\"."
+  },
+  "atu-1": {
+   "name": "Atu I · The Magus",
+   "bookTName": "The Magician — The Magus of Power",
+   "meaning": "Skill, wisdom, adaptation, craft, cunning, or occult wisdom or power.",
+   "wellDignified": "",
+   "illDignified": "",
+   "keywords": "Skilled ingenuity and hidden magical ability",
+   "brief": "Dexterity, versatility and a nimble mind: news or correspondence, commercial deals, magical know-how, a bright idea out of nowhere. The shadow side is sleight of hand, fraud and stealing, or intellect meddling where it isn't wanted.",
+   "source": "The Equinox I:8 (1912), \"Brief Meaning of Twenty-Two Keys\", item 1, p. 203; title table no. 58, p. 150. Verified against https://archive.org/details/crowley-equinox_202110 (leaves 180, 233)."
+  },
+  "atu-2": {
+   "name": "Atu II · The Priestess",
+   "bookTName": "The High Priestess — The Priestess of the Silver Star",
+   "meaning": "Change, alternation, increase and decrease, fluctuation; whether for good or evil depends on the dignity.",
+   "wellDignified": "",
+   "illDignified": "",
+   "keywords": "Ebb and flow; outcome follows dignity",
+   "brief": "Ebb and flow: conditions rise and fall under a subtle, elevated and graceful spiritual current. Well dignified it inspires; ill dignified it sweeps one off one's feet with giddy excitement, so keep a level head.",
+   "source": "The Equinox I:8 (1912), \"Brief Meaning of Twenty-Two Keys\", item 2, p. 203; title table no. 59, p. 150. Verified against https://archive.org/details/crowley-equinox_202110 (leaves 180, 233)."
+  },
+  "atu-3": {
+   "name": "Atu III · The Empress",
+   "bookTName": "The Empress — The Daughter of the Mighty Ones",
+   "meaning": "Beauty, happiness, pleasure, success. But with very bad dignity it means luxury, dissipation.",
+   "wellDignified": "",
+   "illDignified": "But with very bad dignity it means luxury, dissipation.",
+   "keywords": "Joy, beauty, success; excess if afflicted",
+   "brief": "Abundant happiness and fruitful fulfilment: love, affection between friends, beauty and gracious ease, with matters brought happily to completion. Badly dignified, comfort slides into self-indulgence, laziness and wasteful excess.",
+   "source": "The Equinox I:8 (1912), \"Brief Meaning of Twenty-Two Keys\", item 3, p. 203; title table no. 60, p. 150 (card name printed \"The Em-press\", hyphenated across a line break). Verified against https://archive.org/details/crowley-equinox_202110 (leaves 180, 233)."
+  },
+  "atu-4": {
+   "name": "Atu IV · The Emperor",
+   "bookTName": "The Emperor — Sun of the Morning, chief among the Mighty",
+   "meaning": "War, conquest, victory, strife, ambition.",
+   "wellDignified": "",
+   "illDignified": "",
+   "keywords": "Conflict, conquest, and driving ambition",
+   "brief": "Forceful energy and ambition: conquest, leadership and bold originality that carry the day in any fight. Overdone or badly placed, it turns to arrogance, obstinacy, rash quarrels and bad temper.",
+   "source": "The Equinox I:8 (1912), \"Brief Meaning of Twenty-Two Keys\", item 4, p. 203; title table no. 61, p. 150. The original 1912 setting prints \"Sun of the Morn-ing, chief among the Mighty\" (page image, https://archive.org/details/crowley-equinox_202110 leaf 180). The W.E.H. transcription at the-equinox.org also has \"Sun\". The Golden Dawn title is normally \"Son of the Morning\", so this is probably a 1912 misprint. The \"Son\" in the IAPSOP scan comes from a later re-typeset edition."
+  },
+  "atu-5": {
+   "name": "Atu V · The Hierophant",
+   "bookTName": "The Hierophant — The Magus of the Eternal",
+   "meaning": "Divine wisdom, manifestation, explanation, teaching, occult force voluntarily invoked.",
+   "wellDignified": "",
+   "illDignified": "",
+   "keywords": "Sacred teaching and deliberately summoned occult force",
+   "brief": "Instruction and revelation of higher wisdom, patient labour, and kindly backing from mentors or those above you, bringing calm order. Its weaker side is plodding, ox-like stubbornness.",
+   "source": "The Equinox I:8 (1912), \"Brief Meaning of Twenty-Two Keys\", item 5, p. 203; title table no. 62, p. 150. Verified against https://archive.org/details/crowley-equinox_202110 (leaves 180, 233)."
+  },
+  "atu-6": {
+   "name": "Atu VI · The Lovers",
+   "bookTName": "The Lovers — The Children of the Voice; the Oracles of the Mighty Gods",
+   "meaning": "Inspiration (passive, mediumistic), motive power, action.",
+   "wellDignified": "",
+   "illDignified": "",
+   "keywords": "Receptive inspiration becoming motive force",
+   "brief": "Heightened intuition, flashes of inspiration and near-clairvoyant perception that supply the impetus to act. Its weaknesses are wavering, inconsistency, immaturity and head-in-the-clouds reasoning that ignores real-world demands.",
+   "source": "The Equinox I:8 (1912), \"Brief Meaning of Twenty-Two Keys\", item 6, p. 203; title table no. 63, p. 150. Verified against https://archive.org/details/crowley-equinox_202110 (leaves 180, 233)."
+  },
+  "atu-7": {
+   "name": "Atu VII · The Chariot",
+   "bookTName": "The Chariot — The Child of the Powers of the Waters; the Lord of the Triumph of Light",
+   "meaning": "Triumph, victory, health (sometimes unstable).",
+   "wellDignified": "",
+   "illDignified": "",
+   "keywords": "Triumph and health, though possibly unsteady",
+   "brief": "Victory and triumph through loyal, disciplined effort: faithful service, authority held on behalf of a higher power, hope, and good if sometimes shaky health. Its shadow is hidebound traditionalism defended ruthlessly or destructively.",
+   "source": "The Equinox I:8 (1912), \"Brief Meaning of Twenty-Two Keys\", item 7, p. 203; title table no. 64, p. 150. Verified against https://archive.org/details/crowley-equinox_202110 (leaves 180, 233)."
+  },
+  "atu-8": {
+   "name": "Atu VIII · Adjustment",
+   "bookTName": "Justice — The Daughter of the Lords of Truth: the Ruler of the Balance",
+   "meaning": "Eternal justice. Strength and force, but arrested as in act of judgment. May mean law, trial, etc.",
+   "wellDignified": "",
+   "illDignified": "",
+   "keywords": "Impartial judgment, legal matters, suspended force",
+   "brief": "Balance being restored: force held in check while everything waits on a fair decision. It may concern court cases, treaties, contracts or marriage, aiming at exact correction rather than punishment.",
+   "source": "The Equinox I:8 (1912), \"Brief Meaning of Twenty-Two Keys\", item 8, p. 203; title table no. 68, p. 151. The Equinox printing already numbers Justice as 8 (and Fortitude as 11), so item 8 maps directly to atu-8 (Adjustment). Verified against https://archive.org/details/crowley-equinox_202110 (leaves 181, 233)."
+  },
+  "atu-9": {
+   "name": "Atu IX · The Hermit",
+   "bookTName": "The Hermit — The Magus of the Voice of Power, the Prophet of the Eternal",
+   "meaning": "Wisdom from on high. Active divine inspiration. Sometimes \"unexpected current.\"",
+   "wellDignified": "",
+   "illDignified": "",
+   "keywords": "Higher wisdom, active inspiration, sudden currents",
+   "brief": "Withdraw from the bustle for a while and listen inward: an inner light or quiet personal prompting offers guidance, and sensible, workable plans take shape from it.",
+   "source": "The Equinox I:8 (1912), \"Brief Meaning of Twenty-Two Keys\", item 9, p. 203; title table no. 66, p. 151. The quotation marks are printed in the original. Verified against https://archive.org/details/crowley-equinox_202110 (leaves 181, 233)."
+  },
+  "atu-10": {
+   "name": "Atu X · Fortune",
+   "bookTName": "The Wheel of Fate — The Lord of the Forces of Life",
+   "meaning": "Good fortune, happiness (within bounds). Intoxication of success.",
+   "wellDignified": "",
+   "illDignified": "",
+   "keywords": "Bounded good luck; heady success",
+   "brief": "A turn of the wheel: circumstances shift, usually for the better, since people rarely consult the cards when content. Expect good luck and happiness within limits, but beware being carried away by success.",
+   "source": "The Equinox I:8 (1912), \"Brief Meaning of Twenty-Two Keys\", item 10, p. 203; title table no. 67, p. 151. Verified against https://archive.org/details/crowley-equinox_202110 (leaves 181, 233)."
+  },
+  "atu-11": {
+   "name": "Atu XI · Lust",
+   "bookTName": "Fortitude — The Daughter of the Flaming Sword",
+   "meaning": "Courage, strength, fortitude, power passing on to action. Obstinacy.",
+   "wellDignified": "",
+   "illDignified": "",
+   "keywords": "Courageous strength turning into action; stubbornness",
+   "brief": "An all-consuming passion or zeal, backed by fearless nerve and vitality and turned straight into deeds, including the working of magick. Taken too far it hardens into sheer obstinacy.",
+   "source": "The Equinox I:8 (1912), \"Brief Meaning of Twenty-Two Keys\", item 11, p. 203; title table no. 65, p. 150. The Equinox printing numbers Fortitude (GD Strength) as 11, so item 11 maps directly to atu-11 (Lust). Verified against https://archive.org/details/crowley-equinox_202110 (leaves 180, 233)."
+  },
+  "atu-12": {
+   "name": "Atu XII · The Hanged Man",
+   "bookTName": "The Hanged Man — The Spirit of the Mighty Waters",
+   "meaning": "Enforced sacrifice, punishment, loss, fatal and not voluntary, suffering.",
+   "wellDignified": "",
+   "illDignified": "",
+   "keywords": "Imposed sacrifice, involuntary loss and suffering",
+   "brief": "A sacrifice that must be made, whether fate imposes it or one accepts it willingly. Expect loss, defeat, hardship or penalty, and sometimes a painful ending.",
+   "source": "The Equinox I:8 (1912), \"Brief Meaning of Twenty-Two Keys\", item 12, p. 203; title table no. 69, p. 151. The original prints \"The Hanged Man\"; \"The Hanged\" at the-equinox.org is a transcription slip. Verified against https://archive.org/details/crowley-equinox_202110 (leaves 181, 233)."
+  },
+  "atu-13": {
+   "name": "Atu XIII · Death",
+   "bookTName": "Death — The Child of the Great Transformers: the Lord of the Gates of Death",
+   "meaning": "Time, age, transformation, change involuntary (as opposed to 18, ♓). Or death, destruction (only latter with special cards). [Specially, a sudden and quite unexpected change.]",
+   "wellDignified": "",
+   "illDignified": "",
+   "keywords": "Unwilled transformation, sudden change, sometimes death",
+   "brief": "Metamorphosis: whatever is under way now evolves into something new, by choice or otherwise, and perhaps abruptly. Read it as literal death or disaster only when other grim cards insist; usually the 'end' is really a renewal.",
+   "source": "The Equinox I:8 (1912), \"Brief Meaning of Twenty-Two Keys\", item 13, pp. 203-204 (in the 1912 setting the item starts at the foot of p. 203 and breaks after \"(as\"); title table no. 70, p. 151. The 1912 original prints the Pisces sign ♓ and not the word \"Pisces\" (page image, https://archive.org/details/crowley-equinox_202110 leaf 234). \"Pisces\" is how the W.E.H. transcription and the later re-typeset edition render the sign."
+  },
+  "atu-14": {
+   "name": "Atu XIV · Art",
+   "bookTName": "Temperance — The Daughter of the Reconcilers: the Bringer-Forth of life",
+   "meaning": "Combination of forces, realization, action (material effect, good or evil).",
+   "wellDignified": "",
+   "illDignified": "",
+   "keywords": "Forces combining into tangible results",
+   "brief": "A tricky balancing act that pays off: a way out is found, or a goal is reached through patient, skilful handling. Contrary elements fuse into something workable, and carefully measured steps turn intentions into reality.",
+   "source": "The Equinox I:8 (1912), \"Brief Meaning of Twenty-Two Keys\", item 14, p. 204; title table no. 71, p. 151. Verified against https://archive.org/details/crowley-equinox_202110 (leaves 181, 234)."
+  },
+  "atu-15": {
+   "name": "Atu XV · The Devil",
+   "bookTName": "The Devil — The Lord of the Gates of Matter: the Child of the Forces of Time",
+   "meaning": "Materiality, material force, material temptation, obsession.",
+   "wellDignified": "",
+   "illDignified": "",
+   "keywords": "Material force, temptation, and obsession",
+   "brief": "Earthy appetite and ruthless drive: temptation, compulsion and the hunger to get ahead, sometimes a concealed plot ready to spring. It also gives stamina and hard graft, alongside rigid stubbornness and chronic dissatisfaction.",
+   "source": "The Equinox I:8 (1912), \"Brief Meaning of Twenty-Two Keys\", item 15, p. 204; title table no. 72, p. 151. The original 1912 setting prints a lowercase \"the Child of the Forces of Time\" (page image, https://archive.org/details/crowley-equinox_202110 leaf 181; the-equinox.org agrees). The capital \"The Child\" comes from the later re-typeset edition."
+  },
+  "atu-16": {
+   "name": "Atu XVI · The Tower",
+   "bookTName": "The Blasted Tower — The Lord of the Hosts of the Mighty",
+   "meaning": "Ambition, fighting, war, courage, or destruction, danger, fall, ruin.",
+   "wellDignified": "",
+   "illDignified": "",
+   "keywords": "Ambitious strife or sudden ruin",
+   "brief": "Sudden, shattering upheaval: plans and structures that looked secure are wrecked amid danger, strife and ruin. Yet the blast can also be a jailbreak, freeing you from what confined you.",
+   "source": "The Equinox I:8 (1912), \"Brief Meaning of Twenty-Two Keys\", item 16, p. 204; title table no. 73, p. 152. Verified against https://archive.org/details/crowley-equinox_202110 (leaves 182, 234)."
+  },
+  "atu-17": {
+   "name": "Atu XVII · The Star",
+   "bookTName": "The Star — The Daughter of the Firmament, the dweller between the Waters",
+   "meaning": "Hope, faith, unexpected help. Or dreaminess, deceived hope, etc.",
+   "wellDignified": "",
+   "illDignified": "",
+   "keywords": "Hope and unexpected aid, or illusion",
+   "brief": "Renewed optimism and faith, aid from where you least expect it, and a lucid inner sense of what is possible. Under hostile influences the same light turns to daydreams, poor calls and let-downs.",
+   "source": "The Equinox I:8 (1912), \"Brief Meaning of Twenty-Two Keys\", item 17, p. 204 (\"de-ceived\" is hyphenated across a line break); title table no. 74, p. 152 (\"be-tween\" is also hyphenated across a line break). Verified against https://archive.org/details/crowley-equinox_202110 (leaves 182, 234)."
+  },
+  "atu-18": {
+   "name": "Atu XVIII · The Moon",
+   "bookTName": "The Moon — The Ruler of Flux and Reflux: the Child of the Sons of the Mighty",
+   "meaning": "Dissatisfaction, voluntary change. Error, lying, falsity, deception. This card is very sensitive to dignity.",
+   "wellDignified": "",
+   "illDignified": "",
+   "keywords": "Restless change, deceit and error",
+   "brief": "A murky passage of restless dissatisfaction, where lies, muddled thinking and illusion flourish and fear can border on hysteria. Highly sensitive to surrounding cards, it often marks the crisis just before a major turning point.",
+   "source": "The Equinox I:8 (1912), \"Brief Meaning of Twenty-Two Keys\", item 18, p. 204; title table no. 75, p. 152. Verified against https://archive.org/details/crowley-equinox_202110 (leaves 182, 234)."
+  },
+  "atu-19": {
+   "name": "Atu XIX · The Sun",
+   "bookTName": "The Sun — The Lord of the Fire of the World",
+   "meaning": "Glory, gain, riches. With very evil cards it means arrogance, display, vanity.",
+   "wellDignified": "",
+   "illDignified": "With very evil cards it means arrogance, display, vanity.",
+   "keywords": "Glory and wealth; vanity if afflicted",
+   "brief": "Radiant good fortune: prosperity, honour, delight and candour, and a return to health after illness. Among hostile cards it inflates into vanity, brazen display and conceit, and rarely it can signal a death that comes without warning.",
+   "source": "The Equinox I:8 (1912), \"Brief Meaning of Twenty-Two Keys\", item 19, p. 204; title table no. 76, p. 152. \"very\" is italic in the 1912 print. The the-equinox.org transcription shows it in quotation marks instead. Verified against https://archive.org/details/crowley-equinox_202110 (leaves 182, 234)."
+  },
+  "atu-20": {
+   "name": "Atu XX · The Aeon",
+   "bookTName": "The Judgment — The Spirit of the Primal Fire",
+   "meaning": "Final decision, judgment, sentence, determination of a matter without appeal, on its plane.",
+   "wellDignified": "",
+   "illDignified": "",
+   "keywords": "Final, unappealable decision on its plane",
+   "brief": "A point of no return: old business is closed for good and a new tide begins to flow. Judgement is passed with no appeal, and a firm move forward is required.",
+   "source": "The Equinox I:8 (1912), \"Brief Meaning of Twenty-Two Keys\", item 20, p. 204; title table no. 77, p. 152. \"on its plane\" is italic in the 1912 print. The card name is printed \"The Judg-ment\", hyphenated across a line break; \"The Judgement\" at the-equinox.org is a slip. Verified against https://archive.org/details/crowley-equinox_202110 (leaves 182, 234)."
+  },
+  "atu-21": {
+   "name": "Atu XXI · The Universe",
+   "bookTName": "The Universe — The Great One of the Night of Time",
+   "meaning": "The matter itself. Synthesis, world, kingdom. Usually denotes actual subject of question, and therefore depends entirely on accompanying cards.",
+   "wellDignified": "",
+   "illDignified": "",
+   "keywords": "The matter itself; synthesis, context-dependent",
+   "brief": "Stands for the heart of what is being asked and how it finally takes form, so read it alongside nearby cards. It signals integration and closure, but also sluggishness, hold-ups, resistance, and dogged, patient persistence.",
+   "source": "The Equinox I:8 (1912), \"Brief Meaning of Twenty-Two Keys\", item 21, p. 204; title table no. 78, p. 152 (\"The Uni-verse\" is hyphenated across a line break). Verified against https://archive.org/details/crowley-equinox_202110 (leaves 182, 234). Directly after this item the source adds: \"[This table is very unsatisfactory. Each card must be most carefully meditated, taking all its correspondences, and a clear idea formed.]\""
+  },
+  "wands-1": {
+   "name": "Ace of Wands",
+   "bookTName": "The Root of the Powers of Fire",
+   "meaning": "It symbolizes Force—strength, rush, vigour, energy, and it governs, according to its nature, various works and questions.\nIt implies Natural, as opposed to Invoked, Force.",
+   "wellDignified": "",
+   "illDignified": "",
+   "keywords": "Raw natural force, vigour and energy",
+   "brief": "Raw, untamed energy bursting into life: a fresh surge of will, drive and vitality able to power any undertaking. This force springs up spontaneously from nature itself rather than being summoned by ritual or deliberate effort.",
+   "source": "The Equinox Vol. I No. 8 (1912), 'A Description of the Cards of the Tarot', I, 'Ace of Wands', pp. 153-154. Text from http://www.the-equinox.org/vol1/no8/eqi08016.html, checked against the 1912 page scan at https://archive.org/details/crowley-equinox_202110 (file 'The Equinox Vol. 1, No. 8'). Checked again word for word against a second copy, https://archive.org/details/oto-equinox-vol-1-no-01-10 (file 'Equinox Vol 1 No 08', a modern re-typeset edition that keeps the 1912 page numbers): its OCR text (https://archive.org/download/oto-equinox-vol-1-no-01-10/Equinox%20Vol%201%20No%2008_djvu.txt) and its image of p. 154. The two copies agree. The line-break hyphen in 'ques-tions' is joined."
+  },
+  "wands-2": {
+   "name": "Two of Wands",
+   "bookTName": "The Lord of Dominion",
+   "meaning": "Strength, domination, harmony of rule and of justice. Boldness, courage, fierceness, shamelessness, revenge, resolution, generous, proud, sensitive, ambitious, refined, restless, turbulent, sagacious withal, yet unforgiving and obstinate.\nChokmah of י (Influence over others, authority, power, dominion).",
+   "wellDignified": "",
+   "illDignified": "",
+   "keywords": "Bold dominion, authority and proud resolve",
+   "brief": "Taking charge: the urge to lead and shape events, backed by bold resolve and a sense of fairness. Its shadow is grudges nursed and never released, a hunger for payback, arrogance and a restless, headstrong streak.",
+   "source": "The Equinox Vol. I No. 8 (1912), XLV, 'Two of Wands', p. 194. Text from http://www.the-equinox.org/vol1/no8/eqi08016.html, checked against the scan at https://archive.org/details/crowley-equinox_202110 (The Equinox Vol. 1, No. 8). Checked again word for word against a second copy, https://archive.org/details/oto-equinox-vol-1-no-01-10 ('Equinox Vol 1 No 08'): OCR text and page image of p. 194. The two copies agree. Yod (י) is confirmed on the page image. 'reso-lution' is joined."
+  },
+  "wands-3": {
+   "name": "Three of Wands",
+   "bookTName": "The Lord of Established Strength",
+   "meaning": "Established force, strength, realization of hope. Completion of labour. Success after struggle. Pride, nobility, wealth, power, conceit. Rude self-assumption and insolence. Generosity, obstinacy, etc.\nBinah of י (Pride, arrogance, self-assertion).\n[This card is much better than as described.]",
+   "wellDignified": "",
+   "illDignified": "",
+   "keywords": "Hope realized; strength firmly established after struggle",
+   "brief": "Early success: persistence starts to be rewarded with results, status and resources, and hopes look set to be realised on solid footing. Guard against pride swelling into vanity, arrogance and overbearing, ill-mannered behaviour.",
+   "source": "The Equinox Vol. I No. 8 (1912), XLVI, 'Three of Wands', p. 195. Text from http://www.the-equinox.org/vol1/no8/eqi08016.html, checked against the scan at https://archive.org/details/crowley-equinox_202110 (The Equinox Vol. 1, No. 8). Checked again word for word against a second copy, https://archive.org/details/oto-equinox-vol-1-no-01-10 ('Equinox Vol 1 No 08'): OCR text and page image of p. 195. The two copies agree. The bracketed last line is Crowley's editorial note, printed in brackets in the Equinox. It is not part of the Golden Dawn text itself. 'Com-pletion' is joined."
+  },
+  "wands-4": {
+   "name": "Four of Wands",
+   "bookTName": "The Lord of Perfected Work",
+   "meaning": "Perfection or completion of a thing built up with trouble and labour. Rest after labour, subtlety, cleverness, beauty, mirth, success in completion. Reasoning faculty, conclusions drawn from previous knowledge. Unreadiness, unreliable and unsteady through over-anxiety and hurriedness of action. Graceful in manner, at times insincere, etc.\nChesed of י (Settlement, arrangement, completion).",
+   "wellDignified": "",
+   "illDignified": "",
+   "keywords": "Hard work completed, followed by rest",
+   "brief": "Completion and settled order after hard work: time to pause, celebrate and enjoy a well-made result, guided by clear reasoning and experience. Its weak side is nervous haste, leaving one erratic, underprepared and charming only on the surface.",
+   "source": "The Equinox Vol. I No. 8 (1912), XLVII, 'Four of Wands', pp. 195-196. Text from http://www.the-equinox.org/vol1/no8/eqi08016.html, checked against the scan at https://archive.org/details/crowley-equinox_202110 (The Equinox Vol. 1, No. 8). Checked again word for word against a second copy, https://archive.org/details/oto-equinox-vol-1-no-01-10 ('Equinox Vol 1 No 08'): OCR text and page images of pp. 195-196. The two copies agree."
+  },
+  "wands-5": {
+   "name": "Five of Wands",
+   "bookTName": "The Lord of Strife",
+   "meaning": "Violent strife and boldness, rashness, cruelty, violence, lust, desire, prodigality and generosity; depending on whether the card is well or ill dignified.\nGeburah of י (Quarrelling and fighting).",
+   "wellDignified": "",
+   "illDignified": "",
+   "keywords": "Fierce conflict, rashness and quarrels",
+   "brief": "Conflict, rivalry and heated contests of will. At its best the card shows daring energy and an open-handed spirit; badly placed it turns into recklessness, aggression, cruelty and unchecked appetite.",
+   "source": "The Equinox Vol. I No. 8 (1912), XXI, 'Five of Wands', pp. 177-178. Text from http://www.the-equinox.org/vol1/no8/eqi08016.html, checked against the scan at https://archive.org/details/crowley-equinox_202110 (The Equinox Vol. 1, No. 8). Checked again word for word against a second copy, https://archive.org/details/oto-equinox-vol-1-no-01-10 ('Equinox Vol 1 No 08'): OCR text of p. 177 and page image of p. 178. The two copies agree. Book T refers to dignity here but does not say which qualities are well or ill dignified. The general bracketed note printed after this card, about the proper meaning of the small cards, is left out because it is not specific to this card."
+  },
+  "wands-6": {
+   "name": "Six of Wands",
+   "bookTName": "The Lord of Victory",
+   "meaning": "Victory after strife: Love: pleasure gained by labour: carefulness, sociability and avoiding of strife, yet victory therein: also insolence, and pride of riches and success, etc. The whole dependent on the dignity.\nTiphareth of י (Gain).",
+   "wellDignified": "",
+   "illDignified": "",
+   "keywords": "Triumph earned through effort; gain",
+   "brief": "A hard-fought contest ends in a win and public recognition; diplomacy, goodwill and teamwork help carry the day, and the rewards are enjoyed. Poorly supported by nearby cards, success turns into arrogance and flaunting of wealth or status.",
+   "source": "The Equinox Vol. I No. 8 (1912), XXII, 'Six of Wands', p. 178. Text from http://www.the-equinox.org/vol1/no8/eqi08016.html, checked against the scan at https://archive.org/details/crowley-equinox_202110 (The Equinox Vol. 1, No. 8). Checked again word for word against a second copy, https://archive.org/details/oto-equinox-vol-1-no-01-10 ('Equinox Vol 1 No 08'): OCR text and page image of p. 178. The two copies agree. Book T does not split the qualities by dignity."
+  },
+  "wands-7": {
+   "name": "Seven of Wands",
+   "bookTName": "The Lord of Valour",
+   "meaning": "Possible victory, depending on the energy and courage exercised; valour; opposition, obstacles and difficulties, yet courage to meet them; quarrelling, ignorance, pretence, and wrangling, and threatening; also victory in small and unimportant things: and influence upon subordinates.\nNetzach of י (Opposition, yet courage).",
+   "wellDignified": "",
+   "illDignified": "",
+   "keywords": "Courage holding out against opposition",
+   "brief": "Holding your ground under pressure. Success is within reach but depends on sheer grit and effort. Expect bickering, posturing and threats along the way; gains may be minor, though you can steer people who answer to you.",
+   "source": "The Equinox Vol. I No. 8 (1912), XXIII, 'Seven of Wands', p. 179. Text from http://www.the-equinox.org/vol1/no8/eqi08016.html, checked against the scan at https://archive.org/details/crowley-equinox_202110 (The Equinox Vol. 1, No. 8). Checked again word for word against a second copy, https://archive.org/details/oto-equinox-vol-1-no-01-10 ('Equinox Vol 1 No 08'): OCR text and page image of p. 179. The two copies agree. 'un-important' is joined."
+  },
+  "wands-8": {
+   "name": "Eight of Wands",
+   "bookTName": "The Lord of Swiftness",
+   "meaning": "Too much force applied too suddenly. Very rapid rush, but quickly passed and expended. Violent, but not lasting. Swiftness, rapidity, courage, boldness, confidence, freedom, warfare, violence; love of open air, field-sports, gardens and meadows. Generous, subtle, eloquent, yet somewhat untrustworthy; rapacious, insolent, oppressive. Theft and robbery. According to dignity.\nHod of י (Hasty communications and messages; swiftness).",
+   "wellDignified": "",
+   "illDignified": "",
+   "keywords": "Sudden rapid energy; hasty news",
+   "brief": "Speed: news, messages and ideas travel fast, and events surge forward in a burst that burns out almost as soon as it starts. At best, frank, articulate self-assurance; at worst, impulsiveness, aggression, dishonesty or theft.",
+   "source": "The Equinox Vol. I No. 8 (1912), XXXIII, 'Eight of Wands or Torches', p. 186. Text from http://www.the-equinox.org/vol1/no8/eqi08016.html, checked against the scan at https://archive.org/details/crowley-equinox_202110 (The Equinox Vol. 1, No. 8). Checked again word for word against a second copy, https://archive.org/details/oto-equinox-vol-1-no-01-10 ('Equinox Vol 1 No 08'): OCR text and page image of p. 186. The two copies agree. 'untrust-worthy' is joined. Book T does not split the qualities by dignity."
+  },
+  "wands-9": {
+   "name": "Nine of Wands",
+   "bookTName": "The Lord of Great Strength",
+   "meaning": "Tremendous and steady force that cannot be shaken. Herculean strength, yet sometimes scientifically applied. Great success, but with strife and energy. Victory, preceded by apprehension and fear. Health good, and recovery not in doubt. Generous, questioning and curious; fond of external appearances: intractable, obstinate.\nYesod of י (Strength, power, health, recovery from sickness).",
+   "wellDignified": "",
+   "illDignified": "",
+   "keywords": "Unshakeable strength, health and recovery",
+   "brief": "Deep reserves of strength that hold firm under pressure. Health is sound or returning, and a hard fight, begun with some nerves, ends in success. The weaker side: rigidity, refusal to bend, and too much attention to outward show.",
+   "source": "The Equinox Vol. I No. 8 (1912), XXXIV, 'Nine of Wands or Torches', p. 187. Text from http://www.the-equinox.org/vol1/no8/eqi08016.html, checked against the scan at https://archive.org/details/crowley-equinox_202110 (The Equinox Vol. 1, No. 8). Checked again word for word against a second copy, https://archive.org/details/oto-equinox-vol-1-no-01-10 ('Equinox Vol 1 No 08'): OCR text and page image of p. 187. The two copies agree."
+  },
+  "wands-10": {
+   "name": "Ten of Wands",
+   "bookTName": "The Lord of Oppression",
+   "meaning": "Cruel and overbearing force and energy, but applied only to material and selfish ends. Sometimes shows failure in a matter, and the opposition too strong to be controlled; arising from the person's too great selfishness at the beginning.\nMalkuth of ו (Cruelty, malice, revenge, injustice).",
+   "wellDignified": "Also generosity, disinterestedness and self-sacrifice, when well dignified.",
+   "illDignified": "Ill-will, levity, lying, malice, slander, envy, obstinacy; swiftness in evil and deceit, if ill dignified.",
+   "keywords": "Overbearing, selfish force; oppression and cruelty",
+   "brief": "An oppressive load: energy spent on crude self-interest until matters slip beyond control, a trap set by one's own early greed. Ill placed it breeds spite, deceit and jealousy; well placed, openhanded generosity and putting others first.",
+   "source": "The Equinox Vol. I No. 8 (1912), XXXV, 'Ten of Wands', pp. 187-188. Text from http://www.the-equinox.org/vol1/no8/eqi08016.html, checked against the scan at https://archive.org/details/crowley-equinox_202110 (The Equinox Vol. 1, No. 8). Checked again word for word against a second copy, https://archive.org/details/oto-equinox-vol-1-no-01-10 ('Equinox Vol 1 No 08'): OCR text and page images of pp. 187-188. The two copies agree. The ill- and well-dignified sentences come from the same paragraph and follow straight after the meaning text. Both the 1912 scan (p. 188) and the second copy's p. 188 print Vau (ו) in 'Malkuth of ו', where the other Wands cards have Yod. It is kept as printed. The hyphen in 'Ill-will' is part of the word. 'disinter-estedness' is joined."
+  },
+  "wands-knight": {
+   "name": "Knight of Wands",
+   "bookTName": "The Lord of the Flame and the Lightning; the King of the Spirits of Fire",
+   "meaning": "He is active—generous—fierce—sudden—impetuous.",
+   "wellDignified": "",
+   "illDignified": "If ill dignified, he is evil-minded—cruel—bigoted—brutal.",
+   "keywords": "Impetuous, generous, fierce and sudden action",
+   "brief": "Someone who leaps into action on a whim, with fiery intensity and a generous hand. Ill dignified, that heat curdles into spite, zealotry and savage, heartless behaviour.",
+   "source": "The Equinox Vol. I No. 8 (1912), V, printed as 'Knight of Wands' (the horsed figure; Fire of Fire, King of the Salamanders), p. 159. Text from http://www.the-equinox.org/vol1/no8/eqi08016.html, checked against the scan at https://archive.org/details/crowley-equinox_202110 (The Equinox Vol. 1, No. 8). Checked again word for word against a second copy, https://archive.org/details/oto-equinox-vol-1-no-01-10 ('Equinox Vol 1 No 08'): OCR text and page image of p. 159. The two copies agree, em-dashes included. Book T's 'King' (the horsed figure) maps to the Thoth Knight, as the Equinox footnote on this page confirms."
+  },
+  "wands-queen": {
+   "name": "Queen of Wands",
+   "bookTName": "The Queen of the Thrones of Flame",
+   "meaning": "Adaptability, steady force applied to an object, steady rule, great attractive power, power of command, yet liked notwithstanding. Kind and generous when not opposed.",
+   "wellDignified": "",
+   "illDignified": "If ill dignified, obstinate, revengeful, domineering, tyrannical, and apt to turn against another without a cause.",
+   "keywords": "Steady, magnetic command; generous unless opposed",
+   "brief": "A charismatic woman who leads through quiet persistence and flexibility, and stays well liked even while giving orders; her warmth lasts until she meets resistance. Ill dignified: headstrong, bullying, grudge-holding, liable to lash out unprovoked.",
+   "source": "The Equinox Vol. I No. 8 (1912), VI, 'Queen of Wands' (Water of Fire, Queen of the Salamanders), p. 160. Text from http://www.the-equinox.org/vol1/no8/eqi08016.html, checked against the scan at https://archive.org/details/crowley-equinox_202110 (The Equinox Vol. 1, No. 8). Checked again word for word against a second copy, https://archive.org/details/oto-equinox-vol-1-no-01-10 ('Equinox Vol 1 No 08'): OCR text of p. 160. The two copies agree. 'tyran-nical' is joined."
+  },
+  "wands-prince": {
+   "name": "Prince of Wands",
+   "bookTName": "The Prince of the Chariot of Fire",
+   "meaning": "Swift, strong, hasty; rather violent, yet just and generous; noble and scorning meanness.",
+   "wellDignified": "",
+   "illDignified": "If ill dignified—cruel, intolerant, prejudiced and ill natured.",
+   "keywords": "Swift, noble, hasty yet fair-minded",
+   "brief": "A young man of fairness and big-heartedness who despises anything petty, though he acts in haste, hits hard and can be pushed into outright violence. Ill dignified: closed-minded, partial, harsh and sour-tempered.",
+   "source": "The Equinox Vol. I No. 8 (1912), VII, printed as 'King of Wands' (the charioted figure; Air of Fire, Prince and Emperor of Salamanders), pp. 160-161 (the meaning is on p. 161). Text from http://www.the-equinox.org/vol1/no8/eqi08016.html, checked against the scan at https://archive.org/details/crowley-equinox_202110 (The Equinox Vol. 1, No. 8). Checked again word for word against a second copy, https://archive.org/details/oto-equinox-vol-1-no-01-10 ('Equinox Vol 1 No 08'): OCR text and page image of p. 161. The two copies agree."
+  },
+  "wands-princess": {
+   "name": "Princess of Wands",
+   "bookTName": "The Princess of the Shining Flame; the Rose of the Palace of Fire",
+   "meaning": "Brilliance, courage, beauty, force, sudden in anger or love, desire of power, enthusiasm, revenge.",
+   "wellDignified": "",
+   "illDignified": "If ill dignified, she is superficial, theatrical, cruel, unstable, domineering.",
+   "keywords": "Brilliant, daring, passionate and quick-tempered",
+   "brief": "A dazzling, fearless young woman, hungry for influence and full of zeal; affection and fury alike flare up in her instantly, and anger can harden into vengeance. Ill dignified: erratic, bossy, heartless, all surface and drama.",
+   "source": "The Equinox Vol. I No. 8 (1912), VIII, printed as 'Knave of Wands' (Earth of Fire, Princess and Empress of the Salamanders, Throne of the Ace of Wands), pp. 161-162 (the meaning is on p. 162). Text from http://www.the-equinox.org/vol1/no8/eqi08016.html, checked against the scan at https://archive.org/details/crowley-equinox_202110 (The Equinox Vol. 1, No. 8). Checked again word for word against a second copy, https://archive.org/details/oto-equinox-vol-1-no-01-10 ('Equinox Vol 1 No 08'): OCR text of p. 162. The two copies agree."
+  },
+  "cups-1": {
+   "name": "Ace of Cups",
+   "bookTName": "The Root of the Powers of the Waters (Ace of Cups or Chalices)",
+   "meaning": "It symbolizes Fertility—productiveness, beauty, pleasure, happiness, etc.",
+   "wellDignified": "",
+   "illDignified": "",
+   "keywords": "Fruitful source of beauty and joy",
+   "brief": "The wellspring of love and emotional abundance: deep contentment, beauty, creativity and fruitfulness in every sense. It signals a new source of joy, affection or pleasure opening up.",
+   "source": "The Equinox I:8 (1912), 'A Description of the Cards of the Tarot', section II, p. 154. Primary: archive.org crowley-equinox_202110, No. 8 jp2 leaf 0184. Second copy checked word by word against the page image: 100th Monkey Press PDF of the 1912 printing, https://www.100thmonkeypress.com/biblio/acrowley/books/equinox_1_8_1912/equinox_1_8_text.pdf, PDF page 196. Also compared with https://archive.org/details/IAPSOP-equinox_v1_n8_1912_Sep (a later re-typeset edition), PDF page 200. Same wording in all copies."
+  },
+  "cups-2": {
+   "name": "Two of Cups",
+   "bookTName": "The Lord of Love (Two of Chalices)",
+   "meaning": "Harmony of masculine and feminine united. Harmony, pleasure, mirth, subtlety: but if ill dignified—folly, dissipation, waste, silly actions.\n\nChokmah of ה (Marriage, love, pleasure).",
+   "wellDignified": "",
+   "illDignified": "if ill dignified—folly, dissipation, waste, silly actions.",
+   "keywords": "Harmonious union and affection; otherwise folly",
+   "brief": "A bond of love between two people in which opposite natures meet and balance: quiet understanding, tenderness, laughter and shared joy, often pointing to romance or marriage. Poorly placed, the delight is squandered in silliness and excess.",
+   "source": "The Equinox I:8 (1912), 'A Description of the Cards of the Tarot', section LIV, pp. 200-201 (the meaning is on p. 201). Primary: archive.org crowley-equinox_202110, No. 8 jp2 leaves 0230-0231. Second copy checked word by word: 100th Monkey Press PDF of the 1912 printing, https://www.100thmonkeypress.com/biblio/acrowley/books/equinox_1_8_1912/equinox_1_8_text.pdf, PDF pages 242-243. Also compared with https://archive.org/details/IAPSOP-equinox_v1_n8_1912_Sep (re-typeset edition), PDF pages 246-247. Same wording. 'dissipa-/tion' is joined across the line break. The ill-dignified clause sits inside the main sentence and is quoted from it."
+  },
+  "cups-3": {
+   "name": "Three of Cups",
+   "bookTName": "The Lord of Abundance (Three of Chalices)",
+   "meaning": "Abundance, plenty, success, pleasure, sensuality, passive success, good luck and fortune; love, gladness, kindness, liberality.\n\nBinah of ה (Plenty, hospitality, eating and drinking, pleasure, dancing, new clothes, merriment).",
+   "wellDignified": "",
+   "illDignified": "",
+   "keywords": "Plenty, good fortune, festive generosity",
+   "brief": "Overflowing good fortune and shared celebration: friendship, generosity, hospitality, feasting and sensual enjoyment, with success that arrives almost effortlessly. A time to savour abundance and share it warmly.",
+   "source": "The Equinox I:8 (1912), 'A Description of the Cards of the Tarot', section LV, pp. 201-202. Primary: archive.org crowley-equinox_202110, No. 8 jp2 leaves 0231-0232. Second copy checked word by word: 100th Monkey Press PDF of the 1912 printing, https://www.100thmonkeypress.com/biblio/acrowley/books/equinox_1_8_1912/equinox_1_8_text.pdf, PDF pages 243-244. Also compared with https://archive.org/details/IAPSOP-equinox_v1_n8_1912_Sep (re-typeset edition), PDF pages 247-248. Same wording."
+  },
+  "cups-4": {
+   "name": "Four of Cups",
+   "bookTName": "The Lord of Blended Pleasure (Four of Chalices)",
+   "meaning": "Success or pleasure approaching their end. A stationary period in happiness, which may, or may not, continue. It does not mean love and marriage so much as the previous symbol. It is too passive a symbol to represent perfectly complete happiness. Swiftness, hunting and pursuing. Acquisition by contention: injustice sometimes; some drawbacks to pleasure implied.\n\nChesed of ה (Receiving pleasure or kindness from others, but some discomfort therewith).",
+   "wellDignified": "",
+   "illDignified": "",
+   "keywords": "Pleasure plateauing, mixed with slight unease",
+   "brief": "Pleasure has peaked and settled into a pause; contentment remains but grows stale or mixed with unease. Kindness received may carry strings, and what is won may need a fight, not always a fair one.",
+   "source": "The Equinox I:8 (1912), 'A Description of the Cards of the Tarot', section LVI, p. 202. Primary: archive.org crowley-equinox_202110, No. 8 jp2 leaf 0232. Second copy checked word by word: 100th Monkey Press PDF of the 1912 printing, https://www.100thmonkeypress.com/biblio/acrowley/books/equinox_1_8_1912/equinox_1_8_text.pdf, PDF page 244. Also compared with https://archive.org/details/IAPSOP-equinox_v1_n8_1912_Sep (re-typeset edition), PDF page 248. Same wording. 'draw-/backs' is joined across the line break."
+  },
+  "cups-5": {
+   "name": "Five of Cups",
+   "bookTName": "The Lord of Loss in Pleasure (Five of Cups or Chalices)",
+   "meaning": "Death, or end of pleasure: disappointment, sorrow and loss in those things from which pleasure is expected. Sadness, treachery, deceit; ill-will, detraction; charity and kindness ill requited; all kinds of anxieties and troubles from unsuspected and unexpected sources.\n\nGeburah of ה (Disappointment in love, marriage broken off, unkindness of a friend; loss of friendship).",
+   "wellDignified": "",
+   "illDignified": "",
+   "keywords": "Expected joys turning to sorrow",
+   "brief": "A pleasure comes to an end and grief takes its place. Hearts are let down by a lover or friend, generosity is repaid with ingratitude or betrayal, and fresh worries appear out of nowhere.",
+   "source": "The Equinox I:8 (1912), 'A Description of the Cards of the Tarot', section XXX, p. 184. Primary: archive.org crowley-equinox_202110, No. 8 jp2 leaf 0214. Second copy checked word by word: 100th Monkey Press PDF of the 1912 printing, https://www.100thmonkeypress.com/biblio/acrowley/books/equinox_1_8_1912/equinox_1_8_text.pdf, PDF page 226. Also compared with https://archive.org/details/IAPSOP-equinox_v1_n8_1912_Sep (re-typeset edition), PDF page 230. Same wording."
+  },
+  "cups-6": {
+   "name": "Six of Cups",
+   "bookTName": "The Lord of Pleasure (Six of Chalices)",
+   "meaning": "Commencement of steady increase, gain and pleasure; but commencement only. Also affront, detection, knowledge, and in some instances contention and strife arising from unwarranted self-assertion and vanity. Sometimes thankless and presumptuous; sometimes amiable and patient. According to dignity as usual.\n\nTiphareth of ה (Beginning of wish, happiness, success, or enjoyment).",
+   "wellDignified": "",
+   "illDignified": "",
+   "keywords": "Early gains; happiness only beginning",
+   "brief": "Happiness is starting to take root: a wish edges toward fulfilment and good things build gradually, but the harvest is still ahead. At best it shows kindness and patience; at worst, conceit and self-importance stir up quarrels.",
+   "source": "The Equinox I:8 (1912), 'A Description of the Cards of the Tarot', section XXXI, pp. 184-185 (the meaning is on p. 185). Primary: archive.org crowley-equinox_202110, No. 8 jp2 leaves 0214-0215. Second copy checked word by word: 100th Monkey Press PDF of the 1912 printing, https://www.100thmonkeypress.com/biblio/acrowley/books/equinox_1_8_1912/equinox_1_8_text.pdf, PDF pages 226-227. Also compared with https://archive.org/details/IAPSOP-equinox_v1_n8_1912_Sep (re-typeset edition), PDF pages 230-231. Same wording."
+  },
+  "cups-7": {
+   "name": "Seven of Cups",
+   "bookTName": "The Lord of Illusionary Success (Seven of Chalices)",
+   "meaning": "Possible victory, but neutralized by the supineness of the person: illusionary success, deception in the moment of apparent victory. Lying, error, promises unfulfilled. Drunkenness, wrath, vanity. Lust, fornication, violence against women, selfish dissipation, deception in love and friendship. Often success gained, but not followed up. Modified as usual by dignity.\n\nNetzach of ה (Lying, promises unfulfilled; illusion, deception, error; slight success at outset, not retained).",
+   "wellDignified": "",
+   "illDignified": "",
+   "keywords": "Deceptive success, broken promises, self-indulgence",
+   "brief": "Alluring fantasies and hollow promises that melt away when grasped: self-deception, drink and excess sap the will, so a victory within reach is let slip. Any headway made at the start soon evaporates.",
+   "source": "The Equinox I:8 (1912), 'A Description of the Cards of the Tarot', section XXXII, pp. 185-186. Primary: archive.org crowley-equinox_202110, No. 8 jp2 leaves 0215-0216. Second copy checked word by word: 100th Monkey Press PDF of the 1912 printing, https://www.100thmonkeypress.com/biblio/acrowley/books/equinox_1_8_1912/equinox_1_8_text.pdf, PDF pages 227-228. Also compared with https://archive.org/details/IAPSOP-equinox_v1_n8_1912_Sep (re-typeset edition), PDF pages 231-232. Same wording. 'Drunken-/ness' is joined across the line break."
+  },
+  "cups-8": {
+   "name": "Eight of Cups",
+   "bookTName": "The Lord of Abandoned Success (Eight of Chalices)",
+   "meaning": "Temporary success, but without further results. Thing thrown aside as soon as gained. Not lasting, even in the matter in hand. Indolence in success. Journeying from place to place. Misery and repining without cause. Seeking after riches. Instability.\n\nHod of ה (Success abandoned; decline of interest).",
+   "wellDignified": "",
+   "illDignified": "",
+   "keywords": "Gains dropped, interest fading, restlessness",
+   "brief": "A listless, drifting mood: spirits sink for no obvious reason, the urge to roam grows, and something hard-won is simply left behind as enthusiasm ebbs. Time to release what no longer satisfies and look for new meaning.",
+   "source": "The Equinox I:8 (1912), 'A Description of the Cards of the Tarot', section XLII, p. 192. Primary: archive.org crowley-equinox_202110, No. 8 jp2 leaf 0222. Second copy checked word by word: 100th Monkey Press PDF of the 1912 printing, https://www.100thmonkeypress.com/biblio/acrowley/books/equinox_1_8_1912/equinox_1_8_text.pdf, PDF page 234. Also compared with https://archive.org/details/IAPSOP-equinox_v1_n8_1912_Sep (re-typeset edition), PDF page 238. Same wording."
+  },
+  "cups-9": {
+   "name": "Nine of Cups",
+   "bookTName": "The Lord of Material Happiness (Nine of Chalices)",
+   "meaning": "Complete and perfect realization of pleasure and happiness, almost perfect; self-praise, vanity, conceit, much talking of self, yet kind and lovable, and may be self-denying therewith. High-minded, not easily satisfied with small and limited ideas. Apt to be maligned through too much self-assumption. A good and generous, but sometimes foolish nature.\n\nYesod of ה (Complete success, pleasure and happiness, wishes fulfilled).",
+   "wellDignified": "",
+   "illDignified": "",
+   "keywords": "Fulfilled wishes, contentment, touch of vanity",
+   "brief": "Known as the wish card: hopes are realised and happiness is about as full as it gets. The risk is complacency and boasting, though at heart the person is big-hearted and kind, occasionally to the point of gullibility.",
+   "source": "The Equinox I:8 (1912), 'A Description of the Cards of the Tarot', section XLIII, p. 193. Primary: archive.org crowley-equinox_202110, No. 8 jp2 leaf 0223. Second copy checked word by word: 100th Monkey Press PDF of the 1912 printing, https://www.100thmonkeypress.com/biblio/acrowley/books/equinox_1_8_1912/equinox_1_8_text.pdf, PDF page 235. Also compared with https://archive.org/details/IAPSOP-equinox_v1_n8_1912_Sep (re-typeset edition), PDF page 239. Same wording."
+  },
+  "cups-10": {
+   "name": "Ten of Cups",
+   "bookTName": "The Lord of Perfected Success (Ten of Cups or Chalices)",
+   "meaning": "Permanent and lasting success and happiness, because inspired from above. Not so sensual as the “Lord of Material Happiness,” yet almost more truly happy. Pleasure, dissipation, debauchery, quietness, peacemaking. Kindness, pity, generosity, wantonness, waste, etc., according to dignity.\n\nMalkuth of ה (Matter settled: complete good fortune).\n\n[This is not such a good card as stated. It represents boredom, and quarrelling arising therefrom; disgust springing from too great luxury. In particular it represents drug-habits, the sottish excess of pleasure and the revenge of nature.]",
+   "wellDignified": "",
+   "illDignified": "",
+   "keywords": "Lasting contentment from above; risk of excess",
+   "brief": "Fulfilment reaches completion: a durable joy with a higher source, harmony at home and with loved ones, and affairs well concluded. Ill placed, satiety tips into excess, boredom, quarrels and waste, as too much comfort sours.",
+   "source": "The Equinox I:8 (1912), 'A Description of the Cards of the Tarot', section XLIV, pp. 193-194 (the meaning is on p. 194). Primary: archive.org crowley-equinox_202110, No. 8 jp2 leaves 0223-0224. Second copy checked word by word: 100th Monkey Press PDF of the 1912 printing, https://www.100thmonkeypress.com/biblio/acrowley/books/equinox_1_8_1912/equinox_1_8_text.pdf, PDF pages 235-236. That copy also reads 'as the “Lord of Material Happiness,”'. The re-typeset IAPSOP edition (https://archive.org/details/IAPSOP-equinox_v1_n8_1912_Sep, PDF page 240) and the OTO/Celephaïs e-text leave out 'the'; the 1912 reading is kept. The final bracketed paragraph is an editorial note (the editor's, i.e. Crowley's) printed in the 1912 Equinox, not Golden Dawn Book T text. Drop it if you want Book T only. 'dissipa-/tion' is joined; 'drug-/habits' breaks at a real compound hyphen, so the hyphen stays."
+  },
+  "cups-knight": {
+   "name": "Knight of Cups",
+   "bookTName": "The Lord of the Waves and the Waters; the King of the Hosts of the Sea (Equinox label: Knight of Cups)",
+   "meaning": "Graceful, poetic, Venusian, indolent, but enthusiastic if roused.",
+   "wellDignified": "",
+   "illDignified": "Ill dignified, he is sensual, idle and untruthful.",
+   "keywords": "Charming, artistic, easygoing until inspired",
+   "brief": "A charming, artistic romantic with an elegant manner, content to drift until something fires his passion, then eager and ardent. Poorly placed, he becomes lazy, pleasure-seeking and not to be trusted in what he says.",
+   "source": "The Equinox I:8 (1912), 'A Description of the Cards of the Tarot', section IX, pp. 162-163 (the meaning is on p. 163). Primary: archive.org crowley-equinox_202110, No. 8 jp2 leaves 0192-0193. Second copy checked word by word: 100th Monkey Press PDF of the 1912 printing, https://www.100thmonkeypress.com/biblio/acrowley/books/equinox_1_8_1912/equinox_1_8_text.pdf, PDF pages 204-205. Also compared with https://archive.org/details/IAPSOP-equinox_v1_n8_1912_Sep (re-typeset edition), PDF pages 208-209. Same wording. This is the mounted figure, marked Fire of Water (△ of ▽) and 'King of Undines and Nymphs'. It is Book T's 'King', so it maps to the Thoth Knight."
+  },
+  "cups-queen": {
+   "name": "Queen of Cups",
+   "bookTName": "The Queen of the Thrones of the Waters (Queen of Cups)",
+   "meaning": "She is imaginative, poetic, kind, yet not willing to take much trouble for another. Coquettish, good-natured underneath a dreamy appearance. Imagination stronger than feeling. Very much affected by other influences, and therefore more dependent upon dignity than most symbols.",
+   "wellDignified": "",
+   "illDignified": "",
+   "keywords": "Dreamy, impressionable imagination; mirrors surroundings",
+   "brief": "A warm, flirtatious dreamer whose inner life runs on fantasy rather than deep emotion, and who seldom puts herself out for anyone. Like still water, she mirrors her surroundings, taking her colour largely from nearby cards.",
+   "source": "The Equinox I:8 (1912), 'A Description of the Cards of the Tarot', section X, pp. 163-164. Primary: archive.org crowley-equinox_202110, No. 8 jp2 leaves 0193-0194. Second copy checked word by word: 100th Monkey Press PDF of the 1912 printing, https://www.100thmonkeypress.com/biblio/acrowley/books/equinox_1_8_1912/equinox_1_8_text.pdf, PDF pages 205-206. That copy also reads 'good-natured under-/neath' with no 'and'. The re-typeset IAPSOP edition (https://archive.org/details/IAPSOP-equinox_v1_n8_1912_Sep, PDF pages 209-210), the OTO/Celephaïs e-text and the hermetic.com text all read 'good-natured and underneath'; the 1912 reading is kept. Water of Water (▽ of ▽). Book T gives no separate ill-dignified clause for this card."
+  },
+  "cups-prince": {
+   "name": "Prince of Cups",
+   "bookTName": "The Prince of the Chariot of the Waters (Equinox label: King of Cups)",
+   "meaning": "He is subtle, violent, crafty and artistic; a fierce nature with calm exterior. Powerful for good or evil, but more attracted by the evil if allied with apparent Power or Wisdom.",
+   "wellDignified": "",
+   "illDignified": "If ill dignified, he is intensely evil and merciless.",
+   "keywords": "Calm surface hiding fierce, subtle power",
+   "brief": "Calm on the surface, volcanic beneath: an artful, secretive and creative character whose strength can serve either side, and who is drawn to the shadow when it dangles might or secret knowledge. Poorly placed, he becomes utterly ruthless.",
+   "source": "The Equinox I:8 (1912), 'A Description of the Cards of the Tarot', section XI, p. 164. Primary: archive.org crowley-equinox_202110, No. 8 jp2 leaf 0194. Second copy checked word by word: 100th Monkey Press PDF of the 1912 printing, https://www.100thmonkeypress.com/biblio/acrowley/books/equinox_1_8_1912/equinox_1_8_text.pdf, PDF page 206. That copy also has the comma after 'evil'. The re-typeset IAPSOP edition (https://archive.org/details/IAPSOP-equinox_v1_n8_1912_Sep, PDF page 210) and the OTO/Celephaïs e-text drop it; the 1912 reading is kept. The meaning comes at the end of the description paragraph. This is the charioted figure, Air of Water, marked 'Prince and Emperor of Nymphs or Undines', so it maps to the Thoth Prince."
+  },
+  "cups-princess": {
+   "name": "Princess of Cups",
+   "bookTName": "The Princess of the Waters; the Lotus of the Palace of the Floods (Equinox label: Knave of Cups)",
+   "meaning": "Sweetness, poetry, gentleness and kindness. Imaginative, dreamy, at times indolent, yet courageous if roused.",
+   "wellDignified": "",
+   "illDignified": "When ill dignified she is selfish and luxurious.",
+   "keywords": "Gentle, dreamy sweetness with hidden courage",
+   "brief": "A kind, soft-hearted and lyrical spirit who lives half in reverie and can be lazy, though she shows surprising nerve once challenged. Poorly placed, her softness gives way to self-absorption and a taste for indulgence.",
+   "source": "The Equinox I:8 (1912), 'A Description of the Cards of the Tarot', section XII, p. 165. Primary: archive.org crowley-equinox_202110, No. 8 jp2 leaf 0195. Second copy checked word by word: 100th Monkey Press PDF of the 1912 printing, https://www.100thmonkeypress.com/biblio/acrowley/books/equinox_1_8_1912/equinox_1_8_text.pdf, PDF page 207. Also compared with https://archive.org/details/IAPSOP-equinox_v1_n8_1912_Sep (re-typeset edition), PDF page 211. Same wording. Earth of Water (▽ of ▽ with the Earth bar); 'Princess and Empress of the Nymphs or Undines. Throne of the Ace of Cups.'"
+  },
+  "swords-1": {
+   "name": "Ace of Swords",
+   "bookTName": "The Root of the Powers of the Air",
+   "meaning": "It symbolizes Invoked, as contrasted with Natural Force: for it is the Invocation of the Sword. Raised upward, it invokes the Divine crown of Spiritual Brightness, but reversed it is the Invocation of Demonic Force; and becomes a fearfully evil symbol. It represents, therefore, very great power for good or evil, but invoked; and it also represents whirling Force, and strength through trouble. It is the affirmation of Justice upholding Divine Authority; and it may become the Sword of Wrath, Punishment, and Affliction.",
+   "wellDignified": "",
+   "illDignified": "",
+   "keywords": "Invoked power, justice, strength through trouble",
+   "brief": "Raw mental power deliberately summoned: clarity, decisive will and justice that cuts through confusion, often forged in hardship. Misused, the same force turns to wrath and punishment, so everything depends on how it is wielded.",
+   "source": "The Equinox Vol. I No. 8 (Sept. 1912), 'A Description of the Cards of the Tarot', section III, 'Ace of Swords', p. 155. Checked word for word against page images of the 1912 printing: https://archive.org/details/crowley-equinox_202110 (file 'The Equinox Vol. 1, No. 8', leaf 0185; Titles list p. 147 = leaf 0177, which reads 'the Root of the Powers of Air'). 'Invoked' is italic in the original. The descriptive sentence before it, 'Six Vaus fall from its point.', is left out. Earlier base texts: https://archive.org/details/IAPSOP-equinox_v1_n8_1912_Sep (n200) and http://www.the-equinox.org/vol1/no8/eqi08016.html."
+  },
+  "swords-2": {
+   "name": "Two of Swords",
+   "bookTName": "The Lord of Peace Restored",
+   "meaning": "Contradictory characters in the same nature, strength through suffering; pleasure after pain. Sacrifice and trouble, yet strength arising therefrom, symbolized by the position of the rose, as though the pain itself had brought forth beauty. Arrangement, peace restored; truce; truth and untruth; sorrow and sympathy. Aid to the weak; arrangement; justice, unselfishness; also a tendency to repetition of affronts on being pardoned; injury when meaning well; given to petitions; also a want of tact, and asking questions of little moment; talkative.\n\nChokmah of Vau. Quarrel made up, yet still some tension in relations: actions sometimes selfish, sometimes unselfish.",
+   "wellDignified": "",
+   "illDignified": "",
+   "keywords": "Truce after quarrel; strength from suffering",
+   "brief": "Reconciliation after conflict: a ceasefire holds and hurt gives way to relief, leaving one stronger for the ordeal. Unease may still simmer beneath the calm; at worst, clumsy remarks, pointless talk, or well-meant acts that cause harm.",
+   "source": "The Equinox Vol. I No. 8 (Sept. 1912), section XXVII, 'Two of Swords or Pikes', pp. 181-182. The meaning is on p. 182. Checked word for word against page images of the 1912 printing: https://archive.org/details/crowley-equinox_202110 (file 'The Equinox Vol. 1, No. 8', leaves 0211-0212). CORRECTED: the 1912 print reads 'asking questions' (not 'question') and spells out 'Chokmah of Vau.' (not the Hebrew letter). The earlier readings came from the IAPSOP images (n227), which show the Celephaïs Press re-typeset edition, not the 1912 print. The e-text http://www.the-equinox.org/vol1/no8/eqi08016.html has 'Vau' but 'question'."
+  },
+  "swords-3": {
+   "name": "Three of Swords",
+   "bookTName": "The Lord of Sorrow",
+   "meaning": "Disruption, interruption, separation, quarrelling; sowing of discord and strife, mischief-making, sorrow and tears; yet mirth in Platonic pleasures; singing, faithfulness in promises, honesty in money transactions, selfish and dissipated, yet sometimes generous: deceitful in words and repetitions; the whole according to dignity.\n\nBinah of ו (Unhappiness, sorrow, and tears).",
+   "wellDignified": "",
+   "illDignified": "",
+   "keywords": "Separation, strife, heartache and discord",
+   "brief": "Heartbreak and rupture: a painful parting, bitter arguments, grief and weeping. Even amid the hurt, a well-placed card can show someone who keeps their word and deals fairly; poorly placed, it points to trouble-making, dishonesty and indulgence.",
+   "source": "The Equinox Vol. I No. 8 (Sept. 1912), section XXVIII, 'Three of Swords or Spears', pp. 182-183. The meaning is on p. 183. Checked word for word against page images of the 1912 printing: https://archive.org/details/crowley-equinox_202110 (file 'The Equinox Vol. 1, No. 8', leaf 0213). The Hebrew letter ו is printed in the original. Earlier base texts: IAPSOP n228 and http://www.the-equinox.org/vol1/no8/eqi08016.html."
+  },
+  "swords-4": {
+   "name": "Four of Swords",
+   "bookTName": "The Lord of Rest from Strife",
+   "meaning": "Rest from sorrow; yet after and through it. Peace from and after war. Relaxation of anxiety. Quietness, rest, ease and plenty, yet after struggle. Goods of this life; abundance; modified by dignity as is usual.\n\nChesed of ו (Convalescence, recovery from sickness; change for the better).",
+   "wellDignified": "",
+   "illDignified": "",
+   "keywords": "Respite and recovery after struggle",
+   "brief": "A pause from conflict: rest, recovery and relief from worry once a hard struggle ends, much like convalescence. Circumstances are improving; well placed, it adds comfort and material ease, a calm earned through trouble.",
+   "source": "The Equinox Vol. I No. 8 (Sept. 1912), section XXIX, 'Four of Swords', p. 183. Checked word for word against page images of the 1912 printing: https://archive.org/details/crowley-equinox_202110 (file 'The Equinox Vol. 1, No. 8', leaf 0213). Earlier base texts: IAPSOP n228 and http://www.the-equinox.org/vol1/no8/eqi08016.html."
+  },
+  "swords-5": {
+   "name": "Five of Swords",
+   "bookTName": "The Lord of Defeat",
+   "meaning": "Contest finished and decided against the person; failure, defeat, anxiety, trouble, poverty, avarice, grieving after gain, laborious, unresting; loss and vileness of nature; malicious, slanderous, lying, spiteful and tale-bearing. A busybody and separator of friends, hating to see peace and love between others. Cruel, yet cowardly, thankless and unreliable. Clever and quick in thought and speech. Feelings of pity easily roused, but unenduring.\n\nGeburah of ו (Defeat, loss, malice, spite, slander, evil-speaking).",
+   "wellDignified": "",
+   "illDignified": "",
+   "keywords": "Defeat, loss, spite and malicious gossip",
+   "brief": "The struggle is over and you came off worse, left with setbacks and anxiety. Backbiting and rumour may drive wedges between friends. Wits can be nimble here, but any compassion shown flares briefly and fades.",
+   "source": "The Equinox Vol. I No. 8 (Sept. 1912), section XXXIX, 'Five of Swords', p. 190. Checked word for word against page images of the 1912 printing: https://archive.org/details/crowley-equinox_202110 (file 'The Equinox Vol. 1, No. 8', leaf 0220). Earlier base texts: IAPSOP n235 and http://www.the-equinox.org/vol1/no8/eqi08016.html."
+  },
+  "swords-6": {
+   "name": "Six of Swords",
+   "bookTName": "The Lord of Earned Success",
+   "meaning": "Success after anxiety and trouble; self-esteem, beauty, conceit, but sometimes modesty therewith; dominance, patience, labour, etc.\n\nTiphareth of ו (Labour, work, journey by water).",
+   "wellDignified": "",
+   "illDignified": "",
+   "keywords": "Hard-won success after anxious labour",
+   "brief": "Transition to calmer waters: patience and persistent work finally pay off once the stress is behind you, and a literal trip by sea is possible. Pride in the achievement may stay humble or swell into vanity.",
+   "source": "The Equinox Vol. I No. 8 (Sept. 1912), section XL, 'Six of Swords', p. 191. Checked word for word against page images of the 1912 printing: https://archive.org/details/crowley-equinox_202110 (file 'The Equinox Vol. 1, No. 8', leaf 0221). Earlier base texts: IAPSOP n236 and http://www.the-equinox.org/vol1/no8/eqi08016.html."
+  },
+  "swords-7": {
+   "name": "Seven of Swords",
+   "bookTName": "The Lord of Unstable Effort",
+   "meaning": "Partial success. Yielding when victory is within grasp, as if the last reserves of strength were used up. Inclination to lose when on the point of gaining, through not continuing the effort. Love of abundance, fascinated by display, given to compliments, affronts and insolences, and to spy upon others. Inclined to betray confidences, not always intentionally. Rather vacillatory and unreliable.\n\nNetzach of ו (Journey by land: in character untrustworthy).",
+   "wellDignified": "",
+   "illDignified": "",
+   "keywords": "Faltering effort; success slipping from grasp",
+   "brief": "Giving up too soon: a win almost in hand is surrendered because stamina or nerve runs out, so only half the aim is achieved. Watch for fickleness, snooping, and secrets leaked, whether deliberately or through carelessness.",
+   "source": "The Equinox Vol. I No. 8 (Sept. 1912), section XLI, 'Seven of Swords', pp. 191-192. Checked word for word against page images of the 1912 printing: https://archive.org/details/crowley-equinox_202110 (file 'The Equinox Vol. 1, No. 8', leaves 0221-0222). Earlier base texts: IAPSOP n236-n237 and http://www.the-equinox.org/vol1/no8/eqi08016.html."
+  },
+  "swords-8": {
+   "name": "Eight of Swords",
+   "bookTName": "The Lord of Shortened Force",
+   "meaning": "Too much force applied to small things: too much attention to detail at the expense of the principal and more important points. When ill dignified, these qualities produce malice, pettiness, and domineering characteristics. Patience in detail of study; great care in some things, counterbalanced by equal disorder in others. Impulsive; equally fond of giving or receiving money or presents; generous, clever, acute, selfish and without strong feeling of affection. Admires wisdom, yet applies it to small and unworthy objects.\n\nHod of ו (Narrow, restricted, petty, a prison).",
+   "wellDignified": "",
+   "illDignified": "When ill dignified, these qualities produce malice, pettiness, and domineering characteristics.",
+   "keywords": "Energy wasted on petty details; restriction",
+   "brief": "Feeling boxed in, often by your own over-focus: effort poured into minor matters while what truly counts is neglected. At best, meticulous and patient scholarship; at worst, a small-minded, bossy and resentful streak.",
+   "source": "The Equinox Vol. I No. 8 (Sept. 1912), section LI, 'Eight of Swords', pp. 198-199. Checked word for word against page images of the 1912 printing: https://archive.org/details/crowley-equinox_202110 (file 'The Equinox Vol. 1, No. 8', leaves 0228-0229). The ill-dignified sentence comes from the middle of the meaning paragraph, so it also stays in 'meaning'. Earlier base texts: IAPSOP n243-n244 and http://www.the-equinox.org/vol1/no8/eqi08016.html."
+  },
+  "swords-9": {
+   "name": "Nine of Swords",
+   "bookTName": "The Lord of Despair and Cruelty",
+   "meaning": "Despair, cruelty, pitilessness, malice, suffering, want, loss, misery. Burden, oppression, labour, subtlety and craft, dishonesty, lying and slander.\n\nYet also obedience, faithfulness, patience, unselfishness, etc. According to dignity.\n\nYesod of ו (Illness, suffering, malice, cruelty, pain).",
+   "wellDignified": "",
+   "illDignified": "",
+   "keywords": "Despair, cruelty, suffering and oppression",
+   "brief": "Deep mental anguish: sickness, grief, deprivation and hurt inflicted by heartless people, a load that seems too heavy to carry. Well placed, the ordeal can instead draw out endurance, devotion and a willingness to put others first.",
+   "source": "The Equinox Vol. I No. 8 (Sept. 1912), section LII, 'Nine of Swords', p. 199. Checked word for word against page images of the 1912 printing: https://archive.org/details/crowley-equinox_202110 (file 'The Equinox Vol. 1, No. 8', leaf 0229). Earlier base texts: IAPSOP n244 and http://www.the-equinox.org/vol1/no8/eqi08016.html."
+  },
+  "swords-10": {
+   "name": "Ten of Swords",
+   "bookTName": "The Lord of Ruin",
+   "meaning": "Almost a worse symbol than the Nine of Swords. Undisciplined, warring force, complete disruption and failure. Ruin of all plans and projects. Disdain, insolence and impertinence, yet mirth and jollity therewith. A marplot, loving to overthrow the happiness of others; a repeater of things; given to much unprofitable speech, and of many words. Yet clever, eloquent, etc., according to dignity.\n\nMalkuth of ו (Ruin, death, defeat, disruption).",
+   "wellDignified": "",
+   "illDignified": "",
+   "keywords": "Utter ruin, collapse of all plans",
+   "brief": "Total collapse: every scheme falls apart as forces spin out of control, bleaker still than the Nine. Well placed, sharp wits and a gift for words survive; otherwise, idle chatter and a killjoy who relishes wrecking others' contentment.",
+   "source": "The Equinox Vol. I No. 8 (Sept. 1912), section LIII, 'Ten of Swords', p. 200. Checked word for word against page images of the 1912 printing: https://archive.org/details/crowley-equinox_202110 (file 'The Equinox Vol. 1, No. 8', leaf 0230). Earlier base texts: IAPSOP n245 and http://www.the-equinox.org/vol1/no8/eqi08016.html."
+  },
+  "swords-knight": {
+   "name": "Knight of Swords",
+   "bookTName": "The Lord of the Winds and the Breezes: the King of the Spirits of Air",
+   "meaning": "He is active, clever, subtle, fierce, delicate, courageous, skilful, but inclined to domineer. Also to overvalue small things, unless well dignified.",
+   "wellDignified": "",
+   "illDignified": "If ill dignified, deceitful, tyrannical and crafty.",
+   "keywords": "Swift, clever, fierce; prone to domineer",
+   "brief": "A swift, daring, sharp-minded person or influence who acts with finesse and nerve and heads straight for the target, yet likes to take charge and can blow minor points out of proportion. Ill dignified: scheming, bullying, untruthful.",
+   "source": "The Equinox Vol. I No. 8 (Sept. 1912), section XIII, labelled 'Knight of Swords', pp. 165-166. This is the mounted Lord, which is the Thoth Knight. Checked word for word against page images of the 1912 printing: https://archive.org/details/crowley-equinox_202110 (file 'The Equinox Vol. 1, No. 8', leaves 0195-0196). The Titles list on p. 148 (leaf 0178) reads 'The Lord of the Wind and the Breezes: the King of the Spirits of Air.' Earlier base texts: IAPSOP n210-n211 and http://www.the-equinox.org/vol1/no8/eqi08016.html."
+  },
+  "swords-queen": {
+   "name": "Queen of Swords",
+   "bookTName": "The Queen of the Thrones of Air",
+   "meaning": "Intensely perceptive, keen observation, subtle, quick and confident: often persevering, accurate in superficial things, graceful, fond of dancing and balancing.",
+   "wellDignified": "",
+   "illDignified": "If ill dignified, cruel, sly, deceitful, unreliable, though with a good exterior.",
+   "keywords": "Perceptive, keen, graceful; sharp observer",
+   "brief": "Clear-sighted and self-possessed, she notices everything, thinks fast and moves with elegance and balance, cutting away pretence to see what is real. Ill dignified, pleasant manners mask a cruel, untrustworthy and cunning nature.",
+   "source": "The Equinox Vol. I No. 8 (Sept. 1912), section XIV, 'Queen of Swords', pp. 166-167. Checked word for word against page images of the 1912 printing: https://archive.org/details/crowley-equinox_202110 (file 'The Equinox Vol. 1, No. 8', leaves 0196-0197). Earlier base texts: IAPSOP n211-n212 and http://www.the-equinox.org/vol1/no8/eqi08016.html."
+  },
+  "swords-prince": {
+   "name": "Prince of Swords",
+   "bookTName": "The Prince of the Chariot of the Winds",
+   "meaning": "Full of ideas and thoughts and designs, distrustful, suspicious, firm in friendship and enmity; careful, observant, slow, over-cautious, symbolizes Α and Ω; he slays as fast as he creates.",
+   "wellDignified": "",
+   "illDignified": "If ill dignified: harsh, malicious, plotting; obstinate, yet hesitating; unreliable.",
+   "keywords": "Restless mind: plans, suspicion, creates and destroys",
+   "brief": "An intellect brimming with concepts and schemes; watchful, guarded and deliberate, a loyal ally and a relentless foe. Creation and destruction come equally easily to him. Ill dignified, he grows cruel and conniving, stubborn and indecisive at once.",
+   "source": "The Equinox Vol. I No. 8 (Sept. 1912), section XV, labelled 'King of Swords', pp. 167-168. This is the Prince of the Chariot, which is the Thoth Prince. Checked word for word against page images of the 1912 printing: https://archive.org/details/crowley-equinox_202110 (file 'The Equinox Vol. 1, No. 8', leaves 0197-0198). 'Α and Ω' is printed as italic Greek capitals. Earlier base texts: IAPSOP n212-n213 and http://www.the-equinox.org/vol1/no8/eqi08016.html."
+  },
+  "swords-princess": {
+   "name": "Princess of Swords",
+   "bookTName": "The Princess of the Rushing Winds: the Lotus of the Palace of Air",
+   "meaning": "Wisdom, strength, acuteness; subtlety in material things: grace and dexterity.",
+   "wellDignified": "",
+   "illDignified": "If ill dignified, she is frivolous and cunning.",
+   "keywords": "Wise, deft, subtle in practical affairs",
+   "brief": "Clear, grounded judgement and a keen, resilient mind, handling practical affairs with finesse, tact and poise. Ill dignified, that quickness turns flighty and manipulative.",
+   "source": "The Equinox Vol. I No. 8 (Sept. 1912), section XVI, labelled 'Knave of Swords', p. 168. This is the Thoth Princess. Checked word for word against page images of the 1912 printing: https://archive.org/details/crowley-equinox_202110 (file 'The Equinox Vol. 1, No. 8', leaf 0198). Earlier base texts: IAPSOP n213 and http://www.the-equinox.org/vol1/no8/eqi08016.html."
+  },
+  "disks-1": {
+   "name": "Ace of Disks",
+   "bookTName": "The Root of the Powers of the Earth (Ace of Pentacles)",
+   "meaning": "It represents materiality in all senses, good and evil: and is, therefore, in a sense, illusionary: it shows material gain, labour, power, wealth, etc.",
+   "wellDignified": "",
+   "illDignified": "",
+   "keywords": "Material foundation: tangible gain, work, and wealth",
+   "brief": "The seed of all earthly substance: money, work, health, property and the power they bring, for good or ill. Tangible gain is at hand, yet remember that matter, however solid, is partly illusion.",
+   "source": "The Equinox Vol. I No. 8 (Sept. 1912), 'A Description of the Cards of the Tarot' (Book T), pp. 155-156 (meaning p. 156). Checked word for word against the page image of the 1912 printing on the Internet Archive, https://archive.org/details/crowley-equinox_202110 (file 'The Equinox Vol. 1, No. 8', leaves 185-186). Matches the IAPSOP copy http://iapsop.com/archive/materials/equinox/equinox_v1_n8_1912_sep.pdf (PDF pp. 201-202)."
+  },
+  "disks-2": {
+   "name": "Two of Disks",
+   "bookTName": "The Lord of Harmonious Change (Two of Disks or Pentacles)",
+   "meaning": "The harmony of change, alternation of gain and loss; weakness and strength; everchanging occupation; wandering, discontented with any fixed condition of things; now elated, then melancholy; industrious, yet unreliable; fortunate through prudence of management, yet sometimes unaccountably foolish; alternately talkative and suspicious. Kind, yet wavering and inconsistent. Fortunate in journeying. Argumentative.\n\nChokmah of ה (Pleasant change, visit to friends).",
+   "wellDignified": "",
+   "illDignified": "",
+   "keywords": "Fluctuating fortunes, restless change, shifting moods",
+   "brief": "Constant change held in balance: money, work and mood swing back and forth, but adroit handling keeps everything moving and bodes well for trips and social calls. The flip side is restlessness, inconsistency and odd lapses of judgement.",
+   "source": "The Equinox Vol. I No. 8 (Sept. 1912), Book T, p. 188. Page image of the 1912 printing: Internet Archive https://archive.org/details/crowley-equinox_202110 ('The Equinox Vol. 1, No. 8', leaf 218). CORRECTED: the 1912 printing reads 'alternately'. 'alternatively' came from the re-typeset IAPSOP copy (PDF p. 234)."
+  },
+  "disks-3": {
+   "name": "Three of Disks",
+   "bookTName": "The Lord of Material Works (Three of Pentacles)",
+   "meaning": "Working and constructive force, building up, creation, erection; realization and increase of material things; gain in commercial transactions, rank; increase of substance, influence, cleverness in business, selfishness. Commencement of matters to be established later. Narrow and prejudiced. Keen in matters of gain; sometimes given to seeking after impossibilities.\n\nBinah of ה (Business, paid employment, commercial transaction).",
+   "wellDignified": "",
+   "illDignified": "",
+   "keywords": "Constructive work, building, and commercial gain",
+   "brief": "Groundwork now for results later: a job, a commission or a sound business deal that turns ideas into something solid and raises your standing. Downside: tunnel vision, self-interest and chasing the unattainable.",
+   "source": "The Equinox Vol. I No. 8 (Sept. 1912), Book T, p. 189. Page image of the 1912 printing: Internet Archive https://archive.org/details/crowley-equinox_202110 ('The Equinox Vol. 1, No. 8', leaf 219). Matches IAPSOP http://iapsop.com/archive/materials/equinox/equinox_v1_n8_1912_sep.pdf (PDF p. 235)."
+  },
+  "disks-4": {
+   "name": "Four of Disks",
+   "bookTName": "The Lord of Earthly Power (Four of Pentacles)",
+   "meaning": "Assured material gain: success, rank, dominion, earthly power, completed but leading to nothing beyond. Prejudicial, covetous, suspicious, careful and orderly, but discontented. Little enterprise or originality. According to dignity as usual.\n\nChesed of ה (Gain of money or influence: a present).",
+   "wellDignified": "",
+   "illDignified": "",
+   "keywords": "Secure possessions held tightly, little growth",
+   "brief": "Holding on tight: wealth, status or power made safe (sometimes through a gift) yet frozen in place, with no further growth. At its best, stability; at its worst, a guarded, grasping, distrustful outlook short on new ideas.",
+   "source": "The Equinox Vol. I No. 8 (Sept. 1912), Book T, pp. 189-190 (meaning p. 190). Page images of the 1912 printing: Internet Archive https://archive.org/details/crowley-equinox_202110 ('The Equinox Vol. 1, No. 8', leaves 219-220). CORRECTED: the 1912 printing reads 'earthly power'. 'earthy power' came from the re-typeset IAPSOP copy (PDF p. 236)."
+  },
+  "disks-5": {
+   "name": "Five of Disks",
+   "bookTName": "The Lord of Material Trouble (Five of Pentacles)",
+   "meaning": "Loss of money or position. Trouble about material things. Labour, toil, land cultivation; building, knowledge and acuteness of earthly things, poverty, carefulness, kindness; sometimes money regained after severe toil and labour. Unimaginative, harsh, stern, determined, obstinate.\n\nGeburah of ה (Loss of profession, loss of money, monetary anxiety).",
+   "wellDignified": "",
+   "illDignified": "",
+   "keywords": "Financial loss, hardship, and hard toil",
+   "brief": "Hard times in money, work or standing, and the worry that comes with them. Recovery is possible, but only through grinding effort and down-to-earth competence; meanwhile the temper can harden into something grim, inflexible and humourless.",
+   "source": "The Equinox Vol. I No. 8 (Sept. 1912), Book T, p. 196. Page image of the 1912 printing: Internet Archive https://archive.org/details/crowley-equinox_202110 ('The Equinox Vol. 1, No. 8', leaf 226). Matches IAPSOP http://iapsop.com/archive/materials/equinox/equinox_v1_n8_1912_sep.pdf (PDF p. 242)."
+  },
+  "disks-6": {
+   "name": "Six of Disks",
+   "bookTName": "The Lord of Material Success (Six of Pentacles)",
+   "meaning": "Success and gain in material undertakings. Power, influence, rank, nobility, rule over the people. Fortunate successful, liberal and just.\n\nTiphareth of ה (Success in material things, prosperity in business).",
+   "wellDignified": "",
+   "illDignified": "If ill dignified, may be purse-proud, insolent from excess, or prodigal.",
+   "keywords": "Prosperity, generous rule, deserved material success",
+   "brief": "Things are going well materially: business thrives, efforts are rewarded, and the wealth and clout that follow are shared openly and fairly. The shadow side is money going to one's head, breeding smugness and reckless spending.",
+   "source": "The Equinox Vol. I No. 8 (Sept. 1912), Book T, p. 197. Page image of the 1912 printing: Internet Archive https://archive.org/details/crowley-equinox_202110 ('The Equinox Vol. 1, No. 8', leaf 227). CORRECTED to the 1912 punctuation: there is no comma after 'Fortunate'. The 1912 misprint 'aud' is given as 'and'. The re-typeset IAPSOP copy (PDF p. 243) reads 'Fortunate, successful, liberal and just.' In print, the ill-dignified sentence comes before the Tiphareth line."
+  },
+  "disks-7": {
+   "name": "Seven of Disks",
+   "bookTName": "The Lord of Success Unfulfilled (Seven of Pentacles)",
+   "meaning": "Promises of success unfulfilled. (Shewn, as it were, by the fact that the rosebuds do not come to anything.) Loss of apparently promising fortune. Hopes deceived and crushed. Disappointment, misery, slavery, necessity and baseness. A cultivator of land, and yet a loser thereby. Sometimes it denotes slight and isolated gains with no fruits resulting therefrom, and of no further account, though seeming to promise well.\n\nNetzach of ה (Unprofitable speculations and employments; little gain for much labour).",
+   "wellDignified": "",
+   "illDignified": "",
+   "keywords": "Promising efforts that fail to yield",
+   "brief": "A crop that never ripens: money or energy sunk into a hopeful venture returns next to nothing, and expectations sour into discouragement. The odd minor win turns up, but it goes nowhere.",
+   "source": "The Equinox Vol. I No. 8 (Sept. 1912), Book T, pp. 197-198 (meaning p. 198). Page images of the 1912 printing: Internet Archive https://archive.org/details/crowley-equinox_202110 ('The Equinox Vol. 1, No. 8', leaves 227-228). Matches IAPSOP http://iapsop.com/archive/materials/equinox/equinox_v1_n8_1912_sep.pdf (PDF pp. 243-244)."
+  },
+  "disks-8": {
+   "name": "Eight of Disks",
+   "bookTName": "The Lord of Prudence (Eight of Pentacles)",
+   "meaning": "Over-careful in small things at the expense of great: “Penny wise and pound foolish”: gain of ready money in small sums; mean; avaricious; industrious; cultivation of land; hoarding, lacking in enterprise.\n\nHod of ה (Skill: prudence: cunning).",
+   "wellDignified": "",
+   "illDignified": "",
+   "keywords": "Careful skill, small gains, penny-pinching",
+   "brief": "Patient craftsmanship: know-how and caution applied steadily, bringing in small but dependable earnings. Pushed too far it turns fussy and tight-fisted, hiding money away and letting every bold opportunity pass.",
+   "source": "The Equinox Vol. I No. 8 (Sept. 1912), Book T, pp. 179-180 (meaning p. 180). Page images of the 1912 printing: Internet Archive https://archive.org/details/crowley-equinox_202110 ('The Equinox Vol. 1, No. 8', leaves 209-210). Matches IAPSOP http://iapsop.com/archive/materials/equinox/equinox_v1_n8_1912_sep.pdf (PDF pp. 225-226)."
+  },
+  "disks-9": {
+   "name": "Nine of Disks",
+   "bookTName": "The Lord of Material Gain (Nine of Pentacles)",
+   "meaning": "Complete realization of material gain, good, riches; inheritance; covetous; treasuring of goods; and sometimes theft and knavery. The whole according to dignity.\n\nYesod of ה (Inheritance, much increase of goods).",
+   "wellDignified": "",
+   "illDignified": "",
+   "keywords": "Wealth fully realized; inheritance and accumulation",
+   "brief": "Abundance comes to fruition: possessions multiply, and a legacy or windfall may arrive. Well dignified this is simply luck; ill dignified it shades into a grasping, miserly streak that can stoop to cheating.",
+   "source": "The Equinox Vol. I No. 8 (Sept. 1912), Book T, p. 180. Page image of the 1912 printing: Internet Archive https://archive.org/details/crowley-equinox_202110 ('The Equinox Vol. 1, No. 8', leaf 210). Matches IAPSOP http://iapsop.com/archive/materials/equinox/equinox_v1_n8_1912_sep.pdf (PDF p. 226)."
+  },
+  "disks-10": {
+   "name": "Ten of Disks",
+   "bookTName": "The Lord of Wealth (Ten of Pentacles)",
+   "meaning": "Completion of material gain and fortune; but nothing beyond: as it were, at the very pinnacle of success. Old age, slothfulness; great wealth, yet sometimes loss in part; heaviness; dullness of mind, yet clever and prosperous in money transactions.\n\nMalkuth of ה (Riches and wealth).",
+   "wellDignified": "",
+   "illDignified": "",
+   "keywords": "Peak of prosperity; abundant riches, then stagnation",
+   "brief": "Material success at its fullest: lasting wealth, comfort in later life and a sure touch with finances. Nothing lies higher, so beware complacency, sluggish thinking and the chance that some of it slips away.",
+   "source": "The Equinox Vol. I No. 8 (Sept. 1912), Book T, p. 181. Page image of the 1912 printing: Internet Archive https://archive.org/details/crowley-equinox_202110 ('The Equinox Vol. 1, No. 8', leaf 211). Matches IAPSOP http://iapsop.com/archive/materials/equinox/equinox_v1_n8_1912_sep.pdf (PDF p. 227)."
+  },
+  "disks-knight": {
+   "name": "Knight of Disks",
+   "bookTName": "The Lord of the Wide and Fertile Land; the King of the Spirits of Earth (Knight of Pentacles; Fire of Earth, King of Gnomes)",
+   "meaning": "Unless very well dignified he is heavy, dull, and material. Laborious, clever, and patient in material matters.",
+   "wellDignified": "",
+   "illDignified": "If ill dignified, he is avaricious, grasping, dull, jealous; not very courageous, unless assisted by other symbols.",
+   "keywords": "Hard-working, patient, practical, but heavy and dull",
+   "brief": "A steady worker who knows how to bring in a harvest, from fields or from business, with endless patience. The same earthiness easily becomes stolidity; ill dignified, he grows envious, miserly, slow-witted and short on nerve.",
+   "source": "The Equinox Vol. I No. 8 (Sept. 1912), Book T, p. 169. Page image of the 1912 printing: Internet Archive https://archive.org/details/crowley-equinox_202110 ('The Equinox Vol. 1, No. 8', leaf 199). Matches IAPSOP http://iapsop.com/archive/materials/equinox/equinox_v1_n8_1912_sep.pdf (PDF p. 215)."
+  },
+  "disks-queen": {
+   "name": "Queen of Disks",
+   "bookTName": "The Queen of the Thrones of Earth (Queen of Pentacles; Water of Earth, the Queen of Gnomes)",
+   "meaning": "She is impetuous, kind; timid, rather charming; great-hearted; intelligent, melancholy; truthful, yet of many moods.",
+   "wellDignified": "",
+   "illDignified": "If ill dignified she is undecided, capricious, changeable, foolish.",
+   "keywords": "Warm-hearted, perceptive, moody, charmingly shy",
+   "brief": "Warm, big-hearted and quietly clever, with an honest core; shyness and sudden surges of feeling make her mercurial and at times gloomy. Ill dignified she wavers, cannot commit and acts without sense.",
+   "source": "The Equinox Vol. I No. 8 (Sept. 1912), Book T, pp. 169-170 (meaning p. 170). Page images of the 1912 printing: Internet Archive https://archive.org/details/crowley-equinox_202110 ('The Equinox Vol. 1, No. 8', leaves 199-200). Matches IAPSOP http://iapsop.com/archive/materials/equinox/equinox_v1_n8_1912_sep.pdf (PDF pp. 215-216)."
+  },
+  "disks-prince": {
+   "name": "Prince of Disks",
+   "bookTName": "The Prince of the Chariot of Earth (King of Pentacles; Air of Earth, Prince and Emperor of the Gnomes)",
+   "meaning": "Increase of matter. Increases good or evil, solidifies; practically applies things. Steady; reliable.",
+   "wellDignified": "",
+   "illDignified": "If ill dignified he is selfish, animal and material: stupid. In either case slow to anger, but furious if roused.",
+   "keywords": "Steady builder who makes things solid",
+   "brief": "Growth made concrete: steady, trustworthy effort that turns plans into results and magnifies whatever it touches, for better or worse. He seldom flares up, but his rage is fearsome. Ill dignified, he turns self-centred, coarse and obtuse.",
+   "source": "The Equinox Vol. I No. 8 (Sept. 1912), Book T, pp. 170-171 (meaning p. 170). Page images of the 1912 printing: Internet Archive https://archive.org/details/crowley-equinox_202110 ('The Equinox Vol. 1, No. 8', leaves 200-201). Matches IAPSOP http://iapsop.com/archive/materials/equinox/equinox_v1_n8_1912_sep.pdf (PDF pp. 216-217)."
+  },
+  "disks-princess": {
+   "name": "Princess of Disks",
+   "bookTName": "Princess of the Echoing Hills: Rose of the Palace of Earth (Knave of Pentacles; Earth of Earth, Princess and Empress of the Gnomes, Throne of the Ace of Pentacles)",
+   "meaning": "She is generous, kind, diligent, benevolent, careful, courageous, persevering, pitiful.",
+   "wellDignified": "",
+   "illDignified": "If ill dignified she is wasteful and prodigal.",
+   "keywords": "Generous, diligent, brave, and compassionate caretaker",
+   "brief": "A hard worker with a soft heart: brave, tireless and quick to give or help, she looks after whatever is placed in her hands with great care. Ill dignified, she lets resources slip through her fingers.",
+   "source": "The Equinox Vol. I No. 8 (Sept. 1912), Book T, p. 171. Page image of the 1912 printing: Internet Archive https://archive.org/details/crowley-equinox_202110 ('The Equinox Vol. 1, No. 8', leaf 201). Matches IAPSOP http://iapsop.com/archive/materials/equinox/equinox_v1_n8_1912_sep.pdf (PDF p. 217)."
+  }
+ }
+}

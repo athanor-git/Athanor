@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Athanor — Tarot Deck &amp; Correspondences</title>
+<style>
+:root{--bg:#faf7f0;--card:#fff;--ink:#1a1712;--sub:#6b6357;--acc:#7a5c2e;--line:#e3ddd0;--hit:#fff3c9}
+@media(prefers-color-scheme:dark){:root{--bg:#14120e;--card:#1e1b15;--ink:#ece5d8;--sub:#9a9184;--acc:#d0a85c;--line:#33302a;--hit:#4a3f1e}}
+*{box-sizing:border-box}body{margin:0;font:16px/1.45 system-ui,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--ink)}
+header{padding:10px 14px;border-bottom:1px solid var(--line)}
+h1{font-size:16px;margin:0}h1 small{color:var(--sub);font-weight:400}
+main{max-width:900px;margin:0 auto;padding:12px}
+.tabs{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+.tab{border:1px solid var(--line);background:var(--card);border-radius:8px;padding:6px 12px;cursor:pointer;font-size:13px}
+.tab.on{background:var(--acc);color:#fff;border-color:var(--acc)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:8px}
+.tc{border:1px solid var(--line);background:var(--card);border-radius:9px;padding:8px 6px;cursor:pointer;text-align:center;min-height:96px;display:flex;flex-direction:column;justify-content:center}
+.tc:hover{border-color:var(--acc);background:var(--hit)}
+.tc .rk{font-size:12px;color:var(--sub)}.tc .nm{font-size:13px;font-weight:600;margin:3px 0}
+.tc .at{font-size:18px}.tc .sub{font-size:11px;color:var(--sub)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin:10px 0}
+.bh{font-size:20px;font-weight:700}.bh .sub{color:var(--sub);font-size:13px;font-weight:400}
+.kv{font-size:14px;margin:3px 0}.kv b{color:var(--acc);font-weight:600}
+.sw{display:inline-block;width:13px;height:13px;border-radius:3px;border:1px solid var(--line);vertical-align:-2px;margin-right:3px}
+.exp{background:var(--hit);border-radius:8px;padding:9px 12px;font-size:13px;margin-top:8px}
+a.full{color:var(--acc);font-size:13px;cursor:pointer;text-decoration:underline}
+table{border-collapse:collapse;width:100%}td{border-top:1px solid var(--line);padding:5px 7px;font-size:13.5px;vertical-align:top}td.n{white-space:nowrap;color:var(--acc);font-weight:600;width:1%}td.t{color:var(--sub);width:32%}
+button.back{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:8px;padding:6px 12px;cursor:pointer;margin-bottom:8px}
+/* your scanned cards */
+.tc img.myscan{display:block;width:100%;aspect-ratio:2/3;object-fit:cover;border-radius:6px;margin-bottom:4px}
+.scanstrip{display:flex;gap:8px;overflow-x:auto;padding:4px 0}
+.scanstrip figure{margin:0;flex:0 0 auto;text-align:center}
+.scanstrip img{height:220px;border-radius:8px;border:1px solid var(--line)}
+.scanstrip figcaption{font-size:12px;color:var(--sub)}
+#importSlot{float:right}
+.deckrow{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:6px 0;font-size:13px;color:var(--sub)}
+.deckrow .chip{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:16px;padding:5px 11px;cursor:pointer;font-size:13px}
+.deckrow .chip.on{background:var(--acc);border-color:var(--acc);color:#fff}
+.scanstrip .dkname{font-weight:600;color:var(--acc)}
+</style></head><body>
+<header><h1>ATHANOR · THE TAROT &amp; ITS CORRESPONDENCES <small>· 78 cards, each mapped to the Tree</small></h1></header>
+<main>
+<div id="importSlot"></div>
+<div class="deckrow"><span>My cards:</span><span id="deckChips" style="display:contents"></span></div>
+<script src="../lib/store.js"></script>
+<script src="../../data/db/core.js"></script>
+<script src="../../data/db/texts.js"></script>
+<script src="../lib/db.js"></script>
+<script src="../lib/divination.js"></script>
+<script src="../lib/decks.js"></script>
+<div class="tabs">
+ <span class="tab on" data-t="all" onclick="show('all')">All 78</span>
+ <span class="tab" data-t="major" onclick="show('major')">22 Trumps</span>
+ <span class="tab" data-t="court" onclick="show('court')">16 Court</span>
+</div>
+<div id="out"></div>
+</main>
+<script src="../../data/777.js"></script>
+<script>
+const D = D777; const COL={};for(const c of D.cols)COL[c.label]=c;
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+function cv(l,k){const c=COL[l];return c&&c.cells[k]?c.cells[k]:'';}
+function swatch(l,k){const c=COL[l];if(!c||!c.colors||!c.colors[k])return'';return c.colors[k].map(h=>`<span class="sw" style="background:${h}"></span>`).join('');}
+// The facts come from the content tables (data/db, edited in the content workbook) through lib/db.js
+// Majors: [num,name,key,attr,glyph,card] in the order of the Tree's paths (777.js paths: the path's Golden Dawn
+// number and title, its attribution and letter), card = the cards row of that path
+const MAJ=D.paths.map(([key,,,glyph,,attr,num,name])=>[num,name,key,attr,glyph,DB.rev('cards','keyscale',key)[0].id]);
+// Suits → element + the 777 columns of the suit's court cards and small-card titles
+const SUITS=DB.rows('suits').map(s=>s.name);
+const SUIT=Object.fromEntries(DB.rows('suits').map(s=>[s.name,{id:s.id,el:DB.ref(s,'element').name,court:s.court_column,minc:s.title_column}]));
+const SUITGLYPH=Object.fromEntries(DB.rows('suits').map(s=>[s.name,DB.ref(s,'element').glyph]));
+// court cards: [Thoth name (/ Book T name where it differs), element, the 777 row of that element, rank id]
+const COURTS=DB.rows('court_ranks').map(r=>[r.gd_name&&r.gd_name!==r.name?r.name+' / '+r.gd_name:r.name,DB.ref(r,'element').name,DB.rev('keyscale','element',r.element)[0].id,r.id]);
+document.querySelector('.tabs').insertAdjacentHTML('beforeend',SUITS.map(s=>` <span class="tab" data-t="${s}" onclick="show('${s}')">${s}</span>\n`).join(''));
+// minors: number→sephira key (Ace..10 = Kether..Malkuth = keys 1..10)
+function majorCard(m){
+  const [num,name,key,attr,glyph,card]=m;
+  return {t:'major',id:'M'+num,rk:'Atu '+num,nm:name,at:glyph,sub:attr,key,attr,card};
+}
+function minorCard(suit,n){ return {t:'minor',id:suit[0]+n,suit,n,key:String(n)}; }
+function courtCard(suit,ri){ return {t:'court',id:suit[0]+'c'+ri,suit,ri}; }
+function deck(which){
+  let d=[];
+  if(which==='all'||which==='major') d=d.concat(MAJ.map(majorCard));
+  if(which==='all'||which==='court') for(const s of SUITS) for(let r=0;r<COURTS.length;r++) d.push(courtCard(s,r));
+  if(SUITS.includes(which)){
+    for(let r=0;r<COURTS.length;r++) d.push(courtCard(which,r));
+    for(let n=1;n<=10;n++) d.push(minorCard(which,n));
+  }
+  if(which==='all') for(const s of SUITS) for(let n=1;n<=10;n++) d.push(minorCard(s,n));
+  return d;
+}
+const RANKN=['Ace','2','3','4','5','6','7','8','9','10'];
+function cardFace(c){
+  if(c.t==='major') return `<div class="rk">Atu ${c.rk.replace('Atu ','')}</div><div class="at">${c.at}</div><div class="nm">${esc(c.nm)}</div><div class="sub">${esc(c.attr)}</div>`;
+  if(c.t==='minor'){ const nm=cv(SUIT[c.suit].minc,String(c.n)); return `<div class="rk">${SUITGLYPH[c.suit]} ${c.suit}</div><div class="nm">${RANKN[c.n-1]}</div><div class="sub">${esc(nm||'')}</div>`;}
+  if(c.t==='court'){ return `<div class="rk">${SUITGLYPH[c.suit]} ${c.suit}</div><div class="nm">${COURTS[c.ri][0].split(' / ')[0]}</div><div class="sub">${SUIT[c.suit].el}</div>`;}
+}
+function show(which){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('on',t.dataset.t===which));
+  // photos from the deck chosen under "My cards" (Off = none)
+  const d=deck(which), dk=window.Decks?Decks.current():'', scans=dk&&window.Decks?Decks.scans(dk):{};
+  let h='<div class="grid">';
+  d.forEach((c,i)=>{ window._d=window._d||{}; window._d[c.id]=c;
+    const mine=scans[cardKey(c)];
+    h+=`<div class="tc" onclick="detail('${c.id}')">${mine?`<img class="myscan" src="${esc(mine[0].imageUrl)}" alt="">`:''}${cardFace(c)}${mine?`<div class="sub">📷 ${esc(dk)}</div>`:''}</div>`;});
+  h+='</div>';
+  $('#out').innerHTML=h; window.scrollTo(0,0);
+}
+function chips(pairs,k){let h='';for(const[l,nice]of pairs){const v=cv(l,k);if(!v)continue;h+=`<div class="kv"><b>${nice}</b> (${l}): ${swatch(l,k)}${esc(v)}</div>`;}return h;}
+
+/* ---- shared card key (divination meanings, your scans, the quiz): the card's ID in the cards table — atu-N by
+   Thoth number (the trump on that path), <suit>-<1..10>, <suit>-knight|queen|prince|princess ---- */
+function cardKey(c){
+  if(c.t==='major')return c.card;
+  if(c.t==='minor')return SUIT[c.suit].id+'-'+c.n;
+  return SUIT[c.suit].id+'-'+COURTS[c.ri][3];
+}
+function cardTitle(c){ return c.t==='major'?`Atu ${c.rk.replace('Atu ','')} · ${c.nm}`:c.t==='minor'?`${RANKN[c.n-1]} of ${c.suit}`:`${COURTS[c.ri][0].split(' / ')[0]} of ${c.suit}`; }
+// your scanned cards (Card Scanner), newest first, by card key
+function myScans(){ const by={}; try{ (window.Store?Store.list('cards'):[]).forEach(r=>{const k=r.data&&r.data.card; if(k&&r.imageUrl)(by[k]=by[k]||[]).push(r);}); }catch(e){} return by; }
+function scanThisCard(key){ try{ parent.openTool('scan','card='+key); }catch(e){ location.href='scan.html?card='+key; } }
+function rowLink(k){return `<a class="full" onclick="rowView('${k}')">▸ full 777 row (Key ${k})</a>`;}
+function detail(id){
+  const c=window._d[id];
+  let h='<button class="back" onclick="show(document.querySelector(\'.tab.on\').dataset.t)">← deck</button><div class="card">';
+  if(c.t==='major'){
+    h+=`<div class="bh">Atu ${c.rk.replace('Atu ','')} · ${esc(c.nm)} <span class="sub">${c.at} · ${esc(c.attr)} · Key ${c.key}</span></div>`;
+    h+=chips([['II','Hebrew letter'],['III','Letter meaning'],['XLV','Magical power'],['IV','Consciousness †'],['IV-a','Keyword †'],['XLII','Perfume'],['XV','King-scale colour']],c.key);
+    h+=`<div class="exp">${DB.text('tarot.why-major',{letter:c.at,attribution:esc(c.attr),atu:c.rk.replace('Atu ',''),key:c.key})}</div>`;
+    h+=`<div style="margin-top:8px">${rowLink(c.key)}</div>`;
+  } else if(c.t==='minor'){
+    const nm=cv(SUIT[c.suit].minc,String(c.n)); const sk=String(c.n);
+    h+=`<div class="bh">${RANKN[c.n-1]} of ${c.suit} <span class="sub">${SUITGLYPH[c.suit]} ${SUIT[c.suit].el} · Sephira ${c.n}</span></div>`;
+    if(nm)h+=`<div class="kv"><b>Title</b> (${SUIT[c.suit].minc}): ${esc(nm)}</div>`;
+    h+=chips([['III','Sephira (meaning)'],['V','God-Name'],['XLV','Vision / power'],['IV','Consciousness †']],sk);
+    h+=`<div class="exp">${DB.text('tarot.why-small',{rank:RANKN[c.n-1],n:c.n,sephira_meaning:esc(cv('III',sk)),element:SUIT[c.suit].el,suit:c.suit,decans:c.n>=2&&c.n<=10?DB.text('tarot.why-small-decans'):''})}</div>`;
+    h+=`<div style="margin-top:8px">${rowLink(sk)}</div>`;
+  } else {
+    // its row in the suit's 777 court column is the row of the rank's element (Knight: 31, Fire …)
+    const [rank,el,sk]=COURTS[c.ri];
+    const title=cv(SUIT[c.suit].court,sk);
+    h+=`<div class="bh">${rank} of ${c.suit} <span class="sub">${SUITGLYPH[c.suit]} ${el} of ${SUIT[c.suit].el}</span></div>`;
+    if(title)h+=`<div class="kv"><b>Title</b> (${SUIT[c.suit].court}): ${esc(title)}</div>`;
+    h+=`<div class="kv"><b>Element of the card</b>: ${el} of ${SUIT[c.suit].el}</div>`;
+    h+=chips([['XLV','Vision / power']],sk);
+    const figures=COURTS.map(([r,e])=>r.replace(' / ','/')+' = '+e).join(', ');
+    h+=`<div class="exp">${DB.text('tarot.why-court',{suit:c.suit,suit_element:SUIT[c.suit].el,figures,rank,element:el})}</div>`;
+  }
+  h+='</div>';
+  // divination meanings (editable) and your own scans of this card
+  // your versions of this card from every deck, side by side (the chosen deck first)
+  const key=cardKey(c), cur=window.Decks?Decks.current():'';
+  const scans=(window.Decks?(Decks.scans('*')[key]||[]):(myScans()[key]||[]))
+    .slice().sort((a,b)=>((b.data.deck||'Thoth')===cur)-((a.data.deck||'Thoth')===cur));
+  h+=`<div class="card"><div id="divslot"></div></div>
+   <div class="card"><div class="bh" style="font-size:15px">Your card${scans.length>1?'s':''}</div>
+    ${scans.length?`<div class="scanstrip">${scans.map(s=>`<figure><img src="${esc(s.imageUrl)}" alt="${esc(s.name)}"><figcaption><span class="dkname">${esc(s.data.deck||'Thoth')}</span></figcaption></figure>`).join('')}</div>`
+      :'<div class="sub">No scan of this card yet.</div>'}
+    <button class="back" style="margin-top:8px" onclick="scanThisCard('${key}')">📷 Scan this card</button></div>`;
+  $('#out').innerHTML=h;window.scrollTo(0,0);
+  if(window.Div) Div.ready.then(()=>{ const el=document.getElementById('divslot'); if(el) Div.render(el,key,{name:cardTitle(c)}); });
+}
+function rowView(k){
+  let h='<button class="back" onclick="history.length&&show(\'all\')">← deck</button><div class="card"><div class="bh">Key Scale '+k+' — full row</div><table>';
+  for(const c of D.cols){const v=c.cells[k];if(!v)continue;h+=`<tr><td class="n">${c.label}</td><td class="t">${esc(c.title)}</td><td>${swatch(c.label,k)}${esc(v)}</td></tr>`;}
+  h+='</table></div>';$('#out').innerHTML=h;window.scrollTo(0,0);
+}
+show('all');
+if(window.Div) Div.importButton(document.getElementById('importSlot'));
+if(window.Decks) Decks.chips(document.getElementById('deckChips'),{value:Decks.current(),withOff:true,
+  onPick:v=>{Decks.setCurrent(v);const t=document.querySelector('.tab.on');show(t?t.dataset.t:'all');}});
+</script></body></html>

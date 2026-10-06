@@ -1,0 +1,19 @@
+{"table": "festivals", "rows": [
+{"id": "liber-al-1", "name": "Writing of Liber AL — Chapter I", "category": "holy", "rule": "date", "month": 4, "day": 8, "about": "The first of the Three Days (1904).", "practice": "Hear or read Chapter I of the Book of the Law, traditionally at noon; open the three-day feast."},
+{"id": "liber-al-2", "name": "Writing of Liber AL — Chapter II", "category": "holy", "rule": "date", "month": 4, "day": 9, "practice": "Hear or read Chapter II; continue the feast."},
+{"id": "liber-al-3", "name": "Writing of Liber AL — Chapter III", "category": "holy", "rule": "date", "month": 4, "day": 10, "practice": "Hear or read Chapter III; close the Feast of the Three Days."},
+{"id": "prophet-and-bride", "name": "Feast for the Prophet and his Bride", "category": "holy", "rule": "date", "month": 8, "day": 12, "about": "A feast celebrating the union (the Prophet and his Bride, 1903).", "practice": "Toast the Star and the Snake."},
+{"id": "prophet-nativity", "name": "The Prophet’s Nativity", "category": "holy", "rule": "date", "month": 10, "day": 12, "about": "Crowley’s birthday (1875) — a feast of celebration and gratitude for the current."},
+{"id": "greater-feast", "name": "The Prophet’s Greater Feast", "category": "holy", "rule": "date", "month": 12, "day": 1, "about": "His Greater Feast, i.e. death (1947).", "practice": "Commemorate death as a sacrament; a solemn feast."},
+{"id": "vernal-equinox", "name": "Vernal Equinox — Thelemic New Year", "category": "sun", "rule": "sun", "degrees": 0, "about": "The Equinox of the Gods / Feast of the Supreme Ritual.", "practice": "Perform the Equinox ceremony and re-dedicate; the new year of the Aeon begins ({years} since 1904)."},
+{"id": "summer-solstice", "name": "Summer Solstice — Feast for Fire", "category": "sun", "rule": "sun", "degrees": 90, "about": "The Sun at its height (0° {sign}).", "practice": "A solar-maximum working and the noon adoration writ large."},
+{"id": "autumn-equinox", "name": "Autumn Equinox", "category": "sun", "rule": "sun", "degrees": 180, "about": "A Feast of the Times (0° {sign}).", "practice": "Re-attune and rebalance; banish what the year has spent."},
+{"id": "winter-solstice", "name": "Winter Solstice — Feast for Water", "category": "sun", "rule": "sun", "degrees": 270, "about": "The rebirth of the Sun (0° {sign}).", "practice": "A vigil through the longest night."},
+{"id": "imbolc", "name": "Imbolc / Candlemas", "category": "cross", "rule": "date", "month": 2, "day": 1, "about": "A fire-festival of first stirrings and purification.", "practice": "Light candles, renew vows."},
+{"id": "beltane", "name": "Beltane", "category": "cross", "rule": "date", "month": 5, "day": 1, "about": "The spring fire-festival of union and vitality.", "practice": "A rite of joy and life-force."},
+{"id": "lammas", "name": "Lammas / Lughnasadh", "category": "cross", "rule": "date", "month": 8, "day": 1, "about": "The first-harvest festival.", "practice": "Give thanks, offer first-fruits."},
+{"id": "samhain", "name": "Samhain", "category": "cross", "rule": "date", "month": 11, "day": 1, "about": "(eve of Oct 31 night) The festival of the dead and the thinning veil.", "practice": "Honour ancestors, do underworld or Death-path work."},
+{"id": "new-moon", "name": "New Moon in {sign}", "category": "moon", "rule": "moon", "degrees": 0, "about": "Beginnings.", "practice": "Start a new working, plant intentions, banish and clear. A good night to open a lunar cycle of practice."},
+{"id": "full-moon", "name": "Full Moon in {sign}", "category": "moon", "rule": "moon", "degrees": 180, "about": "Peak lunar current.", "practice": "Invocations, charging talismans, the esbat. Work at the height of the tide by night."},
+{"id": "sun-ingress", "name": "Sun enters {sign}", "category": "ingress", "rule": "ingress", "practice": "Begin the month’s work under {sign}’s nature."}
+]}

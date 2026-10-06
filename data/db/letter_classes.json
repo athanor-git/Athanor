@@ -1,0 +1,5 @@
+{"table": "letter_classes", "rows": [
+{"id": "mother", "name": "Mother letter (element)", "attribution": "element"},
+{"id": "double", "name": "Double letter (planet)", "attribution": "planet"},
+{"id": "single", "name": "Single letter (sign)", "attribution": "sign"}
+]}

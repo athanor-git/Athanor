@@ -1,0 +1,24 @@
+ATHANOR - web edition (temple) - alpha 9
+
+START
+  Double-click "Start Athanor.cmd". A small window opens and your browser opens Athanor.
+  Keep that window open while you use Athanor; close it to stop.
+  It serves this folder to this computer only, at http://127.0.0.1:8788 - nothing is installed and nothing
+  goes to the internet.
+
+INSTALL IT AS AN APP (optional)
+  In Edge or Chrome, with Athanor open: the "Install" icon at the right of the address bar
+  (or the menu > Apps > Install Athanor). It then opens in its own window from the Start menu.
+  After the first visit the browser keeps an offline copy, so it opens even when the window above is
+  closed. After you update this folder, start it once with "Start Athanor.cmd" so the browser picks up
+  the new version (it shows on the next start of Athanor).
+
+WHAT YOU SAVE
+  Everything you save here (new scans, charts, the Daily Journal, quiz progress, settings) stays in this
+  browser on this computer only: not on the phone, not in another browser. Use the same browser and the
+  same address (http://127.0.0.1:8788). Clearing the browser's site data for it deletes what you saved.
+
+WHAT NEEDS THE ANDROID APP
+  Reminders and notifications (Resh, the seal changes, your events), sound that keeps going with the
+  screen locked, and the readable copies in the phone's folders. The compass needs a device with a
+  compass sensor (a phone or tablet); on a PC the dial stays north-up.

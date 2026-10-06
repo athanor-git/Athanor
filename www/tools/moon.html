@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Athanor — Moon & Timing</title>
+<style>
+:root{--bg:#faf7f0;--card:#fff;--ink:#1a1712;--sub:#6b6357;--acc:#7a5c2e;--line:#e3ddd0;--hit:#fff3c9}
+@media(prefers-color-scheme:dark){:root{--bg:#14120e;--card:#1e1b15;--ink:#ece5d8;--sub:#9a9184;--acc:#d0a85c;--line:#33302a;--hit:#4a3f1e}}
+*{box-sizing:border-box}body{margin:0;font:16px system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--ink)}
+header{padding:10px 14px;border-bottom:1px solid var(--line)}h1{font-size:16px;margin:0}h1 small{color:var(--sub);font-weight:400}
+main{max-width:640px;margin:0 auto;padding:12px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin:10px 0}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+input,select{font-size:15px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink)}
+button{border:1px solid var(--acc);background:var(--acc);color:#fff;border-radius:9px;padding:9px 15px;font-size:15px;cursor:pointer}
+button.ghost{background:var(--card);color:var(--ink);border-color:var(--line)}
+.moon{display:flex;gap:16px;align-items:center}
+.phaseName{font-size:20px;font-weight:700}
+.kv{font-size:14px;margin:2px 0}.kv b{color:var(--acc)}
+.sub{color:var(--sub);font-size:13px}
+.sec{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--acc);font-weight:700;margin:6px 0}
+.res{border-top:1px solid var(--line);padding:8px 2px;font-size:14px}.res b{color:var(--acc)}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+.chip{border:1px solid var(--line);background:var(--card);border-radius:16px;padding:6px 11px;cursor:pointer;font-size:13px}
+</style></head><body>
+<header><h1>ATHANOR · MOON &amp; TIMING <small>· phase now, and find the right day</small></h1></header>
+<main>
+<div class="card">
+ <div class="row"><label class="sub">Date <input type="date" id="d"></label>
+  <button class="ghost" onclick="today()">Today</button></div>
+ <div id="phase" style="margin-top:12px"></div>
+</div>
+<div class="card">
+ <div class="sec">Find a date</div>
+ <div class="row">
+  <select id="wd"><option value="-1">Any day</option></select>
+  <select id="cond">
+   <option value="any">Any phase</option><option value="wax">Waxing (growing)</option><option value="wan">Waning (shrinking)</option></select>
+  <button onclick="find()">Find next</button>
+ </div>
+ <div class="chips"></div>
+ <div id="results"></div>
+</div>
+</main>
+<script src="../../data/db/core.js"></script>
+<script src="../../data/db/texts.js"></script>
+<script src="../lib/db.js"></script>
+<script>
+// Compact ephemeris: JPL Keplerian elements (1800-2050) + truncated lunar theory.
+const D2R = Math.PI/180;
+function jd(y,mo,d,h){ if(mo<=2){y--;mo+=12;} const A=Math.floor(y/100),B=2-A+Math.floor(A/4);
+  return Math.floor(365.25*(y+4716))+Math.floor(30.6001*(mo+1))+d+B-1524.5+h/24; }
+const EL = { // a, e, I, L, varpi, Omega  + rates/century
+ mercury:[0.38709927,0.20563593,7.00497902,252.25032350,77.45779628,48.33076593,
+          0.00000037,0.00001906,-0.00594749,149472.67411175,0.16047689,-0.12534081],
+ venus:[0.72333566,0.00677672,3.39467605,181.97909950,131.60246718,76.67984255,
+        0.00000390,-0.00004107,-0.00078890,58517.81538729,0.00268329,-0.27769418],
+ earth:[1.00000261,0.01671123,-0.00001531,100.46457166,102.93768193,0.0,
+        0.00000562,-0.00004392,-0.01294668,35999.37244981,0.32327364,0.0],
+ mars:[1.52371034,0.09339410,1.84969142,-4.55343205,-23.94362959,49.55953891,
+       0.00001847,0.00007882,-0.00813131,19140.30268499,0.44441088,-0.29257343],
+ jupiter:[5.20288700,0.04838624,1.30439695,34.39644051,14.72847983,100.47390909,
+          -0.00011607,-0.00013253,-0.00183714,3034.74612775,0.21252668,0.20469106],
+ saturn:[9.53667594,0.05386179,2.48599187,49.95424423,92.59887831,113.66242448,
+         -0.00125060,-0.00050991,0.00193609,1222.49362201,-0.41897216,-0.28867794],
+ uranus:[19.18916464,0.04725744,0.77263783,313.23810451,170.95427630,74.01692503,
+         -0.00196176,-0.00004397,-0.00242939,428.48202785,0.40805281,0.04240589],
+ neptune:[30.06992276,0.00859048,1.77004347,-55.12002969,44.96476227,131.78422574,
+          0.00026291,0.00005105,0.00035372,218.45945325,-0.32241464,-0.00508664],
+ pluto:[39.48211675,0.24882730,17.14001206,238.92903833,224.06891629,110.30393684,
+        -0.00031596,0.00005170,0.00004818,145.20780515,-0.04062942,-0.01183482]};
+function helio(p, T){
+  const e0=EL[p], a=e0[0]+e0[6]*T, ec=e0[1]+e0[7]*T, I=(e0[2]+e0[8]*T)*D2R,
+        L=e0[3]+e0[9]*T, vp=e0[4]+e0[10]*T, Om=(e0[5]+e0[11]*T);
+  let M=(L-vp)%360; if(M>180)M-=360; if(M<-180)M+=360;
+  const w=(vp-Om)*D2R, OmR=Om*D2R;
+  let E=M*D2R + ec*Math.sin(M*D2R);
+  for(let i=0;i<8;i++){ const dE=(E-ec*Math.sin(E)-M*D2R)/(1-ec*Math.cos(E)); E-=dE; }
+  const xp=a*(Math.cos(E)-ec), yp=a*Math.sqrt(1-ec*ec)*Math.sin(E);
+  const cw=Math.cos(w),sw=Math.sin(w),cO=Math.cos(OmR),sO=Math.sin(OmR),ci=Math.cos(I),si=Math.sin(I);
+  return [ (cw*cO-sw*sO*ci)*xp + (-sw*cO-cw*sO*ci)*yp,
+           (cw*sO+sw*cO*ci)*xp + (-sw*sO+cw*cO*ci)*yp,
+           (sw*si)*xp + (cw*si)*yp ];
+}
+function lon(x,y){ let l=Math.atan2(y,x)/D2R; return (l%360+360)%360; }
+function positions(JD){
+  const T=(JD-2451545)/36525, E=helio('earth',T), out={};
+  out.sun = lon(-E[0],-E[1]);
+  for(const p of ['mercury','venus','mars','jupiter','saturn','uranus','neptune','pluto']){
+    const P=helio(p,T); out[p]=lon(P[0]-E[0],P[1]-E[1]);
+  }
+  // Moon (Meeus ch.47, principal terms)
+  const Lp=218.3164477+481267.88123421*T-0.0015786*T*T,
+        D=297.8501921+445267.1114034*T-0.0018819*T*T,
+        M=357.5291092+35999.0502909*T-0.0001536*T*T,
+        Mp=134.9633964+477198.8675055*T+0.0087414*T*T,
+        F=93.2720950+483202.0175233*T-0.0036539*T*T;
+  const t=[[6288774,0,0,1,0],[1274027,2,0,-1,0],[658314,2,0,0,0],[213618,0,0,2,0],
+    [-185116,0,1,0,0],[-114332,0,0,0,2],[58793,2,0,-2,0],[57066,2,-1,-1,0],
+    [53322,2,0,1,0],[45758,2,-1,0,0],[-40923,0,1,-1,0],[-34720,1,0,0,0],
+    [-30383,0,1,1,0],[15327,2,0,0,-2],[-12528,0,0,1,2],[10980,0,0,1,-2],
+    [10675,4,0,-1,0],[10034,0,0,3,0],[8548,4,0,-2,0],[-7888,2,1,-1,0],
+    [-6766,2,1,0,0],[-5163,1,0,-1,0],[4987,1,1,0,0],[4036,2,-1,1,0]];
+  let s=0;
+  for(const [c,d1,m1,mp1,f1] of t){
+    let arg=(d1*D+m1*M+mp1*Mp+f1*F)*D2R, coef=c;
+    if(m1) coef*= (1-0.002516*T-0.0000074*T*T)**Math.abs(m1);
+    s+=coef*Math.sin(arg);
+  }
+  out.moon=((Lp+s/1e6)%360+360)%360;
+  const _pr=(5029.0966*T+1.11161*T*T)/3600;
+  for(const _k in out){ if(_k!=='moon'){ out[_k]=((out[_k]+_pr)%360+360)%360; } }
+  out.sun=((out.sun-20.4955/3600)%360+360)%360;
+  return out;
+}
+function ascmc(JD, lat, lonE){
+  const T=(JD-2451545)/36525;
+  let th=280.46061837+360.98564736629*(JD-2451545)+0.000387933*T*T + lonE;
+  th=((th%360)+360)%360;
+  const eps=(23.4392911-0.0130042*T)*D2R, thR=th*D2R, phi=lat*D2R;
+  let asc=Math.atan2(Math.cos(thR), -(Math.sin(thR)*Math.cos(eps)+Math.tan(phi)*Math.sin(eps)))/D2R;
+  asc=((asc%360)+360)%360;
+  let mc=Math.atan2(Math.sin(thR), Math.cos(thR)*Math.cos(eps))/D2R;
+  mc=((mc%360)+360)%360;
+  return {asc, mc, lst:th};
+}
+if (typeof module!=='undefined'){ module.exports={jd,positions,ascmc}; }
+
+const $=s=>document.querySelector(s);
+// local calendar date as YYYY-MM-DD (toISOString would give the UTC date — a day off near midnight)
+const iso=dt=>dt.getFullYear()+'-'+String(dt.getMonth()+1).padStart(2,'0')+'-'+String(dt.getDate()).padStart(2,'0');
+// The facts come from the content tables (data/db, edited in the content workbook) through lib/db.js
+const SIGNS=DB.rows('signs').map(s=>s.name);
+const SGL=DB.rows('signs').map(s=>s.glyph+'︎');   // U+FE0E: drawn as a text glyph, not an emoji
+const DAY=DB.rows('weekdays').map(w=>w.name);          // getDay 0 = Sunday
+const PHASE=id=>DB.get('moon_phases',id).name;
+const ROMAN=['0','I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII','XIII','XIV','XV','XVI','XVII','XVIII','XIX','XX','XXI'];
+// [element, quality, ruler, path, letter, trump] of each sign: its ruler (dignities: domicile), its path on the Tree
+// (keyscale), and the path's letter and trump (Golden Dawn number, with the Tree's title: "VIII Strength / Lust")
+const SIGN777=DB.rows('signs').map(s=>{
+ const k=DB.where('keyscale',{sign:s.id})[0], L=DB.ref(k,'letter'), c=DB.rev('cards','keyscale',k.id)[0];
+ return [DB.ref(s,'element').name, s.quality, DB.ref(DB.where('dignities',{sign:s.id,kind:'domicile'})[0],'planet').name,
+  k.id, L.name+' '+L.glyph, ROMAN[c.gd_n]+' '+(k.tree_trump||c.name)];
+});
+// the day choices (each day with its planet), the phase choices ("New", "Full": the phase's name without "Moon") and
+// the search presets
+$('#cond').insertAdjacentHTML('beforeend',[['new','new'],['fq','first-quarter'],['full','full'],['lq','last-quarter'],['waxc','waxing-crescent'],
+ ['waxg','waxing-gibbous'],['wang','waning-gibbous'],['wanc','waning-crescent']].map(([v,id])=>`<option value="${v}">${PHASE(id).replace(/ Moon$/,'')}</option>`).join(''));
+$('#wd').insertAdjacentHTML('beforeend',DB.rows('weekdays').map((w,i)=>{const p=DB.ref(w,'planet');return `<option value="${i}">${w.name} · ${p.glyph} ${p.name}</option>`;}).join(''));
+{ const W=DB.rows('weekdays'), P=i=>DB.ref(W[i],'planet').name;
+  document.querySelector('.chips').innerHTML=[[4,'wax',`Next ${W[4].name} + waxing (${P(4)} talisman)`],[5,'wax',`Next ${W[5].name} + waxing (${P(5)})`],
+   [-1,'full','Next '+PHASE('full')],[-1,'new','Next '+PHASE('new')]].map(([d,c,l])=>`<span class="chip" onclick="preset(${d},'${c}')">${l}</span>`).join(''); }
+function voidOfCourse(y,mo,d){
+ const p=positions(jd(y,mo,d,12));
+ const moon=((p.moon%360)+360)%360, nextB=(Math.floor(moon/30)+1)*30, toEgress=nextB-moon;
+ const bodies=[p.sun,p.mercury,p.venus,p.mars,p.jupiter,p.saturn], asp=[0,60,90,120,180];
+ for(const b of bodies){const bb=((b%360)+360)%360;
+  for(const a of asp){for(const t of [bb+a,bb-a]){let dl=((t-moon)%360+360)%360; if(dl>0.05&&dl<toEgress-0.01)return{v:false};}}}
+ return {v:true};
+}
+function moonData(y,mo,d){
+ const p=positions(jd(y,mo,d,12));
+ let E=((p.moon-p.sun)%360+360)%360;
+ const illum=(1-Math.cos(E*Math.PI/180))/2;
+ const waxing=E<180;
+ const age=E/360*29.53;
+ const sign=Math.floor(((p.moon%360)+360)%360/30);
+ let name;   // the phase's name: the moon_phases table; where one phase ends is this page's own
+ if(E<11.25||E>=348.75)name=PHASE('new');
+ else if(E<78.75)name=PHASE('waxing-crescent');
+ else if(E<101.25)name=PHASE('first-quarter');
+ else if(E<168.75)name=PHASE('waxing-gibbous');
+ else if(E<191.25)name=PHASE('full');
+ else if(E<258.75)name=PHASE('waning-gibbous');
+ else if(E<281.25)name=PHASE('last-quarter');
+ else name=PHASE('waning-crescent');
+ return {E,illum,waxing,age,sign,name};
+}
+function litPath(cx,cy,R,frac,waxing){
+ if(frac<0.01)return '';
+ if(frac>0.99)return `M ${cx} ${cy-R} A ${R} ${R} 0 1 1 ${cx} ${cy+R} A ${R} ${R} 0 1 1 ${cx} ${cy-R} Z`;
+ const outer=waxing?1:0;
+ const rx=R*Math.abs(1-2*frac);
+ const inner=(frac<0.5)?(waxing?0:1):(waxing?1:0);
+ return `M ${cx} ${cy-R} A ${R} ${R} 0 0 ${outer} ${cx} ${cy+R} A ${rx} ${R} 0 0 ${inner} ${cx} ${cy-R} Z`;
+}
+function moonSVG(m){
+ const R=46,cx=52,cy=52;
+ return `<svg width="104" height="104" viewBox="0 0 104 104"><circle cx="${cx}" cy="${cy}" r="${R}" fill="#1a2340" stroke="#33302a"/>
+  <path d="${litPath(cx,cy,R,m.illum,m.waxing)}" fill="#f2ead4"/></svg>`;
+}
+function showPhase(){
+ const dv=$('#d').value; if(!dv)return;
+ const [y,mo,d]=dv.split('-').map(Number);
+ const m=moonData(y,mo,d);
+ const wd=new Date(y,mo-1,d).getDay();
+ // next new & full
+ let nn=findFrom(y,mo,d,-1,'new',1)[0], nf=findFrom(y,mo,d,-1,'full',1)[0];
+ const voc=voidOfCourse(y,mo,d).v, s7=SIGN777[m.sign];
+ $('#phase').innerHTML=`<div class="moon">${moonSVG(m)}<div>
+  <div class="phaseName">${m.name}</div>
+  <div class="kv"><b>${m.waxing?'Waxing':'Waning'}</b> · ${(m.illum*100).toFixed(0)}% illuminated · age ${m.age.toFixed(1)}d</div>
+  <div class="kv">Moon in ${SGL[m.sign]} <b>${SIGNS[m.sign]}</b> · ${DAY[wd]}</div></div></div>
+  <div class="kv" style="margin-top:6px"><b>Sign correspondences (777):</b> ${s7[0]} · ${s7[1]} · ruled by ${s7[2]} · Path ${s7[3]}, ${s7[4]} · Atu ${s7[5]}</div>
+  <div class="kv">${voc?DB.text('moon.voc-yes'):DB.text('moon.voc-no')}</div>
+  <div class="kv" style="margin-top:4px">Next ${PHASE('new')}: <b>${nn?nn.date:'—'}</b> · Next ${PHASE('full')}: <b>${nf?nf.date:'—'}</b></div>
+  <div class="sub" style="margin-top:4px">${DB.text('moon.voc-note',{sign:SIGNS[m.sign]})}</div>`;
+}
+function cond(m,c){
+ const E=m.E;
+ switch(c){case'any':return true;case'wax':return E>2&&E<178;case'wan':return E>182||E<-2||E>182;
+  case'new':return E<7||E>353;case'fq':return Math.abs(E-90)<7;case'full':return Math.abs(E-180)<7;case'lq':return Math.abs(E-270)<7;
+  case'waxc':return E>=11.25&&E<78.75;case'waxg':return E>=101.25&&E<168.75;case'wang':return E>=191.25&&E<258.75;case'wanc':return E>=281.25&&E<348.75;}
+ return false;
+}
+function findFrom(y,mo,d,weekday,c,count){
+ let dt=new Date(y,mo-1,d); dt.setDate(dt.getDate()+ (c==='new'||c==='full'||c==='fq'||c==='lq'?1:0));
+ // for "next new/full" from today, start next day to avoid returning today; for weekday search start today
+ if(weekday>=0)dt=new Date(y,mo-1,d);
+ const out=[];
+ for(let i=0;i<1200&&out.length<count;i++){
+  if(weekday<0||dt.getDay()===weekday){
+   const m=moonData(dt.getFullYear(),dt.getMonth()+1,dt.getDate());
+   if(cond(m,c)){out.push({date:iso(dt),wd:DAY[dt.getDay()],m});}
+  }
+  dt.setDate(dt.getDate()+1);
+ }
+ return out;
+}
+function find(){
+ const dv=$('#d').value||iso(new Date());
+ const [y,mo,d]=dv.split('-').map(Number);
+ const wd=parseInt($('#wd').value), c=$('#cond').value;
+ const res=findFrom(y,mo,d,wd,c,8);
+ if(!res.length){$('#results').innerHTML='<div class="sub" style="margin-top:8px">No match found in the next ~3 years.</div>';return;}
+ $('#results').innerHTML=res.map(r=>{const[y2,m2,d2]=r.date.split('-').map(Number);const voc=voidOfCourse(y2,m2,d2).v;
+  return `<div class="res"><b>${r.date}</b> · ${r.wd} · ${r.m.name} (${(r.m.illum*100).toFixed(0)}%, ${r.m.waxing?'waxing':'waning'}) · Moon in ${SGL[r.m.sign]} ${SIGNS[r.m.sign]}${voc?' · <b>⚠︎ VoC</b>':''}</div>`;}).join('');
+}
+function preset(wd,c){$('#wd').value=wd;$('#cond').value=c;find();}
+function today(){$('#d').value=iso(new Date());showPhase();}
+$('#d').addEventListener('change',showPhase);
+today();
+</script></body></html>

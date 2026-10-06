@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Athanor — Working Designer</title>
+<style>
+:root{--bg:#faf7f0;--card:#fff;--ink:#1a1712;--sub:#6b6357;--acc:#7a5c2e;--line:#e3ddd0;--hit:#fff3c9}
+@media(prefers-color-scheme:dark){:root{--bg:#14120e;--card:#1e1b15;--ink:#ece5d8;--sub:#9a9184;--acc:#d0a85c;--line:#33302a;--hit:#4a3f1e}}
+*{box-sizing:border-box}body{margin:0;font:16px system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--ink)}
+header{padding:10px 14px;border-bottom:1px solid var(--line)}h1{font-size:16px;margin:0}h1 small{color:var(--sub);font-weight:400}
+main{max-width:640px;margin:0 auto;padding:12px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+.chip{border:1px solid var(--line);background:var(--card);border-radius:16px;padding:7px 13px;cursor:pointer;font-size:13.5px}
+.chip.on{background:var(--acc);color:#fff;border-color:var(--acc)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin:10px 0}
+.bh{font-size:20px;font-weight:700}.bh .sub{color:var(--sub);font-size:13px;font-weight:400}
+.kv{font-size:14.5px;margin:4px 0}.kv b{color:var(--acc);font-weight:600;display:inline-block;min-width:130px}
+.sw{display:inline-block;width:14px;height:14px;border-radius:3px;border:1px solid var(--line);vertical-align:-2px;margin-right:5px}
+.exp{background:var(--hit);border-radius:8px;padding:9px 12px;font-size:13px;margin-top:10px}
+a.full{color:var(--acc);font-size:13px;cursor:pointer;text-decoration:underline}
+</style></head><body>
+<header><h1>ATHANOR · WORKING DESIGNER <small>· intent → the full recipe</small></h1></header>
+<main>
+<div class="card"><div class="sub" style="color:var(--sub);font-size:13px;margin-bottom:6px">Choose an intent:</div>
+<div class="chips" id="intents"></div></div>
+<div id="out"></div>
+</main>
+<script src="../../data/777.js"></script>
+<script src="../../data/db/core.js"></script>
+<script src="../../data/db/texts.js"></script>
+<script src="../lib/db.js"></script>
+<script>
+const D = D777; const COL={}; for(const c of D.cols)COL[c.label]=c;
+const $=s=>document.querySelector(s);const esc=s=>String(s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+function cv(l,k){const c=COL[l];return c&&c.cells[k]?c.cells[k]:'';}
+function swatch(l,k){const c=COL[l];if(!c||!c.colors||!c.colors[k])return'';return c.colors[k].map(h=>`<span class="sw" style="background:${h}"></span>`).join('');}
+// The facts come from the content tables (data/db, edited in the content workbook) through lib/db.js
+// The planet of a place on the Tree: a Sephira's planet, a path's planet, or the ruler of a path's sign ("Mars (Scorpio)")
+function force(key){
+ const r=DB.get('keyscale',key), name=p=>p.name_777||p.name;
+ if(r.sephira){ const p=DB.where('planets',{sephira:r.sephira,kind:'classical'})[0]; return p?[p,name(p)]:null; }
+ if(r.planet){ const p=DB.ref(r,'planet'); return [p,name(p)]; }
+ if(r.sign){ const p=DB.where('dignities',{sign:r.sign,kind:'domicile'}).map(d=>DB.ref(d,'planet')).find(p=>p.kind==='classical');
+  return p?[p,`${name(p)} (${DB.ref(r,'sign').name})`]:null; }
+ return null;
+}
+// [intent, key, planet, day] for each intent of the intents table (loaded below); the day is the planet's weekday
+let INTENTS=[];
+function buildIntents(){ $('#intents').innerHTML=INTENTS.map((it,i)=>`<span class="chip" data-i="${i}" onclick="design(${i})">${esc(it[0])}</span>`).join(''); }
+function row(label,val){ return val?`<div class="kv"><b>${label}</b> ${val}</div>`:''; }
+function design(i){
+ const [intent,key,planet,day]=INTENTS[i];
+ document.querySelectorAll('#intents .chip').forEach(c=>c.classList.toggle('on',+c.dataset.i===i));
+ const isSeph=+key<=10;
+ let h=`<div class="card"><div class="bh">${esc(intent)} <span class="sub">→ ${esc(D.labels[key])}</span></div>`;
+ h+=row('Sphere / Path', esc(D.labels[key]));
+ h+=row('Force / planet', esc(planet));
+ h+=row('Best day', esc(day));
+ h+=row('Best hour', planet&&DB.text('design.best-hour',{planet:esc(planet.split(' ')[0])}));
+ h+=row('Colour (King)', swatch('XV',key)+esc(cv('XV',key)));
+ h+=row('Colour (Queen)', swatch('XVI',key)+esc(cv('XVI',key)));
+ h+=row('Incense / perfume', esc(cv('XLII',key)));
+ h+=row('Plant', esc(cv('XXXIX',key)));
+ h+=row('Stone', esc(cv('XL',key)));
+ h+=row('God-name', esc(cv('V',key)));
+ h+=row('Archangel', esc(cv('XCIX',key)));
+ h+=row('Order of angels', esc(cv('C',key)));
+ h+=row('Magical weapon', esc(cv('XLI',key)));
+ h+=row('Tarot card', esc(cv('CLXXX',key)));
+ h+=row('Number', esc(cv('X',key)||key));
+ h+=row('Aim / vision', esc(cv('XLV',key)));
+ h+=`<div class="exp">${DB.text('design.how-to-read',{place:esc(D.labels[key])})}</div>`;
+ h+=`<div style="margin-top:8px"><a class="full" onclick="rowView('${key}')">▸ every correspondence of ${esc(D.labels[key])}</a></div></div>`;
+ $('#out').innerHTML=h; window.scrollTo(0,document.querySelector('#out').offsetTop-60);
+}
+function rowView(k){
+ let t=`<div class="card"><div class="bh">Key Scale ${k} — full row</div><table style="border-collapse:collapse;width:100%">`;
+ for(const c of D.cols){const v=c.cells[k];if(!v)continue;t+=`<tr><td style="border-top:1px solid var(--line);padding:5px 7px;font-size:13px;color:var(--acc);font-weight:600;white-space:nowrap">${c.label}</td><td style="border-top:1px solid var(--line);padding:5px 7px;font-size:13px">${swatch(c.label,k)}${esc(v)}</td></tr>`;}
+ t+='</table></div>'; $('#out').innerHTML=t; window.scrollTo(0,0);
+}
+DB.load('intents').then(()=>{
+ INTENTS=DB.rows('intents').map(it=>{ const f=force(it.keyscale), day=f&&DB.rev('weekdays','planet',f[0].id)[0];
+  return [it.name,it.keyscale,f?f[1]:'',day?day.name:'']; });
+ buildIntents(); design(0);
+});
+</script></body></html>

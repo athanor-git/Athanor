@@ -1,0 +1,17 @@
+{"table": "intents", "rows": [
+{"id": "love", "name": "Love & attraction", "keyscale": "7"},
+{"id": "wealth", "name": "Wealth & prosperity", "keyscale": "4"},
+{"id": "protection", "name": "Protection & defense", "keyscale": "5"},
+{"id": "healing", "name": "Healing & harmony", "keyscale": "6"},
+{"id": "wisdom", "name": "Wisdom & study", "keyscale": "8"},
+{"id": "divination", "name": "Divination & dreams", "keyscale": "9"},
+{"id": "binding", "name": "Binding & banishing", "keyscale": "3"},
+{"id": "courage", "name": "Courage in conflict", "keyscale": "5"},
+{"id": "success", "name": "Success & authority", "keyscale": "6"},
+{"id": "creativity", "name": "Creativity & art", "keyscale": "7"},
+{"id": "communication", "name": "Communication & travel", "keyscale": "8"},
+{"id": "attainment", "name": "Spiritual attainment (HGA)", "keyscale": "6"},
+{"id": "transformation", "name": "Transformation & release", "keyscale": "24"},
+{"id": "justice", "name": "Justice & legal", "keyscale": "22"},
+{"id": "fertility", "name": "Fertility & growth", "keyscale": "4"}
+]}

@@ -1,0 +1,256 @@
+{
+ "version": 1,
+ "updated": "2026-09-29",
+ "title": "Thoth Tarot – Planetary Dignities & Properties",
+ "subtitle": "Golden Dawn / Crowley attributions (Book of Thoth, Liber 777). Classical seven planets + lunar nodes; outer planets per Crowley's elemental trumps.",
+ "source": "The user's own reference sheet \"Thoth Tarot – Planetary Dignities & Properties\" (source/Thoth_Planetary_Dignities.pdf, 3 pages, 7 sections). It is the authority: every value below is copied from it verbatim, except the keys listed in \"derived\".",
+ "sheetSources": "Crowley, The Book of Thoth (1944); Liber 777; Ptolemy, Tetrabiblos (classical dignities, nodal exaltations); Golden Dawn Book T.",
+ "about": "Conventions. null = the sheet prints '—' (nothing / not given). List values are the sheet's comma lists split at ', ' (joined with ', ' they give the cell back exactly, capitals as printed). Cells that wrap onto two lines in the PDF are re-joined. Section 5 prints the Atu as 'XXI Universe', which is atu + ' ' + card here (the nodes' shared cell is atuNote). The two nodes share one row in sections 5 and 6 ('Dragon's Head / Tail', 'Nodes'); that row is copied to both node entries. Section 1's 'Ruler' column, section 3's reading-key 'Ruler', section 2's 'Domicile' and section 7's 'Rules' are the same dignity. Checked against the sheet text and journal.html by check_dignities.py.",
+ "derived": ["id", "glyph", "kind", "opposite", "colourName", "hex", "kameaSize", "kameaSum", "crossRef.examples", "sections[].fields", "sections[].data"],
+
+ "sections": [
+  {"n": 1, "title": "Zodiacal Atus – Essential Dignities", "data": "signs",
+   "columns": ["Atu", "Card", "Sign", "Ruler", "Exalted", "Detriment", "Fall", "Reading note (ruler + exaltation)"],
+   "fields": ["atu", "card", "sign", "ruler", "exalted", "detriment", "fall", "note"]},
+  {"n": 2, "title": "Planetary Atus", "data": "planets",
+   "columns": ["Atu", "Card", "Planet", "Domicile", "Exaltation", "Detriment", "Fall"],
+   "fields": ["atu", "card", "planet", "domicile", "exaltation", "detriment", "fall"]},
+  {"n": 3, "title": "Elemental Atus (Crowley's outer-planet pairing)", "data": "elemental",
+   "columns": ["Atu", "Card", "Element", "Outer planet", "Hebrew letter"],
+   "fields": ["atu", "card", "element", "outer", "letter"]},
+  {"n": 4, "title": "Planetary Nature & Keywords", "data": "planets",
+   "columns": ["Planet", "Nature", "Temperament", "Sect / gender", "Core principle", "Keywords – dignified", "Keywords – ill-dignified"],
+   "fields": ["planet", "nature", "temperament", "sect", "principle", "dignified", "ill"]},
+  {"n": 5, "title": "Golden Dawn / Thoth Correspondences", "data": "planets",
+   "columns": ["Planet", "Sephira", "Hebrew letter", "Atu", "Kamea (magic square)", "King-scale color", "Metal", "Archangel"],
+   "fields": ["planet", "sephira", "letter", "atu+card", "kamea", "colour", "metal", "archangel"]},
+  {"n": 6, "title": "Physical & Temporal Properties", "data": "planets",
+   "columns": ["Planet", "Day", "Cycle (approx.)", "Body / physiology", "Age of life", "Traditional trades"],
+   "fields": ["planet", "day", "cycle", "body", "age", "trades"]},
+  {"n": 7, "title": "Quick Lookup – Planet → Where It Is Strong / Weak", "data": "quickLookup",
+   "columns": ["Planet", "Rules (Atu)", "Exalted in (Atu)", "Detriment in (Atu)", "Fall in (Atu)"],
+   "fields": ["planet", "rules", "exaltedIn", "detrimentIn", "fallIn"]}
+ ],
+
+ "rules": [
+  "Leo, Scorpio, Aquarius have no classical exaltation (later astrologers use Pluto/Uranus/Neptune; Crowley does not).",
+  "Modern rulers Uranus/Neptune/Pluto are not used in this scheme.",
+  "Nodes exalted in Gemini/Sagittarius per Ptolemaic tradition.",
+  "Fall = exalted planet of the opposite sign; detriment = ruler of the opposite sign."
+ ],
+
+ "signs": [
+  {"sign": "Aries", "glyph": "♈", "atu": "IV", "card": "Emperor", "ruler": "Mars", "exalted": "Sun", "detriment": "Venus", "fall": "Saturn", "opposite": "Libra",
+   "note": "Force that becomes sovereign order; drive crowned by clarity"},
+  {"sign": "Taurus", "glyph": "♉", "atu": "V", "card": "Hierophant", "ruler": "Venus", "exalted": "Moon", "detriment": "Mars", "fall": null, "opposite": "Scorpio",
+   "note": "Beauty made stable; instinct and tradition carrying the sacred"},
+  {"sign": "Gemini", "glyph": "♊", "atu": "VI", "card": "Lovers", "ruler": "Mercury", "exalted": "Dragon's Head", "detriment": "Jupiter", "fall": "Dragon's Tail", "opposite": "Sagittarius",
+   "note": "Analysis (Solve) directing a fated union; eclipse = marriage of Sol and Luna"},
+  {"sign": "Cancer", "glyph": "♋", "atu": "VII", "card": "Chariot", "ruler": "Moon", "exalted": "Jupiter", "detriment": "Saturn", "fall": "Mars", "opposite": "Capricorn",
+   "note": "Receptive vessel carried by grace; protected momentum"},
+  {"sign": "Leo", "glyph": "♌", "atu": "XI", "card": "Lust", "ruler": "Sun", "exalted": null, "detriment": "Saturn", "fall": null, "opposite": "Aquarius",
+   "note": "Pure solar will; no exaltation – nothing above the Sun here"},
+  {"sign": "Virgo", "glyph": "♍", "atu": "IX", "card": "Hermit", "ruler": "Mercury", "exalted": "Mercury", "detriment": "Jupiter", "fall": "Venus", "opposite": "Pisces",
+   "note": "Mind at home and at its height; only sign where ruler = exaltation"},
+  {"sign": "Libra", "glyph": "♎", "atu": "VIII", "card": "Adjustment", "ruler": "Venus", "exalted": "Saturn", "detriment": "Mars", "fall": "Sun", "opposite": "Aries",
+   "note": "Harmony bound by law; graceful, non-negotiable reckoning (Maat)"},
+  {"sign": "Scorpio", "glyph": "♏", "atu": "XIII", "card": "Death", "ruler": "Mars", "exalted": null, "detriment": "Venus", "fall": "Moon", "opposite": "Taurus",
+   "note": "Severance and putrefaction; Moon's fall = instinct cannot cling"},
+  {"sign": "Sagittarius", "glyph": "♐", "atu": "XIV", "card": "Art", "ruler": "Jupiter", "exalted": "Dragon's Tail", "detriment": "Mercury", "fall": "Dragon's Head", "opposite": "Gemini",
+   "note": "Synthesis (Coagula) by expansion and release of what was consumed"},
+  {"sign": "Capricorn", "glyph": "♑", "atu": "XV", "card": "Devil", "ruler": "Saturn", "exalted": "Mars", "detriment": "Moon", "fall": "Jupiter", "opposite": "Cancer",
+   "note": "Matter's structure driven by raw force; creative energy in form"},
+  {"sign": "Aquarius", "glyph": "♒", "atu": "XVII", "card": "Star", "ruler": "Saturn", "exalted": null, "detriment": "Sun", "fall": null, "opposite": "Leo",
+   "note": "Fixed structure pouring out; the cosmic, impersonal (Nuit)"},
+  {"sign": "Pisces", "glyph": "♓", "atu": "XVIII", "card": "Moon", "ruler": "Jupiter", "exalted": "Venus", "detriment": "Mercury", "fall": "Mercury", "opposite": "Virgo",
+   "note": "Boundless water, love exalted; mind (Mercury) doubly lost"}
+ ],
+
+ "planets": [
+  {"id": "saturn", "planet": "Saturn", "glyph": "♄", "kind": "classical", "atu": "XXI", "card": "Universe", "element": null,
+   "domicile": ["Capricorn", "Aquarius"], "exaltation": "Libra", "detriment": ["Cancer", "Leo"], "fall": "Aries",
+   "nature": "Greater malefic", "temperament": "Cold, dry", "sect": "Diurnal / masc.", "principle": "Limit, time, form",
+   "dignified": ["Structure", "discipline", "endurance", "law", "karma", "age"],
+   "ill": ["Restriction", "delay", "fear", "rigidity", "isolation"],
+   "sephira": "3 Binah", "letter": "Tau ת", "kamea": "3×3 (row sum 15)", "kameaSize": 3, "kameaSum": 15,
+   "colour": "Indigo #4B0082", "colourName": "Indigo", "hex": "#4B0082", "metal": "Lead", "archangel": "Tzaphkiel",
+   "day": "Saturday", "cycle": "29.5 yr", "body": "Bones, teeth, skin, joints", "age": "Old age (68+)",
+   "trades": ["Farmers", "builders", "miners", "hermits", "judges"]},
+
+  {"id": "jupiter", "planet": "Jupiter", "glyph": "♃", "kind": "classical", "atu": "X", "card": "Fortune", "element": null,
+   "domicile": ["Sagittarius", "Pisces"], "exaltation": "Cancer", "detriment": ["Gemini", "Virgo"], "fall": "Capricorn",
+   "nature": "Greater benefic", "temperament": "Hot, moist", "sect": "Diurnal / masc.", "principle": "Expansion, grace",
+   "dignified": ["Fortune", "generosity", "growth", "faith", "authority"],
+   "ill": ["Excess", "waste", "complacency", "hubris"],
+   "sephira": "4 Chesed", "letter": "Kaph כ", "kamea": "4×4 (34)", "kameaSize": 4, "kameaSum": 34,
+   "colour": "Violet #8F00FF", "colourName": "Violet", "hex": "#8F00FF", "metal": "Tin", "archangel": "Tzadkiel",
+   "day": "Thursday", "cycle": "12 yr", "body": "Liver, thighs, arterial blood", "age": "Maturity (56–68)",
+   "trades": ["Priests", "lawyers", "scholars", "bankers"]},
+
+  {"id": "mars", "planet": "Mars", "glyph": "♂", "kind": "classical", "atu": "XVI", "card": "Tower", "element": null,
+   "domicile": ["Aries", "Scorpio"], "exaltation": "Capricorn", "detriment": ["Libra", "Taurus"], "fall": "Cancer",
+   "nature": "Lesser malefic", "temperament": "Hot, dry", "sect": "Nocturnal / masc.", "principle": "Force, severance",
+   "dignified": ["Courage", "drive", "will", "defense", "action"],
+   "ill": ["Violence", "anger", "conflict", "destruction"],
+   "sephira": "5 Geburah", "letter": "Peh פ", "kamea": "5×5 (65)", "kameaSize": 5, "kameaSum": 65,
+   "colour": "Scarlet #FF2400", "colourName": "Scarlet", "hex": "#FF2400", "metal": "Iron", "archangel": "Kamael",
+   "day": "Tuesday", "cycle": "2 yr", "body": "Muscles, gallbladder, head, venous blood", "age": "Young adulthood (41–56)",
+   "trades": ["Soldiers", "surgeons", "smiths", "butchers"]},
+
+  {"id": "sun", "planet": "Sun", "glyph": "☉", "kind": "classical", "atu": "XIX", "card": "Sun", "element": null,
+   "domicile": ["Leo"], "exaltation": "Aries", "detriment": ["Aquarius"], "fall": "Libra",
+   "nature": "Benefic (luminary)", "temperament": "Hot, dry", "sect": "Diurnal / masc.", "principle": "Center, life, self",
+   "dignified": ["Vitality", "clarity", "glory", "consciousness", "success"],
+   "ill": ["Pride", "arrogance", "burnout", "exposure"],
+   "sephira": "6 Tiphareth", "letter": "Resh ר", "kamea": "6×6 (111)", "kameaSize": 6, "kameaSum": 111,
+   "colour": "Orange #FFA500", "colourName": "Orange", "hex": "#FFA500", "metal": "Gold", "archangel": "Raphael (sphere) / Michael (path)",
+   "day": "Sunday", "cycle": "1 yr", "body": "Heart, right eye, spine, vitality", "age": "Prime (22–41)",
+   "trades": ["Kings", "leaders", "goldsmiths"]},
+
+  {"id": "venus", "planet": "Venus", "glyph": "♀", "kind": "classical", "atu": "III", "card": "Empress", "element": null,
+   "domicile": ["Taurus", "Libra"], "exaltation": "Pisces", "detriment": ["Aries", "Scorpio"], "fall": "Virgo",
+   "nature": "Lesser benefic", "temperament": "Cold, moist", "sect": "Nocturnal / fem.", "principle": "Attraction, harmony",
+   "dignified": ["Love", "beauty", "pleasure", "art", "reconciliation"],
+   "ill": ["Indulgence", "vanity", "dependency", "indecision"],
+   "sephira": "7 Netzach", "letter": "Daleth ד", "kamea": "7×7 (175)", "kameaSize": 7, "kameaSum": 175,
+   "colour": "Emerald #50C878", "colourName": "Emerald", "hex": "#50C878", "metal": "Copper", "archangel": "Haniel",
+   "day": "Friday", "cycle": "~1 yr (synodic 584 d)", "body": "Kidneys, throat, reproductive organs, complexion", "age": "Youth (14–22)",
+   "trades": ["Artists", "musicians", "perfumers", "lovers"]},
+
+  {"id": "mercury", "planet": "Mercury", "glyph": "☿", "kind": "classical", "atu": "I", "card": "Magus", "element": null,
+   "domicile": ["Gemini", "Virgo"], "exaltation": "Virgo", "detriment": ["Sagittarius", "Pisces"], "fall": "Pisces",
+   "nature": "Neutral (mutable)", "temperament": "Variable", "sect": "Either / neutral", "principle": "Mind, exchange",
+   "dignified": ["Intellect", "speech", "trade", "skill", "cunning"],
+   "ill": ["Deceit", "restlessness", "nerves", "trickery"],
+   "sephira": "8 Hod", "letter": "Beth ב", "kamea": "8×8 (260)", "kameaSize": 8, "kameaSum": 260,
+   "colour": "Yellow #FFFF00", "colourName": "Yellow", "hex": "#FFFF00", "metal": "Quicksilver", "archangel": "Michael (sphere) / Raphael (path)",
+   "day": "Wednesday", "cycle": "~1 yr (synodic 116 d)", "body": "Nerves, lungs, hands, speech", "age": "Childhood (4–14)",
+   "trades": ["Merchants", "scribes", "messengers", "thieves"]},
+
+  {"id": "moon", "planet": "Moon", "glyph": "☽", "kind": "classical", "atu": "II", "card": "Priestess", "element": null,
+   "domicile": ["Cancer"], "exaltation": "Taurus", "detriment": ["Capricorn"], "fall": "Scorpio",
+   "nature": "Benefic (luminary)", "temperament": "Cold, moist", "sect": "Nocturnal / fem.", "principle": "Reflection, flux",
+   "dignified": ["Instinct", "memory", "nurture", "imagination", "cycles"],
+   "ill": ["Illusion", "moodiness", "passivity", "delusion"],
+   "sephira": "9 Yesod", "letter": "Gimel ג", "kamea": "9×9 (369)", "kameaSize": 9, "kameaSum": 369,
+   "colour": "Blue #0000FF", "colourName": "Blue", "hex": "#0000FF", "metal": "Silver", "archangel": "Gabriel",
+   "day": "Monday", "cycle": "27.3 d sidereal / 29.5 d synodic", "body": "Stomach, breasts, fluids, left eye, womb", "age": "Infancy (0–4)",
+   "trades": ["Sailors", "midwives", "innkeepers", "the public"]},
+
+  {"id": "nnode", "planet": "Dragon's Head", "also": "N. Node", "glyph": "☊", "kind": "node", "atu": null, "card": null, "atuNote": "Exalted in VI / XIV", "element": null,
+   "domicile": null, "exaltation": "Gemini", "detriment": null, "fall": "Sagittarius",
+   "nature": "Benefic (by tradition)", "temperament": "Like Jupiter", "sect": null, "principle": "Increase, entry",
+   "dignified": ["Gain", "appetite", "destiny forward", "fated gain"],
+   "ill": ["Compulsion", "over-reach", "hunger"],
+   "sephira": null, "letter": null, "kamea": null, "kameaSize": null, "kameaSum": null,
+   "colour": null, "colourName": null, "hex": null, "metal": null, "archangel": null,
+   "day": null, "cycle": "18.6 yr (retrograde)", "body": "Eclipse points", "age": null,
+   "trades": null},
+
+  {"id": "snode", "planet": "Dragon's Tail", "also": "S. Node", "glyph": "☋", "kind": "node", "atu": null, "card": null, "atuNote": "Exalted in VI / XIV", "element": null,
+   "domicile": null, "exaltation": "Sagittarius", "detriment": null, "fall": "Gemini",
+   "nature": "Malefic (by tradition)", "temperament": "Like Saturn", "sect": null, "principle": "Decrease, release",
+   "dignified": ["Detachment", "letting go", "past mastery"],
+   "ill": ["Loss", "depletion", "backsliding"],
+   "sephira": null, "letter": null, "kamea": null, "kameaSize": null, "kameaSum": null,
+   "colour": null, "colourName": null, "hex": null, "metal": null, "archangel": null,
+   "day": null, "cycle": "18.6 yr (retrograde)", "body": "Eclipse points", "age": null,
+   "trades": null},
+
+  {"id": "uranus", "planet": "Uranus", "glyph": "♅", "kind": "outer", "atu": "0", "card": "Fool", "element": "Air",
+   "domicile": null, "exaltation": null, "detriment": null, "fall": null,
+   "nature": "Modern", "temperament": null, "sect": null, "principle": "Rupture, freedom",
+   "dignified": ["Revolution", "genius", "sudden insight (Fool's air)"],
+   "ill": ["Chaos", "alienation", "eccentricity"],
+   "sephira": "Chokmah (later use)", "letter": "Aleph א", "kamea": null, "kameaSize": null, "kameaSum": null,
+   "colour": "Bright pale yellow #FFFFB0", "colourName": "Bright pale yellow", "hex": "#FFFFB0", "metal": null, "archangel": null,
+   "day": null, "cycle": "84 yr", "body": "Nervous system (modern)", "age": null,
+   "trades": null},
+
+  {"id": "neptune", "planet": "Neptune", "glyph": "♆", "kind": "outer", "atu": "XII", "card": "Hanged Man", "element": "Water",
+   "domicile": null, "exaltation": null, "detriment": null, "fall": null,
+   "nature": "Modern", "temperament": null, "sect": null, "principle": "Dissolution, mysticism",
+   "dignified": ["Vision", "sacrifice", "compassion (Hanged Man's water)"],
+   "ill": ["Confusion", "escapism", "deception"],
+   "sephira": "Kether (later use)", "letter": "Mem מ", "kamea": null, "kameaSize": null, "kameaSum": null,
+   "colour": "Deep blue #00008B", "colourName": "Deep blue", "hex": "#00008B", "metal": null, "archangel": null,
+   "day": null, "cycle": "165 yr", "body": "Lymph, feet, immune system (modern)", "age": null,
+   "trades": null},
+
+  {"id": "pluto", "planet": "Pluto", "glyph": "♇", "kind": "outer", "atu": "XX", "card": "Aeon", "element": "Fire",
+   "domicile": null, "exaltation": null, "detriment": null, "fall": null,
+   "nature": "Modern", "temperament": null, "sect": null, "principle": "Death/rebirth, power",
+   "dignified": ["Transformation", "regeneration (Aeon's fire)"],
+   "ill": ["Obsession", "destruction", "coercion"],
+   "sephira": "Da'ath / Kether (unsettled)", "letter": "Shin ש", "kamea": null, "kameaSize": null, "kameaSum": null,
+   "colour": "Glowing orange-scarlet #FF4500", "colourName": "Glowing orange-scarlet", "hex": "#FF4500", "metal": null, "archangel": null,
+   "day": null, "cycle": "248 yr", "body": "Reproduction / elimination (modern)", "age": null,
+   "trades": null}
+ ],
+
+ "elemental": [
+  {"atu": "0", "card": "Fool", "element": "Air", "outer": "Uranus", "letter": "Aleph א"},
+  {"atu": "XII", "card": "Hanged Man", "element": "Water", "outer": "Neptune", "letter": "Mem מ"},
+  {"atu": "XX", "card": "Aeon", "element": "Fire", "outer": "Pluto", "letter": "Shin ש"}
+ ],
+
+ "readingKey": {
+  "Ruler": "The card's native mode – its habitat.",
+  "Exaltation": "Its highest expression – best behavior.",
+  "Detriment": "Out of place – what the card struggles with.",
+  "Fall": "Humiliated – what the card cannot hold on to."
+ },
+
+ "crossRef": {
+  "text": "Cross-reference: a planetary card beside a zodiacal card it rules or is exalted in strengthens both (Empress + Adjustment; Universe + Adjustment). Beside a sign where it is in detriment or fall it is weakened (Tower + Adjustment = Mars in Libra). The same key reads the Minor Arcana decans (each 2–10 is a planet in a sign).",
+  "sentences": [
+   "a planetary card beside a zodiacal card it rules or is exalted in strengthens both (Empress + Adjustment; Universe + Adjustment).",
+   "Beside a sign where it is in detriment or fall it is weakened (Tower + Adjustment = Mars in Libra).",
+   "The same key reads the Minor Arcana decans (each 2–10 is a planet in a sign)."
+  ],
+  "examples": [
+   {"planetCard": "Empress", "signCard": "Adjustment", "planet": "Venus", "sign": "Libra", "dignity": "Ruler", "effect": "strengthens"},
+   {"planetCard": "Universe", "signCard": "Adjustment", "planet": "Saturn", "sign": "Libra", "dignity": "Exaltation", "effect": "strengthens"},
+   {"planetCard": "Tower", "signCard": "Adjustment", "planet": "Mars", "sign": "Libra", "dignity": "Detriment", "effect": "weakens"}
+  ]
+ },
+
+ "correspondenceNotes": [
+  "Colors are the King (Atziluth) scale from 777; the Thoth cards are painted mostly from it.",
+  "Outer-planet sephiroth are not fixed in 777 – later conventions only."
+ ],
+
+ "quickLookup": [
+  {"planet": "Saturn", "rules": ["Capricorn (XV Devil)", "Aquarius (XVII Star)"], "exaltedIn": ["Libra (VIII Adjustment)"], "detrimentIn": ["Cancer (VII Chariot)", "Leo (XI Lust)"], "fallIn": ["Aries (IV Emperor)"]},
+  {"planet": "Jupiter", "rules": ["Sagittarius (XIV Art)", "Pisces (XVIII Moon)"], "exaltedIn": ["Cancer (VII Chariot)"], "detrimentIn": ["Gemini (VI Lovers)", "Virgo (IX Hermit)"], "fallIn": ["Capricorn (XV Devil)"]},
+  {"planet": "Mars", "rules": ["Aries (IV Emperor)", "Scorpio (XIII Death)"], "exaltedIn": ["Capricorn (XV Devil)"], "detrimentIn": ["Libra (VIII Adjustment)", "Taurus (V Hierophant)"], "fallIn": ["Cancer (VII Chariot)"]},
+  {"planet": "Sun", "rules": ["Leo (XI Lust)"], "exaltedIn": ["Aries (IV Emperor)"], "detrimentIn": ["Aquarius (XVII Star)"], "fallIn": ["Libra (VIII Adjustment)"]},
+  {"planet": "Venus", "rules": ["Taurus (V Hierophant)", "Libra (VIII Adjustment)"], "exaltedIn": ["Pisces (XVIII Moon)"], "detrimentIn": ["Aries (IV Emperor)", "Scorpio (XIII Death)"], "fallIn": ["Virgo (IX Hermit)"]},
+  {"planet": "Mercury", "rules": ["Gemini (VI Lovers)", "Virgo (IX Hermit)"], "exaltedIn": ["Virgo (IX Hermit)"], "detrimentIn": ["Sagittarius (XIV Art)", "Pisces (XVIII Moon)"], "fallIn": ["Pisces (XVIII Moon)"]},
+  {"planet": "Moon", "rules": ["Cancer (VII Chariot)"], "exaltedIn": ["Taurus (V Hierophant)"], "detrimentIn": ["Capricorn (XV Devil)"], "fallIn": ["Scorpio (XIII Death)"]},
+  {"planet": "Dragon's Head", "rules": null, "exaltedIn": ["Gemini (VI Lovers)"], "detrimentIn": null, "fallIn": ["Sagittarius (XIV Art)"]},
+  {"planet": "Dragon's Tail", "rules": null, "exaltedIn": ["Sagittarius (XIV Art)"], "detrimentIn": null, "fallIn": ["Gemini (VI Lovers)"]}
+ ],
+
+ "spreadMethod": {
+  "text": "Method in a spread: (1) identify the card's sign or planet; (2) read the ruler row for its native mode and the exaltation row for its peak; (3) check neighbors – a planetary card next to a sign it rules/exalts in reinforces; next to a sign of detriment/fall it undermines; (4) apply the same to Minor decans.",
+  "steps": [
+   "identify the card's sign or planet",
+   "read the ruler row for its native mode and the exaltation row for its peak",
+   "check neighbors – a planetary card next to a sign it rules/exalts in reinforces; next to a sign of detriment/fall it undermines",
+   "apply the same to Minor decans"
+  ]
+ },
+
+ "notes": [
+  {"kind": "check", "text": "No internal inconsistency found in the sheet. Sections 1, 2 and 7 agree sign by sign and planet by planet; every detriment is the ruler of the opposite sign and every fall the exalted planet of the opposite sign; exactly Leo, Scorpio, Aquarius lack an exaltation; no modern planet holds a dignity; section 5's Atus and letters agree with sections 2–3 and the nodes' 'Exalted in VI / XIV' with section 1; sections 1–3 cover the 22 Atus once each; the reading notes' claims, the three cross-reference examples, the kamea sums and the ages of life all check out (check_dignities.py, 2026-09-29)."},
+  {"kind": "encoding", "text": "The nodes share one row in section 5 ('Dragon's Head / Tail': only the Atu cell is filled, 'Exalted in VI / XIV') and in section 6 ('Nodes': '18.6 yr (retrograde)', 'Eclipse points'); both node entries carry that row."},
+  {"kind": "encoding", "text": "Section 4 names the nodes 'Dragon's Head (N. Node)' and 'Dragon's Tail (S. Node)'; sections 1 and 7 say 'Dragon's Head' / 'Dragon's Tail'. Stored as planet + also."},
+  {"kind": "encoding", "text": "The sheet gives the nodes no domicile or detriment (section 7: '—') and Uranus, Neptune, Pluto no dignities at all (modern rulers are not used): those fields are null. Planets have no element on the sheet except the three outer planets (section 3)."},
+  {"kind": "quiz", "text": "Every reading note in section 1 is written from its sign's ruler + exaltation (the column says so) and names them by keyword: Aries 'drive … clarity' (Mars, Sun), Taurus 'Beauty … instinct' (Venus, Moon), Gemini 'Analysis … fated union; eclipse' (Analysis = Mercury's 'Mind'; 'fated' = Dragon's Head 'fated gain'; 'eclipse' = the nodes' 'Eclipse points'), Cancer 'grace' (Jupiter), Leo 'the Sun', Virgo 'Mind … at its height' (Mercury twice), Libra 'Harmony … law' (Venus, Saturn), Scorpio 'Severance … Moon's fall' (Mars; fall Moon), Sagittarius 'expansion and release' (Jupiter, Dragon's Tail), Capricorn 'structure … force' (Saturn, Mars), Aquarius 'structure' (Saturn), Pisces 'love exalted; mind (Mercury) doubly lost' (Venus; Mercury detriment and fall). Never show a sign's note in a question that asks for that sign's dignities. Several notes also point to the sign's own Thoth card: Gemini 'Solve … marriage of Sol and Luna' (VI Lovers, the Royal Marriage), Sagittarius 'Coagula' (XIV Art), Libra '(Maat)' (VIII Adjustment), Aquarius '(Nuit)' (XVII Star), Scorpio 'putrefaction' (XIII Death), Cancer 'Receptive vessel' (VII Chariot's Grail). Never show a sign's note in a question that asks for that sign's Atu or card either."},
+  {"kind": "quiz", "text": "Some keywords name their card: Jupiter 'Fortune' (its card is Atu X Fortune), Uranus 'sudden insight (Fool's air)', Neptune 'compassion (Hanged Man's water)', Pluto 'regeneration (Aeon's fire)'. Some fields of one planet repeat another of its fields: Sun keyword 'Vitality' = Sun body 'vitality'; Mercury keyword 'speech' = Mercury body 'speech'; Mercury ill-dignified 'nerves' = Mercury body 'Nerves'. False friends that are NOT that planet's card (a card-name leak guard should not trip on them, and they make tempting distractors): Venus keyword 'art' (XIV Art is Sagittarius), Venus trade 'lovers' (VI Lovers is Gemini), Pluto principle 'Death/rebirth' (XIII Death is Scorpio); the nodes' temperament 'Like Jupiter' / 'Like Saturn' names another planet. '(modern)', '(later use)' and '(unsettled)' mark the outer planets, and the nodes' Atu cell 'Exalted in VI / XIV' states their exaltations."},
+  {"kind": "quiz", "text": "Not one-to-one, so a reverse question has more than one right answer: nature 'Benefic (luminary)' = Sun, Moon; 'Modern' = Uranus, Neptune, Pluto; temperament 'Hot, dry' = Mars, Sun; 'Cold, moist' = Venus, Moon; sect 'Diurnal / masc.' = Saturn, Jupiter, Sun; 'Nocturnal / fem.' = Venus, Moon; the two nodes share cycle and body; keyword 'destruction' = Mars and Pluto (both ill-dignified); sephira 'Kether' = Neptune ('Kether (later use)') and Pluto ('Da'ath / Kether (unsettled)'); near-identical cells: colours 'Blue' (Moon) / 'Deep blue' (Neptune), 'Yellow' (Mercury) / 'Bright pale yellow' (Uranus), 'Orange' (Sun) / 'Scarlet' (Mars) / 'Glowing orange-scarlet' (Pluto); cycles '1 yr' (Sun) / '~1 yr (synodic 584 d)' (Venus) / '~1 yr (synodic 116 d)' (Mercury), '29.5 yr' (Saturn) / '… 29.5 d synodic' (Moon); body 'arterial blood' (Jupiter) / 'venous blood' (Mars); domicile and detriment are two signs each for Saturn, Jupiter, Mars, Venus, Mercury."},
+  {"kind": "quiz", "text": "A sign row can name one planet twice: Virgo (Mercury is ruler and exalted) and Pisces (Mercury is detriment and fall). Leo, Scorpio, Aquarius have no exaltation, so Aquarius, Taurus, Leo (their opposites) have no fall."},
+  {"kind": "quiz", "text": "'Moon' and 'Sun' are planets and card titles: Atu XVIII Moon is Pisces (the planet Moon's card is Atu II Priestess); Atu XIX Sun is the Sun's own card. Say 'Atu XVIII Moon' or 'the planet Moon'."}
+ ]
+}

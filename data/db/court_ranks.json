@@ -1,0 +1,6 @@
+{"table": "court_ranks", "rows": [
+{"id": "knight", "name": "Knight", "gd_name": "King", "plural": "Knights", "rws_name": "King", "spellings": "King", "element": "fire", "letter": "yod", "sephira": "chokmah", "quality": "Mutable"},
+{"id": "queen", "name": "Queen", "gd_name": "Queen", "plural": "Queens", "rws_name": "Queen", "element": "water", "letter": "heh", "sephira": "binah", "quality": "Cardinal"},
+{"id": "prince", "name": "Prince", "gd_name": "Prince", "plural": "Princes", "rws_name": "Knight", "aliases": "King\nEmperor", "element": "air", "letter": "vau", "sephira": "tiphareth", "quality": "Fixed"},
+{"id": "princess", "name": "Princess", "gd_name": "Princess", "plural": "Princesses", "rws_name": "Page", "spellings": "Page", "aliases": "Knave", "element": "earth", "letter": "heh", "letter_final": true, "sephira": "malkuth"}
+]}

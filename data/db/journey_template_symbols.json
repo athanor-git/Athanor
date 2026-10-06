@@ -1,0 +1,14 @@
+{"table": "journey_template_symbols", "rows": [
+{"id": "letter", "symbol": "the letter {value} ({glyph})", "source": "Hebrew letter"},
+{"id": "meaning", "symbol": "{value}", "source": "letter meaning"},
+{"id": "king", "symbol": "{value} light", "source": "King scale · 777 col. XV"},
+{"id": "queen", "symbol": "{value}", "source": "Queen scale · col. XVI"},
+{"id": "trump", "symbol": "{value} (Atu {atu})", "source": "Thoth trump"},
+{"id": "attribution", "symbol": "{value}", "source": "astrological attribution"},
+{"id": "animal", "symbol": "{value}", "source": "animal · col. XXXVIII"},
+{"id": "plant", "symbol": "{value}", "source": "plant · col. XXXIX"},
+{"id": "stone", "symbol": "{value}", "source": "stone · col. XL"},
+{"id": "perfume", "symbol": "the scent of {value}", "source": "perfume · col. XLII"},
+{"id": "greek", "symbol": "{value}", "source": "Greek god · col. XXXIV"},
+{"id": "egyptian", "symbol": "{value}", "source": "Egyptian god · col. XIX"}
+]}

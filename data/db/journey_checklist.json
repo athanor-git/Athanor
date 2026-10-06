@@ -1,0 +1,9 @@
+{"table": "journey_checklist", "rows": [
+{"id": "banish", "label": "Banish: the Lesser Banishing Ritual of the Pentagram or the Star Ruby"},
+{"id": "incense", "label": "Incense", "prepare": "incense"},
+{"id": "candle", "label": "Candle or cloth colour", "prepare": "candle"},
+{"id": "stone", "label": "Stone (optional)", "prepare": "stone", "optional": true},
+{"id": "facing", "label": "Face", "prepare": "facing"},
+{"id": "dnd", "label": "Phone on Do Not Disturb (this screen stays awake while the journey plays)"},
+{"id": "journal", "label": "Journal ready: the entry form opens when you finish"}
+]}

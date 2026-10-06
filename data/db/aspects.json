@@ -1,0 +1,7 @@
+{"table": "aspects", "rows": [
+{"id": "conjunction", "name": "Conjunction", "glyph": "☌", "angle": 0, "meaning": "fusion / intensification"},
+{"id": "sextile", "name": "Sextile", "glyph": "⚹", "angle": 60, "soft": true, "meaning": "ease, opportunity"},
+{"id": "square", "name": "Square", "glyph": "□", "angle": 90, "meaning": "tension, friction, drive"},
+{"id": "trine", "name": "Trine", "glyph": "△", "angle": 120, "soft": true, "meaning": "flow, harmony, talent"},
+{"id": "opposition", "name": "Opposition", "glyph": "☍", "angle": 180, "meaning": "polarity, awareness through the other"}
+]}

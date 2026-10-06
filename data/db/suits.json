@@ -1,0 +1,6 @@
+{"table": "suits", "rows": [
+{"id": "wands", "name": "Wands", "gd_name": "Wands", "spellings": "Rods\nStaves\nBatons\nClubs", "element": "fire", "world": "Atziluth", "world_spellings": "Atzilut\nAziluth", "scale": "XV", "scale_name": "King", "court_column": "LXXI", "title_column": "CXXXIII", "angel_column": "CXXIX"},
+{"id": "cups", "name": "Cups", "gd_name": "Cups", "spellings": "Chalices\nHearts", "element": "water", "world": "Briah", "world_spellings": "Beriah\nBriyah", "scale": "XVI", "scale_name": "Queen", "court_column": "LXXII", "title_column": "CXXXIV", "angel_column": "CXXX"},
+{"id": "swords", "name": "Swords", "gd_name": "Swords", "spellings": "Blades\nSpades", "element": "air", "world": "Yetzirah", "world_spellings": "Yetzira\nYetsirah", "scale": "XVII", "scale_name": "Emperor", "court_column": "LXXIII", "title_column": "CXXXV", "angel_column": "CXXXI"},
+{"id": "disks", "name": "Disks", "gd_name": "Pentacles", "spellings": "Pentacles\nPantacles\nCoins\nDiscs\nDiamonds", "element": "earth", "world": "Assiah", "world_spellings": "Asiyah\nAssiyah\nAsiah", "scale": "XVIII", "scale_name": "Empress", "court_column": "LXXIV", "title_column": "CXXXVI", "angel_column": "CXXXII"}
+]}

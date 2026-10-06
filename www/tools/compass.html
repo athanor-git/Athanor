@@ -1,0 +1,1109 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Athanor — Magical Compass</title>
+<style>
+:root{--bg:#faf7f0;--card:#fff;--ink:#1a1712;--sub:#6b6357;--acc:#7a5c2e;--line:#e3ddd0;--chip:#f0ebe0;--hl:#f6efdd;
+ --cq:#7a5c2e;--ct:#a33a2c;--cg:#6a3a84;--ca:#2b659b;--cs:#1a1712;--gold:#b8860b;--north:#b3261e;--ok:#3d7a4a;--mid:#94700f;--warn:#a5542c}
+@media(prefers-color-scheme:dark){:root{--bg:#14120e;--card:#1e1b15;--ink:#ece5d8;--sub:#9a9184;--acc:#d0a85c;--line:#33302a;--chip:#2a261e;--hl:#2b2519;
+ --cq:#d0a85c;--ct:#e8866f;--cg:#c49be0;--ca:#8dbbe8;--cs:#ece5d8;--gold:#f0c24b;--north:#ff7a6e;--ok:#7fbf8c;--mid:#d8b25a;--warn:#e0936a}}
+*{box-sizing:border-box}html,body{margin:0}
+body{font:16px system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--ink);-webkit-text-size-adjust:100%;overflow-x:hidden}
+header{padding:10px 14px;border-bottom:1px solid var(--line)}h1{font-size:16px;margin:0}h1 small{color:var(--sub);font-weight:400}
+main{max-width:640px;margin:0 auto;padding:12px}
+@media(max-width:480px){main{padding:8px}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin:10px 0}
+.sec{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--acc);font-weight:700;margin:2px 0 8px}
+.sub{color:var(--sub);font-size:13px}
+.warn{color:var(--warn)}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+input,select{font:inherit;font-size:15px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink);max-width:100%}
+input{width:9em}
+button{font:inherit;border:1px solid var(--acc);background:var(--acc);color:#fff;border-radius:9px;padding:7px 12px;font-size:14px;cursor:pointer}
+button.ghost{background:var(--card);color:var(--ink);border-color:var(--line)}
+button.sm{padding:5px 10px;font-size:13px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}
+.chip{border:1px solid var(--line);background:var(--chip);color:var(--sub);border-radius:16px;padding:5px 11px;font-size:13px;cursor:pointer;user-select:none;-webkit-user-select:none}
+.chip.on{background:var(--c,var(--acc));border-color:var(--c,var(--acc));color:var(--card)}
+.chip.sm{font-size:12px;padding:4px 9px}
+details summary{cursor:pointer;color:var(--acc);font-weight:600;font-size:14px;margin:8px 0}
+/* dial card */
+.dialcard{padding:12px 0 10px}
+.pad{padding:0 14px}
+.readout{display:flex;align-items:flex-end;justify-content:space-between;gap:8px 10px;flex-wrap:wrap}
+.hd{font-size:40px;font-weight:700;line-height:1;font-variant-numeric:tabular-nums;letter-spacing:-.5px}
+.hd small{font-size:20px;color:var(--acc);font-weight:700;margin-left:8px;letter-spacing:0}
+.modes{margin:0}
+#hsrc{margin-top:5px;min-height:1.2em;line-height:1.35}
+.cal{display:none;margin:8px 0 0;padding:7px 10px;border-radius:8px;background:var(--hl);font-size:13px;line-height:1.4}
+.cal.show{display:block}
+.facebar{display:flex;gap:8px;align-items:center;margin-top:10px}
+.facebar select{flex:1;min-width:0}
+.turn{margin-top:6px;font-size:15px;font-weight:600;min-height:1.4em;color:var(--sub)}
+.turn.on{color:var(--gold)}
+#dial{display:block;width:100%;max-width:600px;height:auto;margin:6px auto 0;touch-action:pan-y;-webkit-user-select:none;user-select:none;outline:none;-webkit-tap-highlight-color:transparent}
+#dial.drag{touch-action:none;cursor:grab}
+#dial text{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+#dial .up{transform-box:fill-box;transform-origin:center;transform:rotate(var(--u,0deg))}
+#dial .halo{paint-order:stroke;stroke:var(--card);stroke-width:3px;stroke-linejoin:round}
+#dial .mk{cursor:pointer}
+#dial.ontarget .lub{fill:var(--gold)}
+.legend{display:flex;flex-wrap:wrap;gap:3px 12px;justify-content:center;font-size:11.5px;color:var(--sub);margin:6px 0 0}
+.legend span{display:inline-flex;align-items:center;gap:5px}
+.legend i{width:9px;height:9px;border-radius:50%;display:inline-block}
+.ahead{margin-top:8px;font-size:13.5px;line-height:1.55;border-top:1px dashed var(--line);padding-top:8px;overflow-wrap:anywhere}
+.ahead .al{font-size:11px;text-transform:uppercase;letter-spacing:.05em;font-weight:700;margin-right:4px}
+.ahead a{color:inherit;text-decoration:none;cursor:pointer;border-bottom:1px dotted var(--sub)}
+/* options & now */
+.optsec{border-top:1px solid var(--line);padding:10px 0 4px}
+.optsec:first-child{border-top:none}
+.osh{font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;font-weight:700;margin:0 0 4px;color:var(--acc)}
+.orow{display:flex;justify-content:space-between;align-items:center;gap:6px 8px;flex-wrap:wrap;font-size:14px;margin:6px 0}
+.orow select{flex:1 1 210px}
+.stat{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;font-size:14px}
+.nsec{border-top:1px solid var(--line);padding:9px 0 4px;margin-top:8px;font-size:14px;line-height:1.5;overflow-wrap:anywhere}
+table.sky{width:100%;border-collapse:collapse;font-size:13.5px;margin-top:6px}
+table.sky td{padding:4px 3px;border-bottom:1px solid var(--line)}
+table.sky td.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+table.sky td.sg{color:var(--sub);white-space:nowrap;text-align:right}
+table.sky tr{cursor:pointer}
+table.sky tr.below{color:var(--sub)}
+.srcs,.cav{padding-left:18px;margin:6px 0;font-size:13px;line-height:1.45}
+.srcs li,.cav li{margin:4px 0}
+/* info sheet */
+.sheet{position:fixed;left:50%;bottom:0;transform:translateX(-50%);width:min(100%,640px);max-height:72vh;overflow:auto;background:var(--card);border:1px solid var(--line);border-bottom:none;border-radius:16px 16px 0 0;box-shadow:0 -8px 28px rgba(0,0,0,.28);padding:0 16px 20px;z-index:30;-webkit-overflow-scrolling:touch}
+.sh-h{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;position:sticky;top:0;background:var(--card);padding:12px 0 8px;border-bottom:1px solid var(--line);z-index:1}
+.sh-t{font-size:18px;font-weight:700;margin:2px 0;overflow-wrap:anywhere}
+.ent{padding:10px 0;border-top:1px solid var(--line);overflow-wrap:anywhere}
+.sh-h+.ent{border-top:none}
+.en-h{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.en-h b{font-size:16px}
+.cf{font-size:10.5px;border:1px solid;border-radius:8px;padding:1px 7px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;white-space:nowrap}
+.cf.high{color:var(--ok)}.cf.medium{color:var(--mid)}.cf.low{color:var(--warn)}
+.role{font-size:13.5px;margin-top:3px}
+.grp{font-size:12px;color:var(--acc);margin-top:2px}
+.ex{font-size:13px;color:var(--sub);margin-top:4px;line-height:1.45}
+.nt{font-size:14px;line-height:1.5;margin:6px 0 4px}
+.pl{font-size:12.5px;color:var(--warn);margin:3px 0}
+.srcl{font-size:12px;color:var(--sub);font-style:italic;line-height:1.4}
+.more{margin-top:6px;border-top:1px dashed var(--line)}
+.hidden{display:none!important}
+</style></head><body>
+<header><h1>ATHANOR · MAGICAL COMPASS <small>· the quarters, the spirits and the sky around you</small></h1></header>
+<main>
+
+<div class="card dialcard">
+ <div class="pad">
+  <div class="readout">
+   <div><div class="hd"><span id="hdg">—</span><small id="hdn"></small></div></div>
+   <div class="chips modes" id="modes"><span class="chip" data-m="live" role="button" tabindex="0">Live</span><span class="chip" data-m="manual" role="button" tabindex="0">Drag</span><span class="chip" data-m="north" role="button" tabindex="0">North up</span></div>
+  </div>
+  <div class="sub" id="hsrc">Loading…</div>
+  <div class="cal" id="cal">The compass is not sure of itself. Move the phone slowly in a figure-8 a few times, away from metal and magnets.</div>
+  <div class="facebar"><select id="face" aria-label="Face a target"><option value="">Face… choose a target</option></select><button class="ghost sm" id="faceClear" title="Clear the target" aria-label="Clear the target">✕</button></div>
+  <div class="turn" id="turn"></div>
+ </div>
+ <svg id="dial" viewBox="-206 -206 412 412" role="img" aria-label="Compass dial: the top of the dial is the direction the phone points" tabindex="0">
+  <defs><marker id="ah" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0L10,5L0,10z" fill="var(--sub)"/></marker></defs>
+  <circle r="197" fill="var(--card)" stroke="var(--line)" stroke-width="1.2"/>
+  <line x1="0" y1="-19" x2="0" y2="-196" stroke="var(--acc)" stroke-opacity=".3" stroke-width="1"/>
+  <g id="rose"><g id="gTarget"></g><g id="gBase"></g></g>
+  <path id="arc" d="" fill="none" stroke="var(--sub)" stroke-width="2" marker-end="url(#ah)"/>
+  <path class="lub" d="M0,-194L-7,-206H7Z" fill="var(--acc)"/>
+  <circle r="17" fill="var(--bg)" stroke="var(--line)"/>
+  <circle r="2.5" fill="var(--acc)"/>
+ </svg>
+ <div class="pad">
+  <div class="legend" id="legend"></div>
+  <div class="ahead" id="ahead"></div>
+ </div>
+</div>
+
+<div class="card">
+ <div class="sec">Layers</div>
+ <div class="chips" id="layers"></div>
+ <details id="opts"><summary>Sets &amp; options for each layer</summary><div id="optBody"></div></details>
+</div>
+
+<div class="card">
+ <div class="sec">Now</div>
+ <div id="nowLoc"></div>
+ <div id="manual" class="row hidden" style="margin-top:8px">
+  <input id="mlat" inputmode="decimal" placeholder="Latitude" aria-label="Latitude">
+  <input id="mlon" inputmode="decimal" placeholder="Longitude (E +)" aria-label="Longitude, east positive">
+  <button onclick="saveManual()">Save</button>
+ </div>
+ <div id="nowBody"></div>
+ <details id="wander" class="hidden"><summary>Theurgia-Goetia: the eleven wandering princes (no fixed quarter)</summary><div id="wanderBody"></div></details>
+</div>
+
+<div class="card" id="foot"><div class="sub">Loading sources…</div></div>
+</main>
+<div class="sheet hidden" id="sheet" role="dialog" aria-label="Details"></div>
+<script src="../../data/db/core.js"></script>
+<script src="../../data/db/texts.js"></script>
+<script src="../lib/db.js"></script>
+<script>
+'use strict';
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+let A=null; try{A=(window.parent&&window.parent.Android)||window.Android||null;}catch(e){try{A=window.Android||null;}catch(_){A=null;}}
+const store={
+  get(k,d){try{const v=localStorage.getItem('l777compass.'+k);return v==null?d:JSON.parse(v);}catch(e){return d;}},
+  set(k,v){try{localStorage.setItem('l777compass.'+k,JSON.stringify(v));}catch(e){}}
+};
+
+/* ---------- Compact ephemeris, copied from sky.html: JPL Keplerian elements (1800-2050) + truncated lunar theory ---------- */
+const D2R = Math.PI/180;
+function jd(y,mo,d,h){ if(mo<=2){y--;mo+=12;} const A=Math.floor(y/100),B=2-A+Math.floor(A/4);
+  return Math.floor(365.25*(y+4716))+Math.floor(30.6001*(mo+1))+d+B-1524.5+h/24; }
+const EL = { // a, e, I, L, varpi, Omega  + rates/century
+ mercury:[0.38709927,0.20563593,7.00497902,252.25032350,77.45779628,48.33076593,
+          0.00000037,0.00001906,-0.00594749,149472.67411175,0.16047689,-0.12534081],
+ venus:[0.72333566,0.00677672,3.39467605,181.97909950,131.60246718,76.67984255,
+        0.00000390,-0.00004107,-0.00078890,58517.81538729,0.00268329,-0.27769418],
+ earth:[1.00000261,0.01671123,-0.00001531,100.46457166,102.93768193,0.0,
+        0.00000562,-0.00004392,-0.01294668,35999.37244981,0.32327364,0.0],
+ mars:[1.52371034,0.09339410,1.84969142,-4.55343205,-23.94362959,49.55953891,
+       0.00001847,0.00007882,-0.00813131,19140.30268499,0.44441088,-0.29257343],
+ jupiter:[5.20288700,0.04838624,1.30439695,34.39644051,14.72847983,100.47390909,
+          -0.00011607,-0.00013253,-0.00183714,3034.74612775,0.21252668,0.20469106],
+ saturn:[9.53667594,0.05386179,2.48599187,49.95424423,92.59887831,113.66242448,
+         -0.00125060,-0.00050991,0.00193609,1222.49362201,-0.41897216,-0.28867794],
+ uranus:[19.18916464,0.04725744,0.77263783,313.23810451,170.95427630,74.01692503,
+         -0.00196176,-0.00004397,-0.00242939,428.48202785,0.40805281,0.04240589],
+ neptune:[30.06992276,0.00859048,1.77004347,-55.12002969,44.96476227,131.78422574,
+          0.00026291,0.00005105,0.00035372,218.45945325,-0.32241464,-0.00508664],
+ pluto:[39.48211675,0.24882730,17.14001206,238.92903833,224.06891629,110.30393684,
+        -0.00031596,0.00005170,0.00004818,145.20780515,-0.04062942,-0.01183482]};
+function helio(p, T){
+  const e0=EL[p], a=e0[0]+e0[6]*T, ec=e0[1]+e0[7]*T, I=(e0[2]+e0[8]*T)*D2R,
+        L=e0[3]+e0[9]*T, vp=e0[4]+e0[10]*T, Om=(e0[5]+e0[11]*T);
+  let M=(L-vp)%360; if(M>180)M-=360; if(M<-180)M+=360;
+  const w=(vp-Om)*D2R, OmR=Om*D2R;
+  let E=M*D2R + ec*Math.sin(M*D2R);
+  for(let i=0;i<8;i++){ const dE=(E-ec*Math.sin(E)-M*D2R)/(1-ec*Math.cos(E)); E-=dE; }
+  const xp=a*(Math.cos(E)-ec), yp=a*Math.sqrt(1-ec*ec)*Math.sin(E);
+  const cw=Math.cos(w),sw=Math.sin(w),cO=Math.cos(OmR),sO=Math.sin(OmR),ci=Math.cos(I),si=Math.sin(I);
+  return [ (cw*cO-sw*sO*ci)*xp + (-sw*cO-cw*sO*ci)*yp,
+           (cw*sO+sw*cO*ci)*xp + (-sw*sO+cw*cO*ci)*yp,
+           (sw*si)*xp + (cw*si)*yp ];
+}
+function lon(x,y){ let l=Math.atan2(y,x)/D2R; return (l%360+360)%360; }
+function positions(JD){
+  const T=(JD-2451545)/36525, E=helio('earth',T), out={};
+  out.sun = lon(-E[0],-E[1]);
+  for(const p of ['mercury','venus','mars','jupiter','saturn','uranus','neptune','pluto']){
+    const P=helio(p,T); out[p]=lon(P[0]-E[0],P[1]-E[1]);
+  }
+  // Moon (Meeus ch.47, principal terms)
+  const Lp=218.3164477+481267.88123421*T-0.0015786*T*T,
+        D=297.8501921+445267.1114034*T-0.0018819*T*T,
+        M=357.5291092+35999.0502909*T-0.0001536*T*T,
+        Mp=134.9633964+477198.8675055*T+0.0087414*T*T,
+        F=93.2720950+483202.0175233*T-0.0036539*T*T;
+  const t=[[6288774,0,0,1,0],[1274027,2,0,-1,0],[658314,2,0,0,0],[213618,0,0,2,0],
+    [-185116,0,1,0,0],[-114332,0,0,0,2],[58793,2,0,-2,0],[57066,2,-1,-1,0],
+    [53322,2,0,1,0],[45758,2,-1,0,0],[-40923,0,1,-1,0],[-34720,1,0,0,0],
+    [-30383,0,1,1,0],[15327,2,0,0,-2],[-12528,0,0,1,2],[10980,0,0,1,-2],
+    [10675,4,0,-1,0],[10034,0,0,3,0],[8548,4,0,-2,0],[-7888,2,1,-1,0],
+    [-6766,2,1,0,0],[-5163,1,0,-1,0],[4987,1,1,0,0],[4036,2,-1,1,0]];
+  let s=0;
+  for(const [c,d1,m1,mp1,f1] of t){
+    let arg=(d1*D+m1*M+mp1*Mp+f1*F)*D2R, coef=c;
+    if(m1) coef*= (1-0.002516*T-0.0000074*T*T)**Math.abs(m1);
+    s+=coef*Math.sin(arg);
+  }
+  out.moon=((Lp+s/1e6)%360+360)%360;
+  const _pr=(5029.0966*T+1.11161*T*T)/3600;
+  for(const _k in out){ if(_k!=='moon'){ out[_k]=((out[_k]+_pr)%360+360)%360; } }
+  out.sun=((out.sun-20.4955/3600)%360+360)%360;
+  return out;
+}
+function ascmc(JD, lat, lonE){
+  const T=(JD-2451545)/36525;
+  let th=280.46061837+360.98564736629*(JD-2451545)+0.000387933*T*T + lonE;
+  th=((th%360)+360)%360;
+  const eps=(23.4392911-0.0130042*T)*D2R, thR=th*D2R, phi=lat*D2R;
+  let asc=Math.atan2(Math.cos(thR), -(Math.sin(thR)*Math.cos(eps)+Math.tan(phi)*Math.sin(eps)))/D2R;
+  asc=((asc%360)+360)%360;
+  let mc=Math.atan2(Math.sin(thR), Math.cos(thR)*Math.cos(eps))/D2R;
+  mc=((mc%360)+360)%360;
+  return {asc, mc, lst:th};
+}
+
+/* ---------- horizon coordinates ---------- */
+const an=a=>((a%360)+360)%360;
+const w180=a=>an(a+180)-180;
+const nowJD=()=>2440587.5+Date.now()/864e5;
+const obliq=JD=>23.4392911-0.0130042*(JD-2451545)/36525;
+// Moon's ecliptic latitude, the ten largest terms of Meeus table 47.B (about 0.05°)
+function moonLat(JD){
+  const T=(JD-2451545)/36525,
+    D=(297.8501921+445267.1114034*T)*D2R, M=(357.5291092+35999.0502909*T)*D2R,
+    Mp=(134.9633964+477198.8675055*T)*D2R, F=(93.2720950+483202.0175233*T)*D2R, s=Math.sin;
+  return 5.128122*s(F)+0.280602*s(Mp+F)+0.277693*s(Mp-F)+0.173237*s(2*D-F)+0.055413*s(2*D-Mp+F)
+    +0.046271*s(2*D-Mp-F)+0.032573*s(2*D+F)+0.017198*s(2*Mp+F)+0.009266*s(2*D+Mp-F)+0.008822*s(2*Mp-F);
+}
+// Geocentric ecliptic latitude of a planet from the same Keplerian vectors
+function planetLat(p,JD){
+  const T=(JD-2451545)/36525,E=helio('earth',T),P=helio(p,T),x=P[0]-E[0],y=P[1]-E[1],z=P[2]-E[2];
+  return Math.atan2(z,Math.hypot(x,y))/D2R;
+}
+function sunLam(JD){const T=(JD-2451545)/36525,E=helio('earth',T);return an(lon(-E[0],-E[1])+(5029.0966*T+1.11161*T*T)/3600-20.4955/3600);}
+function toEq(lam,bet,eps){
+  const l=lam*D2R,b=bet*D2R,e=eps*D2R;
+  return {ra:an(Math.atan2(Math.sin(l)*Math.cos(e)-Math.tan(b)*Math.sin(e),Math.cos(l))/D2R),
+          dec:Math.asin(Math.sin(b)*Math.cos(e)+Math.cos(b)*Math.sin(e)*Math.sin(l))/D2R};
+}
+function lstOf(JD,lonE){const T=(JD-2451545)/36525;return an(280.46061837+360.98564736629*(JD-2451545)+0.000387933*T*T+lonE);}
+// azimuth from north, clockwise; ha = hour angle (negative = east of the meridian)
+function toHz(ra,dec,lst,lat){
+  const H=(lst-ra)*D2R,d=dec*D2R,p=lat*D2R;
+  const alt=Math.asin(Math.sin(p)*Math.sin(d)+Math.cos(p)*Math.cos(d)*Math.cos(H))/D2R;
+  const az=an(Math.atan2(-Math.sin(H)*Math.cos(d),Math.sin(d)*Math.cos(p)-Math.cos(d)*Math.sin(p)*Math.cos(H))/D2R);
+  return {alt,az,ha:w180(lst-ra)};
+}
+const refr=h=>h>-1.5?1.02/Math.tan((h+10.3/(h+5.11))*D2R)/60:0;   // Saemundsson, degrees
+function bearing(la1,lo1,la2,lo2){const p1=la1*D2R,p2=la2*D2R,dl=(lo2-lo1)*D2R;
+  return an(Math.atan2(Math.sin(dl)*Math.cos(p2),Math.cos(p1)*Math.sin(p2)-Math.sin(p1)*Math.cos(p2)*Math.cos(dl))/D2R);}
+function distKm(la1,lo1,la2,lo2){const p1=la1*D2R,p2=la2*D2R,dp=p2-p1,dl=(lo2-lo1)*D2R;
+  const a=Math.sin(dp/2)**2+Math.cos(p1)*Math.cos(p2)*Math.sin(dl/2)**2;return 2*6371.0088*Math.asin(Math.min(1,Math.sqrt(a)));}
+
+/* ---------- names & formats ---------- */
+// The facts come from the content tables (data/db, edited in the content workbook) through lib/db.js
+const VS='︎';
+const N16=['N','NNE','NE','ENE','E','ESE','SE','SSE','S','SSW','SW','WSW','W','WNW','NW','NNW'];
+const n16=a=>N16[Math.round(an(a)/22.5)%16];
+const WD=DB.rows('weekdays').map(w=>w.name);                     // getDay 0 = Sunday
+const WDP=DB.rows('weekdays').map(w=>DB.ref(w,'planet').name);   // the planet of each day
+const SIGNS=DB.rows('signs').map(s=>[s.name,s.glyph]);
+function fmtLon(l,short){const s=Math.floor(an(l)/30),d=an(l)-s*30,d0=Math.floor(d),m=Math.floor((d-d0)*60);
+  return SIGNS[s][1]+VS+' '+(short?'':SIGNS[s][0]+' ')+d0+'°'+String(m).padStart(2,'0')+'′';}
+const fmtAz=a=>(Math.round(an(a)*10)/10%360).toFixed(1)+'° '+n16(a);   // 359.96° reads 0.0° N, not 360.0°
+const fmtAlt=a=>(a<0?'−':'')+Math.abs(a).toFixed(1)+'°';
+const fmtKm=k=>k<10?k.toFixed(1)+' km':Math.round(k).toLocaleString()+' km';
+const fmtT=new Intl.DateTimeFormat(undefined,{hour:'2-digit',minute:'2-digit'});
+const fmtTU=new Intl.DateTimeFormat(undefined,{hour:'2-digit',minute:'2-digit',timeZone:'UTC'});
+const fmtLMT=ms=>fmtTU.format(ms+LOC.lon/15*36e5)+' local mean time there';
+const f1=v=>(+v).toFixed(1);
+function xyn(a,r){const t=a*D2R;return [r*Math.sin(t),-r*Math.cos(t)];}
+function xy(a,r){const p=xyn(a,r);return [p[0].toFixed(1),p[1].toFixed(1)];}
+function seg(a,r1,r2){const p=xy(a,r1),q=xy(a,r2);return 'M'+p[0]+','+p[1]+'L'+q[0]+','+q[1];}
+
+// the bodies the compass computes, in its own order: [key, glyph, name] (glyph and name: the planets table)
+const BODIES=['sun','moon','mercury','venus','mars','jupiter','saturn','uranus','neptune'].map(k=>{const p=DB.get('planets',k);return [k,p.glyph,p.name];});
+const OUTER=new Set(BODIES.map(b=>b[0]).filter(k=>DB.get('planets',k).kind==='outer'));   // shown only on request
+const ANGLES=[['asc','AC','Ascendant'],['dsc','DC','Descendant'],['mc','MC','Midheaven (MC)']];
+// the quarters and the points between them, by azimuth: [azimuth, name]
+const QUARTERS=DB.rows('quarters').slice().sort((a,b)=>a.azimuth-b.azimuth).map(q=>[q.azimuth,q.name]);
+
+/* ---------- layers and their sets: the tables compass_layers and compass_sets (initSets, at boot) ---------- */
+let DLAYERS=[];     // the layers with entries in compass.json, in the layers' order (quarters, thelema, goetic, angelic)
+let LAYERDEF=[];    // the chips under Layers: [layer, name, colour]
+const LCOL={compass:'var(--acc)',quarters:'var(--cq)',thelema:'var(--ct)',goetic:'var(--cg)',theurgia:'var(--cg)',angelic:'var(--ca)',sky:'var(--cs)'};
+const RING_ORDER=['sky','theurgia','goetic','angelic','thelema','quarters'];   // outer -> inner
+let RING_NAME={};   // layer or ring -> its name
+let SETDEF=[];      // the layers' sets (compass_sets rows, not kings); list order = which name heads a crowded label
+let KINGDEF=[];     // the kings of the four quarters, one set at a time, labelled by source: [set ID, label]; '' = none
+let KINGSET=new Set(), SETRING={};   // the kings sets; set -> the ring it is drawn on, where not its layer's own
+// the sets the compass itself refers to (compass_sets IDs)
+const SET_SUN='thelema-live-sun', SET_BOL='thelema-boleskine', SET_DECAN='goetic-live-decan', SET_SHEM='angelic-live-shem', SET_AIR='angelic-hept-air';
+// the Sun's event at each Liber Resh adoration (the computation's own words)
+const RESH_EVENT={resh_dawn:'sunrise',resh_noon:'noon',resh_sunset:'sunset',resh_midnight:'midnight'};
+const CFT={high:'high confidence',medium:'medium',low:'low · uncertain'};
+const LOCSRC={manual:'entered here',rites:'saved in Rites','rites-manual':'entered in Rites',gps:'from this device'};
+
+/* ---------- state ---------- */
+let DATA=null,GOE=null;
+const LAY={};                           // layer -> shown (defaults: compass_layers.on)
+const SETST=store.get('sets',{})||{};   // "layer|set ID" -> on, where it was changed from the set's default
+let KSEL='';                            // the kings set shown ('' = none)
+const OPT=Object.assign({reshSun:false,templeBol:false,outer:false,angles:true},store.get('opts',{})||{});
+let MODE=store.get('mode','live'); if(!['live','manual','north'].includes(MODE))MODE='live';
+let TARGET=String(store.get('target','')||'');
+let LOC=null,GEO=store.get('geo',null),SKY=null,BOL=null,BOLCO=null,RSUN=null;
+let MDAY={wd:new Date().getDay(),since:null,note:''},lastWd=-1;
+const SETS={};                          // layer -> its sets that have entries (or are made from the sky): [{id, name, on}]
+let LIVE={};
+const BYID={};
+let CL={},RINGS=[],LABELS=[];
+function initSets(){
+  const layers=DB.rows('compass_layers');
+  DLAYERS=layers.filter(l=>!l.part_of&&DATA.layers[l.id]).map(l=>l.id);
+  LAYERDEF=layers.filter(l=>!l.part_of).map(l=>[l.id,l.name,LCOL[l.id]||'var(--acc)']);
+  RING_NAME=Object.fromEntries(layers.map(l=>[l.id,l.name]));
+  SETDEF=DB.where('compass_sets',s=>!s.kings);
+  KINGDEF=DB.where('compass_sets',s=>s.kings).map(s=>[s.id,s.label]).concat([['','No kings']]);
+  KINGSET=new Set(KINGDEF.map(k=>k[0]).filter(Boolean));
+  SETRING=Object.fromEntries(DB.where('compass_sets',s=>s.ring).map(s=>[s.id,s.ring]));
+  Object.assign(LAY,Object.fromEntries(layers.filter(l=>!l.part_of).map(l=>[l.id,!!l.on])),store.get('layers',{})||{});
+  const k0=(DB.where('compass_sets',s=>s.kings&&s.on)[0]||{id:KINGDEF[0][0]}).id;   // the kings shown at first
+  KSEL=store.get('kings',k0);
+  migrateSaved(k0);
+}
+// Choices saved before the sets had IDs name a set by its group heading ("quarters|Kerubic signs (Golden Dawn)") or by
+// the compass's own names ("thelema|live:sun", "angelic|hept:air", "thelema|Boleskine", "kings:agrippa-xref"): they
+// are turned into the sets' IDs, once
+function migrateSaved(k0){
+  const known=new Set(DB.rows('compass_sets').map(s=>s.id)), byGroup={};
+  for(const L of DLAYERS){ const n={};
+    for(const e of DATA.layers[L]||[]){ if(!e.set)continue; const g=n[e.group]||(n[e.group]={}); g[e.set]=(g[e.set]||0)+1; }
+    for(const g in n)byGroup[L+'|'+g]=Object.keys(n[g]).sort((a,b)=>n[g][b]-n[g][a])[0];   // the set most of its entries are in
+  }
+  const conv=(L,old)=>{ if(known.has(old))return old; const v=L+'-'+String(old).toLowerCase().replace(/:/g,'-'); return known.has(v)?v:byGroup[L+'|'+old]||null; };
+  let changed=false;
+  for(const k of Object.keys(SETST)){ const i=k.indexOf('|'),L=k.slice(0,i),old=k.slice(i+1),id=conv(L,old);
+    if(id===old)continue;
+    const v=SETST[k]; delete SETST[k]; if(id)SETST[L+'|'+id]=v; changed=true; }
+  if(changed)store.set('sets',SETST);
+  if(KSEL!==''&&!KINGSET.has(KSEL)){ const id=conv('goetic',KSEL); KSEL=id&&KINGSET.has(id)?id:k0; store.set('kings',KSEL); }
+}
+const dial=$('#dial'),rose=$('#rose'),gBase=$('#gBase'),gTarget=$('#gTarget'),hdgEl=$('#hdg'),hdnEl=$('#hdn');
+
+/* ---------- data ---------- */
+// an entry's set (compass_entries.set); none = not on the dial (the wandering princes, listed in the Now panel)
+function setIdOf(L,e){ return e.set||null; }
+function ordOf(L,sid){ if(KINGSET.has(sid))return -1; const i=SETS[L].findIndex(s=>s.id===sid); return i<0?90:i; }
+function prepData(){
+  for(const L of DLAYERS){
+    const groups={};   // set -> the group headings of its entries
+    (DATA.layers[L]||[]).forEach(e=>{const s=setIdOf(L,e); if(s!=null)(groups[s]||(groups[s]=new Set())).add(e.group);});
+    // the layer's sets that have entries, and those made from the sky; a chip's tooltip names the group it shows
+    SETS[L]=SETDEF.filter(s=>s.layer===L&&(groups[s.id]||s.live)).map(s=>({id:s.id,name:s.label,on:!!s.on,
+      title:groups[s.id]&&groups[s.id].size===1?[...groups[s.id]][0]:s.label}));
+  }
+  for(const L of DLAYERS){
+    (DATA.layers[L]||[]).forEach((e,i)=>{
+      e.id=L+'-'+i; e._layer=L; e._set=setIdOf(L,e); e._ord=ordOf(L,e._set)*1000+i;
+      if(e.direction==='bearing')e.short='Boleskine';
+      BYID[e.id]=e;
+    });
+  }
+  // Boleskine's coordinates: the bearings to it carry them in their extra ("57.2653,-4.4748")
+  const LL=/(-?\d+(?:\.\d+)?)\s*,\s*(-?\d+(?:\.\d+)?)/;
+  const b=(DATA.layers.thelema||[]).find(e=>e.direction==='bearing'&&LL.test(e.extra));
+  const m=b&&String(b.extra).match(LL);
+  if(m)BOLCO={lat:+m[1],lon:+m[2]};
+}
+function entriesOf(L){ return (DATA.layers[L]||[]).concat(LIVE[L]||[]); }
+function setOn(L,sid){ const k=L+'|'+sid; if(k in SETST)return !!SETST[k]; const s=SETS[L].find(x=>x.id===sid); return s?s.on:false; }
+function isShown(L,e){
+  const sid=e._set; if(sid==null)return false;
+  if(KINGSET.has(sid))return sid===KSEL;
+  if(!setOn(L,sid))return false;
+  if(e.day&&e.day!==WD[MDAY.wd])return false;
+  return true;
+}
+function azOf(e){
+  const L=e._layer;
+  if(e.live)return e.azimuth;
+  if(e.direction==='bearing')return BOL&&BOL.bearing!=null?BOL.bearing:null;
+  if(!(e.azimuth>=0))return null;
+  if(e.adoration){ if(OPT.reshSun&&RSUN&&RSUN[e.adoration]!=null)return RSUN[e.adoration]; return e.azimuth; }   // Liber Resh
+  if(OPT.templeBol&&(L==='quarters'||L==='thelema')&&BOL&&BOL.bearing!=null)return an(e.azimuth+BOL.bearing-90);
+  return e.azimuth;
+}
+function placeNote(e){
+  if(e.live||e.direction==='bearing'||!(e.azimuth>=0))return '';
+  if(e.adoration)return OPT.reshSun&&RSUN?DB.text('compass.place-resh-sun',{direction:e.direction}):'';
+  if(OPT.templeBol&&(e._layer==='quarters'||e._layer==='thelema')&&BOL&&BOL.bearing!=null)return DB.text('compass.place-boleskine',{direction:e.direction});
+  return '';
+}
+function shortName(e){ if(e.short)return e.short; const s=String(e.name); if(/^Oration:/.test(s))return 'Oration'; return s.replace(/\s*\([^)]*\)/g,'').trim()||s; }
+
+/* ---------- location ---------- */
+const validLL=o=>!!o&&typeof o.lat==='number'&&typeof o.lon==='number'&&isFinite(o.lat)&&isFinite(o.lon)&&Math.abs(o.lat)<=90&&Math.abs(o.lon)<=180;
+function resolveLoc(){
+  const man=store.get('loc',null);
+  if(man&&man.override&&validLL(man))return {lat:man.lat,lon:man.lon,src:'manual'};
+  if(A&&typeof A.getRitesState==='function'){try{const s=JSON.parse(A.getRitesState()); if(s&&validLL(s.location))return {lat:s.location.lat,lon:s.location.lon,src:s.location.manual?'rites-manual':'rites'};}catch(e){}}
+  try{const p=JSON.parse(localStorage.getItem('l777rites')); if(p&&validLL(p.loc))return {lat:p.loc.lat,lon:p.loc.lon,src:'rites'};}catch(e){}  // the Rites page in a browser
+  if(validLL(GEO))return {lat:GEO.lat,lon:GEO.lon,src:'gps'};
+  if(validLL(man))return {lat:man.lat,lon:man.lon,src:'manual'};
+  return null;
+}
+function requestGeo(explicit){
+  if(!navigator.geolocation){ if(explicit)showManual(true); return; }
+  try{navigator.geolocation.getCurrentPosition(p=>{GEO={lat:+p.coords.latitude.toFixed(4),lon:+p.coords.longitude.toFixed(4)};store.set('geo',GEO);liveUpdate();},
+    ()=>{ if(explicit)showManual(true); },{enableHighAccuracy:false,timeout:15000,maximumAge:600000});}catch(e){ if(explicit)showManual(true); }
+}
+function useGps(){
+  const man=store.get('loc',null); if(man&&man.override){man.override=false;store.set('loc',man);}
+  if(A&&typeof A.requestLocation==='function'){ try{A.requestLocation();}catch(e){} liveUpdate(); return; }  // the app saves it for Rites too, then calls onNativeUpdate
+  requestGeo(true); liveUpdate();
+}
+function showManual(open){ const m=$('#manual'); if(open===true)m.classList.remove('hidden'); else m.classList.toggle('hidden');
+  if(LOC){$('#mlat').value=LOC.lat.toFixed(4);$('#mlon').value=LOC.lon.toFixed(4);} }
+function saveManual(){
+  const lat=parseFloat(String($('#mlat').value).replace('−','-')), lon=parseFloat(String($('#mlon').value).replace('−','-'));
+  if(!(lat>=-90&&lat<=90&&lon>=-180&&lon<=180)){alert('Latitude −90…90, longitude −180…180 (east positive).');return;}
+  store.set('loc',{lat,lon,override:true}); $('#manual').classList.add('hidden'); liveUpdate();
+}
+function clearManual(){ const m=store.get('loc',null); if(m){m.override=false;store.set('loc',m);} liveUpdate(); }
+
+/* ---------- the live sky ---------- */
+// the Moon phases' names (Moon phases table), written "Waxing crescent"; the compass's own limits between them
+const PHASE=id=>DB.get('moon_phases',id).name.replace(/ (?!Moon\b)\S/g,c=>c.toLowerCase());
+function phaseName(e){
+  if(e<6||e>=354)return PHASE('new'); if(e<84)return PHASE('waxing-crescent'); if(e<96)return PHASE('first-quarter'); if(e<174)return PHASE('waxing-gibbous');
+  if(e<186)return PHASE('full'); if(e<264)return PHASE('waning-gibbous'); if(e<276)return PHASE('last-quarter'); return PHASE('waning-crescent');
+}
+function computeSky(){
+  if(!LOC){SKY=null;return;}
+  const JD=nowJD(),eps=obliq(JD),P=positions(JD),lst=lstOf(JD,LOC.lon),b={};
+  for(const [k] of BODIES){
+    const bet=k==='sun'?0:k==='moon'?moonLat(JD):planetLat(k,JD);
+    const q=toEq(P[k],bet,eps),h=toHz(q.ra,q.dec,lst,LOC.lat);
+    let alt=h.alt; if(k==='moon')alt-=0.9507*Math.cos(alt*D2R);   // topocentric: the Moon's parallax
+    b[k]={lam:P[k],bet,ra:q.ra,dec:q.dec,az:h.az,alt,app:alt+refr(alt),ha:h.ha};
+  }
+  const am=ascmc(JD,LOC.lat,LOC.lon);
+  const pt=lam=>{const q=toEq(lam,0,eps),h=toHz(q.ra,q.dec,lst,LOC.lat);return {lam,az:h.az,alt:h.alt,ha:h.ha};};
+  let asc=pt(am.asc); if(asc.ha>0)asc=pt(an(am.asc+180));   // the rising point is east of the meridian
+  const el=an(P.moon-P.sun);
+  SKY={JD,b,asc,dsc:pt(an(asc.lam+180)),mc:pt(am.mc),day:b.sun.alt>-0.833,
+       moon:{elong:el,illum:(1-Math.cos(el*D2R))/2,age:el/360*29.530589,phase:phaseName(el)}};
+}
+// the most recent sunrise before ms (h0 = -0.833°), or null where the Sun does not rise or set today
+function sunriseBefore(ms){
+  let t=ms;
+  for(let i=0;i<6;i++){
+    const JD=2440587.5+t/864e5,q=toEq(sunLam(JD),0,obliq(JD)),lst=lstOf(JD,LOC.lon),p=LOC.lat*D2R,d=q.dec*D2R;
+    const c=(Math.sin(-0.833*D2R)-Math.sin(p)*Math.sin(d))/(Math.cos(p)*Math.cos(d));
+    if(!(c>=-1&&c<=1))return null;
+    const H0=Math.acos(c)/D2R,dd=i===0?an(w180(lst-q.ra)+H0):w180(w180(lst-q.ra)+H0);
+    t-=dd/360*864e5;
+    if(i>0&&Math.abs(dd)<0.02)break;
+  }
+  return t>ms?t-864e5:t;
+}
+// Weekday of an instant at the location (all times are UTC ms). The device's calendar is used while its clock
+// keeps within 3½ h of the location's mean solar time (this also respects the date line, e.g. Samoa); a location
+// entered for somewhere else is dated by its own local mean time, not by the zone the phone happens to be in.
+function locDay(ms){
+  const dev=new Date(ms).getDay();
+  if(!LOC)return {wd:dev,lmt:false};
+  const gap=w180((-new Date(ms).getTimezoneOffset()/60-LOC.lon/15)*15)/15;   // hours, −12…12
+  if(Math.abs(gap)<=3.5)return {wd:dev,lmt:false};
+  return {wd:new Date(ms+LOC.lon/15*36e5).getUTCDay(),lmt:true};
+}
+// The Heptameron day begins at sunrise: before sunrise it is still the previous weekday
+function magicalDay(){
+  const now=Date.now();
+  if(!LOC)return {wd:new Date(now).getDay(),since:null,lmt:false,note:DB.text('compass.hept-day-noloc')};
+  const t=sunriseBefore(now);
+  if(t==null){ const c=locDay(now); return {wd:c.wd,since:null,lmt:c.lmt,note:DB.text('compass.hept-day-polar')}; }
+  const d=locDay(t);
+  return {wd:d.wd,since:t,lmt:d.lmt,note:''};
+}
+// Azimuths of today's sunrise and sunset as seen: upper limb on the horizon with standard refraction
+// (h0 = −0.833°, as for sunriseBefore), each with the Sun's declination at that moment. "Today" is the
+// solar day around the current local apparent noon. null where the Sun does not rise or set.
+function reshSunAz(){
+  if(!SKY||!LOC)return null;
+  const p=LOC.lat*D2R,h0=-0.833*D2R,noon=(SKY.JD-2440587.5)*864e5-SKY.b.sun.ha/360*864e5;
+  const decAt=ms=>{const JD=2440587.5+ms/864e5;return toEq(sunLam(JD),0,obliq(JD)).dec*D2R;};
+  const ev=sg=>{
+    let t=noon;
+    for(let i=0;i<3;i++){ const d=decAt(t),c=(Math.sin(h0)-Math.sin(p)*Math.sin(d))/(Math.cos(p)*Math.cos(d));
+      if(!(c>-1&&c<1))return null; t=noon+sg*Math.acos(c)/D2R/360*864e5; }
+    const d=decAt(t),ca=(Math.sin(d)-Math.sin(p)*Math.sin(h0))/(Math.cos(p)*Math.cos(h0));
+    return Math.acos(Math.max(-1,Math.min(1,ca)))/D2R;
+  };
+  const rise=ev(-1),sa=ev(1); if(rise==null||sa==null)return null;
+  const noonAz=LOC.lat>=decAt(noon)/D2R?180:0;
+  return {resh_dawn:rise,resh_noon:noonAz,resh_sunset:360-sa,resh_midnight:an(noonAz+180)};   // by adoration
+}
+// the next of Liber Resh's four adorations, with its god as its compass entry names him
+function reshNext(){
+  if(!SKY)return '';
+  const s=SKY.b.sun, k=s.alt>-0.833?(s.ha<0?'resh_noon':'resh_sunset'):(s.ha>0?'resh_midnight':'resh_dawn');
+  const e=(DATA.layers.thelema||[]).find(x=>x.adoration===k);
+  return DB.text('compass.resh-next',{god:e?e.name:'',event:RESH_EVENT[k]});
+}
+function curDecan(){ if(!SKY||!GOE||!GOE.decans)return null; const i=Math.floor(an(SKY.asc.lam)/10)%36; return GOE.decans.find(x=>x.i===i)||null; }
+// The markers the compass makes from the sky now: the Sun (Thelema), the rising decan's spirits (Goetic) and its Shem
+// angels (Angelic). Their words are tool texts; the facts come from the sky, goetia.json and the tables.
+function buildLive(){
+  LIVE={};
+  if(!SKY)return;
+  const add=(L,e)=>(LIVE[L]||(LIVE[L]=[])).push(e);
+  const mk=(L,sid,i,o)=>Object.assign({id:'live-'+sid+'-'+i,_layer:L,_set:sid,_ord:ordOf(L,sid)*1000+i,live:true,day:'',confidence:'medium'},o);
+  const s=SKY.b.sun, sun=BODIES.find(b=>b[0]==='sun');
+  add('thelema',mk('thelema',SET_SUN,0,{name:DB.text('compass.sun-name'),short:sun[1]+VS+' '+sun[2],direction:n16(s.az),azimuth:s.az,
+    role:DB.text('compass.sun-role'),group:DB.text('compass.sun-group'),
+    extra:'altitude '+fmtAlt(s.app)+' · azimuth '+fmtAz(s.az)+' · '+reshNext(),
+    note:DB.text('compass.sun-note'),
+    source:DB.text('compass.sun-source'),confidence:'high'}));
+  const d=curDecan(); if(!d)return;
+  const rule=SKY.day?d.day:d.night, decan=d.sign+' '+d.decan, asc=fmtLon(SKY.asc.lam);
+  [d.day,d.night].sort((a,b)=>(a===rule?-1:0)-(b===rule?-1:0)).forEach((n,i)=>{
+    const sp=GOE.spirits[n-1]; if(!sp)return;
+    const now=n===rule;
+    add('goetic',mk('goetic',SET_DECAN,i,{name:sp.name,short:(i===0?'↑ ':'')+String(sp.name).replace(/\s*\([^)]*\)/g,''),direction:'Ascendant — '+n16(SKY.asc.az),azimuth:SKY.asc.az,goetia:n,
+      role:DB.text('compass.decan-role',{day_night:sp.dayNight,decan,rank:sp.rank,
+        rules_now:!now?'':SKY.day?DB.text('compass.decan-rules-day'):DB.text('compass.decan-rules-night')}),
+      group:DB.text('compass.decan-group'),
+      extra:DB.text('compass.decan-extra',{decan,degrees:d.degrees,ascendant:asc,card:d.card,title:d.title}),
+      note:DB.text('compass.decan-note'),
+      source:DB.text('compass.decan-source',{n})}));
+  });
+  String(d.shem||'').split('·').map(x=>x.trim()).filter(Boolean).forEach((x,i)=>{
+    const m=x.match(/^(\d+)\s+(.+)$/),nm=m?m[2]:x;   // "65 Damabiah"
+    add('angelic',mk('angelic',SET_SHEM,i,{name:nm,short:nm,direction:'Ascendant — '+n16(SKY.asc.az),azimuth:SKY.asc.az,
+      role:DB.text('compass.shem-role',{n:m?m[1]:'',decan}),group:DB.text('compass.shem-group'),
+      extra:DB.text('compass.shem-extra',{decan,degrees:d.degrees,ascendant:asc}),
+      note:DB.text('compass.shem-note'),
+      source:DB.text('compass.shem-source')}));
+  });
+}
+function liveUpdate(){
+  if(!DATA)return;
+  LOC=resolveLoc();
+  computeSky();
+  MDAY=magicalDay();
+  BOL=null;
+  if(LOC&&BOLCO){const dk=distKm(LOC.lat,LOC.lon,BOLCO.lat,BOLCO.lon);BOL={dist:dk,bearing:dk<0.2?null:bearing(LOC.lat,LOC.lon,BOLCO.lat,BOLCO.lon)};}
+  RSUN=reshSunAz();
+  buildLive();
+  buildDial();
+  renderNow();
+  if(MDAY.wd!==lastWd){lastWd=MDAY.wd;buildFace();}
+}
+
+/* ---------- the dial (rebuilt only when layers, options or the live sky change — never per reading) ---------- */
+const RB=196;
+function compassSVG(Rin){
+  let s='<circle r="'+Rin+'" fill="none" stroke="var(--line)" stroke-width="1"/>',d='',d2='';
+  for(let a=0;a<360;a+=5)d+=seg(a,RB,RB-(a%30===0?11:a%10===0?8:5));
+  for(let i=1;i<32;i+=2)d2+=seg(i*11.25,RB,RB-7);   // the by-points of the 32-point rose
+  s+='<path d="'+d+'" stroke="var(--sub)" stroke-width="1" fill="none"/><path d="'+d2+'" stroke="var(--acc)" stroke-width="1.8" fill="none"/>';
+  for(let a=30;a<360;a+=30){ if(a%90===0)continue; const p=xy(a,RB-18);
+    s+='<text class="up" x="'+p[0]+'" y="'+p[1]+'" dy="3.2" font-size="9" fill="var(--sub)" text-anchor="middle">'+a+'</text>'; }
+  for(let i=0;i<16;i++){
+    const lv=i%4===0?0:i%2===0?1:2,fs=[17,11,8][lv],p=xy(i*22.5,[RB-32,RB-31,RB-30][lv]);
+    s+='<text class="up" x="'+p[0]+'" y="'+p[1]+'" dy="'+f1(fs*0.35)+'" font-size="'+fs+'" font-weight="'+(lv<2?700:500)+'" fill="'+(i===0?'var(--north)':lv===2?'var(--sub)':'var(--ink)')+'" text-anchor="middle">'+N16[i]+'</text>';
+  }
+  return s;
+}
+function skyItems(){
+  if(!SKY)return [];
+  const out=[];
+  for(const [k,g,nm] of BODIES){ if(OUTER.has(k)&&!OPT.outer)continue; const b=SKY.b[k];
+    out.push({k,g:g+VS,name:nm,az:b.az,alt:b.app,below:b.app<0}); }
+  if(OPT.angles)for(const [k,g,nm] of ANGLES){ const a=SKY[k]; out.push({k,g,name:nm,az:a.az,alt:a.alt,below:false,angle:true}); }
+  return out;
+}
+function collectRings(){
+  const map={};
+  if(LAY.sky&&SKY){ const it=skyItems(); if(it.length)map.sky={key:'sky',layer:'sky',items:it}; }
+  for(const L of DLAYERS){
+    if(!LAY[L])continue;
+    for(const e of entriesOf(L)){
+      if(!isShown(L,e))continue;
+      const az=azOf(e); if(az==null||!isFinite(az))continue;
+      const rk=SETRING[e._set]||L;   // the Theurgia-Goetia sets draw their own ring
+      (map[rk]||(map[rk]={key:rk,layer:L,items:[]})).items.push({e,az:an(az)});
+    }
+  }
+  const out=[];
+  for(const k of RING_ORDER){ const r=map[k]; if(!r)continue; if(k!=='sky'){ r.clusters=clusterize(r); if(!r.clusters.length)continue; } out.push(r); }
+  return out;
+}
+function clusterize(r){
+  const by=new Map();
+  for(const it of r.items){ const k=Math.round(it.az*100)%36000; if(!by.has(k))by.set(k,[]); by.get(k).push(it); }
+  const out=[];
+  for(const [k,items] of by){
+    items.sort((a,b)=>a.e._ord-b.e._ord);
+    let names=[];
+    if(items.every(it=>it.e._set===SET_BOL))names=['Boleskine'+(BOL?' · '+fmtKm(BOL.dist):'')];
+    else for(const it of items){ const nm=shortName(it.e)+(it.e.confidence==='low'?'?':''); if(!names.includes(nm))names.push(nm); }
+    const c={key:r.key+':'+k,ring:r.key,layer:r.layer,az:k/100,items,names,allLow:items.every(it=>it.e.confidence==='low')};
+    CL[c.key]=c; out.push(c);
+  }
+  return out.sort((a,b)=>a.az-b.az);
+}
+// Two turns of a circle: clockwise from the bottom (labels in the top half) and anticlockwise from the top
+// (labels in the bottom half), so a label on either path reads left to right and never runs off an end.
+function circ2(r,cw){ const a='A'+r+','+r+' 0 1,'+(cw?1:0)+' ';
+  return cw?'M0,'+r+a+'0,-'+r+a+'0,'+r+a+'0,-'+r+a+'0,'+r : 'M0,-'+r+a+'0,'+r+a+'0,-'+r+a+'0,'+r+a+'0,-'+r; }
+function offCW(az,C){ let s=an(az-180)/360*C; if(s<C/2)s+=C; return s; }
+function offCCW(az,C){ let s=an(-az)/360*C; if(s<C/2)s+=C; return s; }
+function fitLabel(names,max){
+  let out=names[0];
+  if(out.length>max)return out.slice(0,Math.max(1,max-1))+'…';
+  let i=1;
+  for(;i<names.length;i++){ const rest=names.length-i-1,cand=out+' · '+names[i]; if(cand.length+(rest?(' +'+rest).length:0)<=max)out=cand; else break; }
+  if(i<names.length){ const suf=' +'+(names.length-i); out=out.length+suf.length<=max?out+suf:(out.length+1<=max?out+'+':out); }
+  return out;
+}
+function ringSVG(rg){
+  const cls=rg.clusters,n=cls.length,col=LCOL[rg.key],band=rg.band,rc=rg.rc;
+  let fs=Math.max(7,Math.min(11.5,band*0.5));
+  let minGap=360; for(let i=0;i<n;i++){ const g=n>1?an(cls[(i+1)%n].az-cls[i].az):360; if(g<minGap)minGap=g; }
+  const dense=n>=3&&minGap*D2R*rc<5*fs&&band>=17;   // crowded ring: labels alternate between two lanes
+  if(dense)fs=Math.max(6.5,Math.min(fs,(band-2.4)/2.3));
+  const off=0.62*fs+1.3,rLine=dense?rc:rc+0.45*fs,rLab=dense?[rc-off,rc+off]:[rc-0.55*fs-1];
+  cls.forEach((c,i)=>{c.lane=dense?i%2:0;});
+  let s='<circle r="'+f1(rLine)+'" fill="none" stroke="'+col+'" stroke-opacity=".3" stroke-width="1"/><defs>';
+  rLab.forEach((r,li)=>{ const id=rg.key+li,rr=r.toFixed(2); s+='<path id="pw_'+id+'" d="'+circ2(rr,1)+'"/><path id="pc_'+id+'" d="'+circ2(rr,0)+'"/>'; });
+  s+='</defs>';
+  cls.forEach((c,i)=>{
+    let gp=360,gn=360;
+    for(let k=1;k<n;k++){ const j=(i-k+n)%n; if(cls[j].lane===c.lane){gp=an(c.az-cls[j].az);break;} }
+    for(let k=1;k<n;k++){ const j=(i+k)%n; if(cls[j].lane===c.lane){gn=an(cls[j].az-c.az);break;} }
+    const r=rLab[c.lane],C=2*Math.PI*r,avail=Math.min(gp,gn,300)/360*C-fs*0.9;
+    const txt=fitLabel(c.names,Math.max(2,Math.floor(avail/(fs*0.53))));
+    const p=xy(c.az,rLine),id=rg.key+c.lane,ow=offCW(c.az,C).toFixed(1),oc=offCCW(c.az,C).toFixed(1);
+    s+='<g class="mk" data-c="'+esc(c.key)+'"><circle cx="'+p[0]+'" cy="'+p[1]+'" r="10" fill="transparent"/>'+
+       '<circle cx="'+p[0]+'" cy="'+p[1]+'" r="2.7" fill="'+(c.allLow?'var(--card)':col)+'" stroke="'+col+'" stroke-width="1.2"/>'+
+       '<text class="halo" font-size="'+f1(fs)+'" dy="'+f1(fs*0.35)+'" fill="'+col+'" text-anchor="middle">'+
+       '<textPath href="#pw_'+id+'" startOffset="'+ow+'" data-az="'+c.az+'" data-cw="'+ow+'" data-ccw="'+oc+'" data-id="'+id+'">'+esc(txt)+'</textPath></text></g>';
+  });
+  return s;
+}
+function moonIcon(cx,cy,R){
+  const el=SKY.moon.elong,k=Math.cos(el*D2R),rx=f1(Math.abs(k)*R),gib=k<0;
+  let right=el<180; if(LOC&&LOC.lat<0)right=!right;   // lit limb as seen from the southern hemisphere
+  const top=f1(cx)+','+f1(cy-R),bot=f1(cx)+','+f1(cy+R),r=f1(R);
+  return '<circle cx="'+f1(cx)+'" cy="'+f1(cy)+'" r="'+r+'" fill="var(--line)"/>'+
+    '<path d="M'+top+'A'+r+','+r+' 0 0,'+(right?1:0)+' '+bot+'A'+rx+','+r+' 0 0,'+(right?(gib?1:0):(gib?0:1))+' '+top+'Z" fill="var(--gold)"/>';
+}
+function skySVG(rg){
+  const items=rg.items.slice().sort((a,b)=>a.az-b.az),rc=rg.rc,band=rg.band;
+  const fs=Math.max(8,Math.min(12,band*0.38)),h=fs*1.3,edge=rc+band/2-1,LN=[rc+band*0.25,rc-band*0.3];
+  const wOf=it=>it.angle?fs*2.1:fs*(2.05+0.45*String(Math.abs(Math.round(it.alt))).length+(it.alt<0?0.45:0));
+  const lastEnd=[-1e9,-1e9];
+  // sweep from just after the widest empty arc, so bodies either side of north (358° and 2°) count as neighbours too
+  let st=0,gmax=-1; items.forEach((it,i)=>{ const g=i?it.az-items[i-1].az:it.az+360-items[items.length-1].az; if(g>gmax){gmax=g;st=i;} });
+  const a0=items.length?items[st].az:0;
+  for(const it of items.slice(st).concat(items.slice(0,st))){   // two lanes so neighbouring bodies do not sit on top of each other
+    const u=a0+an(it.az-a0),halfs=LN.map(r=>wOf(it)/2/r/D2R),free=LN.map((r,i)=>u-halfs[i]>=lastEnd[i]);
+    it.lane=free[0]?0:free[1]?1:(lastEnd[0]<=lastEnd[1]?0:1);
+    lastEnd[it.lane]=u+halfs[it.lane];
+  }
+  let s='<circle r="'+f1(edge)+'" fill="none" stroke="var(--line)" stroke-width="1"/>';
+  for(const it of items){
+    const r=LN[it.lane],w=wOf(it),c=xyn(it.az,r),x=c[0],y=c[1],e0=xyn(it.az,edge),e1=xyn(it.az,r+h/2);
+    const col=it.k==='sun'?'var(--gold)':it.angle?'var(--acc)':'var(--cs)',dash=it.below?' stroke-dasharray="2.5 2"':'';
+    let inner;
+    if(it.angle)inner='<text x="'+f1(x)+'" y="'+f1(y)+'" dy="'+f1(fs*0.28)+'" font-size="'+f1(fs*0.8)+'" font-weight="700" fill="'+col+'" text-anchor="middle">'+it.g+'</text>';
+    else{
+      const gx=x-w/2+fs*0.8,a=Math.round(it.alt);
+      inner=(it.k==='moon'?moonIcon(gx,y,fs*0.45):'<text x="'+f1(gx)+'" y="'+f1(y)+'" dy="'+f1(fs*0.36)+'" font-size="'+f1(fs)+'" fill="'+col+'" text-anchor="middle">'+it.g+'</text>')+
+        '<text x="'+f1(gx+fs*0.66)+'" y="'+f1(y)+'" dy="'+f1(fs*0.28)+'" font-size="'+f1(fs*0.78)+'" fill="'+col+'">'+(a<0?'−':'')+Math.abs(a)+'°</text>';
+    }
+    s+='<g class="mk" data-c="sky:'+it.k+'"'+(it.below?' opacity=".55"':'')+'>'+
+       '<line x1="'+f1(e0[0])+'" y1="'+f1(e0[1])+'" x2="'+f1(e1[0])+'" y2="'+f1(e1[1])+'" stroke="'+col+'" stroke-width="1.2"'+dash+'/>'+
+       '<g class="up"><rect x="'+f1(x-w/2)+'" y="'+f1(y-h/2)+'" width="'+f1(w)+'" height="'+f1(h)+'" rx="'+f1(h/2)+'" fill="var(--card)" stroke="'+col+'" stroke-width="1"'+dash+'/>'+inner+'</g></g>';
+  }
+  return s;
+}
+function buildDial(){
+  CL={};
+  const P=[],Rin=LAY.compass?152:188;
+  P.push(LAY.compass?compassSVG(Rin):'<path d="M0,-196L-6,-184H6Z" fill="var(--north)"/>');
+  const rings=collectRings();
+  if(rings.length){
+    const R0=Rin-2,R1=21,W=rings.map(r=>r.key==='sky'?1.3:1),unit=Math.min(30,(R0-R1)/W.reduce((a,b)=>a+b,0));
+    let r=R0;
+    rings.forEach((rg,i)=>{ rg.band=unit*W[i]; rg.rc=r-rg.band/2; r-=rg.band; P.push(rg.key==='sky'?skySVG(rg):ringSVG(rg)); });
+  }
+  gBase.innerHTML=P.join('');
+  RINGS=rings;
+  LABELS=[...gBase.querySelectorAll('textPath[data-az]')].map(tp=>({tp,az:+tp.getAttribute('data-az'),cw:tp.getAttribute('data-cw'),ccw:tp.getAttribute('data-ccw'),id:tp.getAttribute('data-id'),flipped:false}));
+  $('#legend').innerHTML=(rings.length?rings.map(r=>'<span><i style="background:'+LCOL[r.key]+'"></i>'+esc(RING_NAME[r.key])+'</span>').join('')+'<span>outer → inner</span>':'')+
+    (LAY.sky&&!SKY?'<span>Set a location (below) to see the sky.</span>':'');
+  resolveTarget(); drawTarget();
+  applyRot(true);
+}
+
+/* ---------- heading: smoothed along the shortest arc; one transform per frame ---------- */
+let disp=0,tgt=0,raf=0,lastT=0,lastR=-1,lastAheadAz=null;
+function applyRot(force){
+  rose.setAttribute('transform','rotate('+(-disp).toFixed(2)+')');
+  rose.style.setProperty('--u',disp.toFixed(2)+'deg');   // keeps the .up labels upright
+  for(const L of LABELS){   // ring names follow the ring and turn over when they reach the lower half
+    const c=Math.cos((L.az-disp)*D2R),want=L.flipped?c<0.1:c<-0.1;
+    if(want!==L.flipped||force){ L.flipped=want; L.tp.setAttribute('href','#'+(want?'pc_':'pw_')+L.id); L.tp.setAttribute('startOffset',want?L.ccw:L.cw); }
+  }
+  const r=Math.round(disp)%360;
+  if(r!==lastR){ lastR=r; hdgEl.textContent=r+'°'; hdnEl.textContent=n16(disp); }
+  updateTurn();
+  if(force||lastAheadAz==null||Math.abs(w180(disp-lastAheadAz))>=1)updateAhead();
+}
+function step(t){
+  const dt=Math.min(0.1,Math.max(0,(t-lastT)/1000)); lastT=t;
+  const diff=w180(tgt-disp);
+  if(Math.abs(diff)<0.05){ disp=tgt; raf=0; applyRot(); return; }
+  disp=an(disp+diff*(1-Math.exp(-dt/0.085)));
+  applyRot();
+  raf=requestAnimationFrame(step);
+}
+function setHeading(h,now){
+  tgt=an(h);
+  if(now){ disp=tgt; if(raf){cancelAnimationFrame(raf);raf=0;} applyRot(); return; }
+  if(!raf){ lastT=performance.now(); raf=requestAnimationFrame(step); }
+}
+
+/* ---------- sensors ---------- */
+let SENSOR='none',FALLBACK=false,LASTH=null,lastReadingAt=0,noSensorTimer=0,lastSrc='',lastCal=null;
+function dragOK(){ return MODE==='manual'||(MODE==='live'&&FALLBACK); }
+function srcText(){
+  if(MODE==='north')return 'North up — the dial stays with north at the top.';
+  if(MODE==='manual')return 'Drag the dial to turn it (arrow keys or the mouse wheel on a computer).';
+  if(FALLBACK)return 'No compass sensor here — drag the dial, or choose North up.';
+  if(!LASTH)return 'Waiting for the compass…';
+  let s;
+  if(LASTH.web)s='Device compass (browser) · magnetic north';
+  else if(LASTH.trueAvailable)s='True north · declination '+(LASTH.declination>=0?'+':'−')+Math.abs(+LASTH.declination||0).toFixed(1)+'° applied';
+  else s='Magnetic north — tap “Use my location” below (or save one in Rites) for true north';
+  if(LASTH.upright)s+=' · phone upright: the heading is where the back of the phone faces';
+  return s;
+}
+function updateSrc(){
+  const s=srcText(); if(s!==lastSrc){ $('#hsrc').textContent=s; lastSrc=s; }
+  const cal=!!(MODE==='live'&&!FALLBACK&&LASTH&&typeof LASTH.accuracy==='number'&&LASTH.accuracy<2);
+  if(cal!==lastCal){ $('#cal').classList.toggle('show',cal); lastCal=cal; }
+}
+function reading(h){
+  if(MODE!=='live'||!h||typeof h.heading!=='number'||!isFinite(h.heading))return;
+  lastReadingAt=Date.now();
+  if(FALLBACK){ FALLBACK=false; dial.classList.toggle('drag',dragOK()); }
+  LASTH=h; setHeading(h.heading); updateSrc();
+}
+// the app sends each reading here (index.html forwards it from the shell)
+window.onHeading=function(h){ if(typeof h==='string'){try{h=JSON.parse(h);}catch(e){return;}} if(SENSOR!=='native')return; reading(h); };
+function onDO(e){
+  let h=null;
+  if(typeof e.webkitCompassHeading==='number'&&e.webkitCompassHeading>=0)h=e.webkitCompassHeading;
+  else if(e.alpha!=null&&(e.absolute||e.type==='deviceorientationabsolute'))h=360-e.alpha;
+  if(h==null)return;
+  const so=(screen.orientation&&typeof screen.orientation.angle==='number')?screen.orientation.angle:(+window.orientation||0);
+  reading({heading:an(h+so),magnetic:an(h+so),declination:0,trueAvailable:false,accuracy:null,web:true});
+}
+function stopSensor(){
+  if(SENSOR==='native'){ try{A.compassStop();}catch(e){} }
+  window.removeEventListener('deviceorientationabsolute',onDO); window.removeEventListener('deviceorientation',onDO);
+  SENSOR='none'; clearTimeout(noSensorTimer);
+}
+function noSensor(){
+  if(MODE!=='live'||lastReadingAt)return;
+  FALLBACK=true; setHeading(+store.get('manualHeading',0)||0,true);
+  dial.classList.toggle('drag',dragOK()); updateSrc();
+}
+function startSensor(){
+  stopSensor();
+  if(MODE!=='live'||document.hidden)return;
+  lastReadingAt=0;
+  if(A&&typeof A.compassStart==='function'){
+    let info=null; try{info=JSON.parse(A.compassInfo());}catch(e){}
+    if(!info||info.available!==false){ try{A.compassStart();SENSOR='native';}catch(e){SENSOR='none';} }
+  }
+  if(SENSOR==='none'){
+    if('ondeviceorientationabsolute' in window){ window.addEventListener('deviceorientationabsolute',onDO); SENSOR='web'; }
+    else if('DeviceOrientationEvent' in window){ window.addEventListener('deviceorientation',onDO); SENSOR='web'; }
+  }
+  if(SENSOR==='none'){ noSensor(); return; }
+  noSensorTimer=setTimeout(noSensor,SENSOR==='native'?4000:2500);
+}
+function renderModes(){ document.querySelectorAll('#modes [data-m]').forEach(c=>c.classList.toggle('on',c.dataset.m===MODE)); }
+function applyMode(){
+  stopSensor(); FALLBACK=false; LASTH=null; lastReadingAt=0;
+  renderModes();
+  if(MODE==='north')setHeading(0,true);
+  else if(MODE==='manual')setHeading(+store.get('manualHeading',0)||0,true);
+  else startSensor();
+  dial.classList.toggle('drag',dragOK());
+  updateSrc();
+}
+function setMode(m){
+  MODE=m; store.set('mode',m);
+  // iPhone browsers ask for permission, and only from a tap
+  if(m==='live'&&!A&&typeof DeviceOrientationEvent!=='undefined'&&typeof DeviceOrientationEvent.requestPermission==='function'){
+    DeviceOrientationEvent.requestPermission().then(applyMode,applyMode); return;
+  }
+  applyMode();
+}
+$('#modes').addEventListener('click',e=>{ const c=e.target.closest('[data-m]'); if(c)setMode(c.dataset.m); });
+document.addEventListener('visibilitychange',()=>{ if(document.hidden)stopSensor(); else if(MODE==='live'&&DATA)startSensor(); });
+window.addEventListener('pagehide',stopSensor);
+
+/* ---------- dragging the dial (manual mode, or no sensor) ---------- */
+let drag=null,suppressUntil=0;
+function ptAng(e){ const r=dial.getBoundingClientRect(); return Math.atan2(e.clientX-(r.left+r.width/2),-(e.clientY-(r.top+r.height/2)))/D2R; }
+dial.addEventListener('pointerdown',e=>{ if(!dragOK())return; drag={id:e.pointerId,x:e.clientX,y:e.clientY,last:ptAng(e),moved:false}; });
+dial.addEventListener('pointermove',e=>{
+  if(!drag||e.pointerId!==drag.id)return;
+  if(!drag.moved){ if(Math.hypot(e.clientX-drag.x,e.clientY-drag.y)<6)return; drag.moved=true; try{dial.setPointerCapture(e.pointerId);}catch(_){} }
+  const a=ptAng(e),da=w180(a-drag.last); drag.last=a;
+  setHeading(tgt-da,true); e.preventDefault();
+});
+function endDrag(e){ if(!drag||(e&&e.pointerId!==drag.id))return; if(drag.moved){ suppressUntil=performance.now()+350; store.set('manualHeading',Math.round(tgt*10)/10); } drag=null; }
+dial.addEventListener('pointerup',endDrag); dial.addEventListener('pointercancel',endDrag);
+dial.addEventListener('wheel',e=>{ if(!dragOK())return; e.preventDefault(); setHeading(tgt+(e.deltaY>0?5:-5)); store.set('manualHeading',an(tgt)); },{passive:false});
+dial.addEventListener('keydown',e=>{ if(!dragOK()||(e.key!=='ArrowLeft'&&e.key!=='ArrowRight'))return; e.preventDefault(); setHeading(tgt+(e.key==='ArrowRight'?5:-5)); store.set('manualHeading',an(tgt)); });
+dial.addEventListener('click',e=>{ if(performance.now()<suppressUntil)return; const m=e.target.closest('[data-c]'); if(m)openCluster(m.getAttribute('data-c')); });
+
+/* ---------- face a target ---------- */
+let TAZ=null,TNAME='',ONT=false,lastTurn=null;
+function resolveTarget(){
+  TAZ=null; TNAME='';
+  const t=TARGET; if(!t)return;
+  if(t.startsWith('q:')){ TAZ=+t.slice(2); const q=QUARTERS.find(x=>x[0]===TAZ); TNAME=q?q[1]:n16(TAZ); return; }
+  if(t==='bol'){ TNAME=DB.text('compass.boleskine'); if(BOL&&BOL.bearing!=null)TAZ=BOL.bearing; return; }
+  if(t==='decan'){ TNAME='the rising decan (Ascendant)'; if(SKY)TAZ=SKY.asc.az; return; }
+  if(t.startsWith('sky:')){ const k=t.slice(4),b=BODIES.find(x=>x[0]===k),a=ANGLES.find(x=>x[0]===k);
+    TNAME=b?b[1]+VS+' '+b[2]:a?a[2]:k; if(SKY)TAZ=b?SKY.b[k].az:a?SKY[k].az:null; return; }
+  if(t.startsWith('e:')){ const e=BYID[t.slice(2)]; if(!e)return; TNAME=e.name; const a=azOf(e); if(a!=null)TAZ=a; }
+}
+function drawTarget(){
+  if(TAZ==null){ gTarget.innerHTML=''; return; }
+  const p=xy(TAZ,19),q=xy(TAZ,RB-2),c=xy(TAZ,RB-6);
+  gTarget.innerHTML='<line x1="'+p[0]+'" y1="'+p[1]+'" x2="'+q[0]+'" y2="'+q[1]+'" stroke="var(--gold)" stroke-width="1.6" stroke-dasharray="5 4" opacity=".85"/><circle cx="'+c[0]+'" cy="'+c[1]+'" r="5" fill="var(--gold)"/>';
+}
+function arcPath(d){ const r=202,e=xy(d,r); return 'M0,-'+r+'A'+r+','+r+' 0 0,'+(d>0?1:0)+' '+e[0]+','+e[1]; }
+// one short buzz; the app's own bridge method is used if it has one (the WebView needs the VIBRATE permission for navigator.vibrate)
+function buzz(){ try{
+  if(A&&typeof A.vibrate==='function')A.vibrate(70);
+  else if(navigator.vibrate&&(!navigator.userActivation||navigator.userActivation.hasBeenActive))navigator.vibrate(70);   // browsers refuse it before the first tap
+}catch(e){} }
+function updateTurn(){
+  const el=$('#turn'),arc=$('#arc');
+  if(!TARGET){ if(lastTurn!==''){ el.textContent=''; el.className='turn'; arc.setAttribute('d',''); dial.classList.remove('ontarget'); lastTurn=''; } ONT=false; return; }
+  if(TAZ==null){ const s=TNAME+(TARGET.startsWith('e:')?' has no fixed direction.':' — needs a location.');
+    if(s!==lastTurn){ el.textContent=s; el.className='turn'; arc.setAttribute('d',''); dial.classList.remove('ontarget'); lastTurn=s; } ONT=false; return; }
+  const d=w180(TAZ-disp),ad=Math.abs(d),on=ONT?ad<=5:ad<=3;
+  if(on&&!ONT)buzz();
+  ONT=on;
+  const s=on?'◆ Facing '+TNAME:(d>0?'→ Turn '+Math.round(ad)+'° right':'← Turn '+Math.round(ad)+'° left')+' to face '+TNAME;
+  if(s!==lastTurn){ el.textContent=s; el.className='turn'+(on?' on':''); lastTurn=s; }
+  arc.setAttribute('d',on?'':arcPath(d));
+  dial.classList.toggle('ontarget',on);
+}
+function setTarget(t){
+  TARGET=t||''; store.set('target',TARGET); ONT=false; lastTurn=null;
+  resolveTarget(); drawTarget();
+  const sel=$('#face'); if(TARGET&&![...sel.options].some(o=>o.value===TARGET))buildFace(); else sel.value=TARGET;
+  updateTurn();
+}
+function buildFace(){
+  if(!DATA)return;
+  let h='<option value="">Face… choose a target</option>';
+  h+='<optgroup label="Quarters">'+QUARTERS.map(([a,n])=>'<option value="q:'+a+'">'+n+' ('+a+'°)</option>').join('')+'</optgroup>';
+  h+='<optgroup label="Thelema"><option value="bol">'+esc(DB.text('compass.boleskine'))+'</option></optgroup>';
+  h+='<optgroup label="Sky (live)">'+BODIES.map(([k,g,n])=>'<option value="sky:'+k+'">'+g+VS+' '+n+'</option>').join('')+
+     ANGLES.map(([k,g,n])=>'<option value="sky:'+k+'">'+n+'</option>').join('')+'<option value="decan">The rising decan (its spirits and Shem angels)</option></optgroup>';
+  for(const L of ['goetic','angelic','thelema','quarters']){
+    if(!LAY[L])continue;
+    const seen=new Set(),opts=[];
+    for(const e of DATA.layers[L]||[]){
+      if(!isShown(L,e)||e.direction==='bearing')continue;
+      const k=e.name+'|'+e.azimuth; if(seen.has(k))continue; seen.add(k);
+      opts.push('<option value="e:'+e.id+'">'+esc(e.name)+' — '+esc(e.direction)+'</option>');
+    }
+    if(opts.length)h+='<optgroup label="'+esc(RING_NAME[L])+'">'+opts.join('')+'</optgroup>';
+  }
+  if(TARGET.startsWith('e:')&&h.indexOf('value="'+TARGET+'"')<0){ const e=BYID[TARGET.slice(2)]; if(e)h+='<optgroup label="Chosen"><option value="'+TARGET+'">'+esc(e.name)+' — '+esc(e.direction)+'</option></optgroup>'; }
+  const sel=$('#face'); sel.innerHTML=h; sel.value=TARGET||'';
+  if(sel.value!==(TARGET||''))sel.value='';
+}
+$('#face').addEventListener('change',e=>setTarget(e.target.value));
+$('#faceClear').addEventListener('click',()=>setTarget(''));
+
+/* ---------- what lies ahead ---------- */
+let lastAheadHTML=null;
+function updateAhead(){
+  lastAheadAz=disp;
+  const W=11.25,groups=[];
+  for(const rg of RINGS){
+    const hits=[];
+    if(rg.key==='sky'){ for(const it of rg.items)if(Math.abs(w180(it.az-disp))<=W)hits.push('<a data-c="sky:'+it.k+'">'+esc(it.angle?it.name:it.g+' '+it.name)+(it.angle?'':' <span class="sub">'+fmtAlt(it.alt)+'</span>')+'</a>'); }
+    else for(const c of rg.clusters){ if(Math.abs(w180(c.az-disp))>W)continue;
+      const nm=[]; for(const it of c.items){ const n=it.e._set===SET_BOL?'Boleskine'+(BOL?' ('+fmtKm(BOL.dist)+')':''):it.e.name+(it.e.confidence==='low'?'?':''); if(!nm.includes(n))nm.push(n); }
+      hits.push('<a data-c="'+esc(c.key)+'">'+esc(nm.join(' · '))+'</a>'); }
+    if(hits.length)groups.push('<div><span class="al" style="color:'+LCOL[rg.key]+'">'+esc(RING_NAME[rg.key])+'</span> '+hits.join(' <span class="sub">|</span> ')+'</div>');
+  }
+  const html=groups.length?'<div class="sub">Ahead of you (±11°):</div>'+groups.join(''):'<span class="sub">Nothing marked within ±11° of where you face.</span>';
+  if(html!==lastAheadHTML){ $('#ahead').innerHTML=html; lastAheadHTML=html; }
+}
+$('#ahead').addEventListener('click',e=>{ const a=e.target.closest('[data-c]'); if(a)openCluster(a.getAttribute('data-c')); });
+
+/* ---------- info sheet ---------- */
+function sheetHead(t,s,rk){
+  return '<div class="sh-h"><div><div class="osh" style="color:'+(LCOL[rk]||'var(--acc)')+';margin:0">'+esc(RING_NAME[rk]||'')+'</div><div class="sh-t">'+esc(t)+'</div>'+(s?'<div class="sub">'+esc(s)+'</div>':'')+'</div>'+
+    '<button class="ghost sm" onclick="closeSheet()" aria-label="Close">✕</button></div>';
+}
+function entryHTML(e){
+  const pn=placeNote(e),g=e.goetia&&GOE&&GOE.spirits?GOE.spirits[e.goetia-1]:null;
+  const dir=e.direction==='bearing'?'bearing to Boleskine':e.direction;
+  return '<div class="ent"><div class="en-h"><b>'+esc(e.name)+'</b>'+(e.confidence?'<span class="cf '+esc(e.confidence)+'">'+esc(CFT[e.confidence]||e.confidence)+'</span>':'')+'</div>'+
+    '<div class="role">'+esc(e.role)+(e.day?' · <b>'+esc(e.day)+'</b>':'')+' · <span class="sub">'+esc(dir)+(e.azimuth>=0&&!e.live?' ('+e.azimuth+'°)':'')+'</span></div>'+
+    '<div class="grp">'+esc(e.group)+'</div>'+
+    (e.extra?'<div class="ex">'+esc(e.extra)+'</div>':'')+
+    (e.note?'<p class="nt">'+esc(e.note)+'</p>':'')+
+    (pn?'<div class="pl">'+esc(pn)+'</div>':'')+
+    '<div class="srcl">Source: '+esc(e.source)+'</div>'+
+    (e.goetia?'<div style="margin-top:6px"><button class="ghost sm" onclick="openGoetia('+(+e.goetia)+')">Open '+esc(g?g.n+' '+g.name:'spirit '+e.goetia)+' in the Goetia</button></div>':'')+
+    '</div>';
+}
+function faceKeyOf(c){ const e=c.items[0].e; if(e._set===SET_BOL)return 'bol'; if(e._set===SET_SUN)return 'sky:sun'; if(e._set===SET_DECAN||e._set===SET_SHEM)return 'decan'; return 'e:'+e.id; }
+function openCluster(key){
+  if(key.startsWith('sky:'))return openSky(key.slice(4));
+  const c=CL[key]; if(!c)return;
+  let t,s;
+  if(c.items.some(it=>it.e._set===SET_BOL)){
+    t=DB.text('compass.boleskine');
+    s=BOL?(BOL.bearing!=null?DB.text('compass.boleskine-bearing',{bearing:fmtAz(BOL.bearing),distance:fmtKm(BOL.dist)}):DB.text('compass.boleskine-here')):'';
+  } else if(c.items.length===1){ const e=c.items[0].e; t=e.name; s=fmtAz(c.az)+(e.direction&&e.direction!==n16(c.az)?' · '+e.direction:''); }
+  else { const d=c.items[0].e.direction||''; t=(d.startsWith('Ascendant')?'Ascendant':d)+' · '+fmtAz(c.az); s=c.items.length+' entries on the dial here'; }
+  let h=sheetHead(t,s,c.ring)+c.items.map(it=>entryHTML(it.e)).join('');
+  const inCl=new Set(c.items.map(it=>it.e));
+  // only sets that are switched off: an entry that is on sits in another ring (e.g. Theurgia-Goetia beside the Goetic ring)
+  const others=entriesOf(c.layer).filter(e=>{ if(inCl.has(e)||e._set==null||(e.day&&e.day!==WD[MDAY.wd])||isShown(c.layer,e))return false; const a=azOf(e); return a!=null&&Math.abs(w180(a-c.az))<0.01; });
+  if(others.length)h+='<details class="more"><summary>More at this point in sets that are switched off ('+others.length+')</summary>'+others.map(entryHTML).join('')+'</details>';
+  h+='<div style="margin-top:10px"><button onclick="setTarget(\''+faceKeyOf(c)+'\');closeSheet()">Face this</button></div>';
+  showSheet(h);
+}
+function openSky(k){
+  if(!SKY)return;
+  const B=BODIES.find(x=>x[0]===k),An=ANGLES.find(x=>x[0]===k);
+  let h;
+  if(B){
+    const b=SKY.b[k];
+    h=sheetHead(B[1]+VS+' '+B[2],'Azimuth '+fmtAz(b.az)+' · altitude '+fmtAlt(b.app)+(b.app<0?' (below the horizon)':''),'sky');
+    h+='<div class="ent"><div class="role">In '+fmtLon(b.lam)+' · ecliptic latitude '+fmtAlt(b.bet)+'</div><div class="ex">Right ascension '+(b.ra/15).toFixed(2)+' h · declination '+fmtAlt(b.dec)+'</div>';
+    if(k==='moon')h+='<p class="nt">'+DB.text('compass.moon-note',{phase:esc(SKY.moon.phase),lit:Math.round(SKY.moon.illum*100),age:SKY.moon.age.toFixed(1)})+'</p>';
+    if(k==='sun')h+='<p class="nt">'+DB.text('compass.sun-sheet',{next:esc(reshNext().replace(/^n/,'N')),day_night:SKY.day?'day':'night'})+'</p>';
+    h+='<div class="srcl">'+DB.text('compass.sky-source')+'</div></div>';
+  } else if(An){
+    const a=SKY[k];
+    h=sheetHead(An[2],'Azimuth '+fmtAz(a.az)+(k==='mc'?' · altitude '+fmtAlt(a.alt):''),'sky');
+    const d=k==='asc'?curDecan():null;
+    h+='<div class="ent"><div class="role">'+fmtLon(a.lam)+'</div><p class="nt">'+(k==='asc'?DB.text('compass.asc-note')+(d?DB.text('compass.asc-now',{decan:esc(d.sign+' '+d.decan),day:d.day,night:d.night}):''):
+      k==='dsc'?DB.text('compass.dsc-note'):DB.text('compass.mc-note'))+'</p><div class="srcl">'+DB.text('compass.angles-source')+'</div></div>';
+  } else return;
+  h+='<div style="margin-top:10px"><button onclick="setTarget(\'sky:'+k+'\');closeSheet()">Face this</button></div>';
+  showSheet(h);
+}
+function showSheet(h){ const s=$('#sheet'); s.innerHTML=h; s.classList.remove('hidden'); s.scrollTop=0; }
+function closeSheet(){ $('#sheet').classList.add('hidden'); }
+function openGoetia(n){ try{ parent.openTool('goetia','spirit='+n); }catch(e){ location.href='goetia.html?spirit='+n; } }
+window.onBack=()=>{ if(!$('#sheet').classList.contains('hidden')){ closeSheet(); return true; } return false; };
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape')closeSheet();
+  else if((e.key==='Enter'||e.key===' ')&&e.target&&e.target.getAttribute&&e.target.getAttribute('role')==='button'){ e.preventDefault(); e.target.click(); }
+});
+
+/* ---------- layers & options ---------- */
+function renderLayers(){
+  $('#layers').innerHTML=LAYERDEF.map(([k,n,c])=>'<span class="chip'+(LAY[k]?' on':'')+'" style="--c:'+c+'" data-l="'+k+'" role="button" tabindex="0">'+esc(n)+'</span>').join('');
+}
+function refreshStatic(){ buildDial(); buildFace(); renderNow(); }
+$('#layers').addEventListener('click',e=>{ const c=e.target.closest('[data-l]'); if(!c)return; const k=c.dataset.l; LAY[k]=!LAY[k]; store.set('layers',LAY); renderLayers(); renderOpts(); refreshStatic(); });
+function renderOpts(){
+  let h='<div class="optsec"><div class="osh">Orientation</div>'+
+    '<label class="orow"><span>Temple quarters &amp; Thelemic rites</span><select data-o="templeBol"><option value="0">True compass quarters</option><option value="1">Boleskine as East (Liber XV)</option></select></label>'+
+    '<label class="orow"><span>Liber Resh stations</span><select data-o="reshSun"><option value="0">As written: E · S · W · N</option><option value="1">Where the Sun stands today</option></select></label></div>';
+  for(const L of DLAYERS){
+    if(!LAY[L])continue;
+    h+='<div class="optsec"><div class="osh" style="color:'+LCOL[L]+'">'+esc(RING_NAME[L])+'</div>';
+    if(L==='goetic')h+='<label class="orow"><span>Kings of the four quarters</span><select id="ksel">'+KINGDEF.map(([id,n])=>'<option value="'+esc(id)+'">'+esc(n)+'</option>').join('')+'</select></label>';
+    h+='<div class="chips">'+SETS[L].map(s=>'<span class="chip sm'+(setOn(L,s.id)?' on':'')+'" style="--c:'+LCOL[L]+'" data-set="'+esc(L+'|'+s.id)+'" title="'+esc(s.title)+'" role="button" tabindex="0">'+esc(s.name)+'</span>').join('')+'</div></div>';
+  }
+  if(LAY.sky)h+='<div class="optsec"><div class="osh">Sky</div><div class="chips"><span class="chip sm'+(OPT.outer?' on':'')+'" data-opt="outer" role="button" tabindex="0">'+BODIES.filter(b=>OUTER.has(b[0])).map(b=>esc(b[2])).join(' &amp; ')+'</span><span class="chip sm'+(OPT.angles?' on':'')+'" data-opt="angles" role="button" tabindex="0">AC · DC · MC</span></div></div>';
+  $('#optBody').innerHTML=h;
+  $('#optBody').querySelectorAll('select[data-o]').forEach(s=>{ s.value=OPT[s.dataset.o]?'1':'0'; });
+  const ks=$('#ksel'); if(ks)ks.value=KSEL;
+}
+$('#optBody').addEventListener('click',e=>{
+  const c=e.target.closest('[data-set]');
+  if(c){ const k=c.getAttribute('data-set'),i=k.indexOf('|'),L=k.slice(0,i),id=k.slice(i+1); SETST[k]=!setOn(L,id); store.set('sets',SETST); renderOpts(); refreshStatic(); return; }
+  const o=e.target.closest('[data-opt]');
+  if(o){ OPT[o.dataset.opt]=!OPT[o.dataset.opt]; store.set('opts',OPT); renderOpts(); refreshStatic(); }
+});
+$('#optBody').addEventListener('change',e=>{
+  const s=e.target;
+  if(s.id==='ksel'){ KSEL=s.value; store.set('kings',KSEL); refreshStatic(); return; }
+  if(s.dataset&&s.dataset.o){ OPT[s.dataset.o]=s.value==='1'; store.set('opts',OPT); refreshStatic(); }
+});
+
+/* ---------- the Now panel ---------- */
+function nsec(k,html){ return '<div class="nsec"><div class="osh" style="color:'+LCOL[k]+'">'+esc(RING_NAME[k])+'</div>'+html+'</div>'; }
+function renderNow(){
+  const L=LOC,man=store.get('loc',null);
+  $('#nowLoc').innerHTML='<div class="stat"><span>'+(L?'<b>'+L.lat.toFixed(3)+', '+L.lon.toFixed(3)+'</b> <span class="sub">'+esc(LOCSRC[L.src]||'')+'</span>':
+      '<span class="warn">No location yet</span> <span class="sub">— the sky, Boleskine, the rising decan and the Heptameron day need one.</span>')+'</span>'+
+    '<span class="row"><button class="ghost sm" onclick="useGps()">Use my location</button><button class="ghost sm" onclick="showManual()">Enter</button>'+
+    (man&&man.override?'<button class="ghost sm" onclick="clearManual()">Automatic</button>':'')+'</span></div>';
+  const P=[];
+  if(LAY.thelema){
+    let h='';
+    if(SKY){ const s=SKY.b.sun; h+='<div>☉'+VS+' The Sun is at <b>'+fmtAz(s.az)+'</b>, altitude '+fmtAlt(s.app)+' — '+esc(reshNext())+' <span class="sub">(times in Rites)</span></div>'; }
+    h+='<div>'+esc(DB.text('compass.boleskine'))+': '+(BOL?(BOL.bearing!=null?'bearing <b>'+fmtAz(BOL.bearing)+'</b> · '+fmtKm(BOL.dist):'you are there'):'<span class="sub">needs a location</span>')+'</div>';
+    if(OPT.templeBol&&BOL&&BOL.bearing!=null){ const r=w180(BOL.bearing-90); h+='<div class="sub">'+DB.text('compass.temple-turned',{degrees:Math.round(Math.abs(r)),way:r>=0?'clockwise':'anticlockwise'})+'</div>'; }
+    if(OPT.reshSun&&RSUN)h+='<div class="sub">'+DB.text('compass.resh-sun-stations',{stations:(DATA.layers.thelema||[]).filter(e=>e.adoration&&RSUN[e.adoration]!=null)
+      .map(e=>esc(e.name)+' '+Math.round(RSUN[e.adoration])%360+'°').join(', ')})+'</div>';
+    if(BOL&&BOL.bearing!=null)h+='<div style="margin-top:6px"><button class="ghost sm" onclick="setTarget(\'bol\')">Face Boleskine</button></div>';
+    P.push(nsec('thelema',h));
+  }
+  if(LAY.goetic){
+    let h='';
+    const d=curDecan();
+    if(d){
+      const rule=SKY.day?d.day:d.night;
+      h+='<div>Rising now: <b>'+esc(d.sign+' '+d.decan)+'</b> <span class="sub">(Ascendant '+fmtLon(SKY.asc.lam)+', azimuth '+fmtAz(SKY.asc.az)+')</span></div><div class="row" style="margin:5px 0">'+
+        [[d.day,'by day'],[d.night,'by night']].map(([n,w])=>{ const sp=GOE.spirits[n-1]; return sp?'<button class="'+(n===rule?'':'ghost ')+'sm" onclick="openGoetia('+n+')">'+n+' '+esc(sp.name)+' · '+w+(n===rule?' · rules now':'')+'</button>':''; }).join('')+'</div>';
+    } else h+='<div class="sub">The rising decan needs a location'+(GOE?'':' and the Goetia data')+'.</div>';
+    const kd=KINGDEF.find(k=>k[0]===KSEL);
+    h+='<div class="sub">'+DB.text('compass.kings-note',{kings:esc(kd?kd[1]:'none')})+'</div>';
+    P.push(nsec('goetic',h));
+  }
+  if(LAY.angelic){
+    const wd=WD[MDAY.wd];
+    let h='<div>Heptameron day: <b>'+wd+'</b> ('+WDP[MDAY.wd]+') <span class="sub">— '+(MDAY.since?DB.text('compass.hept-day-began',{time:MDAY.lmt?fmtLMT(MDAY.since):fmtT.format(MDAY.since)}):esc(MDAY.note))+'</span></div>';
+    const today=(DATA.layers.angelic||[]).filter(e=>e.day===wd);
+    const air=today.filter(e=>e._set===SET_AIR);   // the Angels of the Air: their direction is the day's wind
+    if(air.length){ const w=air[0].direction;
+      h+='<div>Angels of the Air: <b>'+esc(air[0].name)+'</b>'+(air.length>1?' with '+esc(air.slice(1).map(e=>e.name).join(', ')):'')+' <span class="sub">· wind: '+esc(w)+'</span></div>'; }
+    const q=DB.where('quarters',x=>!x.between).map(x=>x.name).map(dn=>{ const xs=today.filter(e=>e.direction===dn&&e._set!==SET_AIR); return xs.length?'<div><span class="sub">'+dn+':</span> '+esc(xs.map(shortName).join(', '))+'</div>':''; }).join('');
+    if(q)h+='<div style="margin-top:4px">'+q+'</div>';
+    const sh=(LIVE.angelic||[]).filter(e=>e._set===SET_SHEM);
+    if(sh.length)h+='<div>Shem angels of the rising decan: <b>'+esc(sh.map(e=>e.name).join(', '))+'</b></div>';
+    P.push(nsec('angelic',h));
+  }
+  if(LAY.sky){
+    if(SKY){
+      const rows=BODIES.map(([k,g,n])=>{ const b=SKY.b[k]; return '<tr class="'+(b.app<0?'below':'')+'" data-c="sky:'+k+'"><td>'+g+VS+' '+n+'</td><td class="n">'+Math.round(b.az)%360+'° '+n16(b.az)+'</td><td class="n">'+fmtAlt(b.app)+'</td><td class="sg">'+fmtLon(b.lam,true)+'</td></tr>'; }).join('');
+      P.push(nsec('sky','<div>Moon: '+esc(SKY.moon.phase)+', '+Math.round(SKY.moon.illum*100)+'% lit</div><table class="sky"><tbody>'+rows+'</tbody></table><div class="sub" style="margin-top:4px">'+DB.text('compass.sky-table-note')+'</div>'));
+    } else P.push(nsec('sky','<div class="sub">The sky needs a location.</div>'));
+  }
+  $('#nowBody').innerHTML=P.join('');
+  $('#wander').classList.toggle('hidden',!LAY.goetic);
+}
+$('#nowBody').addEventListener('click',e=>{ const r=e.target.closest('tr[data-c]'); if(r)openSky(r.getAttribute('data-c').slice(4)); });
+
+function renderFooter(){
+  const n=DLAYERS.map(L=>RING_NAME[L]+' '+(DATA.layers[L]||[]).length).join(' · ');
+  $('#foot').innerHTML='<div class="sec">Sources</div><ul class="srcs">'+(DATA.sources||[]).map(s=>'<li><b>'+esc(s.title)+'</b>'+(s.use?' <span class="sub">— '+esc(s.use)+'</span>':'')+'</li>').join('')+'</ul>'+
+    '<details><summary>Notes &amp; caveats ('+(DATA.caveats||[]).length+')</summary><ul class="cav">'+(DATA.caveats||[]).map(c=>'<li>'+esc(c)+'</li>').join('')+'</ul></details>'+
+    '<p class="sub">'+DB.text('compass.confidence',Object.assign({entries:esc(n)},...['high','medium','low'].map(c=>({[c]:'<span class="cf '+c+'">'+esc(CFT[c])+'</span>'}))))+'</p>';
+}
+
+/* ---------- boot ---------- */
+function getJSON(u){ return fetch(u).then(r=>{ if(!r.ok)throw new Error(u+' '+r.status); return r.json(); }); }
+window.onNativeUpdate=()=>liveUpdate();   // location or permissions changed in the app
+renderModes();
+Promise.all([getJSON('../../data/compass.json'),getJSON('../../data/goetia.json').catch(()=>null),DB.load('compass_layers','compass_sets')]).then(([d,g])=>{
+  DATA=d; GOE=g;
+  initSets(); prepData(); renderLayers(); renderOpts(); renderFooter();
+  $('#wanderBody').innerHTML=(DATA.layers.goetic||[]).filter(e=>e.direction==='Wandering').map(entryHTML).join('');
+  liveUpdate();
+  applyMode();
+  if(!LOC)requestGeo(false);
+  setInterval(()=>{ if(!document.hidden)liveUpdate(); },30000);
+}).catch(e=>{ $('main').insertAdjacentHTML('afterbegin','<div class="card warn">Could not load the compass data: '+esc(e)+'</div>'); });
+</script>
+</body></html>

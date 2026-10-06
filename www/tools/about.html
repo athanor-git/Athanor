@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Athanor — About</title>
+<style>
+:root{--bg:#faf7f0;--card:#fff;--ink:#1a1712;--sub:#6b6357;--acc:#7a5c2e;--line:#e3ddd0}
+@media(prefers-color-scheme:dark){:root{--bg:#14120e;--card:#1e1b15;--ink:#ece5d8;--sub:#9a9184;--acc:#d0a85c;--line:#33302a}}
+*{box-sizing:border-box}body{margin:0;font:16px system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--ink)}
+header{padding:10px 14px;border-bottom:1px solid var(--line)}h1{font-size:16px;margin:0}h1 small{color:var(--sub);font-weight:400}
+main{max-width:640px;margin:0 auto;padding:12px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin:10px 0}
+.sec{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--acc);font-weight:700;margin:2px 0 8px}
+.hero{text-align:center;padding:18px 16px}
+.hero svg{width:72px;height:72px}
+.hero .name{font:600 24px Georgia,'Times New Roman',serif;margin:8px 0 2px;letter-spacing:.04em}
+.hero .ver{color:var(--sub);font-size:13px;letter-spacing:.06em}
+.hero .motto{font:italic 15px/1.5 Georgia,serif;margin-top:10px}
+p{margin:6px 0;font-size:14px;line-height:1.5}
+ul{margin:4px 0;padding-left:18px}li{font-size:14px;line-height:1.5;margin:3px 0}
+.sub{color:var(--sub);font-size:13px}
+.kv{display:flex;justify-content:space-between;gap:10px;padding:6px 0;border-top:1px solid var(--line);font-size:14px}
+.kv:first-of-type{border-top:none}.kv span:last-child{color:var(--sub);text-align:right}
+</style></head><body>
+<header><h1>ATHANOR · ABOUT <small>· version, sources &amp; privacy</small></h1></header>
+<main>
+
+<div class="card hero">
+ <svg viewBox="0 0 512 512" aria-hidden="true">
+  <path d="M256 40 L466 352 L46 160 L256 472 L466 160 L46 352 Z" fill="none" stroke="var(--acc)" stroke-width="16" stroke-linejoin="round"/>
+  <g fill="#b3263b"><circle cx="256" cy="232" r="30"/><circle cx="278.83" cy="248.58" r="30"/><circle cx="270.11" cy="275.42" r="30"/><circle cx="241.89" cy="275.42" r="30"/><circle cx="233.17" cy="248.58" r="30"/></g>
+  <circle cx="256" cy="256" r="18" fill="#e8b04a"/>
+ </svg>
+ <div class="name">ATHANOR</div>
+ <div class="ver" id="ver">—</div>
+ <div class="motto">A workbench for the Great Work: the correspondences, the sky, the rites and the practice, in one place.</div>
+</div>
+
+<div class="card">
+ <div class="sec">This copy</div>
+ <div class="kv"><span>Version</span><span id="ver2">—</span></div>
+ <div class="kv"><span>Runs</span><span id="runs">—</span></div>
+ <div class="kv"><span>Internet</span><span>not used — everything works offline</span></div>
+</div>
+
+<div class="card">
+ <div class="sec">Your data &amp; privacy</div>
+ <p>Everything you make — saved charts, the Daily Journal, card scans, your edits to card meanings, quiz progress and settings — stays on this device. The app sends nothing anywhere and has no accounts, tracking or ads.</p>
+ <div id="folders"></div>
+ <p class="sub">Your location (for sunrise, planetary hours, Resh and the compass) is used on the device only.</p>
+</div>
+
+<div class="card">
+ <div class="sec">Sources</div>
+ <ul>
+  <li><b>Liber 777</b> — Aleister Crowley (1909): the correspondence tables.</li>
+  <li><b>The Book of the Goetia of Solomon the King</b> — S. L. MacGregor Mathers &amp; Aleister Crowley (1904): the 72 spirits.</li>
+  <li><b>The Lesser Key of Solomon</b> — L. W. de Laurence (1916): the seals.</li>
+  <li><b>Book T</b> — <i>The Equinox</i> I:8 (1912): the divinatory meanings and the elemental dignities.</li>
+  <li><b>Liber Resh vel Helios</b>, <b>Liber XV</b>, <b>Liber Samekh</b>, <b>Liber V vel Reguli</b>, the <b>Star Ruby</b> — Aleister Crowley.</li>
+  <li><b>The Heptameron</b> (tr. Robert Turner, 1655), <b>Three Books of Occult Philosophy</b> — H. C. Agrippa, <b>Theurgia-Goetia</b> (Lemegeton), <b>Pseudomonarchia daemonum</b> — J. Weyer: the compass attributions.</li>
+  <li>Golden Dawn papers (as published by Israel Regardie): the temple quarters.</li>
+  <li>The planetary dignities follow the <b>Thoth Tarot – Planetary Dignities</b> reference sheet.</li>
+  <li>The short card summaries are original wording, written after Lon Milo DuQuette's <i>Understanding Aleister Crowley's Thoth Tarot</i> (2003). The pathworking journeys are original.</li>
+  <li>Sun, Moon and planets are computed on the device (JPL Keplerian elements, Jean Meeus's <i>Astronomical Algorithms</i>).</li>
+ </ul>
+ <p class="sub">Tarot pictures are never included: the card scanner photographs your own deck.</p>
+</div>
+
+<div class="card">
+ <div class="sub" style="text-align:center;font-style:italic">Do what thou wilt shall be the whole of the Law. · Love is the law, love under will.</div>
+</div>
+
+</main>
+<script>
+const A=(window.parent&&window.parent.Android)||window.Android||null;
+let v=''; try{ v=A&&A.appVersion?A.appVersion():''; }catch(e){}
+// the web edition (tools/build_web.ps1) names its version in the shell page: window.ATHANOR_WEB = {edition, version}
+let W=null; if(!A){ try{ W=(window.parent&&window.parent.ATHANOR_WEB)||window.ATHANOR_WEB||null; }catch(e){ W=window.ATHANOR_WEB||null; } }
+document.getElementById('ver').textContent=v?'version '+v:W?'Athanor web edition · '+W.version:'web version';
+document.getElementById('ver2').textContent=v||(W?'web edition · '+W.version:'—');
+document.getElementById('runs').textContent=A?'Android app':'in a web browser';
+if(W) document.getElementById('folders').innerHTML='<p class="sub" style="margin-top:8px">In this web edition what you save stays in this browser, on this device only (not on the phone). Reminders and notifications need the Android app.</p>';
+// where the readable copies go on the phone
+try{
+  const S=(window.parent&&window.parent.Android&&window.parent.Android.storeFolder)?window.parent.Android:null;
+  if(S){
+    const rows=[['Card scans','cards'],['Saved charts','charts'],['Daily Journal','daily'],['Pathworking journal','journal']]
+      .map(([t,k])=>{ let f=''; try{ f=S.storeFolder(k); }catch(e){} return f?`<div class="kv"><span>${t}</span><span>${f}</span></div>`:''; }).join('');
+    if(rows) document.getElementById('folders').innerHTML='<p class="sub" style="margin-top:8px">Readable copies are also kept in your phone’s folders:</p>'+rows;
+  }
+}catch(e){}
+</script>
+</body></html>

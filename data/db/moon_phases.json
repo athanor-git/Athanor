@@ -1,0 +1,10 @@
+{"table": "moon_phases", "rows": [
+{"id": "new", "name": "New Moon", "elongation": 0},
+{"id": "waxing-crescent", "name": "Waxing Crescent", "elongation": 45},
+{"id": "first-quarter", "name": "First Quarter", "elongation": 90},
+{"id": "waxing-gibbous", "name": "Waxing Gibbous", "elongation": 135},
+{"id": "full", "name": "Full Moon", "elongation": 180},
+{"id": "waning-gibbous", "name": "Waning Gibbous", "elongation": 225},
+{"id": "last-quarter", "name": "Last Quarter", "elongation": 270},
+{"id": "waning-crescent", "name": "Waning Crescent", "elongation": 315}
+]}

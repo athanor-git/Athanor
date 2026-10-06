@@ -1,0 +1,18 @@
+{
+  "id": "athanor-temple",
+  "name": "Athanor",
+  "short_name": "Athanor",
+  "description": "A workbench for the Great Work: the correspondences, the sky, the rites and the practice, in one place.",
+  "start_url": "www/index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#14120e",
+  "theme_color": "#14120e",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

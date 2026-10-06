@@ -1,0 +1,15 @@
+{"table": "quiz_decks", "rows": [
+{"id": "hebrew", "name": "Hebrew alphabet", "icon": "א"},
+{"id": "tree", "name": "Tree structure", "icon": "⚶"},
+{"id": "trumps", "name": "Paths & Thoth trumps", "icon": "⚚"},
+{"id": "astro", "name": "Astrology on the Tree", "icon": "♈︎"},
+{"id": "names", "name": "Divine names & hierarchies", "icon": "יה"},
+{"id": "colours", "name": "Colour scales", "icon": "◐"},
+{"id": "gods", "name": "Gods", "icon": "☥"},
+{"id": "symbols", "name": "Symbols", "icon": "❖"},
+{"id": "gematria", "name": "Gematria", "icon": "#"},
+{"id": "goetia", "name": "Goetia", "icon": "72"},
+{"id": "tarot", "name": "Thoth Tarot", "icon": "78"},
+{"id": "divination", "name": "Divination", "icon": "✦"},
+{"id": "dignities", "name": "Dignities", "icon": "♄︎", "optional": true}
+]}

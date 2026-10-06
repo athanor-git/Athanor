@@ -1,0 +1,6 @@
+{"table": "spreads", "rows": [
+{"id": "one-card", "name": "One card", "positions": "The card"},
+{"id": "three-card", "name": "Three card", "positions": "Past\nPresent\nFuture"},
+{"id": "situation-action-outcome", "name": "Situation / Action / Outcome", "positions": "Situation\nAction\nOutcome"},
+{"id": "celtic-cross", "name": "Celtic Cross", "positions": "Present\nChallenge\nRoot\nRecent past\nCrown / goal\nNear future\nSelf\nEnvironment\nHopes & fears\nOutcome"}
+]}

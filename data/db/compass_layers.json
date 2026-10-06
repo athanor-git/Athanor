@@ -1,0 +1,9 @@
+{"table": "compass_layers", "rows": [
+{"id": "compass", "name": "Compass", "on": true},
+{"id": "quarters", "name": "Temple quarters"},
+{"id": "thelema", "name": "Thelema", "on": true},
+{"id": "goetic", "name": "Goetic", "on": true},
+{"id": "angelic", "name": "Angelic", "on": true},
+{"id": "sky", "name": "Sky (live)", "on": true},
+{"id": "theurgia", "name": "Theurgia-Goetia", "part_of": "goetic"}
+]}

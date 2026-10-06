@@ -1,0 +1,9 @@
+{"table": "dignity_sections", "rows": [
+{"id": "section-1", "n": 1, "title": "Zodiacal Atus – Essential Dignities", "data": "signs"},
+{"id": "section-2", "n": 2, "title": "Planetary Atus", "data": "planets"},
+{"id": "section-3", "n": 3, "title": "Elemental Atus (Crowley's outer-planet pairing)", "data": "elemental"},
+{"id": "section-4", "n": 4, "title": "Planetary Nature & Keywords", "data": "planets"},
+{"id": "section-5", "n": 5, "title": "Golden Dawn / Thoth Correspondences", "data": "planets"},
+{"id": "section-6", "n": 6, "title": "Physical & Temporal Properties", "data": "planets"},
+{"id": "section-7", "n": 7, "title": "Quick Lookup – Planet → Where It Is Strong / Weak", "data": "quickLookup"}
+]}

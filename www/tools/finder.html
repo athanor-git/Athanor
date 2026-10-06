@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Athanor — Correspondence Finder</title>
+<style>
+:root{--bg:#faf7f0;--card:#fff;--ink:#1a1712;--sub:#6b6357;--acc:#7a5c2e;--line:#e3ddd0;--hit:#fff3c9}
+@media(prefers-color-scheme:dark){:root{--bg:#14120e;--card:#1e1b15;--ink:#ece5d8;--sub:#9a9184;--acc:#d0a85c;--line:#33302a;--hit:#4a3f1e}}
+*{box-sizing:border-box}body{margin:0;font:16px/1.45 system-ui,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--ink)}
+header{position:sticky;top:0;background:var(--bg);border-bottom:1px solid var(--line);padding:10px 14px;z-index:5}
+h1{font-size:17px;margin:0 0 8px;letter-spacing:.04em}
+h1 small{color:var(--sub);font-weight:400}
+#q{width:100%;font-size:18px;padding:10px 14px;border:1.5px solid var(--acc);border-radius:10px;background:var(--card);color:var(--ink)}
+main{max-width:880px;margin:0 auto;padding:12px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
+.chip{border:1px solid var(--line);background:var(--card);border-radius:16px;padding:5px 11px;cursor:pointer;font-size:14px}
+.chip:active,.chip:hover{border-color:var(--acc)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin:10px 0}
+.rowhead{font-size:20px;font-weight:700}.rowhead .sub{color:var(--sub);font-size:14px;font-weight:400}
+table{border-collapse:collapse;width:100%;margin-top:8px}
+td{border-top:1px solid var(--line);padding:6px 8px;vertical-align:top;font-size:14.5px}
+td.n{white-space:nowrap;color:var(--acc);font-weight:600;width:1%}
+td.t{color:var(--sub);width:34%}
+mark{background:var(--hit);color:inherit;border-radius:3px;padding:0 1px}
+.sw{display:inline-block;width:14px;height:14px;border-radius:3px;border:1px solid var(--line);vertical-align:-2px;margin-right:4px}
+.note{color:var(--sub);font-size:13px;font-style:italic;margin-top:6px;border-top:1px dashed var(--line);padding-top:6px}
+.hint{color:var(--sub);font-size:14px}
+.matchline{cursor:pointer}.matchline:hover{background:var(--hit)}
+button.back{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:8px;padding:6px 12px;cursor:pointer;margin-bottom:8px}
+.count{color:var(--sub);font-size:13px}
+</style></head><body>
+<header><h1>ATHANOR · LIBER 777 <small>· correspondence finder · type anything: fire · wands · the magus · 7 · ♄ · כתר</small></h1>
+<input id="q" placeholder="Search correspondences…" autocomplete="off" autofocus></header>
+<main id="out"></main>
+<script src="../../data/777.js"></script>
+<script src="../../data/db/core.js"></script>
+<script src="../../data/db/texts.js"></script>
+<script src="../lib/db.js"></script>
+<script>
+// The facts come from the content tables (data/db, edited in the content workbook) through lib/db.js
+const PNAME = p => p.name_777 || p.name;                       // Sol, Luna: the planet as Liber 777 names it
+const ROW = (col, id) => (DB.where('keyscale', {[col]: id})[0] || {}).id;
+// rowmeta: each key-scale row's title (a Sephira and its sphere; a path's letter and attribution)
+// alias: the words that open a row at once (elements, suits, the seven planets, the signs)
+const D = Object.assign({}, D777, {rowmeta: {}, alias: {}});
+for (const r of DB.rows('keyscale')) {
+  const s = DB.ref(r, 'sephira'), sphere = s && (s.sphere || PNAME(DB.where('planets', {sephira: s.id, kind: 'classical'})[0]));
+  const attr = r.planet ? PNAME(DB.ref(r, 'planet')) : (DB.ref(r, 'sign') || DB.ref(r, 'element') || {}).name;
+  D.rowmeta[r.id] = r.label || (s ? `${s.name} — ${sphere}` : `${DB.ref(r, 'letter').name} — ${attr}`);
+}
+for (const e of DB.rows('elements')) D.alias[e.name.toLowerCase()] = ROW('element', e.id);
+for (const s of DB.rows('suits')) for (const n of [s.name, s.gd_name]) if (n) D.alias[n.toLowerCase()] = ROW('element', s.element);
+for (const p of DB.where('planets', {kind: 'classical'})) for (const n of [p.name, p.name_777]) if (n) D.alias[n.toLowerCase()] = ROW('planet', p.id);
+for (const s of DB.rows('signs')) D.alias[s.name.toLowerCase()] = ROW('sign', s.id);
+const $ = s => document.querySelector(s);
+const norm = s => (s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/\ufe0e/g,'');
+const esc = s => s.replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+function hl(text, q){
+  if(!q) return esc(text);
+  const i = norm(text).indexOf(q);
+  if(i < 0) return esc(text);
+  return esc(text.slice(0,i)) + '<mark>' + esc(text.slice(i, i+q.length)) + '</mark>' + esc(text.slice(i+q.length));
+}
+function swatches(c, k){
+  return (c.colors[k]||[]).map(h => `<span class="sw" style="background:${h}"></span>`).join('');
+}
+function rowView(k, q){
+  let h = `<button class="back" onclick="home()">← back</button>
+  <div class="card"><div class="rowhead">Key Scale ${k} <span class="sub">— ${D.rowmeta[k]||''}</span></div><table>`;
+  for(const c of D.cols){
+    const v = c.cells[k];
+    if(!v) continue;
+    h += `<tr><td class="n">${c.label}</td><td class="t">${esc(c.title)}</td><td>${swatches(c,k)}${hl(v, q)}</td></tr>`;
+  }
+  h += '</table></div>';
+  $('#out').innerHTML = h;
+  window.scrollTo(0,0);
+}
+function colView(label){
+  const c = D.cols.find(x => x.label === label);
+  let h = `<button class="back" onclick="home()">← back</button>
+  <div class="card"><div class="rowhead">${c.label}. <span class="sub">${esc(c.title)}</span></div><table>`;
+  for(const k of D.keys){
+    const v = c.cells[k];
+    if(!v) continue;
+    h += `<tr class="matchline" onclick="rowView('${k}')"><td class="n">${k}</td><td>${swatches(c,k)}${esc(v)}</td></tr>`;
+  }
+  h += '</table>';
+  if(c.notes && c.notes.length) h += `<div class="note">${esc(c.notes.join('  ¶  '))}</div>`;   // (only columns with notes have them)
+  h += '</div>';
+  $('#out').innerHTML = h;
+  window.scrollTo(0,0);
+}
+function search(qraw){
+  const q = norm(qraw.trim());
+  if(!q){ home(); return; }
+  if(D.keys.includes(qraw.trim())){ rowView(qraw.trim(), null); return; }
+  if(D.alias[q]){ rowView(D.alias[q], q); return; }
+  const rowHits = {}, colHits = [], cellHits = [];
+  for(const c of D.cols){
+    if(norm(c.title).includes(q) || norm(c.label) === q) colHits.push(c);
+    for(const k in c.cells){
+      if(norm(c.cells[k]).includes(q)){
+        (rowHits[k] = rowHits[k] || []).push([c, c.cells[k]]);
+        if(cellHits.length < 200) cellHits.push([k, c]);
+      }
+    }
+  }
+  const rks = D.keys.filter(k => rowHits[k]);
+  if(rks.length === 1 && !colHits.length){ rowView(rks[0], q); return; }
+  let h = '';
+  if(!rks.length && !colHits.length){
+    h = `<p class="hint">No matches for “${esc(qraw)}”. Try an element, planet, sign, tarot name, god-name, Hebrew word, symbol, or a Key-Scale number (0–32, 32 bis, 31 bis).</p>`;
+  }
+  if(rks.length){
+    h += '<p class="hint">Rows of the Key Scale containing your term — tap one for the full set of correspondences:</p>';
+    for(const k of rks.slice(0, 40)){
+      const sample = rowHits[k].slice(0,3).map(([c,v]) => `<b>${c.label}</b> ${hl(v,q)}`).join(' · ');
+      h += `<div class="card matchline" onclick="rowView('${k}','${q.replace(/'/g,"\\'")}')">
+        <b>Key ${k}</b> <span class="sub">— ${D.rowmeta[k]||''}</span> <span class="count">(${rowHits[k].length} ${rowHits[k].length===1?'match':'matches'})</span><br>
+        <span style="font-size:13.5px">${sample}</span></div>`;
+    }
+  }
+  if(colHits.length){
+    h += '<p class="hint">Columns matching your term:</p>';
+    for(const c of colHits.slice(0, 30)){
+      h += `<div class="card matchline" onclick="colView('${c.label.replace(/'/g,"\\'")}')"><b>${c.label}.</b> ${hl(c.title, q)}</div>`;
+    }
+  }
+  $('#out').innerHTML = h;
+}
+function home(){
+  let h = `<p class="hint">${DB.text('finder.home')}</p><div class="chips">`;
+  for(const k of D.keys) h += `<span class="chip" onclick="rowView('${k}')">${k}</span>`;
+  h += '</div><p class="hint">Quick: ';
+  for(const a of ['fire','water','air','earth','spirit','sun','moon','mercury','venus','mars','jupiter','saturn'])
+    h += `<span class="chip" onclick="$q.value='${a}';search('${a}')">${a}</span> `;
+  h += '</p>';
+  $('#out').innerHTML = h;
+}
+const $q = $('#q');
+let t; $q.addEventListener('input', () => { clearTimeout(t); t = setTimeout(() => search($q.value), 160); });
+home();
+</script></body></html>

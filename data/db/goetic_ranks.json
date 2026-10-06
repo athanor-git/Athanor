@@ -1,0 +1,9 @@
+{"table": "goetic_ranks", "rows": [
+{"id": "king", "name": "King", "plural": "Kings", "words": "king\nkings\nkingly", "planet": "sun", "metal": "Gold", "pen": "MC003", "alt_pen": "MC026", "gd_pen": "MC003", "gd_pen_note": "yellow"},
+{"id": "duke", "name": "Duke", "plural": "Dukes", "words": "duke\ndukes\nducal\nduchess\ndukedom", "planet": "venus", "metal": "Copper", "pen": "MC022", "alt_pen": "MC027", "alt_pen_note": "brighter on black", "gd_pen": "MC040"},
+{"id": "prince", "name": "Prince", "plural": "Princes", "spellings": "Prelate", "words": "prince\nprinces\nprincely\nprelate\nprelates\nprelacy\nprelacies", "hours_like": "earl, president", "planet": "jupiter", "metal": "Tin", "pen": "MC012", "alt_pen": "MC024", "gd_pen": "MC010"},
+{"id": "marquis", "name": "Marquis", "plural": "Marquises", "words": "marquis\nmarquises\nmarkis\nmarquess", "planet": "moon", "metal": "Silver", "pen": "MC036", "alt_pen": "MC031", "gd_pen": "MC024"},
+{"id": "president", "name": "President", "plural": "Presidents", "words": "president\npresidents", "hours_like": "king", "planet": "mercury", "metal": "Mercury (quicksilver)", "pen": "MC024", "alt_pen": "MC043", "gd_pen": "MC014"},
+{"id": "earl", "name": "Earl", "plural": "Earls", "spellings": "Count", "words": "earl\nearls\ncount\ncounts\ncounties", "hours_like": "president", "planet": "mars", "metal": "Copper + silver", "pen": "MC001", "alt_pen": "MC023", "gd_pen": "MC033"},
+{"id": "knight", "name": "Knight", "plural": "Knights", "words": "knight\nknights", "planet": "saturn", "metal": "Lead", "pen": "MC020", "alt_pen": "MC031", "gd_pen": "MC020", "gd_pen_note": "no black in set"}
+]}

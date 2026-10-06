@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Athanor — Daily Journal</title>
+<style>
+:root{--bg:#faf7f0;--card:#fff;--ink:#1a1712;--sub:#6b6357;--acc:#7a5c2e;--line:#e3ddd0;--chip:#f0ebe0;--hl:#f6efdd;--ok:#3d7a4a;--warn:#a5542c;--on-acc:#fff}
+@media(prefers-color-scheme:dark){:root{--bg:#14120e;--card:#1e1b15;--ink:#ece5d8;--sub:#9a9184;--acc:#d0a85c;--line:#33302a;--chip:#2a261e;--hl:#2b2519;--ok:#7fbf8c;--warn:#e0936a;--on-acc:#14120e}}
+*{box-sizing:border-box}html,body{margin:0}
+body{font:16px system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--ink);-webkit-text-size-adjust:100%;overflow-x:hidden}
+header{padding:10px 14px;border-bottom:1px solid var(--line)}h1{font-size:16px;margin:0}h1 small{color:var(--sub);font-weight:400}
+main{max-width:640px;margin:0 auto;padding:10px 12px 48px}
+@media(max-width:480px){main{padding:8px 8px 48px}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin:10px 0}
+.sec{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--acc);font-weight:700;margin:0 0 6px}
+.sub{color:var(--sub);font-size:13px}
+.hidden{display:none!important}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+button{font:inherit;font-size:15px;border:1px solid var(--acc);background:var(--acc);color:var(--on-acc);border-radius:10px;padding:9px 14px;min-height:44px;cursor:pointer}
+button.ghost{background:var(--card);color:var(--ink);border-color:var(--line)}
+button.sm{font-size:14px;padding:6px 14px;min-height:42px}
+button.icon{min-width:44px;padding:6px 0;font-size:19px;line-height:1}
+button.danger{color:var(--warn)}
+button.link{background:none;border:none;color:var(--acc);padding:6px 2px 6px 8px;min-height:40px;font-size:13.5px;text-decoration:underline;text-underline-offset:2px}
+button:disabled{opacity:.42;cursor:default}
+input{font:inherit;font-size:16px;padding:9px 10px;border:1px solid var(--line);border-radius:9px;background:var(--card);color:var(--ink);flex:1 1 140px;min-width:0}
+input:focus{outline:none;border-color:var(--acc)}
+/* tabs */
+.tabs{display:flex;gap:6px;margin:2px 0 0}
+.tabs button{border:1px solid var(--line);background:var(--chip);color:var(--sub);border-radius:20px;padding:7px 18px;font-size:14px;min-height:40px}
+.tabs button.on{background:var(--acc);border-color:var(--acc);color:var(--on-acc)}
+/* now */
+.now{padding:10px 14px 6px}
+.nh{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.nl{font-size:14.5px;line-height:1.5;margin:2px 0;overflow-wrap:anywhere}
+.locrow{display:flex;align-items:center;justify-content:space-between;gap:6px;flex-wrap:wrap;border-top:1px dashed var(--line);margin-top:6px}
+#locEd{padding:4px 0 8px}
+#locEd .sub{margin-top:6px}
+/* stamp */
+.stamp{font-size:13.5px;line-height:1.5;border-left:3px solid var(--acc);background:var(--hl);border-radius:0 9px 9px 0;padding:8px 11px;margin:0 0 10px;overflow-wrap:anywhere}
+.stamp.wait{border-left-color:var(--line);background:none;color:var(--sub);padding:2px 11px;font-size:13px}
+.sw{font-size:14.5px;margin-bottom:4px}
+.sc{font-size:14px;line-height:1.45;margin:2px 0}
+.sc.sub{font-size:13px}
+.sw b{font-size:16px}
+.sr{display:grid;grid-template-columns:6.6em minmax(0,1fr);gap:0 6px;align-items:baseline;margin:3px 0}
+.lbl{color:var(--acc);font-weight:700;font-size:11px;letter-spacing:.04em;text-transform:uppercase;line-height:1.3}
+.pk{color:var(--sub);font-size:12.5px;line-height:1.45}
+.dig{display:inline-block;font-size:11.5px;border:1px solid currentColor;border-radius:9px;padding:0 7px;font-weight:700;white-space:nowrap;line-height:1.5}
+.dig.good{color:var(--ok)}.dig.bad{color:var(--warn)}.dig.none{color:var(--sub)}
+.rx{color:var(--warn);font-weight:700}
+details.sky{margin-top:4px}
+details.sky summary{cursor:pointer;color:var(--acc);font-weight:600;font-size:13px;padding:6px 0;min-height:32px}
+table.sky{width:100%;border-collapse:collapse;font-size:13px}
+table.sky td{padding:4px 3px;border-top:1px solid var(--line);vertical-align:top}
+table.sky td.g{width:22px;color:var(--acc)}
+table.sky td.n{white-space:nowrap;font-variant-numeric:tabular-nums}
+table.sky td.d{color:var(--sub);white-space:nowrap;text-align:right}
+.skycap{font-size:12.5px;color:var(--sub);margin:0 0 4px}
+.skynote{font-size:11.5px;color:var(--sub);margin-top:5px;line-height:1.4}
+/* writer */
+.write{padding:12px 12px 10px}
+#ta,.eta{display:block;width:100%;min-height:36vh;font:17px/1.6 Georgia,"Times New Roman",serif;padding:12px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);resize:none;overflow:hidden;unicode-bidi:plaintext;text-align:start}
+.eta{min-height:9em;margin:10px 0 8px}
+#ta:focus,.eta:focus{outline:none;border-color:var(--acc)}
+.bar{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:8px}
+.saved{font-size:12.5px;color:var(--sub);text-align:right;min-width:0;overflow-wrap:anywhere}
+.saved.err{color:var(--warn);font-weight:600}
+/* lists */
+.item{display:flex;gap:10px;align-items:center;padding:11px 0;cursor:pointer;min-height:48px}
+.item+.item{border-top:1px solid var(--line)}
+.item:focus-visible{outline:2px solid var(--acc);outline-offset:2px;border-radius:6px}
+.item .bd{flex:1;min-width:0}
+.item .nm{font-weight:700;font-size:15.5px;color:var(--acc)}
+.item .m{font-size:13px;color:var(--sub);margin-top:1px}
+.item .m b{color:var(--ink)}
+.item .pv{font-size:14px;margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;unicode-bidi:plaintext;text-align:start}
+.item .go{color:var(--sub);font-size:24px;line-height:1;flex:0 0 auto}
+.okc{color:var(--ok);font-weight:600}
+.todo{color:var(--acc)}
+.where{background:var(--hl);border-radius:9px;padding:8px 11px;font-size:13px;line-height:1.45;margin:10px 0}
+#unsaved button.link{min-height:0;padding:2px 1px;font-size:inherit;line-height:inherit}
+.empty{text-align:center;padding:24px 16px;line-height:1.5}
+.empty .glyph{font-size:34px;color:var(--acc);line-height:1;margin-bottom:8px}
+/* day view */
+.dtop{display:flex;align-items:center;gap:10px;margin:8px 0 2px}
+.dtitle{flex:1;min-width:0;font-weight:700;font-size:17px;line-height:1.3}
+.tick{display:flex;align-items:center;gap:10px;margin-top:8px;min-height:44px;font-size:15px;cursor:pointer}
+.tick input{flex:0 0 auto;width:22px;height:22px;accent-color:var(--acc);margin:0}
+.dmsg{margin-top:4px}.dmsg:empty{display:none}
+.dmsg.err{color:var(--warn)}
+.ent .stamp{margin-bottom:6px}
+.etx{font:16.5px/1.6 Georgia,"Times New Roman",serif;white-space:pre-wrap;overflow-wrap:anywhere;margin:10px 2px 6px;unicode-bidi:plaintext;text-align:start}
+.em{margin:0 2px 8px;min-height:0}
+#toast{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:9px 16px;border-radius:18px;font-size:14px;opacity:0;transition:opacity .2s;pointer-events:none;z-index:20;max-width:90vw;text-align:center}
+#toast.on{opacity:.94}
+</style></head><body>
+<header><h1>ATHANOR · DAILY JOURNAL <small>· stamped with the hour, filed by the day</small></h1></header>
+<main>
+<nav class="tabs" id="tabs"><button type="button" class="on" data-v="today">Today</button><button type="button" data-v="days">Days</button></nav>
+
+<section id="vToday">
+ <div class="card now">
+  <div class="nh"><span class="sec">Now</span><span class="sub" id="nowT"></span></div>
+  <div id="nowBody"></div>
+  <div class="locrow"><span class="sub" id="locTxt"></span><button class="link" id="locBtn" type="button">Change</button></div>
+  <div id="locEd" class="hidden">
+   <div class="row"><input id="mlat" placeholder="Latitude (N +)" aria-label="Latitude, north positive" autocomplete="off"><input id="mlon" placeholder="Longitude (E +, W −)" aria-label="Longitude, east positive" autocomplete="off"></div>
+   <div class="row" style="margin-top:8px"><button id="locSave" type="button">Save</button><button class="ghost" id="locGps" type="button">Use GPS</button><button class="ghost" id="locCancel" type="button">Cancel</button></div>
+   <div class="sub">Decimal degrees, e.g. 51.51 and −0.13. A place entered here is used until you tap “Use GPS”.</div>
+  </div>
+ </div>
+ <div class="card write">
+  <div id="stamp" class="stamp wait"></div>
+  <textarea id="ta" placeholder="Start writing…" aria-label="Journal entry" autocapitalize="sentences"></textarea>
+  <div class="bar"><button class="ghost" id="newBtn" type="button" disabled>New entry</button><span id="saved" class="saved" role="status" aria-live="polite"></span></div>
+ </div>
+ <div id="unsaved" class="where hidden" role="status"></div>
+ <div id="todayList"></div>
+</section>
+
+<section id="vDays" class="hidden"></section>
+<section id="vDay" class="hidden"></section>
+</main>
+<div id="toast" role="status" aria-live="polite"></div>
+<script src="../lib/store.js"></script>
+<script src="../../data/dignities.js"></script>
+<script src="../../data/db/core.js"></script>
+<script src="../../data/db/texts.js"></script>
+<script src="../lib/db.js"></script>
+<script>
+'use strict';
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+let A=null; try{A=(window.parent&&window.parent.Android)||window.Android||null;}catch(e){try{A=window.Android||null;}catch(_){A=null;}}
+const LS={
+  get(k,d){try{const v=localStorage.getItem('l777journal.'+k);return v==null?d:JSON.parse(v);}catch(e){return d;}},
+  set(k,v){try{localStorage.setItem('l777journal.'+k,JSON.stringify(v));return true;}catch(e){return false;}},
+  del(k){try{localStorage.removeItem('l777journal.'+k);}catch(e){}}
+};
+const readLS=k=>{try{return JSON.parse(localStorage.getItem(k));}catch(e){return null;}};
+
+/* ---------- Compact ephemeris, copied from sky.html: JPL Keplerian elements (1800-2050) + truncated lunar theory ---------- */
+const D2R = Math.PI/180;
+const EL = { // a, e, I, L, varpi, Omega  + rates/century
+ mercury:[0.38709927,0.20563593,7.00497902,252.25032350,77.45779628,48.33076593,
+          0.00000037,0.00001906,-0.00594749,149472.67411175,0.16047689,-0.12534081],
+ venus:[0.72333566,0.00677672,3.39467605,181.97909950,131.60246718,76.67984255,
+        0.00000390,-0.00004107,-0.00078890,58517.81538729,0.00268329,-0.27769418],
+ earth:[1.00000261,0.01671123,-0.00001531,100.46457166,102.93768193,0.0,
+        0.00000562,-0.00004392,-0.01294668,35999.37244981,0.32327364,0.0],
+ mars:[1.52371034,0.09339410,1.84969142,-4.55343205,-23.94362959,49.55953891,
+       0.00001847,0.00007882,-0.00813131,19140.30268499,0.44441088,-0.29257343],
+ jupiter:[5.20288700,0.04838624,1.30439695,34.39644051,14.72847983,100.47390909,
+          -0.00011607,-0.00013253,-0.00183714,3034.74612775,0.21252668,0.20469106],
+ saturn:[9.53667594,0.05386179,2.48599187,49.95424423,92.59887831,113.66242448,
+         -0.00125060,-0.00050991,0.00193609,1222.49362201,-0.41897216,-0.28867794],
+ uranus:[19.18916464,0.04725744,0.77263783,313.23810451,170.95427630,74.01692503,
+         -0.00196176,-0.00004397,-0.00242939,428.48202785,0.40805281,0.04240589],
+ neptune:[30.06992276,0.00859048,1.77004347,-55.12002969,44.96476227,131.78422574,
+          0.00026291,0.00005105,0.00035372,218.45945325,-0.32241464,-0.00508664],
+ pluto:[39.48211675,0.24882730,17.14001206,238.92903833,224.06891629,110.30393684,
+        -0.00031596,0.00005170,0.00004818,145.20780515,-0.04062942,-0.01183482]};
+function helio(p, T){
+  const e0=EL[p], a=e0[0]+e0[6]*T, ec=e0[1]+e0[7]*T, I=(e0[2]+e0[8]*T)*D2R,
+        L=e0[3]+e0[9]*T, vp=e0[4]+e0[10]*T, Om=(e0[5]+e0[11]*T);
+  let M=(L-vp)%360; if(M>180)M-=360; if(M<-180)M+=360;
+  const w=(vp-Om)*D2R, OmR=Om*D2R;
+  let E=M*D2R + ec*Math.sin(M*D2R);
+  for(let i=0;i<8;i++){ const dE=(E-ec*Math.sin(E)-M*D2R)/(1-ec*Math.cos(E)); E-=dE; }
+  const xp=a*(Math.cos(E)-ec), yp=a*Math.sqrt(1-ec*ec)*Math.sin(E);
+  const cw=Math.cos(w),sw=Math.sin(w),cO=Math.cos(OmR),sO=Math.sin(OmR),ci=Math.cos(I),si=Math.sin(I);
+  return [ (cw*cO-sw*sO*ci)*xp + (-sw*cO-cw*sO*ci)*yp,
+           (cw*sO+sw*cO*ci)*xp + (-sw*sO+cw*cO*ci)*yp,
+           (sw*si)*xp + (cw*si)*yp ];
+}
+function lon(x,y){ let l=Math.atan2(y,x)/D2R; return (l%360+360)%360; }
+function positions(JD){
+  const T=(JD-2451545)/36525, E=helio('earth',T), out={};
+  out.sun = lon(-E[0],-E[1]);
+  for(const p of ['mercury','venus','mars','jupiter','saturn','uranus','neptune','pluto']){
+    const P=helio(p,T); out[p]=lon(P[0]-E[0],P[1]-E[1]);
+  }
+  // Moon (Meeus ch.47, principal terms)
+  const Lp=218.3164477+481267.88123421*T-0.0015786*T*T,
+        D=297.8501921+445267.1114034*T-0.0018819*T*T,
+        M=357.5291092+35999.0502909*T-0.0001536*T*T,
+        Mp=134.9633964+477198.8675055*T+0.0087414*T*T,
+        F=93.2720950+483202.0175233*T-0.0036539*T*T;
+  const t=[[6288774,0,0,1,0],[1274027,2,0,-1,0],[658314,2,0,0,0],[213618,0,0,2,0],
+    [-185116,0,1,0,0],[-114332,0,0,0,2],[58793,2,0,-2,0],[57066,2,-1,-1,0],
+    [53322,2,0,1,0],[45758,2,-1,0,0],[-40923,0,1,-1,0],[-34720,1,0,0,0],
+    [-30383,0,1,1,0],[15327,2,0,0,-2],[-12528,0,0,1,2],[10980,0,0,1,-2],
+    [10675,4,0,-1,0],[10034,0,0,3,0],[8548,4,0,-2,0],[-7888,2,1,-1,0],
+    [-6766,2,1,0,0],[-5163,1,0,-1,0],[4987,1,1,0,0],[4036,2,-1,1,0]];
+  let s=0;
+  for(const [c,d1,m1,mp1,f1] of t){
+    let arg=(d1*D+m1*M+mp1*Mp+f1*F)*D2R, coef=c;
+    if(m1) coef*= (1-0.002516*T-0.0000074*T*T)**Math.abs(m1);
+    s+=coef*Math.sin(arg);
+  }
+  out.moon=((Lp+s/1e6)%360+360)%360;
+  const _pr=(5029.0966*T+1.11161*T*T)/3600;
+  for(const _k in out){ if(_k!=='moon'){ out[_k]=((out[_k]+_pr)%360+360)%360; } }
+  out.sun=((out.sun-20.4955/3600)%360+360)%360;
+  return out;
+}
+
+/* ---------- Sun on the horizon (from compass.html: h0 = −0.833°, upper limb with refraction) ---------- */
+const an=a=>((a%360)+360)%360;
+const w180=a=>an(a+180)-180;
+const msJD=ms=>2440587.5+ms/864e5;
+const obliq=JD=>23.4392911-0.0130042*(JD-2451545)/36525;
+function sunLam(JD){const T=(JD-2451545)/36525,E=helio('earth',T);return an(lon(-E[0],-E[1])+(5029.0966*T+1.11161*T*T)/3600-20.4955/3600);}
+function toEq(lam,bet,eps){
+  const l=lam*D2R,b=bet*D2R,e=eps*D2R;
+  return {ra:an(Math.atan2(Math.sin(l)*Math.cos(e)-Math.tan(b)*Math.sin(e),Math.cos(l))/D2R),
+          dec:Math.asin(Math.sin(b)*Math.cos(e)+Math.cos(b)*Math.sin(e)*Math.sin(l))/D2R};
+}
+function lstOf(JD,lonE){const T=(JD-2451545)/36525;return an(280.46061837+360.98564736629*(JD-2451545)+0.000387933*T*T+lonE);}
+// The Sun's hour angle now and its hour angle at rising/setting (H0, null where it does not rise or set)
+function sunState(ms,lat,lng){
+  const JD=msJD(ms),q=toEq(sunLam(JD),0,obliq(JD)),lst=lstOf(JD,lng),p=lat*D2R,d=q.dec*D2R;
+  const c=(Math.sin(-0.833*D2R)-Math.sin(p)*Math.sin(d))/(Math.cos(p)*Math.cos(d));
+  return {ha:w180(lst-q.ra),H0:(c>=-1&&c<=1)?Math.acos(c)/D2R:null};
+}
+// sgn −1 = sunrise, +1 = sunset: the event within about 12 h of ms, or null (polar day/night)
+function sunEventNear(ms,sgn,lat,lng){
+  let t=ms;
+  for(let i=0;i<10;i++){
+    const s=sunState(t,lat,lng); if(s.H0==null)return null;
+    const dd=w180(s.ha-sgn*s.H0);
+    t-=dd/360*864e5;
+    if(Math.abs(dd)<0.004)break;
+  }
+  return t;
+}
+// the most recent sunrise (sgn −1) or sunset (+1) at or before ms, or null
+function sunEventBefore(ms,sgn,lat,lng){
+  const s=sunState(ms,lat,lng); if(s.H0==null)return null;
+  let t=sunEventNear(ms-an(s.ha-sgn*s.H0)/360*864e5,sgn,lat,lng); if(t==null)return null;
+  if(t>ms){ t=sunEventNear(t-864e5,sgn,lat,lng); if(t==null||t>ms)return null; }
+  return t;
+}
+// Weekday of an instant at the location (compass.html locDay): the device's calendar while its clock keeps
+// within 3½ h of the place's mean solar time, otherwise the place's local mean time
+function locDay(ms,L){
+  const dev=new Date(ms).getDay();
+  if(!L)return {wd:dev,lmt:false};
+  const gap=w180((-new Date(ms).getTimezoneOffset()/60-L.lon/15)*15)/15;
+  if(Math.abs(gap)<=3.5)return {wd:dev,lmt:false};
+  return {wd:new Date(ms+L.lon/15*36e5).getUTCDay(),lmt:true};
+}
+
+/* ---------- names: the content tables (data/db, edited in the content workbook) through lib/db.js ---------- */
+const VS='︎';
+const WD=DB.rows('weekdays').map(w=>w.name);                 // getDay 0 = Sunday
+const MON=['January','February','March','April','May','June','July','August','September','October','November','December'];
+const MON3=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const SIGNS=DB.rows('signs').map(s=>[s.name,s.glyph]);
+/* The dignity sheet "Thoth Tarot – Planetary Dignities & Properties" is kept once, in ../../data/dignities.json;
+   DIGNITIES is its generated twin (../../data/dignities.js, written by tools/data_js.py). */
+const SIGN_IX={}; SIGNS.forEach((s,i)=>SIGN_IX[s[0]]=i);
+// Zodiacal Atus (sheet, section 1): 'IV Emperor' … by sign index
+const SIGN_ATU=[]; DIGNITIES.signs.forEach(s=>SIGN_ATU[SIGN_IX[s.sign]]=s.atu+' '+s.card);
+const NAME={},GLY={}; DB.rows('planets').forEach(p=>{NAME[p.id]=p.name;GLY[p.id]=p.glyph;});
+// the bodies a stamp records, in the order it lists them: the ephemeris' own keys (positions() and the mean nodes)
+const BODIES=['sun','moon','mercury','venus','mars','jupiter','saturn','nnode','snode','uranus','neptune','pluto'];
+const CHAL=DB.where('planets',p=>p.chaldean).sort((a,b)=>a.chaldean-b.chaldean).map(p=>p.id);   // ♄ ♃ ♂ ☉ ♀ ☿ ☽
+const DAYRULER=DB.rows('weekdays').map(w=>w.planet);        // getDay 0 = Sunday
+const isNode=k=>(DB.get('planets',k)||{}).kind==='node';
+const OUTER=(a=>a.slice(0,-1).join(', ')+' and '+a[a.length-1])(DB.where('planets',{kind:'outer'}).map(p=>p.name));
+
+/* ---------- the user's dignity scheme: "Thoth Tarot – Planetary Dignities & Properties" ----------
+   Sign index 0 = Aries … 11 = Pisces. Classical seven + the nodes; no modern rulers. */
+// DIG[planet] = {dom,ex,det,fall}: lists of sign indexes (sheet, sections 2 and 5). The outer planets get no entry.
+// PL[planet]  = {atu:'XXI Universe', good, ill}: planetary Atu (sections 2 / 3) and keywords (section 4).
+const DIG={},PL={};
+DIGNITIES.planets.forEach(p=>{
+  const ix=v=>(v==null?[]:Array.isArray(v)?v:[v]).map(n=>SIGN_IX[n]);
+  const outer=p.kind==='outer';
+  if(!outer)DIG[p.id]={dom:ix(p.domicile),ex:ix(p.exaltation),det:ix(p.detriment),fall:ix(p.fall)};
+  PL[p.id]=Object.assign({atu:p.atu==null?'':p.atu+' '+p.card},outer?{}:{good:p.dignified.join(', '),ill:p.ill.join(', ')});
+});
+// Reading key (sheet, section 2, worded for a planet in a sign) and labels of the four dignities: the dignity_kinds
+// table. A stamp stores each dignity as its kind's ID with a capital ('Domicile' …), or 'Peregrine' for none: fixed
+// keys, so that entries already written still find their labels.
+const KEY={},DIGL={},DIGS={};
+DB.rows('dignity_kinds').forEach(r=>{
+  const k=r.id[0].toUpperCase()+r.id.slice(1),alt=r.key_label.toLowerCase();
+  KEY[k]=r.planet_reading;
+  DIGL[k]=r.name+(alt!==r.name.toLowerCase()?' ('+alt+')':'');   // "Domicile (ruler)": the sheet's word in brackets
+  DIGS[k]=r.short_label||r.name;                                 // "Exalted"
+});
+KEY.Peregrine=DB.text('journal.key-peregrine'); DIGL.Peregrine=DIGS.Peregrine='Peregrine';
+const NUMW=['','','Two','Three','Four','Five','Six','Seven','Eight','Nine','Ten'];
+// The 36 decans from 0° Aries: the decans table (ruler), each with its small card (cards.decan: number, suit, Thoth title)
+const DECANS=[];
+DB.rows('decans').forEach(d=>{const c=DB.rev('cards','decan',d.id)[0];
+  DECANS[SIGN_IX[DB.get('signs',d.sign).name]*3+d.n-1]={n:c.n,suit:DB.ref(c,'suit').name,title:c.title,ruler:d.ruler};});
+
+function dignities(k,s){
+  const t=DIG[k]; if(!t)return null;
+  const o=[];
+  if(t.dom.includes(s))o.push('Domicile');
+  if(t.ex.includes(s))o.push('Exaltation');
+  if(t.det.includes(s))o.push('Detriment');
+  if(t.fall.includes(s))o.push('Fall');
+  if(!o.length)o.push('Peregrine');
+  return o;
+}
+function keywords(k,dig){
+  const p=PL[k]; if(!p||!p.good||!dig)return null;
+  const good=dig.includes('Domicile')||dig.includes('Exaltation'), bad=dig.includes('Detriment')||dig.includes('Fall');
+  if(good&&!bad)return {kind:'dignified',text:p.good};
+  if(bad&&!good)return {kind:'ill-dignified',text:p.ill};
+  const three=s=>s.split(', ').slice(0,3).join(', ');
+  return {kind:'both',text:three(p.good)+' / '+three(p.ill)};
+}
+function degText(l){const s=Math.floor(an(l)/30),d=an(l)-s*30,d0=Math.floor(d),m=Math.floor((d-d0)*60);return d0+'°'+String(m).padStart(2,'0')+'′';}
+function meanNode(JD){const T=(JD-2451545)/36525;return an(125.0445479-1934.1362891*T+0.0020754*T*T+T*T*T/467441-T*T*T*T/60616000);}
+function allLons(JD){const P=positions(JD);P.nnode=meanNode(JD);P.snode=an(P.nnode+180);return P;}
+// daily motion sign from positions 3 h either side: negative = retrograde
+function rates(JD){const a=allLons(JD-0.125),b=allLons(JD+0.125),R={};for(const k in a)R[k]=w180(b[k]-a[k]);return R;}
+function bodyInfo(k,P,R){
+  const l=an(P[k]),s=Math.floor(l/30),dig=dignities(k,s);
+  const o={k,lon:Math.round(l*1e4)/1e4,sign:s,deg:degText(l),rx:k!=='sun'&&k!=='moon'&&R[k]<0};
+  if(dig){o.dig=dig;o.key=dig.map(x=>KEY[x]).join('; ');const kw=keywords(k,dig);if(kw){o.kw=kw.text;o.kwKind=kw.kind;}}
+  return o;
+}
+function decanOf(l){
+  const i=Math.floor(an(l)/10)%36,s=Math.floor(i/3),d=i%3,D=DECANS[i];
+  return {n:D.n,suit:D.suit,title:D.title,ruler:D.ruler,sign:s,from:d*10};
+}
+// The phase's name: the moon_phases table, in the sentence case the stamps have always stored ("Waxing crescent";
+// "Moon" keeps its capital). Where one phase ends and the next begins is the journal's own.
+const PHASE=id=>DB.get('moon_phases',id).name.replace(/ (?!Moon\b)\S/g,c=>c.toLowerCase());
+function phaseName(e){
+  if(e<6||e>=354)return PHASE('new'); if(e<84)return PHASE('waxing-crescent'); if(e<96)return PHASE('first-quarter'); if(e<174)return PHASE('waxing-gibbous');
+  if(e<186)return PHASE('full'); if(e<264)return PHASE('waning-gibbous'); if(e<276)return PHASE('last-quarter'); return PHASE('waning-crescent');
+}
+
+/* ---------- planetary day and hour (hours.html logic: unequal hours, Chaldean order from the day ruler) ---------- */
+function planetaryAt(ms,L){
+  const cal=locDay(ms,L).wd;
+  if(!L)return {ok:false,wd:cal,note:'No location — planetary hours not available'};
+  const r0=sunEventBefore(ms,-1,L.lat,L.lon);
+  let s=null,r1=null;
+  if(r0!=null){
+    const h=sunState(r0,L.lat,L.lon).H0;
+    if(h!=null){ s=sunEventNear(r0+h/180*864e5,1,L.lat,L.lon); r1=sunEventNear(r0+864e5,-1,L.lat,L.lon); }
+  }
+  if(r0==null||s==null||r1==null||!(r0<s&&s<r1)||r1-r0<18*36e5||r1-r0>30*36e5||ms>r1+6e4)
+    return {ok:false,wd:cal,note:'The Sun does not rise and set here today (polar day or night) — planetary hours not available'};
+  // the day that begins at sunrise r0, named from its solar noon: a high-latitude sunrise that falls before midnight
+  // on a phone set to another zone (e.g. Reykjavik in June, 02:55 there = 22:55 in New York) still names the right day
+  const wd=locDay((r0+s)/2,L).wd,dr=DAYRULER[wd],night=ms>=s,base=night?s:r0,len=((night?r1:s)-base)/12;
+  const n=Math.max(1,Math.min(12,Math.floor((ms-base)/len)+1)),idx=(night?12:0)+n-1,c0=CHAL.indexOf(dr);
+  return {ok:true,wd,night,n,start:base+(n-1)*len,end:base+n*len,ruler:CHAL[(c0+idx)%7],nextRuler:CHAL[(c0+idx+1)%7],
+          rise:r0,set:s,rise2:r1,prev:night&&cal!==wd};
+}
+
+/* ---------- location: Rites (app) → GPS → entered here ---------- */
+let LOC=null,GEO=LS.get('geo',null);
+const validLL=o=>!!o&&typeof o.lat==='number'&&typeof o.lon==='number'&&isFinite(o.lat)&&isFinite(o.lon)&&Math.abs(o.lat)<=90&&Math.abs(o.lon)<=180;
+const LOCSRC={manual:'entered here',rites:'from Rites','rites-manual':'entered in Rites',gps:'from this device',compass:'from the Compass'};
+function resolveLoc(){
+  const man=LS.get('loc',null);
+  if(man&&man.override&&validLL(man))return {lat:man.lat,lon:man.lon,src:'manual'};
+  if(A&&typeof A.getRitesState==='function'){try{const s=JSON.parse(A.getRitesState()); if(s&&validLL(s.location))return {lat:s.location.lat,lon:s.location.lon,src:s.location.manual?'rites-manual':'rites'};}catch(e){}}
+  const rp=readLS('l777rites'); if(rp&&validLL(rp.loc))return {lat:rp.loc.lat,lon:rp.loc.lon,src:'rites'};
+  if(validLL(GEO))return {lat:GEO.lat,lon:GEO.lon,src:'gps'};
+  if(validLL(man))return {lat:man.lat,lon:man.lon,src:'manual'};
+  const cm=readLS('l777compass.loc'); if(validLL(cm))return {lat:cm.lat,lon:cm.lon,src:'compass'};
+  const cg=readLS('l777compass.geo'); if(validLL(cg))return {lat:cg.lat,lon:cg.lon,src:'compass'};
+  return null;
+}
+function requestGeo(explicit){
+  if(!navigator.geolocation){ if(explicit)toast('No GPS here — enter the place instead'); return; }
+  try{navigator.geolocation.getCurrentPosition(p=>{
+      GEO={lat:+p.coords.latitude.toFixed(4),lon:+p.coords.longitude.toFixed(4)}; LS.set('geo',GEO);
+      LOC=resolveLoc(); renderNow();
+    },()=>{ if(explicit){ toast('Location not available — enter it instead'); openLocEd(); } },
+    {enableHighAccuracy:false,timeout:15000,maximumAge:600000});}
+  catch(e){ if(explicit)openLocEd(); }
+}
+function locText(L){
+  if(!L)return 'no location — hours not available';
+  return Math.abs(L.lat).toFixed(2)+'° '+(L.lat<0?'S':'N')+', '+Math.abs(L.lon).toFixed(2)+'° '+(L.lon<0?'W':'E');
+}
+
+/* ---------- time formats (an entry keeps the UTC offset it was written in) ---------- */
+const pad=n=>String(n).padStart(2,'0');
+const devOff=ms=>-new Date(ms).getTimezoneOffset();
+const shift=(ms,off)=>new Date(ms+off*6e4);   // read with getUTC*
+function hm(ms,off,round){const d=shift(round?Math.round(ms/6e4)*6e4:ms,off);return pad(d.getUTCHours())+':'+pad(d.getUTCMinutes());}
+function ymd(ms,off){const d=shift(ms,off);return d.getUTCFullYear()+'-'+pad(d.getUTCMonth()+1)+'-'+pad(d.getUTCDate());}
+function dateLong(ms,off){const d=shift(ms,off);return WD[d.getUTCDay()]+' '+d.getUTCDate()+' '+MON[d.getUTCMonth()]+' '+d.getUTCFullYear();}
+function idParts(id){const m=/^(\d{4})-(\d{2})-(\d{2})$/.exec(id||'');return m?new Date(Date.UTC(+m[1],+m[2]-1,+m[3])):null;}
+function dateLongId(id){const d=idParts(id);return d?dateLong(d.getTime(),0):String(id||'');}
+function dayName(id){const d=idParts(id);return d?id+' '+WD[d.getUTCDay()]:String(id);}
+function offStr(off,iso){const a=Math.abs(off),t=pad(Math.floor(a/60))+':'+pad(a%60);return iso?(off<0?'-':'+')+t:(off===0?'UTC':'UTC'+(off<0?'−':'+')+t);}
+function isoLocal(ms){const off=devOff(ms);return shift(ms,off).toISOString().slice(0,19)+offStr(off,true);}
+function isoShort(iso){const d=new Date(iso);if(isNaN(d))return String(iso||'');return d.getDate()+' '+MON3[d.getMonth()]+' '+pad(d.getHours())+':'+pad(d.getMinutes());}
+const todayId=()=>ymd(Date.now(),devOff(Date.now()));
+
+/* ---------- the stamp, frozen at the first keystroke ---------- */
+function makeStamp(ms){
+  const off=devOff(ms),L=LOC;
+  const st={v:1,t:ms,off,date:ymd(ms,off),wd:shift(ms,off).getUTCDay(),
+    loc:L?{lat:Math.round(L.lat*100)/100,lon:Math.round(L.lon*100)/100,src:L.src}:null};
+  const JD=msJD(ms),P=allLons(JD),R=rates(JD);
+  st.sky=BODIES.map(k=>bodyInfo(k,P,R));
+  const el=an(P.moon-P.sun);
+  st.moon={phase:phaseName(el),illum:Math.round((1-Math.cos(el*D2R))/2*100),elong:Math.round(el*10)/10};
+  const ph=planetaryAt(ms,L);
+  // each shown instant keeps its own UTC offset, so an hour or a sunrise across a clock change reads as the clock did
+  st.pday={wd:ph.wd,ruler:DAYRULER[ph.wd],night:!!ph.night,prev:!!ph.prev,calendar:!ph.ok,
+    rise:ph.ok?Math.round(ph.rise):null,set:ph.ok?Math.round(ph.set):null,next:ph.ok?Math.round(ph.rise2):null,noff:ph.ok?devOff(ph.rise2):null};
+  st.hour=ph.ok?{ruler:ph.ruler,night:ph.night,n:ph.n,start:Math.round(ph.start),end:Math.round(ph.end),next:ph.nextRuler,
+    soff:devOff(ph.start),eoff:devOff(ph.end)}:null;
+  st.note=ph.ok?'':ph.note;
+  st.hr=ph.ok?ph.ruler:null;
+  st.dr=st.pday.ruler;
+  st.decan=Object.assign(decanOf(P[st.hr||st.dr]),{of:st.hr?'hour':'day'});
+  return st;
+}
+function fallbackStamp(ms,err){   // never lose the writing because the sky could not be computed
+  const off=devOff(ms),wd=shift(ms,off).getUTCDay();
+  return {v:1,t:ms,off,date:ymd(ms,off),wd,loc:null,sky:[],moon:null,
+    pday:{wd,ruler:DAYRULER[wd],night:false,prev:false,calendar:true,rise:null,set:null,next:null},
+    hour:null,note:'the sky could not be computed ('+String(err&&err.message||err)+')',hr:null,dr:null,decan:null};
+}
+
+/* ---------- stamp wording (shared by the page, the day file and the plain text) ---------- */
+const plName=(k,gl)=>(gl?GLY[k]+VS+' ':'')+(NAME[k]||k);
+const bodyOf=(st,k)=>k&&Array.isArray(st.sky)?st.sky.find(x=>x.k===k)||null:null;
+function dayLabel(st,gl){
+  const p=st.pday||{},w=WD[p.wd]||'',r=plName(p.ruler,gl);
+  if(p.calendar)return w+' ('+r+') — calendar day';
+  if(!p.night)return w+' ('+r+')';
+  return w+'’s night ('+r+')'+(p.prev&&p.next?' — still '+w+'’s planetary day until sunrise at '+hm(p.next,p.noff??st.off,true):'');
+}
+function hourLabel(st,gl){
+  const h=st.hour; if(!h)return st.note||'planetary hour not available';
+  return plName(h.ruler,gl)+' · '+(h.night?'night':'day')+' hour '+h.n+' of 12 · '+hm(h.start,h.soff??st.off,true)+'–'+hm(h.end,h.eoff??st.off,true)
+    +((h.soff??st.off)!==(h.eoff??st.off)?' (the clocks changed in this hour)':'');
+}
+const bodyLine=(b,gl)=>plName(b.k,gl)+' '+b.deg+' '+(gl?SIGNS[b.sign][1]+VS+' ':'')+SIGNS[b.sign][0]+(b.rx?' ℞':'');
+const digLabel=(b,short)=>(b.dig||[]).map(x=>(short?DIGS:DIGL)[x]).join(' + ');
+const digClass=b=>{const d=b.dig||[];return d.includes('Domicile')||d.includes('Exaltation')?'good':d.includes('Detriment')||d.includes('Fall')?'bad':'none';};
+const atuLine=b=>{const p=PL[b.k];return (p&&p.atu?p.atu+' in ':'Sign: ')+SIGN_ATU[b.sign];};
+const kwLine=b=>b.kw?(b.kwKind==='dignified'?'Dignified: ':b.kwKind==='ill-dignified'?'Ill-dignified: ':'Dignified / ill-dignified: ')+b.kw:'';
+// the decan where the hour (or day) ruler stands, e.g. "Six of Cups — Pleasure (Scorpio 10–20°, decan of the Sun) · where the hour ruler stands"
+const decanText=d=>NUMW[d.n]+' of '+d.suit+' — '+d.title+' ('+SIGNS[d.sign][0]+' '+d.from+'–'+(d.from+10)+'°, decan of '+(d.ruler==='sun'||d.ruler==='moon'?'the ':'')+NAME[d.ruler]+') · where the '+(d.of==='day'?'day':'hour')+' ruler stands';
+const skyDig=b=>!b.dig?'—':(isNode(b.k)&&b.dig[0]==='Peregrine')?'—':digLabel(b,true);
+
+function stampHTML(st){
+  const row=(l,t)=>'<div class="sr"><span class="lbl">'+esc(l)+'</span><div>'+esc(t)+'</div></div>';
+  const plBlock=(l,b)=>'<div class="sr"><span class="lbl">'+esc(l)+'</span><div>'+esc(bodyLine(b,true))
+    +' <span class="dig '+digClass(b)+'">'+esc(digLabel(b))+'</span>'
+    +'<div class="pk">'+esc(atuLine(b))+' — '+esc(b.key||'')+'</div>'
+    +(b.kw?'<div class="pk">'+esc(kwLine(b))+'</div>':'')+'</div></div>';
+  let h='<div class="sw">'+esc(dateLong(st.t,st.off))+' · <b>'+hm(st.t,st.off)+'</b> <span class="sub">'+esc(offStr(st.off))+'</span></div>';
+  h+=row('Day',dayLabel(st,true));
+  h+=row('Hour',hourLabel(st,true));
+  const hb=bodyOf(st,st.hr),db=bodyOf(st,st.dr);
+  if(hb)h+=plBlock('Hour ruler',hb);
+  if(db)h+=st.dr===st.hr?row('Day ruler','the same planet'):plBlock('Day ruler',db);
+  if(st.decan)h+=row('Decan',decanText(st.decan));
+  h+=row('Place',locText(st.loc));
+  if(st.sky&&st.sky.length)h+='<details class="sky"><summary>Sky snapshot</summary>'+skyTableHTML(st)+'</details>';
+  return h;
+}
+// The editor shows the stamp in a few short lines so the text being typed stays on screen with the keyboard
+// open; the full stamp (Atus, reading key, keywords, sky) opens underneath and is always in the day's file.
+function stampCompactHTML(st){
+  const hb=bodyOf(st,st.hr),db=bodyOf(st,st.dr);
+  const pos=b=>esc(GLY[b.k]+VS+' '+b.deg+' '+SIGNS[b.sign][1]+VS+' '+SIGNS[b.sign][0]+(b.rx?' ℞':''))+' <span class="dig '+digClass(b)+'">'+esc(digLabel(b,true))+'</span>';
+  const h0=st.hour,so=h0?(h0.soff??st.off):0,eo=h0?(h0.eoff??st.off):0;   // each time in the offset the clock had then
+  let h='<div class="sw">'+esc(dateLong(st.t,st.off))+' · <b>'+hm(st.t,st.off)+'</b> <span class="sub">'+esc(offStr(st.off))+'</span></div>';
+  h+='<div class="sc">'+(h0?'<b>'+esc(plName(h0.ruler,true))+' hour</b> · '+(h0.night?'night':'day')+' '+h0.n+'/12 · '
+      +hm(h0.start,so,true)+'–'+hm(h0.end,eo,true)+(so!==eo?' <span class="sub">(clocks changed)</span>':'')+(hb?' · '+pos(hb):''):'<span class="sub">'+esc(st.note||'planetary hour not available')+'</span>')+'</div>';
+  h+='<div class="sc">'+esc(dayLabel(st,true))+(db?(st.dr===st.hr&&st.hour?' · also the hour’s ruler':' · '+pos(db)):'')+'</div>';
+  if(st.decan)h+='<div class="sc sub">Decan: '+esc(NUMW[st.decan.n]+' of '+st.decan.suit+' — '+st.decan.title)+'</div>';
+  h+='<details class="sky"><summary>Full stamp — Atus, keywords'+(st.sky&&st.sky.length?', sky':'')+'</summary>'+stampHTML(st).replace(/^<div class="sw">.*?<\/div>/,'')+'</details>';
+  return h;
+}
+function skyTableHTML(st){
+  let h=st.moon?'<div class="skycap">Moon: '+esc(st.moon.phase)+', '+st.moon.illum+'% lit</div>':'';
+  h+='<table class="sky">';
+  for(const b of st.sky){
+    h+='<tr><td class="g">'+GLY[b.k]+VS+'</td><td>'+esc(NAME[b.k])+'</td><td class="n">'+esc(b.deg)+' '+SIGNS[b.sign][1]+VS+' '+esc(SIGNS[b.sign][0])
+      +(b.rx?' <span class="rx">℞</span>':'')+'</td><td class="d">'+esc(skyDig(b))+'</td></tr>';
+  }
+  return h+'</table><div class="skynote">'+DB.text('journal.sky-note',{outer:OUTER})+'</div>';
+}
+function plText(b){return bodyLine(b,false)+' — '+digLabel(b)+' · '+atuLine(b)+(b.key?' — '+b.key:'')+(b.kw?' · '+kwLine(b):'');}
+function stampText(st){
+  const L=[hm(st.t,st.off)+' ('+offStr(st.off)+') · '+dayLabel(st,false),'Hour: '+hourLabel(st,false)];
+  const hb=bodyOf(st,st.hr),db=bodyOf(st,st.dr);
+  if(hb)L.push('Hour ruler: '+plText(hb));
+  if(db)L.push('Day ruler: '+(st.dr===st.hr?'the same planet':plText(db)));
+  if(st.decan)L.push('Decan: '+decanText(st.decan));
+  L.push('Place: '+locText(st.loc));
+  return L.join('\n');
+}
+function skyText(st){
+  return (st.sky||[]).map(b=>NAME[b.k]+' '+b.deg+' '+SIGNS[b.sign][0]+(b.rx?' ℞':'')
+    +(skyDig(b)!=='—'?' ('+skyDig(b)+')':'')+(b.k==='moon'&&st.moon?', '+st.moon.phase.toLowerCase()+' '+st.moon.illum+'%':'')).join(' · ');
+}
+
+/* ---------- the day file (a readable page on the phone) and the plain-text copy ---------- */
+const DOC_CSS='*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}'
+ +'body{margin:0;background:#fbf8f1;color:#1f1b16;font:17px/1.6 Georgia,"Times New Roman",serif}'
+ +'main{max-width:720px;margin:0 auto;padding:22px 16px 36px}'
+ +'h1{font-size:24px;line-height:1.25;font-weight:normal;margin:0 0 4px}'
+ +'.meta{font:13px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:#6b6357;margin:0 0 6px}'
+ +'.e{border-top:1px solid #d9d0bd;padding:16px 0 12px}'
+ +'.eh{font:600 14.5px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:#7a5c2e}'
+ +'.tm{font-size:19px;color:#1f1b16;margin-right:2px}'
+ +'.st{font:13px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:#4d463c;background:#f3eee2;border-radius:8px;padding:8px 11px;margin:7px 0 12px}'
+ +'.r{display:grid;grid-template-columns:6.8em minmax(0,1fr);gap:0 6px;align-items:baseline;margin:3px 0}.st b{color:#1f1b16;font-weight:600}.st i{color:#6b6357}'
+ +'.k{color:#7a5c2e;font-weight:700;font-size:10.5px;letter-spacing:.04em;text-transform:uppercase;line-height:1.3}'
+ +'.tx{font-size:17.5px;line-height:1.65;overflow-wrap:anywhere;white-space:pre-wrap;unicode-bidi:plaintext;text-align:start;margin:0 0 10px}'
+ +'.ed{font:12px system-ui,sans-serif;color:#8a8173;margin:-4px 0 10px}'
+ +'table{width:100%;border-collapse:collapse;font:12px/1.35 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:#4d463c;margin-top:4px}'
+ +'caption{text-align:left;color:#6b6357;padding:0 0 3px;font-size:11.5px}'
+ +'td{padding:2px 6px 2px 0;border-top:1px solid #e6dfd0;vertical-align:top}td.n{white-space:nowrap}td.g{width:18px;color:#7a5c2e}'
+ +'footer{margin-top:22px;font:11.5px/1.5 system-ui,sans-serif;color:#8a8173;border-top:1px solid #d9d0bd;padding-top:10px}'
+ +'@media print{body{background:#fff;font-size:12pt}main{max-width:none;padding:0}.eh,.st{break-after:avoid;page-break-after:avoid}table{break-inside:avoid;page-break-inside:avoid}}';
+const docRow=(l,inner)=>'<div class="r"><span class="k">'+esc(l)+'</span><div>'+inner+'</div></div>';
+function docPl(l,b){
+  return docRow(l,'<b>'+esc(bodyLine(b,true))+'</b> — '+esc(digLabel(b))+' · '+esc(atuLine(b))
+    +(b.key?'<br><i>'+esc(b.key)+'</i>':'')+(b.kw?' · '+esc(kwLine(b)):''));
+}
+function dayDoc(data){
+  const title='Daily Journal — '+dateLongId(data.date);
+  const es=data.entries.slice().sort((a,b)=>a.stamp.t-b.stamp.t);
+  let secs='';
+  for(const e of es){
+    const st=e.stamp,hb=bodyOf(st,st.hr),db=bodyOf(st,st.dr);
+    let meta=docRow('Hour',esc(hourLabel(st,true)));
+    if(hb)meta+=docPl('Hour ruler',hb);
+    if(db)meta+=st.dr===st.hr?docRow('Day ruler','the same planet'):docPl('Day ruler',db);
+    if(st.decan)meta+=docRow('Decan',esc(decanText(st.decan)));
+    meta+=docRow('Place',esc(locText(st.loc)));
+    let sky='';
+    if(st.sky&&st.sky.length){
+      sky='<table><caption>Sky at '+esc(hm(st.t,st.off))+(st.moon?' — Moon '+esc(st.moon.phase.toLowerCase())+', '+st.moon.illum+'% lit':'')+'</caption>';
+      for(const b of st.sky)sky+='<tr><td class="g">'+GLY[b.k]+VS+'</td><td>'+esc(NAME[b.k])+'</td><td class="n">'+esc(b.deg)+' '+esc(SIGNS[b.sign][0])+(b.rx?' ℞':'')+'</td><td>'+esc(skyDig(b))+'</td></tr>';
+      sky+='</table>';
+    }
+    secs+='<section class="e"><div class="eh"><span class="tm">'+esc(hm(st.t,st.off))+'</span> '+esc(offStr(st.off))+' · '+esc(dayLabel(st,true))+'</div>'
+      +'<div class="st">'+meta+'</div>'
+      +'<div class="tx">'+esc(String(e.text||'').trim()).replace(/\r?\n/g,'<br>')+'</div>'
+      +(e.edited?'<div class="ed">edited '+esc(isoShort(e.edited))+'</div>':'')+sky+'</section>';
+  }
+  return '<!DOCTYPE html>\n<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">'
+    +'<meta name="color-scheme" content="light"><title>'+esc(title)+'</title><style>'+DOC_CSS+'</style></head><body><main>'
+    +'<h1>'+esc(title)+'</h1><div class="meta">'+es.length+' entr'+(es.length===1?'y':'ies')+' · Athanor</div>'+secs
+    +'<footer>'+DB.text('journal.footer',{sheet:esc(DIGNITIES.title)})+'</footer></main></body></html>';
+}
+function dayText(data){
+  const es=data.entries.slice().sort((a,b)=>a.stamp.t-b.stamp.t);
+  let s='DAILY JOURNAL — '+dateLongId(data.date)+'\n';
+  for(const e of es){
+    s+='\n————————————————\n'+stampText(e.stamp)+'\n\n'+String(e.text||'').trim()+'\n'
+      +(e.edited?'(edited '+isoShort(e.edited)+')\n':'')
+      +(e.stamp.sky&&e.stamp.sky.length?'\nSky: '+skyText(e.stamp)+'\n':'');
+  }
+  return s;
+}
+
+/* ---------- saving: one Store record of kind "daily" per calendar day ---------- */
+const newId=()=>(window.Store&&Store.newId)?Store.newId():Date.now().toString(36)+Math.random().toString(36).slice(2,8);
+// strict: a day whose file is there but cannot be read throws instead of looking empty, so it is never saved over
+function getRec(id,strict){if(strict)return Store.get('daily',id,{strict:true});try{return Store.get('daily',id);}catch(e){return null;}}
+const errMsg=e=>{const m=String(e&&e.message||e);return m==='unreadable'?'the day’s file could not be read, so it was not written over':m;};
+function normData(r,id){
+  const d=r&&r.data&&typeof r.data==='object'?r.data:{};
+  return {date:id,entries:Array.isArray(d.entries)?d.entries.filter(x=>x&&x.id&&x.stamp):[],copied:!!d.copied};
+}
+function writeDay(id,data){
+  data.entries.sort((a,b)=>(a.stamp.t||0)-(b.stamp.t||0));
+  if(!data.entries.length){ if(getRec(id))Store.remove('daily',id); return null; }
+  data.date=id; data.copied=data.entries.every(x=>x.copied);
+  return Store.put('daily',{id,name:dayName(id),data,html:dayDoc(data)});
+}
+function saveEntry(e){
+  const id=e.stamp.date,data=normData(getRec(id,true),id),i=data.entries.findIndex(x=>x.id===e.id);
+  if(!String(e.text||'').trim()){ if(i<0)return; data.entries.splice(i,1); }
+  else{
+    const old=i>=0?data.entries[i]:null;
+    const n={id:e.id,started:e.started,stamp:e.stamp,text:e.text};
+    if(e.edited)n.edited=e.edited;
+    n.copied=!!(old&&old.copied&&old.text===e.text);   // changed after it was written down → to copy again
+    if(i>=0)data.entries[i]=n; else data.entries.push(n);
+  }
+  writeDay(id,data);
+}
+
+/* ---------- entries whose save failed: kept on this device by entry id until each is filed ---------- */
+function pendingAll(){
+  const p=LS.get('pending',null);
+  if(!p||typeof p!=='object')return {};
+  return p.id&&p.stamp?{[p.id]:p}:p;   // an earlier build kept a single entry here
+}
+function setPending(p){if(Object.keys(p).length)return LS.set('pending',p);LS.del('pending');return true;}
+function keepPending(e,err){const p=pendingAll();p[e.id]=Object.assign({},e,{why:errMsg(err)});return setPending(p);}
+function dropPending(id){const p=pendingAll();if(!(id in p))return;delete p[id];setPending(p);}
+let lastRetry=0,unsavedHTML='';
+// files every kept entry that can be filed now (the one in the editor is saved by flush); returns how many
+function retryPending(){
+  const p=pendingAll();let n=0;lastRetry=Date.now();
+  for(const id of Object.keys(p)){
+    const e=p[id];
+    if(!(e&&e.id===id&&e.stamp&&e.stamp.date)){delete p[id];continue;}
+    if(CUR&&CUR.id===id)continue;
+    try{saveEntry(e);delete p[id];n++;}catch(err){e.why=errMsg(err);}
+  }
+  setPending(p); renderUnsaved();
+  if(n&&VIEW==='today')renderTodayList();
+  return n;
+}
+// a quiet notice that stays while kept entries are not filed (the entry in the editor has its own line)
+function renderUnsaved(){
+  const el=$('#unsaved');
+  const ps=Object.values(pendingAll()).filter(p=>p&&p.stamp&&String(p.text||'').trim()&&!(CUR&&p.id===CUR.id)).sort((a,b)=>a.stamp.t-b.stamp.t);
+  const at=p=>(p.stamp.date===todayId()?'':+p.stamp.date.slice(8)+' '+MON3[+p.stamp.date.slice(5,7)-1]+' ')+hm(p.stamp.t,p.stamp.off);
+  const n=ps.length,why=n===1&&ps[0].why;
+  const h=!n?'':'<b>'+n+' entr'+(n===1?'y':'ies')+'</b> from '
+    +ps.map(p=>'<button class="link" type="button" data-pend="'+esc(p.id)+'" aria-label="Open the '+esc(at(p))+' entry">'+esc(at(p))+'</button>').join(', ')
+    +' '+(n===1?'is':'are')+' still unsaved — kept on this phone until '+(n===1?'it':'they')+' can be filed'+(why?' ('+esc(why)+')':'')+'.'
+    +' <button class="link" type="button" data-act="retry">Try again</button>';
+  if(h===unsavedHTML)return;
+  unsavedHTML=h; el.innerHTML=h; el.classList.toggle('hidden',!n);
+}
+
+/* ---------- today's page: the editor ---------- */
+const ta=$('#ta');
+let CUR=null,CUR_OLD=false,dirty=false,saveTimer=0,lastSave=0,lastInput=0,VIEW='today',DAYID=null,DAYFROM='days',DAYDATA=null,DE=null,lastToday=todayId();
+const IDLE_CLOSE=30*6e4;   // an entry left alone this long is closed when the page is opened again
+// fit the textarea to its text (grows and shrinks) without making the page jump
+function grow(el){
+  el=el||ta; const se=document.scrollingElement||document.documentElement,y=se.scrollTop;
+  el.style.height='auto'; el.style.height=(el.scrollHeight+2)+'px';
+  if(se.scrollTop!==y)se.scrollTop=y;
+}
+function resetTa(){ta.style.height='';grow();}
+function setSaved(t,err){const s=$('#saved');s.textContent=t||'';s.classList.toggle('err',!!err);}
+function renderStamp(){
+  const el=$('#stamp');
+  // while typing, the textarea stays where it is on screen when the stamp above it appears or goes
+  const keep=VIEW==='today'&&document.activeElement===ta,top=keep?ta.getBoundingClientRect().top:0;
+  $('#newBtn').disabled=!CUR;
+  if(!CUR){el.className='stamp wait';el.textContent='The stamp — time, planetary day and hour, dignities — is taken at your first keystroke.';}
+  else{
+    el.className='stamp';
+    el.innerHTML=stampCompactHTML(CUR.stamp)+(CUR_OLD?'<div class="pk" style="margin-top:4px">Editing an earlier entry — its stamp is kept'+(CUR.edited?' · edited '+esc(isoShort(CUR.edited)):'')+'</div>':'');
+  }
+  if(keep){const d=ta.getBoundingClientRect().top-top;if(d)window.scrollBy(0,d);}
+}
+function flush(){
+  clearTimeout(saveTimer); saveTimer=0;
+  if(!dirty||!CUR)return true;
+  if(CUR_OLD&&!String(CUR.text||'').trim()){   // an earlier entry is never deleted by emptying it here
+    dirty=false; setSaved('Empty — the saved text is kept (Delete is on the day’s page)'); return true;
+  }
+  try{
+    saveEntry(CUR); dirty=false; lastSave=Date.now(); dropPending(CUR.id);   // only this entry: others stay kept
+    const filed=!!String(CUR.text).trim();
+    setSaved(filed?'Saved '+hm(lastSave,devOff(lastSave))+' · '+dayName(CUR.stamp.date):'Empty — not filed');
+    if(filed&&!CUR_OLD&&!CUR.filed){CUR.filed=true;if(VIEW==='today')renderTodayList();}   // "Today's file" appears with the first entry
+    // saving works: file what earlier failures kept (at most every half minute)
+    if(Date.now()-lastRetry>30000&&Object.keys(pendingAll()).length)retryPending(); else renderUnsaved();
+    return true;
+  }catch(e){
+    const kept=keepPending(CUR,e);
+    setSaved('Not saved — '+errMsg(e)+(kept?'':' · it could not be kept on this phone either: copy the text before leaving'),true);
+    renderUnsaved();
+    return false;
+  }
+}
+function onType(){
+  grow();
+  const v=ta.value;
+  lastInput=Date.now();
+  if(CUR&&!CUR_OLD&&!v.trim()){
+    // a new entry wiped back to nothing is no entry: it leaves the day's file and the next keystroke takes a fresh stamp
+    CUR.text=v; dirty=true; flush();
+    CUR=null; renderStamp(); setSaved(''); renderTodayList();
+    return;
+  }
+  if(!CUR){
+    if(!v.trim())return;
+    const ms=Date.now();
+    let st; try{st=makeStamp(ms);}catch(e){st=fallbackStamp(ms,e);}
+    CUR={id:newId(),started:isoLocal(ms),stamp:st,text:v}; CUR_OLD=false;
+    renderStamp();
+  }
+  CUR.text=v;
+  if(CUR_OLD)CUR.edited=isoLocal(Date.now());
+  dirty=true; setSaved('…');
+  clearTimeout(saveTimer);
+  if(Date.now()-lastSave>20000)flush(); else saveTimer=setTimeout(flush,1500);
+}
+function newEntry(noFocus){
+  if(!flush()){toast('Could not save — the entry stays here; try again');return false;}   // never drop unsaved text
+  CUR=null; CUR_OLD=false; dirty=false;
+  ta.value=''; resetTa(); renderStamp(); setSaved(''); renderTodayList();
+  if(noFocus!==true){try{ta.focus();}catch(e){}}
+  return true;
+}
+// Coming back to the page after a long pause (phone locked in a pocket, app in the background): the entry
+// on screen is closed, so the next words get their own stamp instead of joining an entry from hours ago.
+function closeIfIdle(){
+  if(!CUR||Date.now()-lastInput<IDLE_CLOSE)return;
+  const t=hm(CUR.stamp.t,CUR.stamp.off),had=!!String(CUR.text||'').trim();
+  if(newEntry(true)&&had)setSaved('The '+t+' entry is filed — writing now starts a new entry');
+}
+function loadIntoEditor(dayId,eid){
+  if(!flush()){toast('Could not save — the entry stays here; try again');return;}
+  // an entry still kept from a failed save opens as it was last written, not as the day's file has it
+  const p=pendingAll()[eid],kept=!!(p&&p.stamp);
+  const e=kept?p:normData(getRec(dayId),dayId).entries.find(x=>x.id===eid);
+  if(!e){renderTodayList();return;}
+  CUR=JSON.parse(JSON.stringify(e)); CUR_OLD=true; dirty=kept; lastInput=Date.now();
+  ta.value=CUR.text||''; resetTa(); renderStamp(); renderTodayList(); renderUnsaved();
+  setSaved('Editing the '+hm(CUR.stamp.t,CUR.stamp.off)+' entry');
+  if(kept&&flush())renderTodayList();   // and tries to file it now ("Today's file" shows if it was the day's first)
+  $('.write').scrollIntoView({block:'start'});
+  try{ta.focus({preventScroll:true});}catch(e){}
+}
+// after the day view: take over edits or a deletion made there
+function syncCur(){
+  if(!CUR||dirty||!String(CUR.text||'').trim())return;
+  let r; try{r=getRec(CUR.stamp.date,true);}catch(e){return;}   // a day that cannot be read leaves the editor as it is
+  const e=normData(r,CUR.stamp.date).entries.find(x=>x.id===CUR.id);
+  if(!e){CUR=null;CUR_OLD=false;ta.value='';resetTa();renderStamp();setSaved('');return;}
+  if(e.text!==CUR.text){CUR.text=e.text;if(e.edited)CUR.edited=e.edited;ta.value=e.text;resetTa();renderStamp();}
+}
+function firstLine(t){const l=String(t||'').split(/\r?\n/).map(x=>x.trim()).find(Boolean)||'';return l.length>90?l.slice(0,90)+'…':l;}
+function hourShort(st){return st.hour?plName(st.hour.ruler,true)+' hour':st.loc?'no planetary hours':'no location';}
+function renderTodayList(){
+  const id=todayId();let r;
+  try{r=getRec(id,true);}catch(e){
+    $('#todayList').innerHTML='<div class="where">Today’s file could not be read. It is left as it is — nothing is saved over it, and entries written now are kept on this phone.</div>';
+    return;
+  }
+  const all=normData(r,id).entries;
+  const es=all.filter(e=>!CUR||e.id!==CUR.id).sort((a,b)=>b.stamp.t-a.stamp.t);
+  if(!all.length){$('#todayList').innerHTML='';return;}
+  let h='<div class="card">';
+  if(es.length){
+    h+='<div class="sec">Earlier today</div>';
+    for(const e of es)h+='<div class="item" role="button" tabindex="0" data-eid="'+esc(e.id)+'"><div class="bd"><div class="m"><b>'+hm(e.stamp.t,e.stamp.off)+'</b> · '
+      +esc(hourShort(e.stamp))+'</div><div class="pv">'+esc(firstLine(e.text))+'</div></div><div class="go" aria-hidden="true">›</div></div>';
+  }
+  h+='<div class="row" style="margin-top:'+(es.length?'8':'0')+'px"><button class="ghost sm" type="button" data-act="openToday">Today’s file — share, copy, written down</button></div></div>';
+  $('#todayList').innerHTML=h;
+}
+
+/* ---------- the "Now" line ---------- */
+function renderNow(){
+  const ms=Date.now(),off=devOff(ms);
+  $('#nowT').textContent=hm(ms,off);
+  let h='';
+  try{
+    const ph=planetaryAt(ms,LOC);
+    if(ph.ok){
+      const JD=msJD(ms),b=bodyInfo(ph.ruler,allLons(JD),rates(JD));
+      h+='<div class="nl"><b>'+esc(plName(ph.ruler,true))+' hour</b> · '+(ph.night?'night':'day')+' hour '+ph.n+' of 12 · next '
+        +esc(plName(ph.nextRuler,true))+' at <b>'+hm(ph.end,devOff(ph.end),true)+'</b></div>';
+      h+='<div class="nl">'+esc(bodyLine(b,true))+' <span class="dig '+digClass(b)+'">'+esc(digLabel(b))+'</span> <span class="sub">'+esc(atuLine(b))+'</span></div>';
+    }else h+='<div class="nl sub">'+esc(ph.note)+'</div>';
+    const pseudo={off,pday:{wd:ph.wd,ruler:DAYRULER[ph.wd],night:!!ph.night,prev:!!ph.prev,calendar:!ph.ok,next:ph.ok?ph.rise2:null,noff:ph.ok?devOff(ph.rise2):null}};
+    h+='<div class="nl sub">Day: '+esc(dayLabel(pseudo,true))+'</div>';
+  }catch(e){h='<div class="nl sub">Could not compute the sky: '+esc(e&&e.message||e)+'</div>';}
+  $('#nowBody').innerHTML=h;
+  $('#locTxt').textContent=LOC?locText(LOC)+' · '+(LOCSRC[LOC.src]||''):'No location yet — set one for planetary hours';
+  $('#locBtn').textContent=LOC?'Change':'Set location';
+}
+function openLocEd(){
+  $('#locEd').classList.remove('hidden');
+  if(LOC){$('#mlat').value=LOC.lat.toFixed(4);$('#mlon').value=LOC.lon.toFixed(4);}
+}
+function closeLocEd(){$('#locEd').classList.add('hidden');}
+function saveLoc(){
+  const num=v=>parseFloat(String(v).replace(/[−–]/g,'-').replace(',','.'));
+  const lat=num($('#mlat').value),lng=num($('#mlon').value);
+  if(!(lat>=-90&&lat<=90&&lng>=-180&&lng<=180)){toast('Latitude −90…90, longitude −180…180 (east +)');return;}
+  LS.set('loc',{lat,lon:lng,override:true}); LOC=resolveLoc(); closeLocEd(); renderNow();
+}
+function useGps(){
+  const man=LS.get('loc',null); if(man&&man.override){man.override=false;LS.set('loc',man);}
+  closeLocEd();
+  if(A&&typeof A.requestLocation==='function'){try{A.requestLocation();}catch(e){} toast('Asking the phone for its location…');}
+  else requestGeo(true);
+  LOC=resolveLoc(); renderNow();
+}
+
+/* ---------- days ---------- */
+function listDays(){let L=[];try{L=Store.list('daily')||[];}catch(e){}return L.filter(r=>r&&/^\d{4}-\d{2}-\d{2}$/.test(r.id)).sort((a,b)=>a.id<b.id?1:a.id>b.id?-1:0);}
+function phoneFolder(list){
+  if(!(window.Store&&Store.native))return '';
+  let where=''; try{where=Store.folder('daily')||'';}catch(e){}
+  const withFile=list.find(r=>r.hasFile);
+  if(withFile){const r=getRec(withFile.id),m=r&&r.mirror;
+    if(m&&m.charAt(0)==='/'){const dir=m.slice(0,m.lastIndexOf('/')),i=dir.indexOf('/Android/data/');where=i>=0?dir.slice(i+1):dir;}}
+  return where;
+}
+function statusOf(d){
+  const es=d.entries||[],c=es.filter(x=>x.copied).length;
+  if(es.length&&c===es.length)return '<span class="okc">✓ written down</span>';
+  if(c)return '<span class="todo">○ '+(es.length-c)+' of '+es.length+' new or changed since written down</span>';
+  return '<span class="todo">○ to copy</span>';
+}
+function renderDays(){
+  const L=listDays(),where=phoneFolder(L),today=todayId();
+  let h='';
+  if(where)h+='<div class="where">One file per day on this phone in <b>'+esc(where)+'</b> — open My Files → '+(/^Android\//.test(where)?'Internal storage':'Documents')+' to find them.</div>';
+  if(!L.length){
+    h+='<div class="card empty"><div class="glyph">✍︎</div><b>No days yet</b><p class="sub">Write on the Today page: every entry is stamped with its hour and filed in its day’s page, ready to copy into your journal at home.</p></div>';
+    $('#vDays').innerHTML=h; return;
+  }
+  const todo=L.filter(r=>!(r.data&&r.data.copied)).length;
+  h+='<div class="sub" style="margin:10px 2px 0">'+L.length+' day'+(L.length>1?'s':'')+' · '+(todo?todo+' still to copy':'all written down')+'</div><div class="card">';
+  for(const r of L){
+    const d=normData(r,r.id),n=d.entries.length,first=d.entries.slice().sort((a,b)=>a.stamp.t-b.stamp.t)[0];
+    h+='<div class="item" role="button" tabindex="0" data-day="'+esc(r.id)+'"><div class="bd"><div class="nm">'+(r.id===today?'Today · ':'')+esc(dateLongId(r.id))+'</div>'
+      +'<div class="m">'+n+' entr'+(n===1?'y':'ies')+' · '+statusOf(d)+'</div>'
+      +(first?'<div class="pv">'+esc(firstLine(first.text))+'</div>':'')+'</div><div class="go" aria-hidden="true">›</div></div>';
+  }
+  $('#vDays').innerHTML=h+'</div>';
+}
+function dmsg(t,err){const m=$('#dmsg');if(m){m.textContent=t||'';m.classList.toggle('err',!!err);}}
+function renderDay(){
+  const r=getRec(DAYID);
+  if(!r){showDays();return;}
+  DAYDATA=normData(r,DAYID);
+  const es=DAYDATA.entries,where=phoneFolder([{hasFile:!!r.mirror,id:DAYID}]);
+  let h='<div class="dtop"><button class="ghost icon" type="button" data-act="days" aria-label="All days">←</button><div class="dtitle">'+esc(dateLongId(DAYID))
+    +'<div class="sub">'+es.length+' entr'+(es.length===1?'y':'ies')+'</div></div></div>';
+  h+='<div class="card"><div class="row"><button type="button" data-act="share">'+(window.Store&&Store.native?'Share / open file':'Download file')+'</button>'
+    +'<button class="ghost" type="button" data-act="copy">Copy as text</button></div>'
+    +'<label class="tick"><input type="checkbox" id="cpd"'+(DAYDATA.copied?' checked':'')+'> Written down in my journal</label>'
+    +(where?'<div class="sub">File: '+esc(where)+'/'+esc(r.name||dayName(DAYID))+'.html</div>':'')
+    +'<div class="dmsg sub" id="dmsg"></div></div>';
+  for(const e of es){
+    const ed=DE&&DE.eid===e.id,meta=[];
+    if(e.edited)meta.push('edited '+esc(isoShort(e.edited)));
+    if(e.copied)meta.push('✓ written down');
+    h+='<div class="card ent" data-eid="'+esc(e.id)+'"><div class="stamp">'+stampCompactHTML(e.stamp)+'</div>'
+      +(ed?'<textarea class="eta" data-eid="'+esc(e.id)+'" aria-label="Edit entry">'+esc(e.text)+'</textarea>':'<div class="etx">'+esc(String(e.text||'').trim())+'</div>')
+      +(meta.length?'<div class="em sub">'+meta.join(' · ')+'</div>':'')
+      +'<div class="row">'+(ed?'<button class="sm" type="button" data-act="done">Done</button>':'<button class="ghost sm" type="button" data-act="edit">Edit</button>')
+      +'<button class="ghost sm danger" type="button" data-act="del">Delete</button></div></div>';
+  }
+  $('#vDay').innerHTML=h;
+  if(DE){const t=$('#vDay textarea.eta');if(t){grow(t);try{t.focus({preventScroll:true});}catch(e){}}}
+}
+function dayEditInput(eid,val){
+  if(!DE||!DAYDATA)return;
+  const e=DAYDATA.entries.find(x=>x.id===eid); if(!e)return;
+  e.text=val; e.edited=isoLocal(Date.now());
+  DE.dirty=true; dmsg('…');
+  clearTimeout(DE.timer); DE.timer=setTimeout(flushDayEdit,1500);
+}
+function flushDayEdit(){
+  if(!DE)return;
+  clearTimeout(DE.timer); DE.timer=0;
+  if(!DE.dirty)return;
+  const src=DAYDATA&&DAYDATA.entries.find(x=>x.id===DE.eid);
+  if(!src){DE.dirty=false;return;}
+  if(!String(src.text||'').trim()){dmsg('Empty — not saved. Use Delete to remove an entry.',true);return;}
+  let data; try{data=normData(getRec(DE.day,true),DE.day);}catch(e){dmsg('Not saved — '+errMsg(e),true);return;}
+  const i=data.entries.findIndex(x=>x.id===DE.eid);
+  if(i<0){DE.dirty=false;return;}
+  data.entries[i]=Object.assign({},data.entries[i],{text:src.text,edited:src.edited,copied:false});
+  try{writeDay(DE.day,data);DE.dirty=false;dmsg('Saved');dropPending(DE.eid);renderUnsaved();}   // a kept older copy must not file over this later
+  catch(e){dmsg('Not saved — '+(e&&e.message||e),true);}
+}
+function deleteEntry(eid){
+  flushDayEdit();
+  const data=normData(getRec(DAYID),DAYID),e=data.entries.find(x=>x.id===eid);
+  if(!e)return;
+  const native=window.Store&&Store.native;
+  if(!confirm('Delete the '+hm(e.stamp.t,e.stamp.off)+' entry?'+(native?'\nIt is removed from the day’s file on the phone too.':'')))return;
+  data.entries=data.entries.filter(x=>x.id!==eid);
+  try{writeDay(DAYID,data);}catch(err){toast('Could not delete: '+(err&&err.message||err));return;}
+  dropPending(eid); renderUnsaved();   // a kept copy of it would otherwise bring it back
+  if(DE&&DE.eid===eid)DE=null;
+  if(CUR&&CUR.id===eid){CUR=null;CUR_OLD=false;dirty=false;ta.value='';resetTa();renderStamp();setSaved('');}
+  if(!data.entries.length){toast('Entry deleted — the day is now empty');showDays();return;}
+  toast('Entry deleted'); renderDay();
+}
+function setCopied(on){
+  flushDayEdit();
+  const data=normData(getRec(DAYID),DAYID);
+  if(!data.entries.length)return;
+  data.entries.forEach(x=>{x.copied=on;});
+  try{writeDay(DAYID,data);toast(on?'Marked as written down':'Marked as still to copy');}
+  catch(e){toast('Could not save: '+(e&&e.message||e));}
+  renderDay();
+}
+function shareDay(){
+  flushDayEdit();
+  const r=getRec(DAYID);
+  if(!r||!r.html){toast('Nothing to share yet');return;}
+  try{if(!Store.share('daily',DAYID))toast('Could not share this day');}catch(e){toast('Could not share: '+(e&&e.message||e));}
+}
+function copyText(s){
+  const done=ok=>toast(ok?'Copied as text — paste it anywhere':'Could not copy on this device');
+  // A hidden textarea + execCommand first, while the tap still counts as a user gesture: it works in the app's
+  // WebView, where navigator.clipboard may be missing or refused (inside an iframe). The Clipboard API is the fallback.
+  let ok=false;
+  try{
+    const t=document.createElement('textarea'); t.value=s; t.setAttribute('readonly',''); t.setAttribute('aria-hidden','true');
+    t.style.cssText='position:fixed;top:0;left:0;width:1px;height:1px;padding:0;border:0;opacity:0;pointer-events:none';
+    document.body.appendChild(t);
+    try{t.focus({preventScroll:true});}catch(e){}
+    t.select(); try{t.setSelectionRange(0,t.value.length);}catch(e){}
+    try{ok=!!document.execCommand('copy');}catch(e){ok=false;}
+    t.remove();
+  }catch(e){ok=false;}
+  if(ok){done(true);return;}
+  try{if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(s).then(()=>done(true),()=>done(false));return;}}catch(e){}
+  done(false);
+}
+function copyDay(){flushDayEdit();copyText(dayText(normData(getRec(DAYID),DAYID)));}
+
+/* ---------- views ---------- */
+function setView(v){
+  VIEW=v;
+  $('#vToday').classList.toggle('hidden',v!=='today');
+  $('#vDays').classList.toggle('hidden',v!=='days');
+  $('#vDay').classList.toggle('hidden',v!=='day');
+  document.querySelectorAll('#tabs button').forEach(b=>b.classList.toggle('on',b.dataset.v===(v==='today'?'today':'days')));
+  window.scrollTo(0,0);
+}
+function showToday(){flushDayEdit();DE=null;setView('today');syncCur();renderNow();renderTodayList();}
+function showDays(){flush();flushDayEdit();DE=null;setView('days');renderDays();}
+function openDay(id,from){flush();flushDayEdit();DE=null;DAYID=id;DAYFROM=from==='today'?'today':'days';setView('day');renderDay();}
+let toastT=0;
+function toast(t){const el=$('#toast');el.textContent=t;el.classList.add('on');clearTimeout(toastT);toastT=setTimeout(()=>el.classList.remove('on'),2600);}
+
+/* ---------- events ---------- */
+ta.addEventListener('input',onType);
+ta.addEventListener('blur',flush);
+$('#newBtn').onclick=newEntry;
+$('#tabs').addEventListener('click',e=>{const b=e.target.closest('button[data-v]');if(!b)return;if(b.dataset.v==='today'){if(VIEW!=='today')showToday();}else showDays();});
+$('#locBtn').onclick=()=>{if($('#locEd').classList.contains('hidden'))openLocEd();else closeLocEd();};
+$('#locSave').onclick=saveLoc;
+$('#locGps').onclick=useGps;
+$('#locCancel').onclick=closeLocEd;
+$('#unsaved').addEventListener('click',e=>{
+  const b=e.target.closest('button'); if(!b)return;
+  if(b.dataset.pend){const p=pendingAll()[b.dataset.pend];if(p&&p.stamp)loadIntoEditor(p.stamp.date,p.id);}
+  else if(b.dataset.act==='retry'){const n=retryPending();toast(n?'Saved '+n+' entr'+(n===1?'y':'ies'):'Still not saved — kept on this phone');}
+});
+$('#todayList').addEventListener('click',e=>{
+  if(e.target.closest('[data-act="openToday"]')){openDay(todayId(),'today');return;}
+  const it=e.target.closest('.item'); if(it)loadIntoEditor(todayId(),it.dataset.eid);
+});
+$('#vDays').addEventListener('click',e=>{const it=e.target.closest('.item');if(it)openDay(it.dataset.day,'days');});
+['#todayList','#vDays'].forEach(s=>$(s).addEventListener('keydown',e=>{
+  const it=e.target.closest('.item'); if(it&&(e.key==='Enter'||e.key===' ')){e.preventDefault();it.click();}
+}));
+$('#vDay').addEventListener('click',e=>{
+  const b=e.target.closest('button[data-act]'); if(!b)return;
+  const act=b.dataset.act,card=b.closest('.ent'),eid=card&&card.dataset.eid;
+  if(act==='days')showDays();
+  else if(act==='share')shareDay();
+  else if(act==='copy')copyDay();
+  else if(act==='edit'){flushDayEdit();DE={day:DAYID,eid,dirty:false,timer:0};renderDay();}
+  else if(act==='done'){flushDayEdit();if(!(DE&&DE.dirty)){DE=null;renderDay();}}
+  else if(act==='del')deleteEntry(eid);
+});
+$('#vDay').addEventListener('input',e=>{const t=e.target;if(t.classList&&t.classList.contains('eta')){grow(t);dayEditInput(t.dataset.eid,t.value);}});
+$('#vDay').addEventListener('change',e=>{if(e.target.id==='cpd')setCopied(e.target.checked);});
+$('#vDay').addEventListener('focusout',e=>{if(e.target.classList&&e.target.classList.contains('eta'))flushDayEdit();});
+document.addEventListener('visibilitychange',()=>{
+  if(document.visibilityState==='hidden'){flush();flushDayEdit();}
+  else{LOC=resolveLoc();renderNow();closeIfIdle();}
+});
+addEventListener('pagehide',()=>{flush();flushDayEdit();});
+addEventListener('beforeunload',()=>{flush();flushDayEdit();});
+
+// Android Back (the shell asks the tool first): a day goes back to where it was opened from (the list of
+// days or today's page), the list of days goes back to today's page
+window.onBack=()=>{
+  if(VIEW==='day'){if(DAYFROM==='days')showDays();else showToday();return true;}
+  if(VIEW==='days'){showToday();return true;}
+  if(!$('#locEd').classList.contains('hidden')){closeLocEd();return true;}
+  return false;
+};
+// The app calls this on resume and when the location changes
+window.onNativeUpdate=()=>{LOC=resolveLoc();renderNow();closeIfIdle();if(VIEW==='days')renderDays();};
+
+/* ---------- start ---------- */
+retryPending();   // entries whose last save failed are filed now; any that still fail stay kept, with a notice
+LOC=resolveLoc();
+if(!LOC)requestGeo(false);
+renderNow(); renderStamp(); renderTodayList();
+setInterval(()=>{
+  renderNow();
+  const d=todayId(); if(d!==lastToday){lastToday=d;if(VIEW==='today')renderTodayList();}
+},30000);
+try{ta.focus({preventScroll:true});}catch(e){}
+</script></body></html>

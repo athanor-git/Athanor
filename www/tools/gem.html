@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Athanor — Gematria & Sigil Workbench</title>
+<style>
+:root{--bg:#faf7f0;--card:#fff;--ink:#1a1712;--sub:#6b6357;--acc:#7a5c2e;--line:#e3ddd0;--hit:#fff3c9}
+@media(prefers-color-scheme:dark){:root{--bg:#14120e;--card:#1e1b15;--ink:#ece5d8;--sub:#9a9184;--acc:#d0a85c;--line:#33302a;--hit:#4a3f1e}}
+*{box-sizing:border-box}body{margin:0;font:16px/1.45 system-ui,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--ink)}
+header{padding:10px 14px;border-bottom:1px solid var(--line)}
+h1{font-size:16px;margin:0;letter-spacing:.04em}h1 small{color:var(--sub);font-weight:400}
+.tabs{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
+.tab{border:1px solid var(--line);background:var(--card);border-radius:8px 8px 0 0;padding:7px 14px;cursor:pointer;font-size:14px}
+.tab.on{background:var(--acc);color:#fff;border-color:var(--acc)}
+main{max-width:820px;margin:0 auto;padding:12px}
+input,select{font-size:16px;padding:9px 12px;border:1.5px solid var(--acc);border-radius:9px;background:var(--card);color:var(--ink)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin:10px 0}
+.hint{color:var(--sub);font-size:13.5px}
+.heb{font-size:26px;direction:rtl;unicode-bidi:isolate}
+.kbd{display:flex;flex-wrap:wrap;gap:4px;margin:8px 0}
+.kbd b{border:1px solid var(--line);background:var(--card);border-radius:6px;padding:6px 9px;cursor:pointer;font-size:18px;min-width:34px;text-align:center}
+.kbd b:hover{background:var(--hit)}.kbd b small{font-size:9px;color:var(--sub);display:block}
+.val{font-size:34px;font-weight:700;color:var(--acc)}
+table{border-collapse:collapse;width:100%;margin-top:6px}td{border-top:1px solid var(--line);padding:5px 7px;font-size:14px;vertical-align:top}
+.mtch{cursor:default}.big{font-size:20px}
+svg{width:100%;max-width:460px;height:auto;display:block;margin:6px auto;background:var(--card);border:1px solid var(--line);border-radius:12px}
+.exp{background:var(--hit);border-radius:8px;padding:9px 12px;font-size:13px;margin-top:8px}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+</style></head><body>
+<header><h1>ATHANOR · GEMATRIA &amp; SIGIL WORKBENCH <small>· Hebrew numerology + Rose-Cross &amp; planetary sigils</small></h1></header>
+<main>
+<div class="tabs">
+ <span class="tab on" data-t="gem" onclick="tab('gem')">Gematria</span>
+ <span class="tab" data-t="rose" onclick="tab('rose')">Rose Cross sigil</span>
+ <span class="tab" data-t="kam" onclick="tab('kam')">Planetary sigil</span>
+ <span class="tab" data-t="abjad" onclick="tab('abjad')">Arabic (Abjad)</span>
+ <span class="tab" data-t="wafq" onclick="tab('wafq')">Arabic Wafq &amp; Buduh</span>
+ <span class="tab" data-t="seals" onclick="tab('seals')">Seven Seals</span>
+</div>
+<div style="display:flex;gap:6px;align-items:center;margin:0 2px 8px">
+ <span class="hint">Numerals:</span>
+ <span class="tab on" id="nw" onclick="setNum(false)" style="border-radius:8px;padding:5px 11px">0–9</span>
+ <span class="tab" id="ne" onclick="setNum(true)" style="border-radius:8px;padding:5px 11px">٠–٩ Baghdad (Abbasid)</span>
+</div>
+<div id="gem">
+ <div class="card">
+  <div class="row"><input id="gin" placeholder="Hebrew word, or a number…" style="flex:1;min-width:180px" autocomplete="off">
+   <select id="gmode"><option value="std">standard values</option><option value="final">with final-letter (sofit) values</option></select></div>
+  <div class="kbd" id="kbd"></div>
+  <div class="hint"></div>
+ </div>
+ <div id="gout"></div>
+</div>
+<div id="rose" style="display:none">
+ <div class="card">
+  <div class="row"><input id="rin" placeholder="Hebrew word to sigilise…" style="flex:1;min-width:180px" autocomplete="off">
+   <button onclick="drawRose()" style="border:1px solid var(--acc);background:var(--acc);color:#fff;border-radius:8px;padding:9px 14px;cursor:pointer">Trace</button></div>
+  <div class="kbd" id="kbd2"></div>
+  <svg id="rosesvg" viewBox="0 0 400 400"></svg>
+  <div class="exp"></div>
+ </div>
+</div>
+<div id="abjad" style="display:none">
+ <div class="card">
+  <div class="row"><input id="ain" dir="rtl" placeholder="اكتب كلمة عربية…" style="flex:1;min-width:180px;text-align:right" autocomplete="off">
+   <select id="amode"><option value="east">Eastern (Mashriqī) order</option></select></div>
+  <div class="kbd" id="kbd4"></div>
+  <div class="hint"></div>
+ </div>
+ <div id="aout"></div>
+</div>
+<div id="kam" style="display:none">
+ <div class="card">
+  <div class="row"><input id="kin" placeholder="Hebrew word…" style="flex:1;min-width:150px" autocomplete="off">
+   <select id="kplanet"></select>
+   <button onclick="drawKam()" style="border:1px solid var(--acc);background:var(--acc);color:#fff;border-radius:8px;padding:9px 14px;cursor:pointer">Trace</button></div>
+  <div class="kbd" id="kbd3"></div>
+  <svg id="kamsvg" viewBox="0 0 400 400"></svg>
+  <div class="exp" id="kamexp"></div>
+ </div>
+</div>
+<div id="wafq" style="display:none">
+ <div class="card">
+  <div class="row"><input id="win" dir="rtl" placeholder="اسم أو كلمة…" style="flex:1;min-width:150px;text-align:right" autocomplete="off">
+   <select id="wplanet"></select>
+   <label class="hint" style="display:flex;align-items:center;gap:4px"><input type="checkbox" id="wabj" checked>abjad letters</label>
+   <button onclick="drawWafq()" style="border:1px solid var(--acc);background:var(--acc);color:#fff;border-radius:8px;padding:9px 14px;cursor:pointer">Trace</button></div>
+  <div class="kbd" id="kbd5"></div>
+  <svg id="wafqsvg" viewBox="0 0 400 400"></svg>
+  <div class="exp" id="wafqexp"></div>
+ </div>
+</div>
+<div id="seals" style="display:none">
+ <div class="card">
+  <div class="bh" style="font-size:19px;font-weight:700">The Seven Seals of Solomon <span class="hint" style="font-weight:400">· خواتم سليمان السبعة</span></div>
+  <svg id="sealsvg" viewBox="0 0 520 130" style="width:100%;max-width:520px;display:block;margin:8px auto;background:var(--card);border:1px solid var(--line);border-radius:12px"></svg>
+  <div id="sealinfo"></div>
+  <div class="exp" id="sealexp"></div>
+ </div>
+</div>
+</main>
+<script src="../../data/db/core.js"></script>
+<script src="../../data/db/texts.js"></script>
+<script src="../lib/db.js"></script>
+<script>
+const G = {"idx":{"61":[["אין","Ain","II","0"],["יייאל","","CXXX","6"],["דמביה","","CXXXI","10"],["זאגן","Zagan","CLXI","25"]],"146":[["סוף","Ain","II","0"]],"207":[["אור","Ain","II","0"]],"620":[["כתר","Kether","II","1"],["משפר","Mishpar","CXLVIII","20"]],"73":[["חכמה","Chokmah","II","2"],["גמל","Gimel","II","13"],["בליאל","","CVIII","8"]],"67":[["בינה","Binah","II","3"],["זין","Zain","II","17"],["יבמיה","","CXXX","3"],["וינא","Vin","CLXV","17"]],"72":[["חסד","Chesed","II","4"],["עב","Aub","LXIV","31"],["אדוכיאל","Advachiel","CLXXVIII","25"]],"216":[["גבורה","Geburah","II","5"],["אריה","Ari","VI","19"],["אוראוב","Orobas","CLXI","22"]],"1081":[["תפארת","Tiphareth","II","6"]],"148":[["נצח","Netzach","II","7"],["מאזנים","Moznaim","VI","22"],["אנסואל","Ansuel","CXLII","28"]],"15":[["הוד","Hod","II","8"],["יה","","V","2"],["הי","","LXVI","31"],["אבוהא","Aboha","CXLVIII","25"]],"80":[["יסוד","Yesod","II","9"],["ועד","","LXXVIII","13"]],"496":[["מלכות","Malkuth","II","10"]],"111":[["אלף","Aleph","II","11"],["נכיאל","","LXXVIII","30"]],"412":[["בית","Beth","II","12"]],"434":[["דלת","Daleth","II","14"]],"10":[["הה","","II","15"],["אט","","CXIV","4"]],"12":[["וו","Vau","II","16"],["הוא","","IV","1"]],"418":[["חית","Cheth","II","18"]],"419":[["טית","Teth","II","19"]],"20":[["יוד","Yod","II","20"],["יובב","","CIX","4"]],"100":[["כף","Kaph","II","21"]],"74":[["למד","Lamed","II","22"]],"90":[["מים","Maim","II","23"],["מלך","","V","10"]],"106":[["נון","Nun","II","24"],["מלהאל","","CXXX","7"],["סאליה","","CXXX","9"],["פוך","Furcas","CLXIII","19"]],"120":[["סמך","Samekh","II","25"]],"130":[["עין","Ayin","II","26"],["פהליה","","CXXX","5"]],"85":[["פה","","II","27"]],"104":[["צדי","Tzaddi","II","28"]],"186":[["קוף","Qoph","II","29"]],"510":[["ריש","Resh","II","30"],["תימני","Husham","CIX","5"]],"360":[["שין","Shin","II","31"],["ישים","Ishim","LXXXVI","9"],["מהשיה","","CXXIX","7"]],"406":[["תו","Tau","II","32"],["שקו","","XC","9"]],"21":[["אהיה","","V","1"],["אההי","","LXXXIX","2"],["איהה","","LXXXIX","3"],["ההיא","","LXXXIX","4"],["ההאי","","LXXXIX","5"],["האהי","","LXXXIX","6"],["האיה","","LXXXIX","7"],["היאה","","LXXXIX","8"],["יאהה","","LXXXIX","9"],["יההא","","LXXXIX","10"],["יהאה","","LXXXIX","10"]],"26":[["יהוה","Yechidah","V","3"],["יההו","","XCVI","2"],["יוהה","","XCVI","3"],["הויה","","XCVI","4"],["ההוי","","XCVI","5"],["ההיו","","XCVI","6"],["היהו","","XCVI","7"],["הוהי","","XCVI","8"],["והיה","","XCVI","9"],["ויהה","","XCVI","10"],["וההי","","XCVI","10"]],"86":[["אלהים","Beni","V","3"],["מיהאל","","CXXX","10"],["הנאל","Hanael","CLXXVIII","26"]],"31":[["אל","","V","4"],["חבויה","","CXXX","2"]],"211":[["גבור","","V","5"]],"42":[["אלוה","","V","6"],["חלד","Cheled","CIV","10"],["איאל","Ayel","CXLII","15"]],"480":[["ודעת","","V","6"],["לילית","Lilith","VIII","10"]],"499":[["צבאות","","V","7"]],"314":[["שדי","","V","9"],["מטטרון","Metatron","XCIX","1"]],"18":[["חי","","V","9"]],"65":[["אדני","","V","10"],["היכל","","LXXXVII","1"],["אדינ","","CII","2"],["אניד","","CII","3"],["אינד","","CII","4"],["אידנ","","CII","5"],["דניא","","CII","6"],["דנאי","","CII","7"],["דינא","","CII","8"],["דיאנ","","CII","9"],["דאני","","CII","10"],["דאינ","","CII","10"]],"24":[["אזבוגה","","V","12"]],"81":[["אלים","","V","13"],["יליאל","","CXXIX","5"],["יילאל","","CXXXII","6"],["כאין","Camio","CLXIII","20"]],"9":[["הד","","V","13"]],"7":[["אהא","","V","14"],["גד","Gad","CXLI","15"]],"3":[["אב","","V","32"]],"4":[["אבא","","V","21"]],"36":[["אלה","","V","30"]],"296":[["הארץ","","V","32 bis"]],"35":[["אגלא","","V","31 bis"]],"326":[["יהשוה","","V","31 bis"]],"911":[["ראשית","","VI","1"],["בארשחת","Bar","CVI","5"]],"121":[["הגלגלים","Rashith","VI","1"],["כעאל","Kael","CXLII","18"],["עכאל","Akel","CXLV","18"]],"483":[["מזלות","Mazloth","VI","2"],["עגנרמען","Ogameron","CXLV","17"]],"713":[["שבתאי","Shabbathai","VI","3"]],"194":[["צדק","Tzedeq","VI","4"]],"95":[["מאדים","Madim","VI","5"],["דניאל","","CXXIX","2"],["ההעיה","","CXXXII","10"],["זבולן","Zebulon","CXLI","26"],["זחעי","Zachi","CXLVII","19"]],"640":[["שמש","Shemesh","VI","6"]],"58":[["נגה","Nogah","VI","7"],["ייזאל","","CXXXI","6"],["להחיה","","CXXXII","3"]],"48":[["כוכב","Kokab","VI","8"],["והואל","","CXXIX","2"]],"87":[["לבנה","Levanah","VI","9"],["בהלמי","Bihelami","CXLVI","29"]],"78":[["חלם","","VI","10"],["אומאל","","CXXIX","10"],["יזלאל","","CXXXI","2"],["מבהאל","","CXXXI","2"],["כדמדי","Kadamidi","CXLVI","16"],["זמאל","Zamael","CLXXVIII","27"]],"486":[["יסודות","Cholem","VI","10"],["עוית","Hadad","CIX","6"]],"214":[["רוח","Ruach","VI","11"],["זזר","Zazer","CXLVI","15"]],"44":[["טלה","Teleh","VI","15"],["דלי","Deli","VI","28"],["גיאל","Giel","CXLII","17"]],"506":[["שור","Shor","VI","16"]],"497":[["תאומים","Teomim","VI","17"]],"319":[["סרטן","Sarton","VI","18"]],"443":[["בתולה","Betulah","VI","20"]],"372":[["עקרב","Akrab","VI","24"]],"800":[["קשת","Qesheth","VI","25"]],"17":[["גדי","Gedi","VI","26"]],"57":[["דגים","Dagim","VI","29"],["לוויה","","CXXX","5"],["ווליה","","CXXX","8"],["אלוך","Alloces","CLXI","20"],["און","Amy","CLXI","24"]],"301":[["אש","Ash","VI","31"]],"291":[["ארץ","Aretz","CIV","1"],["צכמקיאל","Tzakmiqiel","CXLIII","28"]],"401":[["את","Ath","VI","31 bis"]],"488":[["תאומיאל","Thaumiel","VIII","1"]],"116":[["עוגואל","Ghagiel","VIII","2"],["מכון","Makhon","XCIII","4"],["גמיגין","Gamigina","CLV","16"],["אסמדאי","Asmoday","CLVII","28"],["האלף","Halphas","CLXIII","15"],["המליאל","Hamaliel","CLXXVIII","20"]],"703":[["סאתאריאל","Satariel","VIII","3"]],"188":[["געסכלה","Gha","VIII","4"]],"49":[["גולחב","Golachab","VIII","5"],["הגיאל","","LXXVIII","14"]],"869":[["תגרירון","Thagiriron","VIII","6"]],"272":[["ערב","","VIII","7"],["כרבים","Kerubim","C","9"],["רינוו","Ronove","CLIX","25"]],"307":[["זרק","","VIII","7"],["וריאץ","Oriax","CLXIII","24"]],"131":[["סמאל","Samael","VIII","8"],["נלכאל","","CXXX","6"],["ססיא","Sasia","CXLV","20"]],"84":[["גמיאל","Gamaliel","VIII","9"]],"548":[["בעירירון","Ba","VIII","15"],["עבירירון","","VIII","22"]],"321":[["אדימירון","Adimiron","VIII","16"],["שאהיה","","CXXIX","9"],["לסלרא","Laslara","CXLIV","20"],["אלינכיר","Alinkir","CXLVIII","18"]],"466":[["צללימירון","Tzalalimiron","VIII","17"],["שמעון","Simeon","CXLI","29"],["בתחון","Bethehon","CXLIV","24"]],"784":[["שיחרירון","Shichiriron","VIII","18"]],"603":[["שלהבירון","Shalehbiron","VIII","19"]],"636":[["צפרירון","Tzaphiriron","VIII","20"]],"1024":[["נחשתירון","Necheshthiron","VIII","24"]],"624":[["נחשירון","Necheshiron","VIII","25"]],"280":[["דגדגירון","Dagdagiron","VIII","26"],["סנדלפון","Sandalphon","XCIX","10"]],"323":[["בהימירון","Bahimiron","VIII","28"],["סטנדר","Satonder","CXLVIII","15"]],"666":[["נשימירון","Nashimiron","VIII","29"],["סורת","","LXXIX","30"]],"68":[["חיים","","XXI","32 bis"]],"139":[["הדקל","Hiddekel","LVI","11"]],"64":[["גהון","Gihon","LVI","23"],["גונה","","LXXXVII","8"]],"446":[["פישון","Pison","LVI","31"]],"680":[["פרת","Phrath","LVI","32 bis"]],"255":[["מזרח","Mezrach","LVII","11"],["אנדר","Andras","CLXV","25"]],"312":[["מערב","Maareb","LVII","23"],["ושו","Oso","CLXV","22"]],"250":[["דרום","Darom","LVII","31"]],"226":[["צפון","Tzaphon","LVII","32 bis"]],"311":[["רפאל","Raphael","LIX","11"],["צפקיאל","Tzaphkiel","XCIX","3"],["עריאל","","CXXX","9"]],"246":[["גבריאל","Gabriel","LIX","23"],["הריאל","","CXXXI","3"],["ראידאל","Rayel","CXLIV","16"]],"101":[["מיכאל","Michael","LIX","31"],["מומיה","","CXXX","4"]],"248":[["אוריאל","Auriel","LIX","32 bis"]],"242":[["אריאל","Ariel","LX","11"]],"970":[["תרשיס","Tharsis","LX","23"]],"580":[["שרף","Seraph","LX","31"]],"228":[["כרוב","Kerub","LX","32 bis"]],"118":[["חסן","Chassan","LXI","11"]],"449":[["תליהד","Taliahad","LXI","23"]],"232":[["אראל","Aral","LXI","31"],["אמניציאל","Amnitziel","CLXXVIII","29"]],"337":[["פורלאך","Phorlakh","LXI","32 bis"],["שאול","Sheol","CVI","1"]],"315":[["יצירה","Yetzirah","LXIII","11"],["ננדוהר","Nundohar","CXLVII","24"]],"218":[["בריאה","Briah","LXIII","23"]],"537":[["אצילות","Atziluth","LXIII","31"]],"385":[["עשיה","Assiah","LXIII","32 bis"]],"45":[["מה","Mah","LXIV","11"],["אגיאל","","LXXVIII","32"],["זזאל","","LXXIX","32"],["זבול","Zebul","XCIII","6"]],"63":[["סג","Seg","LXIV","23"],["אבדון","Abaddon","CVI","4"]],"52":[["בן","Ben","LXIV","32 bis"],["יהואל","Yehuel","LXXXV","1"],["לאויה","","CXXXI","4"],["בים","Bim","CLVII","25"]],"6":[["הא","","LXVI","11"],["דב","","CXIV","3"]],"13":[["ואו","","LXVI","11"],["אהבה","","LXXXVII","4"],["גי","","XC","2"],["הדד","","CIX","6"]],"22":[["ויו","","LXVI","31"],["האאיה","","CXXIX","8"]],"398":[["נשמח","Neshamah","LXVII","23"]],"23":[["חיה","Chiah","LXVII","31"]],"430":[["נפש","Nephesh","LXVII","32 bis"]],"37":[["יחידה","Yechidah","LXVII","31 bis"],["אכאיה","","CXXXII","8"],["ואל","Volac","CLXIII","25"]],"260":[["טיריאל","","LXXVIII","12"]],"91":[["מלכא","","LXXVIII","13"],["כמאל","Kamael","XCIX","5"],["כליאל","","CXXXI","4"]],"1262":[["בתרשישים","","LXXVIII","13"]],"213":[["ברוה","","LXXVIII","13"]],"455":[["שהקים","","LXXVIII","13"]],"136":[["יופיל","","LXXVIII","21"],["הסמאל","","LXXIX","21"]],"325":[["גראפיאל","","LXXVIII","27"],["ברצבאל","","LXXIX","27"]],"2080":[["תפתרתרת","","LXXIX","12"]],"369":[["חשמודאי","","LXXIX","13"],["שהדני","Shehadani","CXLVII","17"]],"175":[["קדמאל","","LXXIX","14"]],"300":[["מצפצ","","LXXXIV","4"],["מצפץ","","LXXXIV","8"]],"269":[["כרוביאל","Kerubiel","LXXXV","3"]],"235":[["צדקיאל","Tzadqiel","LXXXV","4"]],"1210":[["תרשיש","Tharshish","LXXXV","5"]],"1096":[["מתתרון","Metatron","LXXXV","6"]],"107":[["וסיאל","Usiel","LXXXV","7"],["עואל","Oel","CXLII","19"]],"156":[["הסניאל","Hisniel","LXXXV","8"],["פעו","Hadar","CIX","10"],["כמוץ","Kamotz","CXLVI","24"]],"630":[["שרפים","Seraphim","LXXXVI","1"],["סערש","Sarash","CXLIV","17"]],"187":[["אופנים","Auphanim","LXXXVI","2"],["פאימון","Paimon","CLIX","17"]],"278":[["כרובים","Kerubim","LXXXVI","3"]],"460":[["שיננים","Shinanim","LXXXVI","4"]],"1260":[["תרשישים","Tharshishim","LXXXVI","5"]],"428":[["חשמלים","Chashmalim","LXXXVI","6"]],"140":[["מלכים","Malakim","LXXXVI","7"]],"62":[["בני","","LXXXVI","8"],["מבהיה","","CXXXII","5"],["בההמי","Behahemi","CXLVII","15"]],"282":[["אראלים","Aralim","LXXXVI","10"]],"410":[["קדוש","","LXXXVII","1"]],"454":[["קדשים","Hekel","LXXXVII","1"]],"433":[["זכות","","LXXXVII","5"],["בלאת","Beleth","CLV","19"]],"346":[["רצון","","LXXXVII","6"]],"200":[["עצם","","LXXXVII","7"]],"390":[["שמים","","LXXXVII","7"],["שץ","Shax","CLXIII","17"]],"482":[["לבנת","","LXXXVII","9"]],"355":[["הספיר","","LXXXVII","9"]],"490":[["תץ","","XC","3"]],"729":[["קרעשטן","","XC","4"]],"387":[["נגדיכש","","XC","5"]],"704":[["בטרצתג","","XC","6"]],"239":[["חקבטנע","","XC","7"],["יכסגנוץ","Yakasaganotz","CXLVIII","16"]],"230":[["יגלפזק","","XC","8"],["ראידיה","Rayadyah","CXLVII","20"]],"500":[["צית","","XC","10"],["תימן","Teman","CIX (cont.)","8"]],"678":[["ערבות","Araboth","XCIII","1"]],"166":[["מעון","Maon","XCIII","5"],["נפול","Napula","CLXV","24"]],"458":[["שחקים","Shechaqim","XCIII","7"]],"380":[["רקיע","Raquia","XCIII","8"]],"432":[["תבל","","XCIII","9"]],"102":[["וילון","","XCIII","9"],["בעל","","CIX","9"]],"395":[["נשמה","Neshamah","XCVII","3"],["מנשה","Manesseh","CXLI","17"]],"331":[["רציאל","Ratziel","XCIX","2"]],"97":[["האניאל","Haniel","XCIX","7"],["אמון","Amon","CLV","17"]],"424":[["חיות","","C","1"],["טוטת","Totath","CXLV","16"]],"409":[["הקדש","Chaioth","C","1"]],"351":[["אשים","Ashim","C","10"],["לוסנהר","Losanahar","CXLVI","19"]],"50":[["אדמה","Adamah","CIV","4"],["אלדיה","","CXXXII","9"]],"14":[["גיא","Gia","CIV","5"]],"365":[["נשיה","Neshiah","CIV","6"]],"105":[["ציה","Tziah","CIV","7"]],"302":[["ארקא","Arqa","CIV","8"],["סראיאל","Sarayel","CXLIII","17"]],"99":[["טיטהיון","Titahion","CVI","6"]],"1026":[["שערימות","Shaarimoth","CVI","7"]],"566":[["צלמות","Tzelmoth","CVI","8"]],"108":[["גיהנם","Gehinnom","CVI","9"],["חנן","Baal-Hannan","CIX","9"]],"701":[["אשת","","CVIII","3"]],"163":[["זנונים","","CVIII","3"]],"1376":[["עשתרות","","CVIII","5"]],"25":[["חיוא","","CVIII","6"]],"356":[["אשמדאי","","CVIII","7"]],"165":[["נעמה","","CVIII","10"],["עממיה","","CXXIX","3"]],"297":[["בצרה","Jobab","CIX","4"]],"348":[["חשם","","CIX","5"]],"375":[["שמלה","","CIX","7"]],"645":[["משרקה","Samlah","CIX","7"]],"616":[["רחבות","Saul","CIX","8"]],"209":[["הדר","","CIX","10"],["בואר","Buer","CLV","18"]],"93":[["אהליבמה","Aholibamah","CIX (cont.)","4"]],"190":[["פינן","Pinon","CIX (cont.)","6"]],"157":[["קנז","Kenaz","CIX (cont.)","7"],["ענואל","","CXXXI","9"]],"88":[["מגדיאל","","CIX (cont.)","9"]],"332":[["מבצר","Mibzar","CIX (cont.)","9"],["אפראים","Ephraim","CXLI","16"],["מאראץ","Marax","CLIX","22"],["אנדרומאל","Andromalius","CLXV","29"]],"320":[["עירם","Eram","CIX (cont.)","10"],["סריטיאל","Saritiel","CXLIII","25"]],"28":[["כח","","CXIV","7"]],"55":[["נה","","CXIV","10"]],"328":[["החשיה","","CXXIX","3"]],"132":[["ננאאל","","CXXIX","4"]],"491":[["ניתאל","","CXXIX","4"]],"32":[["והויה","","CXXIX","5"]],"110":[["סיטאל","","CXXIX","6"]],"155":[["עלמיה","","CXXIX","6"],["סנהם","Sanahem","CXLIV","19"],["יסיסיה","Yasyasyah","CXLVII","26"]],"96":[["ללהאל","","CXXIX","7"]],"470":[["נתהיה","","CXXIX","8"]],"641":[["ירתאל","","CXXIX","9"]],"251":[["רייאל","","CXXIX","10"]],"112":[["איעאל","","CXXX","2"]],"237":[["ראהאל","","CXXX","3"],["סויעסאל","Suyasel","CXLII","25"]],"56":[["הייאל","","CXXX","4"]],"34":[["חהויה","","CXXX","7"]],"60":[["ילהיה","","CXXX","8"]],"415":[["עשליה","","CXXX","10"]],"160":[["הקמיה","","CXXXI","3"]],"92":[["אניאל","","CXXXI","5"]],"133":[["חעמיה","","CXXXI","5"]],"306":[["רהעאל","","CXXXI","6"]],"46":[["הההאל","","CXXXI","7"],["טואל","Toel","CXLII","16"],["יהאל","Yahel","CXLII","22"]],"79":[["ומבאל","","CXXXI","8"]],"51":[["יההאל","","CXXXI","8"],["אים","Aim","CLVII","24"]],"89":[["מחיאל","","CXXXI","9"]],"221":[["מנקאל","","CXXXI","10"],["פאנץ","Phenex","CLXI","15"]],"83":[["לכבאל","","CXXXII","2"]],"521":[["ושריה","","CXXXII","2"]],"39":[["יחויה","","CXXXII","3"]],"141":[["כוקיה","","CXXXII","4"],["פכיאל","Pakiel","CXLIII","18"]],"125":[["מנדאל","","CXXXII","4"]],"127":[["פויאל","","CXXXII","5"]],"145":[["נממיה","","CXXXII","6"]],"244":[["הרחאל","","CXXXII","7"]],"361":[["מצראל","","CXXXII","7"],["כשיאל","Cassiel","CLXXVIII","32"]],"456":[["כהתאל","","CXXXII","8"]],"53":[["הזיאל","","CXXXII","9"]],"830":[["יששכר","Issachar","CXLI","18"]],"30":[["יהודה","Judah","CXLI","19"]],"570":[["נפתלי","Napthali","CXLI","20"]],"501":[["אשר","Asshur","CXLI","22"],["שאר","Seere","CLXI","29"]],"54":[["דן","Dan","CXLI","24"]],"152":[["בנימן","Benjamin","CXLI","25"]],"259":[["ראובן","Reuben","CXLI","28"]],"47":[["ויאל","Veyel","CXLII","20"]],"162":[["סוסול","Susul","CXLII","24"],["גלאסלבול","Glasya-Labolas","CLV","25"]],"465":[["כשניעיה","Kashenyaiah","CXLII","26"]],"421":[["פשיאל","Pasiel","CXLII","29"]],"546":[["שרהיאל","Sharhiel","CXLIII","15"]],"249":[["ארזיאל","Araziel","CXLIII","16"],["גמור","Gamori","CLXIII","22"]],"550":[["שרטיאל","Sharatiel","CXLIII","19"]],"771":[["שלתיאל","Shelathiel","CXLIII","20"]],"153":[["חדקיאל","Chedeqiel","CXLIII","22"],["געף","Gaap","CLIX","28"]],"202":[["סאיציאל","Saitziel","CXLIII","24"]],"481":[["שמקיאל","Samqiel","CXLIII","26"]],"69":[["וכביאל","Vakabiel","CXLIII","29"]],"789":[["סטרעתן","Sateraton","CXLIV","15"]],"474":[["רעדר","Raadar","CXLIV","18"]],"661":[["תרגבון","Thergebon","CXLIV","22"],["ישטולוש","Stolas","CLIX","29"]],"19":[["אהוז","Ahoz","CXLIV","25"]],"224":[["סנדלעי","Sandali","CXLIV","26"]],"676":[["עתור","Athor","CXLIV","28"]],"441":[["רמרא","Ramara","CXLIV","29"]],"236":[["ספעטאוי","Sapatavi","CXLV","15"]],"654":[["זלברהית","Zalberhith","CXLV","19"]],"276":[["אחודראון","Achodraon","CXLV","22"],["כרוכל","Crocell","CLXI","19"]],"217":[["סהקנב","Sahaqanab","CXLV","24"]],"322":[["לברמים","Lebarmin","CXLV","25"]],"247":[["אלויר","Aloyar","CXLV","26"],["ראום","Raum","CLXI","16"]],"167":[["פלאון","Polayan","CXLV","28"]],"751":[["נתדורינאל","Nathdorinel","CXLV","29"]],"563":[["סגרש","Sagarash","CXLVI","17"]],"947":[["מתראוש","Mathravash","CXLVI","18"]],"313":[["אננאורה","Ananaurah","CXLVI","20"]],"329":[["טרסני","Tarasni","CXLVI","22"]],"941":[["משראת","Mishrath","CXLVI","25"]],"206":[["מסנון","Misnim","CXLVI","26"]],"240":[["סספמ","Saspam","CXLVI","28"]],"309":[["מנחראי","Minacharai","CXLVII","16"]],"299":[["רהדץ","Rahadetz","CXLVII","18"]],"405":[["סהרנץ","Saharnatz","CXLVII","22"]],"271":[["והרין","Vehrin","CXLVII","25"]],"263":[["אבדרון","Abdaron","CXLVII","28"],["אורון","Avron","CXLVII","29"],["ברכיאל","Barachiel","CLXXVIII","24"]],"468":[["ביתון","Bethon","CXLVIII","17"]],"277":[["סהיבר","Sahiber","CXLVIII","19"],["כימאור","Kimaris","CLXV","26"]],"512":[["שחדר","Shachdar","CXLVIII","22"]],"657":[["ותרודיאל","Uthrodiel","CXLVIII","24"]],"340":[["יסגדיברודיאל","Yasgedibarodiel","CXLVIII","26"]],"254":[["גרודיאל","Gerodiel","CXLVIII","28"],["זוריאל","Zuriel","CLXXVIII","22"]],"359":[["סטריף","Satrip","CXLVIII","29"]],"33":[["באל","Bael","CLV","15"]],"288":[["זאפר","Zepar","CLV","20"]],"637":[["שאלוש","Sallos","CLV","22"],["פורנאש","Forneus","CLIX","26"]],"396":[["יפוש","Ipos","CLV","24"]],"612":[["ברית","Berith","CLV","26"]],"587":[["פוראש","Foras","CLV","28"]],"572":[["פורפור","Furfur","CLV","29"]],"205":[["אגאר","Agares","CLVII","15"]],"243":[["מארב","Marbas","CLVII","16"]],"519":[["ברבטוש","Barbatos","CLVII","17"]],"135":[["גוסיון","Gusion","CLVII","18"],["מלכידאל","Melchiadel","CLXXVIII","15"]],"261":[["לראיך","Leraikha","CLVII","19"]],"327":[["בוטיש","Botis","CLVII","20"]],"642":[["פורשון","Purson","CLVII","22"]],"1307":[["אשתרות","Asteroth","CLVII","26"]],"554":[["מרחוש","Marchosias","CLVII","29"]],"316":[["ושאגו","Vassago","CLIX","15"]],"317":[["ואלפר","Valefor","CLIX","16"]],"529":[["שיטרי","Sitri","CLIX","18"]],"350":[["אליגוש","Eligos","CLIX","19"]],"463":[["באתין","Bathin","CLIX","20"]],"252":[["נבר","Naberius","CLIX","24"]],"378":[["שבנוך","Sabnock","CLXI","17"]],"298":[["ביפרו","Bifrons","CLXI","18"]],"212":[["האור","Haures","CLXI","26"]],"71":[["אמדוך","Amdusias","CLXI","28"]],"342":[["פוכלור","Focalor","CLXIII","16"]],"38":[["אואל","Uvall","CLXIII","18"]],"366":[["אנדראלף","Andrealphas","CLXIII","26"]],"94":[["דנטאל","Dantalion","CLXIII","29"]],"151":[["מאלף","Malphas","CLXV","15"]],"287":[["ופאר","Vepar","CLXV","16"],["מוריאל","Muriel","CLXXVIII","18"]],"528":[["העגנת","Haagenti","CLXV","18"]],"142":[["בעלם","Balam","CLXV","19"],["אסמודאל","Asmodel","CLXXVIII","16"]],"286":[["מורם","Murmur","CLXV","20"]],"234":[["דכאוראב","Decarabia","CLXV","28"]],"82":[["אנאל","Anael","CLXXVIII","14"]],"284":[["אמבריאל","Ambriel","CLXXVIII","17"]],"267":[["ורכיאל","Verachiel","CLXXVIII","19"]],"109":[["סחיאל","Sachiel","CLXXVIII","21"]],"304":[["כאמבריאל","Cambriel","CLXXVIII","28"]]},"colname":{"II":"Hebrew Names of Numbers and Letters.","III":"English of Col. II.","IV":"Consciousness of the Adept.  [expanded — editorial synthesis, not in the original]","V":"God-Names in Assiah.","VI":"The Heavens of Assiah.","VII":"English of Col. VI.","VIII":"Orders of Qliphoth.","IX":"The Sword and the Serpent.","X":"Mystic Numbers of the Sephiroth","XI":"Elements (with their Planetary Rulers).","XII":"The Tree of Life.","XIII":"The Paths of the Sepher Yetzirah.","XIV":"General Attribution of Tarot.","XV":"The King Scale of Colour (י).","XVI":"The Queen Scale of Colour (ה).","XVII":"The Emperor Scale of Colour (ו).","XVIII":"The Empress Scale of Colour (ה).","XIX":"Selection of Egyptian Gods.","XX":"Complete Practical Attribution of Egyptian Gods.","XXI":"The Perfected Man.","XXII":"Small selection of Hindu Deities.","XXIII":"The Forty Buddhist Meditations.","XXIV":"Certain of the Hindu and Buddhist Results.","XXV":"XXXII.","XXXIII":"Some Scandinavian Gods.","XXXIV":"Some Greek Gods.","XXXV":"Some Roman Gods.","XXXVI":"Selection of Christian Gods (10); Apostles (12); Evangelists (4) and Churches of Asia (7).","XXXVII":"Hindu Legendary Demons.","XXXVIII":"Animals, Real and Imaginary.","XXXIX":"Plants, Real and Imaginary.","XL":"Precious Stones.","XLI":"Magical Weapons.","CLXXXVII":"Magical Formulæ (see Col. XLI)","XLII":"Perfumes.","XLIII":"Vegetable Drugs.","XLIV":"Mineral Drugs.","XLV":"Magical Powers [Western Mysticism].","XLVI":"System of Taoism.","XLVII":"Kings and Princes of the Jinn.","XLVIII":"Figures related to Pure Number.","XLIX":"Lineal Figures of the Planets, &c., and Geomany.","L":"Transcendental Morality. [10 Virtues (1-10), 7 Sins (Planets), 4 Magick Powers (Elements).]","LI":"The Coptic Alphabet.","LI-num":"Numeration of Col. LI.","LI-eng":"English equivalent of Col. LI.","LII":"The Arabic Alphabet.","CLXXXIV":"Numeration of Arabic Alphabet","LIII":"The Greek Alphabet.","CLXXXV":"Numeration of Greek Alphabet","CLXXXVI":"Diseases (Typical).","LIV":"The Letters of the Name.","LV":"The Elements and Senses.","LVI":"The Four Rivers.","LVII":"The Four Quarters.","LVIII":"Supereme Elemental Kings.","LIX":"Archangels of the Quarters.","LX":"The Rulers of the Elements","LXI":"Angels of the elements.","LXII":"Kings of the Elemental Spirits.","LXIII":"The Four Worlds.","LXIV":"Secret Names of the Four Words.","LXV":"Secret Num- bers corre- sponding.","LXVI":"Spelling of Tetragrammaton in the Four Worlds.","LXVII":"The Parts of the Soul.","LXVIII":"The Demon Kings.","LXIX":"The Alchemical Elements.","LXX":"Attribution of Pentagram.","LXXI":"The Court Cards of the Tarot, with the Spheres of their Celestial Dominion—Wands.","LXXII":"The Court Cards of the Tarot, with the Spheres of their Celestial Dominion—Cups.","LXXIII":"The Court Cards of the Tarot, with the Spheres of their Celestial Dominion—Swords.","LXXIV":"The Court Cards of the Tarot, with the Spheres of their Celestial Dominion—Pantacles.","LXXV":"The Five Elements (Tatwas).","LXXVI":"The Five Skandhas.","CLXXXVIII":"The Body.","CXCI":"The Four Noble Truths (Buddhism)","CLXXXIX":"Bodily","CXC":"Functions.","LXXVII":"The Planets and their Numbers.","LXXVIII":"Intelligences of the Planets.","CXCIV":"(transliteration)","LXXIX":"Spirits of the Planets.*","CXCIII":"(transliteration)","LXXX":"Olympic Planetary Spirits.","LXXXI":"Metals.","LXXXII":"The Noble Eightfold Path.","CXCII":"English of Col. LXXXII","LXXXIII":"The Attribution of the Hexagram.","LXXXIV":"Divine Names of Briah.","LXXXV":"Angels of Briah.","LXXXVI":"Choirs of Angels in Briah.","LXXXVII":"Palaces of Briah.","LXXXVIII":"Translation of Col. LXXXVII.","LXXXIX":"The Revolutions of אהיה in Briah","XC":"The 42-fold Name which revolves in the Palaces of Yetzirah.","XCI":"The Saints or Adepts of the Hebrews","XCII":"The Angelic Functions in the World of Yetzirah.","XCIII":"The Heavens of Assiah.","XCIV":"English of Palaces (Col. XCIII).","XCV":"Contents of Col. XCIV.","XCVI":"The Revol- utions of יהוה in Yetzirah.","XCVII":"Parts of the Soul.","XCVIII":"English of Col. XCVII","XCIX":"Archangels of Assiah.","C":"Angels of Assiah.","CI":"English of Col. C.","CII":"The Revolutions of Adonai in Assiah.","CIII":"The Ten Divisions of the Body of God.","CIV":"The Ten Earths in Seven Palaces.","CV":"English of Col. CIV.","CVI":"The Ten Hells in Seven Palaces.","CVII":"Translation of Hells.","CVIII":"Some Princes of the Qliphoth.","CIX":"The Kings of Edom.","CIX (cont.)":"The Dukes of Edom.","CX":"Elements and Quarters (Sepher Yetzirah).","CXI":"Sephirothic Colours (Dr. Jellinek).","CXII":"Alchemical Tree of Life (i.).","CXIII":"Alchemical Metals (ii.).","CXIV":"Passwords of the Grades.","CXV":"Officers in a Masonic Lodge.","CXVI":"Egyptian Attribution of Parts of the Soul.","CXVII":"The Soul (Hindu).","CXVIII":"The Chakkras or Centres of Prana (Hinduism).","CXIX":"The Ten Fetters (Buddhism).","CXX":"Magical Images of the Sephiroth.","CXXI":"The Grades of the Order.","CXXII":"The Ten Plagues of Egypt.","CXXIII":"English of Col. VIII., Lines 1-10","CXXIV":"The Heavenly Hexagram.","CXXV":"Seven Hells of the Arabs.","CXXVI":"Their Inhabitants.","CXXVII":"Seven Heavens of the Arabs.","CXXVIII":"Meaning of Col. CXXVII.","CXXIX":"Pairs of Angels ruling Wands.","CXXX":"Pairs of Angels ruling Cups.","CXXXI":"Pairs of Angels ruling Swords.","CXXXII":"Pairs of Angels ruling Coins.","CXXXIII":"Titles and Attributions of the Wand Suit [Clubs]","CXXXIV":"Titles and Attributions of the Cup or Chalice Suit [Hearts]","CXXXV":"Titles and Attributions of the Sword Suit [Spades]","CXXXVI":"Titles and Attributions of the Coin, Disc or Pantacle Suit [Diamonds]","CXXXVII":"Signs of the Zodiac.","CXXXVIII":"Planets ruling Col. CXXXVII.","CXXXIX":"Planets exalted in Col. CXXXVII.","CXL":"Twelve Banners of the Name","CXLI":"The Twelve Tribes.","CXLII":"Angels ruling Houses.","CXLIII":"Twelve Lesser Assistant Angels in the Signs","CXLIV":"Angel Lords of the Triplicity in the Signs by Day  [printed CXXXIX. in source]","CXLV":"Angel Lords of the Triplicity in the Signs by Night  [printed CXL. in source]","CXLVI":"Angels of the Decantes (Ascendant).","CXLVII":"Angels of the Decantes (Succedent).","CXLVIII":"Angels of the Decantes (Cadent).","CXLIX":"Magical Images of the Decans (Ascendant).","CL":"Magical Images of the Decans (Succedent).","CLI":"Magical Images of the Decans (Cadent).","CLII":"Perfumes (Ascendant).","CLIII":"Perfumes (Succedent).","CLIV":"Perfumes (Cadent).","CLV":"Goetic Demons of Decans by Day (Ascendant).","CLVI":"Magical Images of Col. CLV.","CLVII":"Goetic Demons of Decans by Day (Succedent).","CLVIII":"Magical Images of Col. CLVII.","CLIX":"Goetic Demons of Decans by Day (Cadent).","CLX":"Magical Images of Col. CLIX.","CLXI":"Goetic Demons &c. by Night (Ascendant).","CLXII":"Magical Images of Col. CLXI.","CLXIII":"Goetic Demons &c. by Night (Succedent).","CLXIV":"Magical Images of Col. CLXIII.","CLXV":"Goetic Demons &c. by Night (Cadent).","CLXVI":"Magical Images of Col. CLXV.","CLXVII":"Egyptian Gods of Zodiac (Asc. Decans).","CLXVIII":"Egyptian Names of Asc. Decans","CLXIX":"As Col. CLXVII (Succedent)","CLXX":"As Col. CXVIII (Succendent).","CLXXI":"As Col. CXLVII (Cadent)","CLXXII":"As Col. CXLVIII (Cadent)","CLXXIII":"Genii of the Twelve Hours (Levi).","CLXXIV":"The Mansions of the Moon. [Hindu, Nakshatra] Arab, Manazil.","CLXXV":"Hebrew Letters.","CLXXVI":"Numerical Value of Col. CLXXV.","CLXXVII":"Yetziratic Attribution of Col. CLXXV.","CLXXVIII":"Geomantic Intelligences.  [printed CLXXVII. in source]","CLXXIX":"Numbers printed on Tarot Trumps","CLXXX":"Title of Tarot Trumps.","CLXXXI":"Correct Design of Tarot Trumps.","CLXXXII":"The Human Body.","CLXXXIII":"Legendary Orders of Being.","XXV.–XXXII.":"Certain Deities and Attributions: Assyrian, Syrian, Mongolian, Tibetan, Mexican, Zend, South Sea, West African &c.","IV-a":"Keyword.  [authored — editorial synthesis, not in the original]","IV-b":"Meditation.  [authored — editorial synthesis, not in the original]","IV-c":"Practical use.  [authored — editorial synthesis, not in the original]"}};
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+/* The letters, squares, Arabic letters, seals and explanations are content tables (data/db, edited in the content
+   workbook), read through lib/db.js: the Hebrew letters (core.js), kameas, arabic_letters and seals_islamic (DB.load
+   below) and the tool texts gem.… (texts.js). The gematria index G above is generated from Liber 777 by
+   tools/build_gematria_index.py. */
+document.querySelector('#gem .hint').innerHTML=DB.text('gem.gematria-hint');
+document.querySelector('#rose .exp').innerHTML=DB.text('gem.rose');
+document.querySelector('#abjad .hint').innerHTML=DB.text('gem.abjad-hint');
+let EAST=false;
+const EDIG='٠١٢٣٤٥٦٧٨٩';
+function N(x){ return EAST? String(x).replace(/[0-9]/g,d=>EDIG[+d]) : String(x); }
+function numAbjad(n){ if(n<=0||n>9999)return'';
+  const U=['','ا','ب','ج','د','ه','و','ز','ح','ط'],T=['','ي','ك','ل','م','ن','س','ع','ف','ص'],H=['','ق','ر','ش','ت','ث','خ','ذ','ض','ظ'];
+  const th=Math.floor(n/1000);n%=1000;const h=Math.floor(n/100);n%=100;const t=Math.floor(n/10),u=n%10;
+  return 'غ'.repeat(th)+H[h]+T[t]+U[u]; }
+// redraw everything that shows numbers in the chosen numerals
+function setNum(e){ EAST=e; document.getElementById('nw').classList.toggle('on',!e); document.getElementById('ne').classList.toggle('on',e);
+  buildKbd('kbd','gin'); buildKbd('kbd2','rin'); buildKbd('kbd3','kin'); buildAKbd(); buildWKbd(); drawWafq(); gem(); if(typeof abjad==='function')abjad(); }
+// ---- Hebrew letters (tab Hebrew letters): value, final-letter (sofit) value, name
+const LROWS=DB.rows('letters');
+const VAL=Object.fromEntries(LROWS.flatMap(l=>l.final_glyph?[[l.glyph,l.value],[l.final_glyph,l.value]]:[[l.glyph,l.value]]));
+const SOF=Object.fromEntries(LROWS.filter(l=>l.final_glyph).map(l=>[l.final_glyph,l.final_value]));
+const LETTERS=LROWS.map(l=>[l.glyph,l.name,l.value]);
+function letterVal(c,mode){ return (mode==='final'&&SOF[c])?SOF[c]:VAL[c]||0; }
+function value(w,mode){ let s=0; for(const c of w) s+=letterVal(c,mode); return s; }
+function buildKbd(id,target){
+  $('#'+id).innerHTML = LETTERS.map(([g,n,v])=>`<b onclick="ins('${target}','${g}')">${g}<small>${n} ${v}</small></b>`).join('')
+   + `<b onclick="ins('${target}','')" style="min-width:44px">⌫<small>del</small></b>`;
+}
+function ins(target,g){ const el=$('#'+target); if(g==='') el.value=el.value.slice(0,-1); else el.value+=g; el.dispatchEvent(new Event('input')); }
+function tab(t){ for(const x of ['gem','rose','kam','abjad','wafq','seals']){ $('#'+x).style.display=x===t?'block':'none';
+  document.querySelector('.tab[data-t="'+x+'"]').classList.toggle('on',x===t);} }
+// ---- gematria
+function gem(){
+  const raw=$('#gin').value.trim(), mode=$('#gmode').value;
+  if(!raw){ $('#gout').innerHTML=''; return; }
+  let v, heb='';
+  if(/^\d+$/.test(raw)){ v=parseInt(raw); }
+  else { heb=raw; v=value(raw,mode); }
+  let h=`<div class="card"><div class="row"><div class="val">${N(v)}</div>`;
+  if(heb){ h+=`<div><div class="heb">${esc(heb)}</div><div class="hint">`+
+    [...heb].map(c=>`${c}=${N(letterVal(c,mode))}`).join(' + ')+` = <b>${N(v)}</b></div></div>`; }
+  h+='</div>';
+  const m=G.idx[v]||[];
+  if(m.length){
+    h+=`<div class="hint" style="margin-top:8px">${DB.text('gem.matches',{count:N(m.length),value:N(v)})}</div><table>`;
+    for(const [w,t,label,k] of m)
+      h+=`<tr class="mtch"><td class="heb big">${esc(w)}</td><td>${esc(t)||'<span class="hint">—</span>'}</td><td class="hint">Col ${label}, Key ${N(k)}<br>${esc(G.colname[label]||'')}</td></tr>`;
+    h+='</table>';
+  } else h+='<div class="hint" style="margin-top:6px">No other table entry has this exact value.</div>';
+  h+=`<div class="exp">${DB.text('gem.what')}</div></div>`;
+  $('#gout').innerHTML=h;
+}
+// ---- Rose Cross geometry
+const ROSE={};
+(function(){
+  const cx=200,cy=205;
+  // the rings are the Sepher Yetzirah's three classes, which follow each letter's attribution (tab Key scale): the
+  // 12 singles (signs) outermost, the 7 doubles (planets) in the middle, the 3 mothers (elements) innermost
+  const ring=l=>{const k=DB.rev('keyscale','letter',l.id)[0]||{};return k.element?'inner':k.planet?'mid':'outer';};
+  const of=r=>LROWS.filter(l=>ring(l)===r).map(l=>l.glyph);
+  const outer=of('outer'), mid=of('mid'), inner=of('inner');
+  outer.forEach((c,i)=>{const a=(-90+i*30)*Math.PI/180;ROSE[c]=[cx+150*Math.cos(a),cy+150*Math.sin(a)];});
+  mid.forEach((c,i)=>{const a=(-90+i*360/7)*Math.PI/180;ROSE[c]=[cx+92*Math.cos(a),cy+92*Math.sin(a)];});
+  inner.forEach((c,i)=>{const a=(-90+i*120)*Math.PI/180;ROSE[c]=[cx+42*Math.cos(a),cy+42*Math.sin(a)];});
+})();
+function drawRose(){
+  const w=$('#rin').value.trim();
+  let h='';
+  // petals
+  for(const c in ROSE){const [x,y]=ROSE[c];
+    h+=`<circle cx="${x}" cy="${y}" r="15" fill="var(--card)" stroke="var(--line)"/><text x="${x}" y="${y+6}" font-size="17" text-anchor="middle" fill="var(--ink)">${c}</text>`;}
+  // trace
+  const pts=[...w].filter(c=>ROSE[c]).map(c=>ROSE[c]);
+  if(pts.length){
+    const d=pts.map((p,i)=>(i?'L':'M')+p[0].toFixed(1)+' '+p[1].toFixed(1)).join(' ');
+    h+=`<path d="${d}" fill="none" stroke="var(--acc)" stroke-width="2.5"/>`;
+    const s=pts[0]; h+=`<circle cx="${s[0]}" cy="${s[1]}" r="6" fill="none" stroke="var(--acc)" stroke-width="2.5"/>`;
+    if(pts.length>1){const e=pts[pts.length-1],p=pts[pts.length-2];
+      const dx=e[0]-p[0],dy=e[1]-p[1],L=Math.hypot(dx,dy)||1,nx=-dy/L*7,ny=dx/L*7;
+      h+=`<line x1="${e[0]-nx}" y1="${e[1]-ny}" x2="${e[0]+nx}" y2="${e[1]+ny}" stroke="var(--acc)" stroke-width="2.5"/>`;}
+  }
+  $('#rosesvg').innerHTML=h;
+}
+// ---- Planetary Kamea (tab Kameas), keyed by the planet's name as Liber 777 prints it (Sol, Luna): {n, sq, row}
+const KAM={};
+function cellOf(sq,n,num){ for(let r=0;r<n;r++)for(let c=0;c<n;c++)if(sq[r][c]===num)return[r,c]; return null; }
+function reduce(v,max){ while(v>max) v-=max; return v||max; }
+function drawKam(){
+  const w=$('#kin').value.trim(), pl=$('#kplanet').value; if(!KAM[pl])return;
+  const {n,sq}=KAM[pl], max=n*n, S=380, cell=S/n, ox=10, oy=10;
+  let h='';
+  for(let r=0;r<n;r++)for(let c=0;c<n;c++){
+    h+=`<rect x="${ox+c*cell}" y="${oy+r*cell}" width="${cell}" height="${cell}" fill="var(--card)" stroke="var(--line)"/>`+
+       `<text x="${ox+c*cell+cell/2}" y="${oy+r*cell+cell/2+4}" font-size="${Math.min(13,cell/2.4)}" text-anchor="middle" fill="var(--sub)">${sq[r][c]}</text>`;
+  }
+  const nums=[...w].filter(c=>VAL[c]).map(c=>reduce(VAL[c],max));
+  const pts=nums.map(num=>{const rc=cellOf(sq,n,num);return rc?[ox+rc[1]*cell+cell/2,oy+rc[0]*cell+cell/2]:null;}).filter(Boolean);
+  if(pts.length){
+    const d=pts.map((p,i)=>(i?'L':'M')+p[0].toFixed(1)+' '+p[1].toFixed(1)).join(' ');
+    h+=`<path d="${d}" fill="none" stroke="var(--acc)" stroke-width="3"/>`;
+    const s=pts[0];h+=`<circle cx="${s[0]}" cy="${s[1]}" r="7" fill="none" stroke="var(--acc)" stroke-width="3"/>`;
+    if(pts.length>1){const e=pts[pts.length-1],p=pts[pts.length-2],dx=e[0]-p[0],dy=e[1]-p[1],L=Math.hypot(dx,dy)||1;
+      h+=`<line x1="${e[0]+dy/L*8}" y1="${e[1]-dx/L*8}" x2="${e[0]-dy/L*8}" y2="${e[1]+dx/L*8}" stroke="var(--acc)" stroke-width="3"/>`;}
+  }
+  $('#kamsvg').innerHTML=h;
+  $('#kamexp').innerHTML=DB.text('gem.kamea',{max})+' '+(nums.length?'Letters reduced to: '+nums.join(', '):'');
+}
+
+// ---- Arabic Abjad (ḥisāb al-jummal), Eastern/Mashriqī order (tab Arabic letters): ABJAD also counts each letter's
+// other forms (hamza forms, ة, ى); ALET = [glyph, name, value] in the abjad order
+const ABJAD={}, ALET=[];
+const HARAKAT=/[\u0610-\u061A\u064B-\u065F\u0670\u06D6-\u06ED\u0640]/g;
+function abjadVal(w){ let s=0; for(const c of w.replace(HARAKAT,'')) s+=ABJAD[c]||0; return s; }
+function buildAKbd(){
+  $('#kbd4').innerHTML = ALET.map(([g,n,v])=>`<b onclick="ins('ain','${g}')">${g}<small>${n} ${v}</small></b>`).join('')
+   + `<b onclick="ins('ain','')" style="min-width:44px">⌫<small>del</small></b>`;
+}
+function abjad(){
+  const raw=$('#ain').value.trim();
+  if(!raw){ $('#aout').innerHTML=''; return; }
+  let v, ar='';
+  if(/^\d+$/.test(raw)){ v=parseInt(raw); } else { ar=raw; v=abjadVal(raw); }
+  let h=`<div class="card"><div class="row"><div class="val">${N(v)}</div>`;
+  if(ar){ const clean=ar.replace(HARAKAT,'');
+    h+=`<div><div class="heb" style="direction:rtl">${esc(ar)}</div><div class="hint" style="direction:rtl">`+
+    [...clean].map(c=>`${c}=${N(ABJAD[c]||0)}`).join(' + ')+` = <b>${N(v)}</b></div></div>`; }
+  h+='</div>';
+  if(v>0&&v<=9999) h+=`<div class="kv" style="margin-top:6px"><b>Abjad numeral form</b> (classical letter-notation): <span class="heb" style="direction:rtl">${numAbjad(v)}</span> &nbsp;·&nbsp; Eastern digits: <b style="direction:rtl">${String(v).replace(/[0-9]/g,d=>EDIG[+d])}</b></div>`;
+  const m=G.idx[v]||[];
+  if(m.length){
+    h+=`<div class="hint" style="margin-top:8px">${DB.text('gem.abjad-matches',{count:N(m.length),value:N(v)})}</div><table>`;
+    for(const [w,t,label,k] of m)
+      h+=`<tr><td class="heb big">${esc(w)}</td><td>${esc(t)||'<span class="hint">—</span>'}</td><td class="hint">Col ${label}, Key ${N(k)}</td></tr>`;
+    h+='</table>';
+  } else h+='<div class="hint" style="margin-top:6px">No Hebrew table entry has this exact value.</div>';
+  h+=`<div class="exp">${DB.text('gem.abjad')}</div></div>`;
+  $('#aout').innerHTML=h;
+}
+
+
+// ---- Arabic Wafq (talismanic magic square): the planetary squares of tab Kameas; WPLANETS = [planet, label]
+const WPLANETS=[];
+function buildWKbd(){ $('#kbd5').innerHTML = ALET.map(([g,n,v])=>`<b onclick="ins('win','${g}')">${g}<small>${n} ${N(v)}</small></b>`).join('')+`<b onclick="ins('win','')" style="min-width:44px">⌫<small>del</small></b>`; }
+function fillWPlanets(){ $('#wplanet').innerHTML=WPLANETS.map(([k,lbl])=>`<option value="${k}">${lbl}</option>`).join(''); }
+function drawWafq(){
+  const w=$('#win').value.trim(), pl=$('#wplanet').value; if(!KAM[pl])return;
+  const {n,sq,row}=KAM[pl], max=n*n, S=380, cell=S/n, ox=10, oy=10;
+  // a square with a name of its own (Saturn's Buduh): the cells of its name's letters are highlighted
+  const abj=$('#wabj').checked, named=row.wafq_name_arabic||'', marks=[...named].map(c=>ABJAD[c]);
+  let h='';
+  for(let r=0;r<n;r++)for(let c=0;c<n;c++){
+    const num=sq[r][c], corner=marks.includes(num);
+    h+=`<rect x="${ox+c*cell}" y="${oy+r*cell}" width="${cell}" height="${cell}" fill="${corner?'var(--hit)':'var(--card)'}" stroke="var(--line)"/>`+
+       `<text x="${ox+c*cell+cell/2}" y="${oy+r*cell+cell/2+5}" font-size="${Math.min(abj?17:13,cell/2.2)}" text-anchor="middle" fill="var(--ink)" direction="rtl">${abj?numAbjad(num):N(num)}</text>`;
+  }
+  const clean=w.replace(HARAKAT,'');
+  const nums=[...clean].map(c=>ABJAD[c]?reduce(ABJAD[c],max):null).filter(v=>v);
+  const pts=nums.map(num=>{const rc=cellOf(sq,n,num);return rc?[ox+rc[1]*cell+cell/2,oy+rc[0]*cell+cell/2]:null;}).filter(Boolean);
+  if(pts.length){
+    const d=pts.map((p,i)=>(i?'L':'M')+p[0].toFixed(1)+' '+p[1].toFixed(1)).join(' ');
+    h+=`<path d="${d}" fill="none" stroke="var(--acc)" stroke-width="3"/>`;
+    const s=pts[0];h+=`<circle cx="${s[0]}" cy="${s[1]}" r="7" fill="none" stroke="var(--acc)" stroke-width="3"/>`;
+    if(pts.length>1){const e=pts[pts.length-1],p=pts[pts.length-2],dx=e[0]-p[0],dy=e[1]-p[1],L=Math.hypot(dx,dy)||1;
+      h+=`<line x1="${e[0]+dy/L*8}" y1="${e[1]-dx/L*8}" x2="${e[0]-dy/L*8}" y2="${e[1]+dx/L*8}" stroke="var(--acc)" stroke-width="3"/>`;}
+  }
+  $('#wafqsvg').innerHTML=h;
+  let exp=DB.text('gem.wafq',{max:abj?numAbjad(max):max})+' ';
+  if(named) exp+=DB.text('gem.wafq-named',{size:`${n}×${n}`,name:esc(row.wafq_name||''),arabic:esc(named),letters:esc([...named].join(' ')),
+    digits:marks.map(v=>String(v).replace(/[0-9]/g,d=>EDIG[+d])).join(' ')})+' ';
+  if(nums.length) exp+=`Letters reduced to: <span dir="rtl">${nums.join('، ')}</span>.`;
+  $('#wafqexp').innerHTML=exp;
+}
+
+
+// ---- Seven Seals of Solomon (Shams al-Maʿārif) — a common rendition (tab Seals of Solomon). The drawings stay here,
+// found by the seal's ID; SEALS = [name, 'day · planet', meaning, ID] in the table's order
+function sealGlyph(id){
+  const S='stroke="var(--ink)" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"';
+  switch(id){
+    case 'pentagram': return `<path d="M35,13 L51.5,64 L8.4,33 L61.6,33 L18.5,64 Z" ${S}/>`;           // pentagram
+    case 'staffs': return `<path d="M23,16 V74 M35,16 V74 M47,16 V74" ${S}/>`;                        // three strokes
+    case 'ladder': return `<path d="M24,16 V74 M46,16 V74 M24,29 H46 M24,42 H46 M24,55 H46 M24,68 H46" ${S}/>`; // ladder
+    case 'ring': return `<circle cx="35" cy="46" r="21" ${S}/><rect x="30" y="13" width="10" height="10" ${S}/>`; // ring
+    case 'hook': return `<circle cx="29" cy="30" r="9" ${S}/><path d="M38,31 Q48,56 33,74" ${S}/>`;  // waw-hook
+    case 'mim': return `<circle cx="25" cy="36" r="8" ${S}/><path d="M33,40 H60 M60,40 V52" ${S}/>`; // mim-tail
+    case 'chain': return `<path d="M27,15 Q43,25 27,35 Q11,45 27,55 Q43,65 27,75" ${S}/>`;             // serpentine chain
+  }
+  return '';
+}
+const SEALS=[];
+function drawSeals(){
+  let h=''; const cw=520/SEALS.length;
+  SEALS.forEach((s,i)=>{
+    const x=i*cw+cw/2-35;
+    h+=`<g transform="translate(${x},12)">${sealGlyph(s[3])}<text x="35" y="98" font-size="12" text-anchor="middle" fill="var(--acc)" font-weight="700">${i+1}</text></g>`;
+  });
+  $('#sealsvg').innerHTML=h;
+  $('#sealinfo').innerHTML='<table>'+SEALS.map((s,i)=>`<tr><td class="n">${i+1} · ${esc(s[0])}</td><td class="hint" style="white-space:nowrap">${esc(s[1])}</td><td>${esc(s[2])}</td></tr>`).join('')+'</table>';
+  $('#sealexp').innerHTML=DB.text('gem.seals');
+}
+
+buildKbd('kbd','gin'); buildKbd('kbd2','rin'); buildKbd('kbd3','kin');
+$('#gin').addEventListener('input',gem); $('#gmode').addEventListener('change',gem);
+$('#rin').addEventListener('input',drawRose); $('#kin').addEventListener('input',()=>{});
+// picking a planet (or ticking the abjad letters) redraws its square at once; Trace redraws after a new word
+$('#kplanet').addEventListener('change',drawKam); $('#wplanet').addEventListener('change',drawWafq); $('#wabj').addEventListener('change',drawWafq);
+drawRose();
+DB.load('kameas','arabic_letters','seals_islamic').then(()=>{
+  for(const k of DB.rows('kameas')){
+    const p=DB.get('planets',k.id), name=p.name_777||p.name;
+    KAM[name]={n:k.size,sq:DB.items(k.square).map(r=>r.trim().split(/\s+/).map(Number)),row:k};
+    WPLANETS.push([name,(k.wafq_name?`${k.wafq_name} (${k.wafq_name_arabic}) · `:'')+`${p.name} ${k.size}×${k.size}`]);
+  }
+  for(const a of DB.rows('arabic_letters')){ ALET.push([a.glyph,a.name,a.value]); for(const c of [a.glyph,...DB.items(a.forms)])ABJAD[c]=a.value; }
+  for(const s of DB.rows('seals_islamic')){ const w=DB.ref(s,'weekday'); SEALS.push([s.name,w.name+' · '+DB.ref(w,'planet').name,s.meaning||'',s.id]); }
+  $('#kplanet').innerHTML=Object.keys(KAM).map(p=>`<option>${p}</option>`).join('');
+  fillWPlanets(); buildWKbd(); drawSeals(); buildAKbd();
+  $('#ain').addEventListener('input',abjad);
+  drawKam();
+}).catch(e=>{ document.querySelector('main').insertAdjacentHTML('afterbegin','<div class="card">The tables could not be loaded: '+esc(e&&e.message||e)+'</div>'); });
+</script></body></html>

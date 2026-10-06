@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Athanor — Saved Charts</title>
+<style>
+:root{--bg:#faf7f0;--card:#fff;--ink:#1a1712;--sub:#6b6357;--acc:#7a5c2e;--line:#e3ddd0;--hit:#fff3c9;--ok:#3d7a4a;--warn:#a5542c;--on-acc:#fff}
+@media(prefers-color-scheme:dark){:root{--bg:#14120e;--card:#1e1b15;--ink:#ece5d8;--sub:#9a9184;--acc:#d0a85c;--line:#33302a;--hit:#4a3f1e;--ok:#7fbf8c;--warn:#e0936a;--on-acc:#14120e}}
+*{box-sizing:border-box}body{margin:0;font:16px system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--ink)}
+body.viewing{overflow:hidden}
+header{padding:10px 14px;border-bottom:1px solid var(--line)}h1{font-size:16px;margin:0}h1 small{color:var(--sub);font-weight:400}
+main{max-width:680px;margin:0 auto;padding:12px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin:10px 0}
+button{border:1px solid var(--acc);background:var(--acc);color:var(--on-acc);border-radius:9px;padding:9px 14px;font-size:14px;cursor:pointer;min-height:40px}
+button.ghost{background:var(--card);color:var(--ink);border-color:var(--line)}
+button.danger{color:var(--warn)}
+.sub{color:var(--sub);font-size:13px}
+.note{background:var(--hit);border-radius:8px;padding:8px 10px;font-size:13px;margin:8px 0;line-height:1.45}
+.note .act{margin-top:8px}
+.hidden{display:none}
+/* search + count */
+.tools{display:flex;gap:8px;align-items:center}
+.search{flex:1;min-width:0;font-size:16px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink)}
+.search:focus{outline:none;border-color:var(--acc)}
+.count{font-size:12.5px;color:var(--sub);margin:10px 2px 0}
+/* list */
+.list{padding:2px 16px}
+.item{display:flex;align-items:center;gap:10px;padding:12px 0;border-top:1px solid var(--line);cursor:pointer}
+.item:first-child{border-top:none}
+.item:focus-visible{outline:2px solid var(--acc);outline-offset:2px;border-radius:6px}
+.item .bd{flex:1;min-width:0}
+.item .nm{font-weight:700;font-size:16px;color:var(--acc);overflow-wrap:anywhere}
+.item .meta{font-size:13px;color:var(--sub);margin-top:2px;overflow-wrap:anywhere}
+.item .sum{display:flex;flex-wrap:wrap;gap:5px;margin-top:7px}
+.chip{border:1px solid var(--line);background:var(--bg);border-radius:14px;padding:2px 9px;font-size:12.5px;white-space:nowrap}
+.item .when{font-size:11.5px;color:var(--sub);margin-top:6px}
+.item .go{color:var(--sub);font-size:24px;line-height:1;flex:0 0 auto}
+.empty{text-align:center;padding:26px 18px}
+.empty .glyph{font-size:38px;line-height:1;color:var(--acc);margin-bottom:10px}
+.empty b{display:block;font-size:17px;margin-bottom:6px}
+.empty p{margin:0 auto 14px;max-width:26em;line-height:1.45}
+/* viewer: a stored chart page shown full-screen, with a one-row toolbar */
+#viewer{position:fixed;inset:0;z-index:10;background:var(--bg);display:none;flex-direction:column}
+#viewer.on{display:flex}
+.vbar{flex:0 0 auto;position:relative;z-index:2;border-bottom:1px solid var(--line);padding:8px 10px;background:var(--bg)}
+.vtop{display:flex;align-items:center;gap:6px;max-width:880px;margin:0 auto}
+.vtitle{flex:1;min-width:0;font-weight:700;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.vtop button{flex:0 0 auto;padding:8px 12px;min-height:44px}
+.vtop button.icon{min-width:44px;padding:8px 0;font-size:18px;line-height:1}
+.more{position:relative;flex:0 0 auto}
+.menu{position:absolute;right:0;top:calc(100% + 6px);display:flex;flex-direction:column;gap:6px;min-width:150px;padding:6px;
+ background:var(--card);border:1px solid var(--line);border-radius:10px;box-shadow:0 6px 20px rgba(0,0,0,.18)}
+.menu[hidden]{display:none}
+.menu button{width:100%;text-align:left;min-height:44px}
+.rn{display:none;gap:6px;max-width:880px;margin:8px auto 0}
+.rn.on{display:flex}
+.rn input{flex:1;min-width:0;font-size:16px;padding:8px 10px;border:1px solid var(--acc);border-radius:9px;background:var(--card);color:var(--ink)}
+.vmsg{max-width:880px;margin:6px auto 0;font-size:12.5px;color:var(--acc)}
+.vmsg:empty{display:none}
+.vmsg.err{color:var(--warn)}
+#vframe{flex:1 1 auto;min-height:0;width:100%;border:0;display:block;background:var(--bg)}
+</style></head><body>
+<header><h1>ATHANOR · SAVED CHARTS <small>· charts you saved from the Sign Chart Calculator</small></h1></header>
+<main>
+ <div id="where" class="note hidden"></div>
+ <div id="top" class="hidden">
+  <div class="tools">
+   <input id="q" class="search" type="search" placeholder="Search by name, place, date or sign…" autocomplete="off" aria-label="Search saved charts">
+   <button class="ghost" id="newBtn" title="Open the Sign Chart Calculator">+ New</button>
+  </div>
+  <div id="count" class="count"></div>
+ </div>
+ <div id="list"></div>
+</main>
+
+<div id="viewer" aria-hidden="true" role="dialog" aria-labelledby="vTitle">
+ <div class="vbar">
+  <div class="vtop">
+   <button class="ghost icon" id="vBack" aria-label="Back to saved charts" title="Back">←</button>
+   <div class="vtitle" id="vTitle"></div>
+   <button id="vOpen" title="Open in the Chart Calculator">Open</button>
+   <button class="ghost" id="vShare">Share</button>
+   <div class="more">
+    <button class="ghost icon" id="vMore" aria-label="More actions" aria-haspopup="menu" aria-expanded="false" aria-controls="vMenu" title="More">⋯</button>
+    <div class="menu" id="vMenu" role="menu" hidden>
+     <button class="ghost" id="vRename" role="menuitem">Rename</button>
+     <button class="ghost danger" id="vDel" role="menuitem">Delete</button>
+    </div>
+   </div>
+  </div>
+  <div class="rn" id="rn">
+   <input id="rnIn" maxlength="120" aria-label="New name" autocomplete="off">
+   <button id="rnSave">Save</button><button class="ghost" id="rnCancel">Cancel</button>
+  </div>
+  <div class="vmsg" id="vmsg" role="status" aria-live="polite"></div>
+ </div>
+ <!-- the stored page is self-contained (inline CSS, no scripts), so it runs fully sandboxed -->
+ <iframe id="vframe" sandbox="" title="Saved chart"></iframe>
+</div>
+
+<script src="../lib/store.js"></script>
+<script>
+const $=s=>document.querySelector(s);
+// Same escaping as chart.html's escH — Rename relies on matching the text it wrote
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const MONTHS=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const OLDKEY='l777charts'; // where earlier versions kept charts; the Chart Calculator moves them into Store
+let all=[];      // Store.list('charts'), newest first
+let viewId=null; // record shown in the viewer
+
+// Switch tools through the app shell; in a plain browser tab just navigate there.
+// The shell's function is run as the parent's own timer callback so that the shell (not this page)
+// is the calling document — its relative "tools/<key>.html" URL then resolves against index.html.
+function toTool(k,q){
+  try{
+    const P=window.parent;
+    if(P!==window&&typeof P.openTool==='function'){ P.setTimeout(P.openTool,0,k,q||''); return; }
+  }catch(e){}
+  location.href=k+'.html'+(q?'?'+q:'');
+}
+function safeList(){ try{ return Store.list('charts')||[]; }catch(e){ return []; } }
+// Charts an earlier version left in localStorage; they move into Store when the calculator next opens
+function legacyCount(){
+  try{ const o=JSON.parse(localStorage.getItem(OLDKEY)); return Array.isArray(o)?o.length:0; }catch(e){ return 0; }
+}
+
+/* ---- formatting ---- */
+const dayText=(y,m,d)=>d+' '+MONTHS[m-1]+' '+y;
+function birthText(c){ // "28 Sep 2026 · 14:05 · UTC+1"
+  const p=/^(\d{4})-(\d{2})-(\d{2})$/.exec(c.d||'');
+  let s=p?dayText(+p[1],+p[2],+p[3]):(c.d||'');
+  if(c.t) s+=' · '+c.t;
+  if(String(c.tz??'').trim()!==''&&!isNaN(Number(c.tz))){ const n=Number(c.tz); s+=' · UTC'+(n>=0?'+':'')+n; }
+  return s;
+}
+const placeText=c=>c.city?c.city:(String(c.la??'').trim()!==''&&String(c.lo??'').trim()!==''?c.la+'°, '+c.lo+'°':'');
+const stamp=v=>{ const t=Number(v)||0; return t&&t<1e12?t*1000:t; }; // ms; tolerates seconds
+const dateText=t=>{ const d=new Date(t); return dayText(d.getFullYear(),d.getMonth()+1,d.getDate()); };
+// "Saved <created>", plus the last change when it came later (a rename or re-save)
+function savedText(r){
+  const c=stamp(r.created), u=stamp(r.updated), t=c||u;
+  if(!t) return '';
+  return 'Saved '+dateText(t)+(c&&u-c>60000?' · edited '+dateText(u):'');
+}
+const summaryOf=r=>{ const s=(r.data&&r.data.summary)||{}; return [s.sun,s.moon,s.asc].filter(Boolean); };
+const haystack=r=>{ const c=r.data||{}; return [r.name,c.city,c.d,birthText(c),placeText(c)].concat(summaryOf(r)).join(' ').toLowerCase(); };
+
+/* ---- where the phone copies are ---- */
+// Store.folder() names the shared Documents folder. On Android 8–9 the copies go to the app's own
+// folder instead; a stored copy's path (its "mirror") then shows where.
+function phoneFolder(){
+  if(!Store.native) return '';
+  let where=Store.folder('charts');
+  const withFile=all.find(r=>r.hasFile);
+  if(withFile){
+    let r=null; try{ r=Store.get('charts',withFile.id); }catch(e){}
+    const m=r&&r.mirror;
+    if(m&&m.charAt(0)==='/'){ const dir=m.slice(0,m.lastIndexOf('/')), i=dir.indexOf('/Android/data/'); where=i>=0?dir.slice(i+1):dir; }
+  }
+  return where;
+}
+function showWhere(){
+  const where=phoneFolder(), w=$('#where');
+  if(!where){ w.classList.add('hidden'); return; }
+  const inApp=/^Android\//.test(where);
+  w.innerHTML='Saved on this phone in <b>'+esc(where)+'</b> — open My Files → '+(inApp?'Internal storage':'Documents')+' to see them.';
+  w.classList.remove('hidden');
+}
+
+/* ---- list ---- */
+function load(){
+  // newest chart first; a rename or re-save does not move a chart up
+  all=safeList().sort((a,b)=>(stamp(b.created)||stamp(b.updated))-(stamp(a.created)||stamp(a.updated)));
+  showWhere(); render();
+}
+function render(){
+  const q=$('#q').value.trim().toLowerCase(), legacy=legacyCount();
+  const legacyText=legacy?legacy+' chart'+(legacy>1?'s':'')+' from an earlier version of the app will be moved here the next time you open the Chart Calculator.':'';
+  $('#top').classList.toggle('hidden',!all.length);
+  if(!all.length){
+    $('#list').innerHTML=legacy
+      ?`<div class="card empty"><div class="glyph">☉</div><b>Your earlier charts are on their way</b>
+        <p class="sub">${esc(legacyText)}</p>
+        <button data-go>Open the Chart Calculator</button></div>`
+      :`<div class="card empty"><div class="glyph">☉</div><b>No saved charts yet</b>
+        <p class="sub">Open the Sign Chart Calculator, enter a date, time and place, give the chart a name and tap <strong>Save chart</strong>. It will appear here.</p>
+        <button data-go>Open the Chart Calculator</button></div>`;
+    return;
+  }
+  const hits=q?all.filter(r=>haystack(r).includes(q)):all;
+  $('#count').textContent=q?hits.length+' of '+all.length+' charts':all.length+' saved chart'+(all.length>1?'s':'')+' · newest first';
+  const note=legacy?`<div class="note">${esc(legacyText)}<div class="act"><button class="ghost" data-go>Open the Chart Calculator</button></div></div>`:'';
+  $('#list').innerHTML=note+(hits.length
+    ?'<div class="card list">'+hits.map(itemHtml).join('')+'</div>'
+    :`<div class="card empty sub">No saved chart matches “${esc(q)}”.<div class="act" style="margin-top:12px"><button class="ghost" data-clear>Clear search</button></div></div>`);
+}
+function itemHtml(r){
+  const c=r.data||{}, place=placeText(c);
+  const chips=summaryOf(r).map(x=>`<span class="chip">${esc(x)}</span>`).join('');
+  const noCopy=Store.native&&r.hasFile===false; // saved, but the copy in the phone's folder is missing
+  return `<div class="item" role="button" tabindex="0" data-id="${esc(r.id)}">
+  <div class="bd"><div class="nm">${esc(r.name||'Untitled chart')}</div>
+   <div class="meta">${esc(birthText(c))}${place?'<br>'+esc(place):''}</div>
+   ${chips?`<div class="sum">${chips}</div>`:''}
+   <div class="when">${esc(savedText(r))}${noCopy?' · not copied to the phone':''}</div></div>
+  <div class="go" aria-hidden="true">›</div></div>`;
+}
+$('#list').addEventListener('click',e=>{
+  if(e.target.closest('[data-go]')){ toTool('chart'); return; }
+  if(e.target.closest('[data-clear]')){ $('#q').value=''; render(); $('#q').focus(); return; }
+  const it=e.target.closest('.item'); if(it) openViewer(it.dataset.id);
+});
+$('#list').addEventListener('keydown',e=>{
+  const it=e.target.closest('.item');
+  if(it&&(e.key==='Enter'||e.key===' ')){ e.preventDefault(); openViewer(it.dataset.id); }
+});
+$('#q').addEventListener('input',render);
+$('#newBtn').onclick=()=>toTool('chart');
+
+/* ---- viewer ---- */
+function vmsg(text,isErr){ const m=$('#vmsg'); m.textContent=text||''; m.className='vmsg'+(isErr?' err':''); }
+// Shown when a record has no stored page (e.g. a chart moved from an earlier version without a date)
+function fallbackDoc(r){
+  const c=r.data||{};
+  return `<!DOCTYPE html><html><head><meta charset="utf-8"><style>
+:root{--bg:#faf7f0;--ink:#1a1712;--sub:#6b6357}@media(prefers-color-scheme:dark){:root{--bg:#14120e;--ink:#ece5d8;--sub:#9a9184}}
+body{margin:0;padding:24px 18px;font:15px system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.5}p{color:var(--sub)}</style></head><body>
+<h2 style="margin:0 0 6px;overflow-wrap:anywhere">${esc(r.name||'Untitled chart')}</h2><div>${esc(birthText(c))}<br>${esc(placeText(c))}</div>
+<p>No chart page is stored for this record. Tap “Open”, check the date, then “Save chart” to create it.</p></body></html>`;
+}
+// Put a page in the viewer. A fresh <iframe> each time: changing srcdoc on the same frame is a
+// navigation that adds a hidden history entry, which the app's Back button would then walk through.
+function showDoc(html){
+  const f=document.createElement('iframe');
+  f.id='vframe'; f.setAttribute('sandbox',''); f.title='Saved chart';
+  if(html!=null) f.srcdoc=html;
+  $('#vframe').replaceWith(f);
+}
+const menuOpen=()=>!$('#vMenu').hidden;
+function setMenu(open){ $('#vMenu').hidden=!open; $('#vMore').setAttribute('aria-expanded',String(open)); }
+function openViewer(id){
+  let r=null; try{ r=Store.get('charts',id); }catch(e){}
+  if(!r){ alert('That chart could not be found — it may have been deleted.'); load(); return; }
+  viewId=r.id||id;
+  $('#vTitle').textContent=r.name||'Untitled chart';
+  showDoc(r.html||fallbackDoc(r));
+  $('#rn').classList.remove('on'); setMenu(false); vmsg('');
+  $('#viewer').classList.add('on'); $('#viewer').setAttribute('aria-hidden','false');
+  document.body.classList.add('viewing');
+  $('#vBack').focus();
+}
+function closeViewer(){
+  const id=viewId; viewId=null;
+  setMenu(false);
+  $('#viewer').classList.remove('on'); $('#viewer').setAttribute('aria-hidden','true');
+  document.body.classList.remove('viewing');
+  showDoc(null); // drop the page (a new empty frame, so no history entry either)
+  load();
+  const it=id&&[...document.querySelectorAll('.item')].find(x=>x.dataset.id===id);
+  if(it) it.focus();
+}
+// The calculator writes the chart name into the page's <title> and <h1>; keep them in step on rename
+function renameHtml(html,oldName,newName){
+  if(!html||!oldName) return html;
+  const o=esc(oldName), n=esc(newName);
+  // charts saved before the app was renamed Athanor say "— Liber 777 chart"
+  return html
+    .replace('<title>'+o+' — Liber 777 chart</title>',()=>'<title>'+n+' — Liber 777 chart</title>')
+    .replace('<title>'+o+' — Athanor chart</title>',()=>'<title>'+n+' — Athanor chart</title>')
+    .replace('<h1>'+o+' <small>',()=>'<h1>'+n+' <small>');
+}
+function startRename(){
+  setMenu(false);
+  $('#rnIn').value=$('#vTitle').textContent; vmsg('');
+  $('#rn').classList.add('on'); $('#rnIn').focus(); $('#rnIn').select();
+}
+function doRename(){
+  const name=$('#rnIn').value.trim();
+  if(!name){ $('#rnIn').focus(); return; }
+  let r=null; try{ r=Store.get('charts',viewId); }catch(e){}
+  if(!r){ vmsg('This chart no longer exists.',true); return; }
+  if(name===r.name){ $('#rn').classList.remove('on'); return; }
+  const clash=safeList().find(x=>x.id!==r.id&&(x.name||'').toLowerCase()===name.toLowerCase());
+  if(clash){ vmsg('Another saved chart is already called “'+clash.name+'”.',true); return; }
+  const rec={id:r.id||viewId,name,data:r.data||{}};
+  if(r.html) rec.html=renameHtml(r.html,r.name||'',name); // keep the stored page (and the phone file)
+  try{ Store.put('charts',rec); }catch(e){ vmsg('Could not rename: '+(e.message||e),true); return; }
+  $('#vTitle').textContent=name; $('#rn').classList.remove('on');
+  if(rec.html) showDoc(rec.html);
+  vmsg('Renamed to “'+name+'”.');
+}
+function doDelete(){
+  setMenu(false);
+  const name=$('#vTitle').textContent, where=Store.native?Store.folder('charts'):'';
+  if(!confirm('Delete “'+name+'”?'+(where?'\nIts copy on the phone is removed too.':''))) return;
+  let ok=false;
+  try{ ok=Store.remove('charts',viewId); }catch(e){ vmsg('Could not delete: '+(e.message||e),true); return; }
+  if(!ok){ // false also when it was already gone; only complain if it is still there
+    let still=null; try{ still=Store.get('charts',viewId); }catch(e){}
+    if(still){ vmsg('Could not delete this chart.',true); return; }
+  }
+  closeViewer();
+}
+function doShare(){
+  // In the app Store.share() cannot tell us when there is nothing to send, so check first
+  let r=null; try{ r=Store.get('charts',viewId); }catch(e){}
+  if(!r||!r.html){ vmsg('Nothing to share yet — open it in the calculator and save it again.',true); return; }
+  try{ if(!Store.share('charts',viewId)) vmsg('Could not share this chart.',true); }
+  catch(e){ vmsg('Could not share: '+(e.message||e),true); }
+}
+$('#vBack').onclick=closeViewer;
+$('#vOpen').onclick=()=>{ if(viewId) toTool('chart','open='+encodeURIComponent(viewId)); };
+$('#vShare').onclick=doShare;
+$('#vMore').onclick=e=>{ e.stopPropagation(); setMenu(!menuOpen()); };
+$('#vRename').onclick=startRename;
+$('#vDel').onclick=doDelete;
+$('#rnSave').onclick=doRename;
+$('#rnCancel').onclick=()=>{ $('#rn').classList.remove('on'); };
+$('#rnIn').addEventListener('keydown',e=>{
+  if(e.key==='Enter'){ e.preventDefault(); doRename(); }
+  else if(e.key==='Escape'){ e.stopPropagation(); $('#rn').classList.remove('on'); }
+});
+// close the menu on a tap elsewhere (taps inside the chart frame only blur this window)
+document.addEventListener('click',e=>{ if(menuOpen()&&!e.target.closest('.more')) setMenu(false); });
+addEventListener('blur',()=>{ if(menuOpen()) setMenu(false); });
+document.addEventListener('keydown',e=>{
+  if(e.key!=='Escape'||!viewId) return;
+  if(menuOpen()){ setMenu(false); $('#vMore').focus(); }
+  else if(!$('#rn').classList.contains('on')) closeViewer();
+});
+
+/* ---- Android Back: the shell calls its own onBack(); close this page's layers first ---- */
+function handleBack(){
+  if(menuOpen()){ setMenu(false); return true; }
+  if($('#rn').classList.contains('on')){ $('#rn').classList.remove('on'); return true; }
+  if(viewId){ closeViewer(); return true; }
+  return false;
+}
+function hookBack(){
+  let P; try{ P=window.parent; if(!P||P===window||typeof P.onBack!=='function') return; }catch(e){ return; }
+  const orig=P.onBack;
+  const mine=function(){
+    try{ if(!P.document.body.classList.contains('open')&&handleBack()) return true; }catch(e){} // the shell's drawer closes first
+    return orig.apply(this,arguments);
+  };
+  try{ P.onBack=mine; }catch(e){ return; }
+  addEventListener('pagehide',()=>{ try{ if(P.onBack===mine) P.onBack=orig; }catch(e){} });
+}
+
+/* ---- start ---- */
+if(!Store.native) $('#vShare').textContent='Download';
+hookBack();
+load();
+// The app calls this on resume — pick up charts saved or deleted elsewhere
+window.onNativeUpdate=()=>{ if(!viewId) load(); };
+</script></body></html>

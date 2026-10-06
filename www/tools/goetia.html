@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Athanor — The Goetia</title>
+<style>
+:root{--bg:#faf7f0;--card:#fff;--ink:#1a1712;--sub:#6b6357;--acc:#7a5c2e;--line:#e3ddd0;--hit:#fff3c9;--diff:#a5542c}
+@media(prefers-color-scheme:dark){:root{--bg:#14120e;--card:#1e1b15;--ink:#ece5d8;--sub:#9a9184;--acc:#d0a85c;--line:#33302a;--hit:#4a3f1e;--diff:#e0936a}}
+*{box-sizing:border-box}body{margin:0;font:16px system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--ink)}
+header{padding:10px 14px;border-bottom:1px solid var(--line)}h1{font-size:16px;margin:0}h1 small{color:var(--sub);font-weight:400}
+main{max-width:760px;margin:0 auto;padding:12px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin:10px 0}
+.sub{color:var(--sub);font-size:13px}
+.sec{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--acc);font-weight:700;margin:14px 0 6px}
+input[type=search]{width:100%;font-size:16px;padding:9px 12px;border:1px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink)}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+.chip{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:16px;padding:5px 11px;font-size:13px;cursor:pointer}
+.chip.on{background:var(--acc);border-color:var(--acc);color:#fff}
+button{font:inherit;cursor:pointer}
+.btn{border:1px solid var(--acc);background:var(--acc);color:#fff;border-radius:9px;padding:8px 13px;font-size:14px}
+.btn.ghost{background:var(--card);color:var(--ink);border-color:var(--line)}
+/* seals are ink-only PNGs used as a mask, so they can be drawn in any colour */
+.seal{display:block;aspect-ratio:1;background:var(--tint,var(--ink));-webkit-mask:var(--src) center/contain no-repeat;mask:var(--src) center/contain no-repeat}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(104px,1fr));gap:8px}
+.tile{border:1px solid var(--line);background:var(--card);border-radius:12px;padding:8px 6px 7px;text-align:center;cursor:pointer;position:relative;color:var(--ink)}
+.tile:hover{border-color:var(--acc)}
+.tile .seal{width:74%;margin:2px auto 6px}
+.tile .nm{font-weight:650;font-size:13.5px;line-height:1.2}
+.tile .rk{font-size:11.5px;color:var(--sub)}
+.tile .badge{position:absolute;top:5px;right:6px;font-size:10px;color:var(--diff);font-weight:700}
+.tile .two{position:absolute;top:5px;left:7px;font-size:10px;color:var(--sub)}
+/* detail */
+.top{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+.seals{display:flex;gap:10px;flex-wrap:wrap}
+.seals figure{margin:0;text-align:center}
+.seals .seal{width:min(210px,62vw)}
+.seals figcaption{font-size:12px;color:var(--sub);margin-top:4px}
+.idn{flex:1;min-width:200px}
+.big{font-size:24px;font-weight:700;margin:0}
+.ar{font-size:22px;color:var(--sub);direction:rtl;margin-left:6px;font-weight:400}
+.kv{font-size:14px;margin:3px 0}.kv b{color:var(--acc);font-weight:600}
+.pen{display:inline-flex;align-items:center;gap:6px}.dot{width:14px;height:14px;border-radius:50%;border:1px solid rgba(128,128,128,.5);display:inline-block}
+.text{font-family:Georgia,'Times New Roman',serif;font-size:16px;line-height:1.6;white-space:pre-line}
+.fn{font-size:13px;color:var(--sub);margin-top:8px;white-space:pre-line}
+.diff{border-left:3px solid var(--diff);padding:6px 10px;margin:8px 0;background:color-mix(in srgb,var(--diff) 7%,transparent);border-radius:0 8px 8px 0}
+.diff .f{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--diff);font-weight:700}
+.diff .v{font-size:14px;margin:3px 0}.diff .v i{color:var(--sub);font-style:normal;font-size:12px;margin-right:4px}
+.diff .n{font-size:12.5px;color:var(--sub)}
+details summary{cursor:pointer;color:var(--acc);font-weight:600;font-size:14px;margin:8px 0}
+.back{margin-bottom:6px}
+.toggle{display:flex;gap:6px;align-items:center;font-size:13px;color:var(--sub);flex-wrap:wrap}
+.hidden{display:none}
+</style></head><body>
+<header><h1>ATHANOR · THE GOETIA <small>· the 72 spirits as given in Crowley's 1904 Goetia · seals from de Laurence's 1916 plates</small></h1></header>
+<main>
+<div id="listView">
+ <div class="card">
+  <input type="search" id="q" placeholder="Search name, office, appearance…  e.g. treasure, languages, lion" autocomplete="off">
+  <div class="chips" id="ranks"></div>
+  <div class="toggle">Seal colour:
+   <span class="chip on" data-tint="pen">rank pen</span><span class="chip" data-tint="ink">ink</span><span class="chip" data-tint="acc">gold</span>
+   <span class="chip" id="onlyDiff">only where de Laurence's reprint differs</span>
+  </div>
+ </div>
+ <div class="grid" id="grid"></div>
+ <div class="card" id="appendixCard">
+  <details><summary>After the 72 spirits — the Brass Vessel, Observations and the classified list (as reprinted by de Laurence)</summary>
+   <div class="text" id="appendix"></div></details>
+ </div>
+ <p class="sub" id="srcNote"></p>
+</div>
+<div id="detailView" class="hidden"></div>
+</main>
+<script src="../../data/db/core.js"></script>
+<script src="../../data/db/texts.js"></script>
+<script src="../lib/db.js"></script>
+<script>
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+let LK=null, G=null, rankFilter='All', tintMode='pen', onlyDiff=false;
+try{ tintMode=localStorage.getItem('l777goetia.tint')||'pen'; }catch(e){}
+
+// The facts come from the content tables (data/db, edited in the content workbook) through lib/db.js
+const RANKS=['All'].concat(DB.rows('goetic_ranks').map(r=>r.name));
+const sealUrl=f=>`url('../seals/fig_${String(f).padStart(2,'0')}.png')`;  // single quotes: used inside style="…"
+const gSpirit=n=>G.spirits[n-1];
+function ranksOf(n){ return (gSpirit(n).rank||'').split('/').map(r=>r.trim()).filter(Boolean); }
+function penHex(rank){ const r=G.ranks[rank]; if(!r)return null; const p=G.pens[r.pen.code]; return p?p.hex:null; }
+function tintFor(n){
+  if(tintMode==='ink')return 'var(--ink)';
+  if(tintMode==='acc')return 'var(--acc)';
+  return penHex(ranksOf(n)[0])||'var(--acc)';
+}
+function sealEl(f,n,cls){ return `<span class="seal ${cls||''}" role="img" aria-label="Seal, figure ${f}" style="--src:${sealUrl(f)};--tint:${tintFor(n)}"></span>`; }
+
+/* ---------- list ---------- */
+function matches(s,q){
+  if(!q)return true;
+  const g=gSpirit(s.n), c=s.crowley||{};
+  return [g.name,g.variant,g.rank,g.appearance,g.office,c.text||s.deLaurence.text,String(s.n)].join(' ').toLowerCase().includes(q);
+}
+function renderList(){
+  const q=$('#q').value.trim().toLowerCase();
+  const items=LK.spirits.filter(s=>(rankFilter==='All'||ranksOf(s.n).includes(rankFilter))&&(!onlyDiff||s.differences.length)&&matches(s,q));
+  $('#grid').innerHTML=items.map(s=>`<button class="tile" onclick="openSpirit(${s.n})">
+     ${s.seals.length>1?'<span class="two">2 seals</span>':''}${s.differences.length?'<span class="badge" title="de Laurence 1916 differs from the 1904 text">1916 ≠</span>':''}
+     ${sealEl(s.seals[0],s.n)}<div class="nm">${s.n}. ${esc(gSpirit(s.n).name.replace(/\s*\(.*\)$/,''))}</div><div class="rk">${esc(gSpirit(s.n).rank)}</div></button>`).join('')
+    || '<div class="card sub">No spirit matches.</div>';
+}
+function renderRanks(){
+  $('#ranks').innerHTML=RANKS.map(r=>`<span class="chip${r===rankFilter?' on':''}" data-r="${r}">${r}${r==='All'?'':' · '+esc((G.ranks[r]||{}).planet||'')}</span>`).join('');
+}
+$('#ranks').addEventListener('click',e=>{const c=e.target.closest('[data-r]'); if(!c)return; rankFilter=c.dataset.r; renderRanks(); renderList();});
+document.querySelectorAll('[data-tint]').forEach(c=>c.addEventListener('click',()=>{
+  tintMode=c.dataset.tint; try{localStorage.setItem('l777goetia.tint',tintMode);}catch(e){}
+  document.querySelectorAll('[data-tint]').forEach(x=>x.classList.toggle('on',x===c));
+  renderList(); if(current)openSpirit(current,true);
+}));
+$('#onlyDiff').addEventListener('click',()=>{ onlyDiff=!onlyDiff; $('#onlyDiff').classList.toggle('on',onlyDiff); renderList(); });
+$('#q').addEventListener('input',renderList);
+
+/* ---------- detail ---------- */
+let current=null;
+const FIELD={name:'Name',variants:'Variant names',rank:'Rank',legions:'Legions',appearance:'Appearance',office:'Office',seal:'Seal',footnote:'Footnote',numbering:'Numbering',wording:'Wording',other:'Other'};
+function openSpirit(n,keepScroll){
+  current=n;
+  const s=LK.spirits.find(x=>x.n===n), g=gSpirit(n), d=s.deLaurence, c=s.crowley||{};
+  const dec=G.decans.find(x=>x.day===n||x.night===n);
+  const pens=ranksOf(n).map(r=>{const k=G.ranks[r]; if(!k)return''; const p=G.pens[k.pen.code]||{};
+    return `<span class="pen"><span class="dot" style="background:${p.hex||'#888'}"></span>${esc(k.pen.label)} <span class="sub">(${esc(r)} · ${esc(k.metal)})</span></span>`;}).join(' &nbsp; ');
+  const sealsHtml=s.seals.map((f,i)=>`<figure>${sealEl(f,n)}<figcaption>Figure ${f}${s.seals.length>1?(i===0?' · first seal':' · second seal'):''} · de Laurence plate</figcaption></figure>`).join('');
+  const diffs=s.differences.length?s.differences.map(f=>`<div class="diff"><div class="f">${esc(FIELD[f.field]||f.field)}</div>
+      <div class="v"><i>1904</i>${esc(f.crowley)}</div><div class="v"><i>1916</i>${esc(f.deLaurence)}</div><div class="n">${esc(f.note)}</div></div>`).join('')
+    :'<p class="sub">'+DB.text('goetia.no-differences')+'</p>';
+  $('#detailView').innerHTML=`
+   <button class="btn ghost back" onclick="closeSpirit()">← All spirits</button>
+   <div class="card">
+    <div class="top"><div class="seals">${sealsHtml}</div>
+     <div class="idn">
+      <p class="big">${n}. ${esc(g.name.replace(/\s*\(.*\)$/,''))}<span class="ar">${esc(g.arabic)}</span></p>
+      ${g.variant?`<div class="kv"><b>Also called</b> ${esc(g.variant)}</div>`:''}
+      ${g.etymology?`<div class="kv sub">${esc(g.etymology)}</div>`:''}
+      <div class="kv"><b>Rank</b> ${esc(g.rankText||g.rank)}</div>
+      <div class="kv"><b>Legions</b> ${esc(g.legions||c.legions||d.legions)}</div>
+      ${dec?`<div class="kv"><b>Decan</b> ${esc(dec.sign)} ${esc(dec.decan)} (${esc(dec.degrees)}) · ${dec.day===n?'by day':'by night'} · ${esc(dec.card)}</div>`:''}
+      <div class="kv"><b>Pen</b> ${pens||'—'}</div>
+      <div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap">
+       <button class="btn ghost" onclick="toOfferings(${n})">Offerings &amp; timing →</button>
+       <button class="btn ghost" onclick="step(-1)">‹ Prev</button><button class="btn ghost" onclick="step(1)">Next ›</button>
+      </div>
+     </div></div>
+   </div>
+   <div class="card">
+    <div class="sec" style="margin-top:0">The Goetia — Mathers &amp; Crowley, 1904</div>
+    <div class="kv"><b>Appears</b> ${esc(g.appearance||d.appearance)}</div>
+    <div class="kv"><b>Office</b> ${esc(g.office||d.office)}</div>
+    <div class="text" style="margin-top:10px">${esc(c.text||d.text)}</div>
+    ${c.printedPage?`<p class="sub">${DB.text('goetia.printed-page',{page:esc(c.printedPage)})}</p>`:''}
+   </div>
+   <div class="card">
+    <div class="sec" style="margin-top:0">de Laurence's 1916 reprint — how it differs</div>
+    <p style="font-size:14px;margin:4px 0 8px">${esc(s.summary)}</p>
+    ${diffs}
+    <details><summary>de Laurence's text (1916)</summary><div class="text">${esc(d.text)}</div>
+      ${(d.footnotes||[]).length?`<div class="fn">${esc(d.footnotes.join('\n'))}</div>`:''}</details>
+   </div>
+   ${g.workbook?workbookCard(g):''}`;
+  $('#listView').classList.add('hidden'); $('#detailView').classList.remove('hidden');
+  if(!keepScroll)window.scrollTo(0,0);
+  try{ history.replaceState(null,'','?spirit='+n); }catch(e){}
+}
+// What the app changed in the user's workbook entry to follow the 1904 text
+function workbookCard(g){
+  const w=g.workbook, rows=[['Name',w.name,g.name],['Rank',w.rank,g.rank],['Office',w.office,g.office]]
+    .filter(([,a,b])=>(a||'')!==(b||''));
+  if(!rows.length) return '';
+  return `<div class="card"><div class="sec" style="margin-top:0">Your Nightside workbook → now as in 1904</div>
+    ${rows.map(([f,a,b])=>`<div class="diff"><div class="f">${f}</div><div class="v"><i>workbook</i>${esc(a)}</div><div class="v"><i>1904</i>${esc(b)}</div></div>`).join('')}</div>`;
+}
+function closeSpirit(){ current=null; $('#detailView').classList.add('hidden'); $('#listView').classList.remove('hidden'); try{history.replaceState(null,'','?');}catch(e){} }
+function step(d){ openSpirit(((current-1+d+72)%72)+1); }
+function toOfferings(n){ try{ parent.openTool('rites','spirit='+n); }catch(e){ location.href='rites.html?spirit='+n; } }
+// Android back / Escape returns to the list first
+window.onBack=()=>{ if(current){ closeSpirit(); return true; } return false; };
+window.addEventListener('keydown',e=>{ if(e.key==='Escape'&&current)closeSpirit(); });
+
+/* ---------- boot ---------- */
+Promise.all([fetch('../../data/lesserkey.json').then(r=>r.json()),fetch('../../data/goetia.json').then(r=>r.json())]).then(([lk,g])=>{
+  LK=lk; G=g;
+  document.querySelectorAll('[data-tint]').forEach(x=>x.classList.toggle('on',x.dataset.tint===tintMode));
+  renderRanks(); renderList();
+  $('#appendix').textContent=LK.appendix||'';
+  $('#srcNote').textContent=DB.text('goetia.sources',{de_laurence:LK.source.deLaurence,crowley_note:LK.source.crowleyNote});
+  const want=+new URLSearchParams(location.search).get('spirit'); if(want>=1&&want<=72)openSpirit(want);
+}).catch(e=>{ document.querySelector('main').innerHTML=`<div class="card">Could not load the Goetia data: ${esc(e)}</div>`; });
+</script>
+</body></html>

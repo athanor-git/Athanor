@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Athanor — Breathwork Timer</title>
+<style>
+:root{--bg:#faf7f0;--card:#fff;--ink:#1a1712;--sub:#6b6357;--acc:#7a5c2e;--line:#e3ddd0;--in:#3a6ea5;--hold:#7a5c2e;--out:#4a8c6a}
+@media(prefers-color-scheme:dark){:root{--bg:#14120e;--card:#1e1b15;--ink:#ece5d8;--sub:#9a9184;--acc:#d0a85c;--line:#33302a;--in:#5b8fc7;--hold:#d0a85c;--out:#6bbf95}}
+*{box-sizing:border-box}html,body{margin:0;height:100%}
+body{font:16px system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--ink);display:flex;flex-direction:column;min-height:100%}
+header{padding:10px 14px;border-bottom:1px solid var(--line)}h1{font-size:16px;margin:0}h1 small{color:var(--sub);font-weight:400}
+main{max-width:560px;margin:0 auto;padding:12px;width:100%}
+.stage{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:10px 0}
+.ring{width:260px;height:260px;position:relative;display:flex;align-items:center;justify-content:center}
+.orb{position:absolute;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle at 50% 40%,color-mix(in srgb,var(--pc) 55%,transparent),color-mix(in srgb,var(--pc) 22%,transparent));border:3px solid var(--pc);transform:scale(.4)}
+.ctr{position:relative;text-align:center;z-index:2}
+.pname{font-size:24px;font-weight:700;color:var(--pc)}
+.pcount{font-size:52px;font-weight:800;line-height:1.1}
+.rnd{color:var(--sub);font-size:13px;margin-top:2px}
+.frm{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;margin:12px 0}
+.frm label{font-size:11px;color:var(--sub);display:block;text-align:center}
+.frm input{width:100%;font-size:18px;padding:8px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink);text-align:center}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;justify-content:center;margin:8px 0}
+button{border:1px solid var(--acc);background:var(--acc);color:#fff;border-radius:10px;padding:11px 22px;font-size:16px;cursor:pointer}
+button.ghost{background:var(--card);color:var(--ink);border-color:var(--line)}
+.chip{border:1px solid var(--line);background:var(--card);border-radius:16px;padding:6px 12px;cursor:pointer;font-size:13px}
+.chip.on{background:var(--acc);color:#fff;border-color:var(--acc)}
+.opt{display:flex;gap:14px;flex-wrap:wrap;align-items:center;justify-content:center;font-size:13px;color:var(--sub);margin-top:8px}
+.opt label{display:flex;align-items:center;gap:5px}
+input[type=range]{accent-color:var(--acc)}
+.note{font-size:11px;color:var(--sub);text-align:center;margin:10px auto 0;max-width:440px;line-height:1.45}
+</style></head><body>
+<header><h1>ATHANOR · BREATHWORK TIMER <small>· pace your breath with a metronome</small></h1></header>
+<main>
+<div class="stage" style="--pc:var(--hold)">
+ <div class="ring"><div class="orb" id="orb"></div>
+  <div class="ctr"><div class="pname" id="pname">Ready</div><div class="pcount" id="pcount">—</div><div class="rnd" id="rnd"></div></div>
+ </div>
+</div>
+<div class="row" style="gap:6px"></div>
+<div class="frm">
+ <div><label>Inhale (s)</label><input type="number" id="in" min="0" max="60" value="4"></div>
+ <div><label>Hold (s)</label><input type="number" id="h1" min="0" max="60" value="4"></div>
+ <div><label>Exhale (s)</label><input type="number" id="ex" min="0" max="60" value="4"></div>
+ <div><label>Hold (s)</label><input type="number" id="h2" min="0" max="60" value="4"></div>
+</div>
+<div class="row">
+ <div><label style="font-size:11px;color:var(--sub)">Rounds (0 = ∞)</label><br><input type="number" id="rounds" min="0" max="999" value="0" style="width:80px;font-size:16px;padding:7px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink);text-align:center"></div>
+</div>
+<div class="row">
+ <button id="startBtn" onclick="toggle()">Start</button>
+ <button class="ghost" onclick="reset()">Reset</button>
+</div>
+<div class="opt">
+ <label><input type="checkbox" id="tick" checked> metronome tick</label>
+ <label><input type="checkbox" id="chime" checked> phase chime</label>
+ <label>volume <input type="range" id="vol" min="0" max="1" step="0.05" value="0.5" style="width:90px"></label>
+</div>
+<div class="opt">
+ <label><input type="checkbox" id="fade" onchange="fadeHint()"> fade the tone to silence over
+  <input type="number" id="fadeMin" min="0.5" max="240" step="0.5" value="5" oninput="fadeHint()"
+   style="width:64px;font-size:15px;padding:5px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink);text-align:center"> min</label>
+ <span id="fadeInfo" style="font-size:12px;color:var(--sub)"></span>
+</div>
+<p class="note"></p>
+</main>
+<video id="nosleep" muted loop playsinline webkit-playsinline preload="auto" style="position:fixed;top:0;left:0;width:2px;height:2px;opacity:0.01;pointer-events:none;z-index:-1"><source type="video/webm" src="data:video/webm;base64,GkXfo59ChoEBQveBAULygQRC84EIQoKEd2VibUKHgQJChYECGFOAZwEAAAAAAAIBEU2bdLpNu4tTq4QVSalmU6yBoU27i1OrhBZUrmtTrIHYTbuMU6uEElTDZ1OsggEeTbuMU6uEHFO7a1OsggHr7AEAAAAAAABZAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAVSalmsirXsYMPQkBNgI1MYXZmNjAuMTYuMTAwV0GNTGF2ZjYwLjE2LjEwMESJiECPQAAAAAAAFlSua8GuAQAAAAAAADjXgQFzxYiATJXzLBWcspyBACK1nIN1bmSIgQCGhVZfVlA4g4EBI+ODhB3NZQDgibCBQLqBQJqBAhJUw2f8c3OgY8CAZ8iaRaOHRU5DT0RFUkSHjUxhdmY2MC4xNi4xMDBzc9ZjwItjxYiATJXzLBWcsmfIoUWjh0VOQ09ERVJEh5RMYXZjNjAuMzEuMTAyIGxpYnZweGfIoUWjiERVUkFUSU9ORIeTMDA6MDA6MDEuMDAwMDAwMDAwAB9DtnXH54EAo6qBAACA8AIAnQEqQABAAABHCIWFiIWEiAICAAZwPEJgCrIg9zAA/v+rUICjloEB9ADRAQABEBAAGAAYWC/0AAiOgAAcU7trkbuPs4EAt4r3gQHxggGf8IED"><source type="video/mp4" src="data:video/mp4;base64,AAAAIGZ0eXBpc29tAAACAGlzb21pc28yYXZjMW1wNDEAAAMybW9vdgAAAGxtdmhkAAAAAAAAAAAAAAAAAAAD6AAAA+gAAQAAAQAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAlx0cmFrAAAAXHRraGQAAAADAAAAAAAAAAAAAAABAAAAAAAAA+gAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAABAAAAAAEAAAABAAAAAAAAkZWR0cwAAABxlbHN0AAAAAAAAAAEAAAPoAAAAAAABAAAAAAHUbWRpYQAAACBtZGhkAAAAAAAAAAAAAAAAAABAAAAAQABVxAAAAAAALWhkbHIAAAAAAAAAAHZpZGUAAAAAAAAAAAAAAABWaWRlb0hhbmRsZXIAAAABf21pbmYAAAAUdm1oZAAAAAEAAAAAAAAAAAAAACRkaW5mAAAAHGRyZWYAAAAAAAAAAQAAAAx1cmwgAAAAAQAAAT9zdGJsAAAAv3N0c2QAAAAAAAAAAQAAAK9hdmMxAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAEAAQABIAAAASAAAAAAAAAABFUxhdmM2MC4zMS4xMDIgbGlieDI2NAAAAAAAAAAAAAAAGP//AAAANWF2Y0MBZAAK/+EAGGdkAAqs2UQmwEQAAAMABAAAAwAQPEiWWAEABmjr48siwP34+AAAAAAQcGFzcAAAAAEAAAABAAAAFGJ0cnQAAAAAAAAXKAAAFygAAAAYc3R0cwAAAAAAAAABAAAAAgAAIAAAAAAUc3RzcwAAAAAAAAABAAAAAQAAABxzdHNjAAAAAAAAAAEAAAABAAAAAgAAAAEAAAAcc3RzegAAAAAAAAAAAAAAAgAAAtcAAAAOAAAAFHN0Y28AAAAAAAAAAQAAA2IAAABidWR0YQAAAFptZXRhAAAAAAAAACFoZGxyAAAAAAAAAABtZGlyYXBwbAAAAAAAAAAAAAAAAC1pbHN0AAAAJal0b28AAAAdZGF0YQAAAAEAAAAATGF2ZjYwLjE2LjEwMAAAAAhmcmVlAAAC7W1kYXQAAAKtBgX//6ncRem95tlIt5Ys2CDZI+7veDI2NCAtIGNvcmUgMTY0IHIzMTA4IDMxZTE5ZjkgLSBILjI2NC9NUEVHLTQgQVZDIGNvZGVjIC0gQ29weWxlZnQgMjAwMy0yMDIzIC0gaHR0cDovL3d3dy52aWRlb2xhbi5vcmcveDI2NC5odG1sIC0gb3B0aW9uczogY2FiYWM9MSByZWY9MyBkZWJsb2NrPTE6MDowIGFuYWx5c2U9MHgzOjB4MTEzIG1lPWhleCBzdWJtZT03IHBzeT0xIHBzeV9yZD0xLjAwOjAuMDAgbWl4ZWRfcmVmPTEgbWVfcmFuZ2U9MTYgY2hyb21hX21lPTEgdHJlbGxpcz0xIDh4OGRjdD0xIGNxbT0wIGRlYWR6b25lPTIxLDExIGZhc3RfcHNraXA9MSBjaHJvbWFfcXBfb2Zmc2V0PS0yIHRocmVhZHM9MiBsb29rYWhlYWRfdGhyZWFkcz0xIHNsaWNlZF90aHJlYWRzPTAgbnI9MCBkZWNpbWF0ZT0xIGludGVybGFjZWQ9MCBibHVyYXlfY29tcGF0PTAgY29uc3RyYWluZWRfaW50cmE9MCBiZnJhbWVzPTMgYl9weXJhbWlkPTIgYl9hZGFwdD0xIGJfYmlhcz0wIGRpcmVjdD0xIHdlaWdodGI9MSBvcGVuX2dvcD0wIHdlaWdodHA9MiBrZXlpbnQ9MjUwIGtleWludF9taW49MiBzY2VuZWN1dD00MCBpbnRyYV9yZWZyZXNoPTAgcmNfbG9va2FoZWFkPTQwIHJjPWNyZiBtYnRyZWU9MSBjcmY9MjMuMCBxY29tcD0wLjYwIHFwbWluPTAgcXBtYXg9NjkgcXBzdGVwPTQgaXBfcmF0aW89MS40MCBhcT0xOjEuMDAAgAAAACJliIQAFP/+98dPwKbq3CLLnUU9ISGuwP9SbQokxA/J30jBAAAACkGaIWxBL/61K+8="></video>
+<script src="../../data/db/core.js"></script>
+<script src="../../data/db/texts.js"></script>
+<script src="../lib/db.js"></script>
+<script>
+const $=s=>document.querySelector(s);
+// the note and the breathing patterns are content (data/db, edited in the content workbook), read through lib/db.js
+$('p.note').innerHTML=DB.text('breath.note');
+DB.load('breath_patterns').then(()=>{
+  const esc=s=>String(s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+  $('main .row').innerHTML=DB.rows('breath_patterns').map(p=>{ const n=[p.inhale,p.hold_in,p.exhale,p.hold_out].map(x=>+x||0);
+    return `<span class="chip" onclick="preset(${n.join(',')})">${esc(p.name)} ${n.filter(Boolean).join('·')}</span>`; }).join('');
+}).catch(e=>{ $('main .row').textContent='The breathing patterns could not be loaded: '+(e.message||e); });
+let ctx=null, running=false, sessionActive=false, elapsed=0, lastClock=null,
+    lastSec=-1, lastPhase=-99, phases=[], cycle=0, rounds=0, raf=null, wake=null;
+let metro=null, metroUrl=null, usingMetro=false, metroReady=false,
+    loopMode=false, target=0, wraps=0, lastCT=0, blockDur=0;
+// The media player leaves a tiny gap each time a looping track restarts. So: sessions up to
+// WHOLE_MAX are rendered in full (no loop at all); longer or endless ones loop a block of whole
+// cycles lasting at least BLOCK_MIN, which moves the gap from every breath to once per block.
+const WHOLE_MAX=600, BLOCK_MIN=300;
+const nosleep=document.getElementById('nosleep');
+const SILENT='data:audio/wav;base64,UklGRnIEAABXQVZFZm10IBAAAAABAAEAESsAACJWAAACABAAZGF0YU4EAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA';
+
+// In the Android app a foreground service keeps the sound playing when the screen is locked
+const NATIVE=(()=>{try{return (parent.Android&&parent.Android.keepAlive)?parent.Android:(window.Android&&window.Android.keepAlive?window.Android:null);}catch(e){return null;}})();
+function nativeSession(on){ try{ if(NATIVE)NATIVE.keepAlive(on,'Breathwork'); }catch(e){} }
+window.onSessionStop=()=>reset();          // "Stop" on the ongoing notification
+window.addEventListener('pagehide',()=>{ if(sessionActive)nativeSession(false); });
+
+async function keepAwake(on){
+ nativeSession(on);
+ if(on){
+  try{ if('wakeLock'in navigator){ wake=await navigator.wakeLock.request('screen'); } }catch(e){}
+  try{ const p=nosleep.play(); if(p)p.catch(()=>{}); }catch(e){}
+ } else {
+  try{ if(wake){ await wake.release(); wake=null; } }catch(e){}
+  try{ nosleep.pause(); }catch(e){}
+ }
+}
+document.addEventListener('visibilitychange',()=>{
+ if(document.visibilityState==='visible' && running){
+  keepAwake(true);
+  if(ctx&&ctx.state==='suspended')ctx.resume().catch(()=>{});
+  if(usingMetro&&metro&&metro.paused){ metro.play().catch(()=>{}); }
+ }
+});
+
+function bufToWav(buf){
+ const sr=buf.sampleRate,n=buf.length,d=buf.getChannelData(0);
+ const ab=new ArrayBuffer(44+n*2),v=new DataView(ab);
+ const wr=(o,s)=>{for(let i=0;i<s.length;i++)v.setUint8(o+i,s.charCodeAt(i));};
+ wr(0,'RIFF');v.setUint32(4,36+n*2,true);wr(8,'WAVE');wr(12,'fmt ');
+ v.setUint32(16,16,true);v.setUint16(20,1,true);v.setUint16(22,1,true);
+ v.setUint32(24,sr,true);v.setUint32(28,sr*2,true);v.setUint16(32,2,true);
+ v.setUint16(34,16,true);wr(36,'data');v.setUint32(40,n*2,true);
+ let o=44;for(let i=0;i<n;i++){let s=Math.max(-1,Math.min(1,d[i]));v.setInt16(o,s<0?s*32768:s*32767,true);o+=2;}
+ return new Blob([ab],{type:'audio/wav'});
+}
+
+// Renders ONE breath cycle, then repeats its samples end to end to fill `dur` seconds — much
+// faster than synthesising every tick of a long track, and sample-exact at each cycle boundary.
+async function renderMetro(dur){
+ const one=await renderCycle(); if(!one) return null;
+ const src=one.getChannelData(0), per=src.length, n=Math.max(per,Math.round(dur*one.sampleRate));
+ const out=new Float32Array(n);
+ for(let o=0;o<n;o+=per) out.set(o+per<=n?src:src.subarray(0,n-o),o);
+ return bufToWav({sampleRate:one.sampleRate,length:n,getChannelData:()=>out});
+}
+async function renderCycle(){
+ const SR=11025, OAC=window.OfflineAudioContext||window.webkitOfflineAudioContext, dur=cycle;
+ if(!OAC) return null;
+ const oac=new OAC(1,Math.max(1,Math.round(dur*SR)),SR);
+ const vol=(parseFloat($('#vol').value)||0.5), tickOn=$('#tick').checked, chimeOn=$('#chime').checked;
+ const tone=(t,freq,d,gm)=>{
+  const o=oac.createOscillator(),g=oac.createGain();
+  o.type='sine';o.frequency.value=freq;const vv=Math.max(0.001,vol*(gm||1));
+  g.gain.setValueAtTime(0.0001,t);g.gain.exponentialRampToValueAtTime(vv,t+0.008);
+  g.gain.exponentialRampToValueAtTime(0.0001,t+d);
+  o.connect(g).connect(oac.destination);o.start(t);o.stop(t+d+0.03);
+ };
+ if(tickOn){ for(let s=0;s<Math.floor(dur+1e-6);s++) tone(s,1050,0.035,0.5); }
+ if(chimeOn){
+  for(let base=0;base<dur-1e-6;base+=cycle){
+   for(const p of phases){ const t=base+p.start; if(t<dur-1e-6){ const f={in:880,hold:587,out:440}[p.dir]||600; tone(t,f,0.18,1);} }
+  }
+ }
+ try{ return await oac.startRendering(); }catch(e){ return null; }
+}
+
+/* ---- Fade to silence ----
+   Over F minutes the tone drops in equal steps, one step per breath cycle:
+   cycles until silence N = F·60 / cycle, and each cycle plays at (1 − k/N) of the starting
+   volume (k = cycles completed). E.g. 5 min of 4·4·4·4 → N = 300/16 = 18.75 breaths,
+   ≈5.3 % of the starting volume less each breath. The session ends when it reaches silence. */
+let fadeLevel=1;
+function fadeCycles(){
+ if(!$('#fade').checked) return 0;
+ const mins=parseFloat($('#fadeMin').value)||0;
+ const c=cycle>0?cycle:((+$('#in').value||0)+(+$('#h1').value||0)+(+$('#ex').value||0)+(+$('#h2').value||0));
+ return mins>0&&c>0 ? mins*60/c : 0;
+}
+function fadeHint(){
+ const n=fadeCycles();
+ $('#fadeInfo').textContent=n? `= ${+n.toFixed(2)} breaths · −${(100/n).toFixed(1)} % of the starting volume each breath` : '';
+}
+// Called from the animation loop and from media time updates (which keep coming with the screen locked)
+function applyFade(){
+ const n=fadeCycles();
+ // step a moment before each cycle begins so its first chime already plays at the new level
+ const k=n&&cycle>0?Math.floor((elapsed+0.3)/cycle):0;
+ fadeLevel=n?Math.max(0,1-k/n):1;
+ if(usingMetro&&metro){ try{ metro.volume=fadeLevel; }catch(e){} }
+ if(n&&fadeLevel<=0&&running){ finish(true); return true; }
+ return false;
+}
+
+function beep(freq,dur,type,gainMul){
+ if(!ctx)return;const t=ctx.currentTime;const o=ctx.createOscillator(),g=ctx.createGain();
+ o.type=type||'sine';o.frequency.value=freq;const v=(parseFloat($('#vol').value)||0.5)*(gainMul||1)*fadeLevel;
+ g.gain.setValueAtTime(0.0001,t);g.gain.exponentialRampToValueAtTime(Math.max(0.001,v),t+0.008);
+ g.gain.exponentialRampToValueAtTime(0.0001,t+dur);
+ o.connect(g).connect(ctx.destination);o.start(t);o.stop(t+dur+0.02);
+}
+const tickSound=()=>{ if($('#tick').checked) beep(1050,0.035,'square',0.5); };
+const chimeSound=dir=>{ if(!$('#chime').checked)return; const f={in:880,hold:587,out:440}[dir]||600; beep(f,0.18,'sine',1); };
+
+function buildPhases(){
+ const iv=Math.max(0,+$('#in').value||0),h1=Math.max(0,+$('#h1').value||0),ev=Math.max(0,+$('#ex').value||0),h2=Math.max(0,+$('#h2').value||0);
+ const raw=[['Breathe in','in',iv,0.4,1],['Hold','hold',h1,1,1],['Breathe out','out',ev,1,0.4],['Hold','hold',h2,0.4,0.4]];
+ phases=[];let start=0;
+ for(const[name,dir,dur,s0,s1]of raw){ if(dur<=0)continue; phases.push({name,dir,dur,s0,s1,start}); start+=dur; }
+ cycle=start; rounds=Math.max(0,+$('#rounds').value||0);
+ return cycle>0;
+}
+function phaseAt(pos){ for(const p of phases){ if(pos>=p.start && pos<p.start+p.dur) return p; } return phases[phases.length-1]; }
+
+async function startMetro(){
+ blockDur=loopMode?Math.max(1,Math.ceil(BLOCK_MIN/cycle))*cycle:target;
+ const blob=await renderMetro(blockDur);
+ if(!blob||!sessionActive){ usingMetro=false; return; }
+ if(metroUrl){ try{URL.revokeObjectURL(metroUrl);}catch(e){} }
+ metroUrl=URL.createObjectURL(blob);
+ metro.src=metroUrl; metro.loop=loopMode; metro.currentTime=0;
+ wraps=0; lastCT=0; usingMetro=true; metroReady=false;
+ metro.onended=()=>{ if(running && !loopMode) finish(); };
+ // Media events keep firing with the screen locked (animation frames don't), so the fade keeps
+ // stepping down and a long timed session still ends on time
+ metro.ontimeupdate=()=>{
+  if(!running) return;
+  syncElapsed();
+  if(applyFade()) return;
+  if(loopMode && target>0 && elapsed>=target-1e-3) finish();
+ };
+ try{ await metro.play(); metroReady=true; }catch(e){ usingMetro=false; }
+}
+function syncElapsed(){
+ const ct=metro.currentTime||0;
+ if(loopMode){ if(ct < lastCT-0.15) wraps++; lastCT=ct; elapsed=wraps*blockDur+ct; }
+ else { elapsed=ct; }
+}
+
+function loop(){
+ if(running){
+  if(usingMetro && metroReady){
+   syncElapsed();
+  } else {
+   const clock=ctx?ctx.currentTime:(performance.now()/1000);
+   if(lastClock!=null) elapsed += clock-lastClock;
+   lastClock=clock;
+  }
+  if(target>0 && elapsed>=target-1e-3){ finish(); return; }
+  if(applyFade()) return;
+  if(!usingMetro){
+   const sec=Math.floor(elapsed+1e-6);
+   if(sec!==lastSec){ lastSec=sec; tickSound(); }
+   const pos0=elapsed%cycle; const ph0=phaseAt(pos0);
+   const idx=phases.indexOf(ph0)+Math.floor(elapsed/cycle)*100;
+   if(idx!==lastPhase){ lastPhase=idx; chimeSound(ph0.dir); }
+  }
+  const pos=elapsed%cycle; const ph=phaseAt(pos);
+  const p=(pos-ph.start)/ph.dur; const scale=ph.s0+(ph.s1-ph.s0)*p;
+  document.querySelector('.stage').style.setProperty('--pc', ph.dir==='in'?'var(--in)':ph.dir==='out'?'var(--out)':'var(--hold)');
+  $('#orb').style.transform='scale('+scale.toFixed(3)+')';
+  $('#pname').textContent=ph.name;
+  $('#pcount').textContent=Math.max(0,Math.ceil(ph.start+ph.dur-pos-1e-6));
+  $('#rnd').textContent=(rounds>0?'Round '+Math.min(rounds,Math.floor(elapsed/cycle)+1)+' of '+rounds:'Round '+(Math.floor(elapsed/cycle)+1))+' · '+Math.floor(elapsed)+'s'
+   +(fadeCycles()?' · volume '+Math.round(fadeLevel*100)+'%':'');
+ }
+ raf=requestAnimationFrame(loop);
+}
+
+let preparing=false;
+async function toggle(){
+ if(preparing) return;
+ if(!ctx){ try{ctx=new (window.AudioContext||window.webkitAudioContext)();}catch(e){} }
+ if(ctx&&ctx.state==='suspended'){ try{await ctx.resume();}catch(e){} }
+ if(!metro){ metro=new Audio(); metro.setAttribute('playsinline',''); metro.preload='auto'; }
+ if(running){
+  running=false; $('#startBtn').textContent='Resume'; keepAwake(false);
+  try{ if(usingMetro&&metro) metro.pause(); }catch(e){}
+  lastClock=null; return;
+ }
+ if(!sessionActive){
+  if(!buildPhases()){ alert('Set at least an inhale and exhale.'); return; }
+  // A set number of rounds always ends on time; only short sessions are rendered whole
+  target=rounds>0?rounds*cycle:0;
+  loopMode=!(target>0 && target<=WHOLE_MAX);
+  sessionActive=true; elapsed=0; wraps=0; lastCT=0; lastSec=-1; lastPhase=-99;
+  $('#startBtn').textContent='Pause'; keepAwake(true);
+  try{ metro.src=SILENT; metro.loop=false; const up=metro.play(); if(up)up.catch(()=>{}); }catch(e){}
+  // Render the track first, then start the clock with it, so the session begins cleanly at 0
+  preparing=true; $('#pname').textContent='Preparing…'; $('#pcount').textContent='';
+  await startMetro();
+  preparing=false;
+  if(!sessionActive) return;            // reset while preparing
+  running=true; elapsed=0; lastSec=-1; lastPhase=-99;
+  lastClock=ctx?ctx.currentTime:(performance.now()/1000);
+ } else {
+  running=true; $('#startBtn').textContent='Pause'; keepAwake(true);
+  lastClock=ctx?ctx.currentTime:(performance.now()/1000);
+  if(usingMetro&&metro){ try{ const rp=metro.play(); if(rp)rp.catch(()=>{}); }catch(e){} }
+ }
+ if(!raf)loop();
+}
+// faded = the tone has faded to silence: end quietly (no closing beep)
+function finish(faded){ running=false; sessionActive=false; $('#startBtn').textContent='Start'; $('#pname').textContent='Done'; $('#pcount').textContent='✓'; $('#rnd').textContent=faded===true?'faded to silence':'session complete'; $('#orb').style.transform='scale(.4)'; try{if(metro){metro.pause();metro.currentTime=0;metro.volume=1;}}catch(e){} usingMetro=false; metroReady=false; fadeLevel=1; if(faded!==true)beep(660,0.25,'sine',1); keepAwake(false); elapsed=0; }
+function reset(){ running=false; sessionActive=false; keepAwake(false); try{if(metro){metro.pause();metro.currentTime=0;metro.volume=1;}}catch(e){} usingMetro=false; metroReady=false; elapsed=0; fadeLevel=1; lastSec=-1; lastPhase=-99; lastClock=null; wraps=0; lastCT=0; $('#startBtn').textContent='Start'; $('#pname').textContent='Ready'; $('#pcount').textContent='—'; $('#rnd').textContent=''; $('#orb').style.transform='scale(.4)'; document.querySelector('.stage').style.setProperty('--pc','var(--hold)'); }
+function preset(a,b,c,d){ $('#in').value=a;$('#h1').value=b;$('#ex').value=c;$('#h2').value=d; reset(); cycle=0; fadeHint(); }
+['#in','#h1','#ex','#h2'].forEach(s=>$(s).addEventListener('input',()=>{ if(!sessionActive){ cycle=0; fadeHint(); } }));
+if(!raf)loop();
+</script></body></html>

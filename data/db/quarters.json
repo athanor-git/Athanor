@@ -1,0 +1,10 @@
+{"table": "quarters", "rows": [
+{"id": "east", "name": "East", "azimuth": 90, "element": "air"},
+{"id": "south", "name": "South", "azimuth": 180, "element": "fire"},
+{"id": "west", "name": "West", "azimuth": 270, "element": "water"},
+{"id": "north", "name": "North", "azimuth": 0, "element": "earth"},
+{"id": "north-east", "name": "North-East", "azimuth": 45, "between": "north, east"},
+{"id": "south-east", "name": "South-East", "azimuth": 135, "between": "south, east"},
+{"id": "south-west", "name": "South-West", "azimuth": 225, "between": "south, west"},
+{"id": "north-west", "name": "North-West", "azimuth": 315, "between": "north, west"}
+]}

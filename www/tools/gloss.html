@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Athanor — Glossary & Legend</title>
+<style>
+:root{--bg:#faf7f0;--card:#fff;--ink:#1a1712;--sub:#6b6357;--acc:#7a5c2e;--line:#e3ddd0;--hit:#fff3c9}
+@media(prefers-color-scheme:dark){:root{--bg:#14120e;--card:#1e1b15;--ink:#ece5d8;--sub:#9a9184;--acc:#d0a85c;--line:#33302a;--hit:#4a3f1e}}
+*{box-sizing:border-box}body{margin:0;font:16px system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--ink)}
+header{position:sticky;top:0;background:var(--bg);border-bottom:1px solid var(--line);padding:10px 14px;z-index:5}
+h1{font-size:16px;margin:0 0 8px}h1 small{color:var(--sub);font-weight:400}
+#q{width:100%;font-size:16px;padding:9px 13px;border:1.5px solid var(--acc);border-radius:10px;background:var(--card);color:var(--ink)}
+.tabs{display:flex;gap:6px;margin-top:8px}
+.tab{border:1px solid var(--line);background:var(--card);border-radius:8px;padding:6px 14px;cursor:pointer;font-size:14px}
+.tab.on{background:var(--acc);color:#fff;border-color:var(--acc)}
+main{max-width:760px;margin:0 auto;padding:12px}
+.sec{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--acc);font-weight:700;margin:16px 0 4px}
+.g{border-top:1px solid var(--line);padding:9px 2px}.g b{color:var(--acc)}
+.g .term{font-size:15px;font-weight:700}.g .def{font-size:14px;margin-top:2px}
+.sym{display:grid;grid-template-columns:44px 1fr;gap:10px;border-top:1px solid var(--line);padding:8px 2px;align-items:baseline}
+.sym .gl{font-size:24px;text-align:center;line-height:1}
+.sym .nm{font-size:14.5px}.sym .nm b{color:var(--acc)}
+.hint{color:var(--sub);font-size:13px}
+.hide{display:none}
+</style></head><body>
+<header><h1>ATHANOR · GLOSSARY &amp; LEGEND <small>· concepts &amp; every symbol</small></h1>
+<input id="q" placeholder="Search a term or symbol…" autocomplete="off">
+<div class="tabs"><span class="tab on" data-t="gloss" onclick="tab('gloss')">Glossary</span><span class="tab" data-t="leg" onclick="tab('leg')">Symbol legend</span></div>
+</header>
+<main><div id="gloss"></div><div id="leg" style="display:none"></div></main>
+<script src="../../data/db/core.js"></script>
+<script src="../lib/db.js"></script>
+<script>
+const $=s=>document.querySelector(s);const esc=s=>String(s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+/* The glossary and the symbol legend are content tables (data/db, edited in the content workbook), read through
+   lib/db.js. A legend row that points to a planet, sign, element, aspect or Hebrew letter takes its symbol and name
+   from that row, and the {names} in its name and text are filled from the tables (tools/content/schema.py: legend). */
+let GLOSS=[], LEG=[];   // [[section, [[term, definition] | [glyph, name, description]]]], in the tables' order
+const fill=(s,v)=>String(s||'').replace(/\{(\w+)\}/g,(m,k)=>v[k]!=null?String(v[k]):m);
+const bySection=(rows,item)=>{ const out=[]; for(const r of rows){ let s=out.find(x=>x[0]===r.section); if(!s)out.push(s=[r.section,[]]); s[1].push(item(r)); } return out; };
+const ksOf=pred=>DB.where('keyscale',pred);
+// a path's attribution as 777 names it (Sol, Luna for the lights)
+function attr777(k){ if(k.planet){const p=DB.get('planets',k.planet);return p.name_777||p.name;} if(k.sign)return DB.get('signs',k.sign).name; return DB.get('elements',k.element).name; }
+function legendVars(r){
+  if(r.planet){ const p=DB.get('planets',r.planet), k=ksOf({planet:p.id})[0]||(p.element?ksOf({element:p.element})[0]:null),
+      sp=p.sephira?DB.get('sephiroth',p.sephira):null, wd=DB.rev('weekdays','planet',p.id)[0];
+    return {name:p.name,sephira:sp&&sp.name,n:sp&&sp.n,day:wd&&wd.name,metal:p.metal?p.metal.toLowerCase():null,
+      path:k&&k.id,letter:k&&DB.ref(k,'letter').name,element:p.element?DB.ref(p,'element').name:null}; }
+  if(r.sign){ const s=DB.get('signs',r.sign), k=ksOf({sign:s.id})[0];
+    return {name:s.name,element:DB.ref(s,'element').name,quality:s.quality,path:k.id,letter:DB.ref(k,'letter').name}; }
+  if(r.element){ const e=DB.get('elements',r.element), k=ksOf({element:e.id})[0], su=DB.rev('suits','element',e.id)[0];
+    return {name:e.name,path:k.id,letter:DB.ref(k,'letter').name,
+      suit:su?(su.name+(su.gd_name&&su.gd_name!==su.name?'/'+su.gd_name:'')).toLowerCase():null,scale:su&&su.scale_name}; }
+  if(r.aspect){ const a=DB.get('aspects',r.aspect); return {name:a.name,angle:a.angle,meaning:a.meaning}; }
+  if(r.letter){ const L=DB.get('letters',r.letter), ks=ksOf({letter:L.id});
+    return {name:L.name,value:r.final?L.final_value:L.value,path:ks[0]&&ks[0].id,attribution:ks.map(attr777).join('/')}; }
+  return {};
+}
+function legendRow(r){
+  const ref=(r.planet?DB.get('planets',r.planet):r.sign?DB.get('signs',r.sign):r.element?DB.get('elements',r.element):
+    r.aspect?DB.get('aspects',r.aspect):r.letter?DB.get('letters',r.letter):null)||{}, v=legendVars(r);
+  return [r.glyph||(r.final?ref.final_glyph:ref.glyph), r.name?fill(r.name,v):ref.name, fill(r.text,v)];
+}
+function renderGloss(f){
+ let h='';
+ for(const [sec,items] of GLOSS){
+  const rows=items.filter(([t,d])=>!f||(t+' '+d).toLowerCase().includes(f));
+  if(!rows.length)continue;
+  h+=`<div class="sec">${esc(sec)}</div>`;
+  for(const [t,d] of rows) h+=`<div class="g"><div class="term">${esc(t)}</div><div class="def">${esc(d)}</div></div>`;
+ }
+ $('#gloss').innerHTML=h||'<div class="hint" style="padding:14px">No matching term.</div>';
+}
+function renderLeg(f){
+ let h='';
+ for(const [sec,items] of LEG){
+  const rows=items.filter(([g,n,d])=>!f||(g+' '+n+' '+d).toLowerCase().includes(f));
+  if(!rows.length)continue;
+  h+=`<div class="sec">${esc(sec)}</div>`;
+  for(const [g,n,d] of rows) h+=`<div class="sym"><div class="gl">${esc(g)}</div><div class="nm"><b>${esc(n)}</b> — ${esc(d)}</div></div>`;
+ }
+ $('#leg').innerHTML=h||'<div class="hint" style="padding:14px">No matching symbol.</div>';
+}
+let cur='gloss';
+function tab(t){cur=t;$('#gloss').style.display=t==='gloss'?'block':'none';$('#leg').style.display=t==='leg'?'block':'none';document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('on',x.dataset.t===t));}
+function run(){const f=$('#q').value.trim().toLowerCase();renderGloss(f);renderLeg(f);
+ if(f){/*auto-show the side with hits*/const gh=$('#gloss').innerText.length,lh=$('#leg').innerText.length;}}
+$('#q').addEventListener('input',run);
+DB.load('glossary','legend').then(()=>{
+  GLOSS=bySection(DB.rows('glossary'),r=>[r.term,r.definition]);
+  LEG=bySection(DB.rows('legend'),legendRow);
+  run();
+}).catch(e=>{ $('#gloss').innerHTML='<div class="hint" style="padding:14px">The glossary could not be loaded: '+esc(e.message||e)+'</div>'; });
+</script></body></html>

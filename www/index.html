@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Athanor</title>
+<style>
+:root{--bg:#faf7f0;--card:#fff;--ink:#1a1712;--sub:#6b6357;--acc:#7a5c2e;--line:#e3ddd0;--side:#f3eee3;--hov:rgba(0,0,0,.05);--scrim:rgba(0,0,0,.4)}
+@media(prefers-color-scheme:dark){:root{--bg:#14120e;--card:#1e1b15;--ink:#ece5d8;--sub:#9a9184;--acc:#d0a85c;--line:#33302a;--side:#191712;--hov:rgba(255,255,255,.06);--scrim:rgba(0,0,0,.55)}}
+*{box-sizing:border-box}
+html{height:100%}
+body{margin:0;position:fixed;inset:0;display:flex;flex-direction:column;font:16px system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--ink);overflow:hidden;-webkit-text-size-adjust:100%}
+button{font:inherit;color:inherit;-webkit-tap-highlight-color:transparent}
+
+/* top bar */
+#top{flex:0 0 auto;display:flex;align-items:center;gap:2px;height:48px;padding:0 6px;border-bottom:1px solid var(--line);background:var(--bg)}
+.ib{width:40px;height:40px;border:none;background:none;border-radius:10px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--ink)}
+.ib:hover{background:var(--hov)}
+.ib:disabled{opacity:.3;cursor:default;background:none}
+.ib svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+#title{flex:1;min-width:0;margin-left:6px;font-weight:600;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#title .ic{color:var(--acc);margin-right:6px}
+
+/* layout */
+#wrap{flex:1 1 auto;min-height:0;display:flex;position:relative}
+#side{flex:0 0 260px;width:260px;background:var(--side);border-right:1px solid var(--line);display:flex;flex-direction:column;min-height:0;transition:margin-left .2s ease,transform .2s ease}
+#stage{flex:1 1 auto;min-width:0;position:relative}
+iframe{position:absolute;inset:0;width:100%;height:100%;border:none;background:var(--bg);display:block}
+#load{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:var(--sub);font-size:14px;pointer-events:none}
+#scrim{display:none}
+
+/* sidebar contents */
+.search{margin:10px 10px 6px;display:flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:10px;padding:0 10px;background:var(--card)}
+.search svg{width:18px;height:18px;flex:0 0 auto;fill:none;stroke:var(--sub);stroke-width:2;stroke-linecap:round}
+.search input{flex:1;min-width:0;border:none;outline:none;background:none;color:var(--ink);font-size:15px;padding:9px 0}
+#list{flex:1;overflow-y:auto;padding:0 6px 16px;-webkit-overflow-scrolling:touch}
+.grp{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--sub);font-weight:700;padding:12px 10px 4px}
+.nav{width:100%;display:flex;align-items:center;gap:12px;border:none;background:none;text-align:left;padding:9px 10px;border-radius:9px;cursor:pointer;font-size:15px}
+.nav:hover{background:var(--hov)}
+.nav .ic{width:22px;text-align:center;font-size:17px;color:var(--acc);flex:0 0 auto}
+.nav.on{background:var(--acc);color:#fff}.nav.on .ic{color:#fff}
+.nav.hide{display:none}
+#none{display:none;color:var(--sub);font-size:13px;padding:10px}
+
+/* wide screens: docked sidebar, collapsible */
+@media(min-width:800px){
+  body.closed #side{margin-left:-260px}
+}
+/* opening splash: the emblem sits exactly where Android's launch screen draws it (centre, 150px),
+   then the two verses of Liber AL appear one after the other beneath it */
+#splash{position:fixed;inset:0;z-index:100;background:var(--bg);cursor:pointer;transition:opacity .7s ease}
+#splash.gone{opacity:0;pointer-events:none}
+#splash svg{position:absolute;left:50%;top:50%;width:150px;height:150px;transform:translate(-50%,-50%)}
+#splash .verse{position:absolute;left:24px;right:24px;top:calc(50% + 100px);text-align:center;
+  font:italic 20px/1.4 Georgia,'Times New Roman',serif;color:var(--ink);opacity:0;transition:opacity .8s ease}
+#splash .verse small{display:block;margin-top:6px;font:12px system-ui,sans-serif;letter-spacing:.12em;color:var(--sub);font-style:normal}
+#splash .verse.on{opacity:1}
+#splash .ver{position:absolute;left:0;right:0;bottom:max(18px,env(safe-area-inset-bottom));text-align:center;font:11px system-ui,sans-serif;letter-spacing:.08em;color:var(--sub);opacity:.8}
+@media(prefers-reduced-motion:reduce){#splash,#splash .verse{transition:none}}
+
+/* a tapped reminder's prayer or seal, laid over the open tool (which keeps its place underneath) */
+#rite{position:fixed;inset:0;z-index:30;display:none;flex-direction:column;background:var(--bg)}
+#rite.on{display:flex}
+#rite .bar{flex:0 0 auto;display:flex;align-items:center;gap:4px;height:48px;padding:0 6px;border-bottom:1px solid var(--line)}
+#rite .bar b{flex:1;min-width:0;margin-left:4px;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#rite .bar .tx{border:1px solid var(--line);background:var(--card);border-radius:10px;padding:7px 11px;font-size:13px;cursor:pointer}
+#riteBody{flex:1 1 auto;min-height:0;position:relative}
+
+/* phones: sidebar slides over the page */
+@media(max-width:799px){
+  #side{position:absolute;top:0;bottom:0;left:0;z-index:10;width:min(300px,85vw);transform:translateX(-102%);box-shadow:4px 0 18px rgba(0,0,0,.25)}
+  body.open #side{transform:none}
+  body.open #scrim{display:block;position:absolute;inset:0;background:var(--scrim);z-index:9}
+}
+</style>
+<!-- web edition (added by tools/build_web.ps1) -->
+<link rel="manifest" href="../manifest.webmanifest">
+<link rel="icon" href="../icons/favicon-32.png" sizes="32x32">
+<link rel="icon" href="../icons/icon-192.png" sizes="192x192">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<meta name="theme-color" content="#faf7f0" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#14120e" media="(prefers-color-scheme: dark)">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Athanor">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<script>window.ATHANOR_WEB={edition:"temple",version:"alpha 9"};</script>
+</head><body class="closed">
+<div id="splash" aria-label="Opening" role="presentation">
+ <svg viewBox="0 0 512 512" aria-hidden="true">
+  <path d="M256 40 L466 352 L46 160 L256 472 L466 160 L46 352 Z" fill="none" stroke="var(--acc)" stroke-width="16" stroke-linejoin="round"/>
+  <g fill="#b3263b"><circle cx="256" cy="232" r="30"/><circle cx="278.83" cy="248.58" r="30"/><circle cx="270.11" cy="275.42" r="30"/><circle cx="241.89" cy="275.42" r="30"/><circle cx="233.17" cy="248.58" r="30"/></g>
+  <circle cx="256" cy="256" r="18" fill="#e8b04a"/>
+ </svg>
+ <div class="verse" id="v1">Do what thou wilt shall be the whole of the Law.<small>AL I:40</small></div>
+ <div class="verse" id="v2">Love is the law, love under will.<small>AL I:57</small></div>
+ <div class="ver" id="ver"></div>
+</div>
+<div id="top">
+ <button class="ib" id="menu" aria-label="Show or hide tools" title="Tools">
+  <svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h11M4 17h16"/></svg></button>
+ <button class="ib" id="back" aria-label="Previous tool" title="Back" disabled>
+  <svg viewBox="0 0 24 24"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button>
+ <button class="ib" id="fwd" aria-label="Next tool" title="Forward" disabled>
+  <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+ <div id="title"></div>
+</div>
+<div id="wrap">
+ <nav id="side" aria-label="Tools">
+  <label class="search"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg>
+   <input id="q" type="search" placeholder="Search" autocomplete="off"></label>
+  <div id="list">
+   <div class="grp">Reference</div>
+   <button class="nav" data-k="finder"><span class="ic">☰</span><span class="lb">Correspondences</span></button>
+   <button class="nav" data-k="tree"><span class="ic">⯒</span><span class="lb">Tree of Life</span></button>
+   <button class="nav" data-k="tarot"><span class="ic">⚚</span><span class="lb">Tarot Deck</span></button>
+   <button class="nav" data-k="goetia"><span class="ic">⛧</span><span class="lb">Goetia · 72 Spirits</span></button>
+   <button class="nav" data-k="gloss"><span class="ic">📖</span><span class="lb">Glossary &amp; Legend</span></button>
+   <button class="nav" data-k="quiz"><span class="ic">✎</span><span class="lb">Study &amp; Quiz</span></button>
+   <div class="grp">Time &amp; Sky</div>
+   <button class="nav" data-k="rites"><span class="ic">☀</span><span class="lb">Rites &amp; Altar</span></button>
+   <button class="nav" data-k="chart"><span class="ic">◉</span><span class="lb">Chart Calculator</span></button>
+   <button class="nav" data-k="charts"><span class="ic">🗂</span><span class="lb">Saved Charts</span></button>
+   <button class="nav" data-k="hours"><span class="ic">☉</span><span class="lb">Planetary Hours</span></button>
+   <button class="nav" data-k="moon"><span class="ic">☾</span><span class="lb">Moon &amp; Timing</span></button>
+   <button class="nav" data-k="sky"><span class="ic">♈</span><span class="lb">Sky &amp; Transits</span></button>
+   <button class="nav" data-k="compass"><span class="ic">🧭</span><span class="lb">Magical Compass</span></button>
+   <button class="nav" data-k="cal"><span class="ic">🗓</span><span class="lb">Ritual Calendar</span></button>
+   <div class="grp">Practice</div>
+   <button class="nav" data-k="journal"><span class="ic">✍</span><span class="lb">Daily Journal</span></button>
+   <button class="nav" data-k="pathwork"><span class="ic">🜂</span><span class="lb">Pathworking</span></button>
+   <button class="nav" data-k="breath"><span class="ic">∿</span><span class="lb">Breathwork</span></button>
+   <button class="nav" data-k="gem"><span class="ic">ℵ</span><span class="lb">Gematria &amp; Sigils</span></button>
+   <button class="nav" data-k="spread"><span class="ic">✦</span><span class="lb">Tarot Spread</span></button>
+   <button class="nav" data-k="scan"><span class="ic">📷</span><span class="lb">Card Scanner</span></button>
+   <button class="nav" data-k="design"><span class="ic">⚗</span><span class="lb">Working Designer</span></button>
+   <button class="nav" data-k="talis"><span class="ic">❖</span><span class="lb">Talismans</span></button>
+   <div class="grp">App</div>
+   <button class="nav" data-k="about"><span class="ic">ℹ</span><span class="lb">About Athanor</span></button>
+   <div id="none">No tool matches.</div>
+  </div>
+ </nav>
+ <div id="scrim"></div>
+ <div id="stage"><div id="load">Loading…</div><iframe id="frame" title="tool"></iframe></div>
+ <div id="rite" role="dialog" aria-label="Reminder">
+  <div class="bar">
+   <button class="ib" id="riteClose" aria-label="Close and go back" title="Back">
+    <svg viewBox="0 0 24 24"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button>
+   <b>Reminder</b>
+   <button class="tx" id="riteFull">Rites &amp; Altar</button>
+  </div>
+  <div id="riteBody"><iframe id="riteFrame" title="reminder"></iframe></div>
+ </div>
+</div>
+<script src="lib/events.js"></script>
+<script>
+/* Opening splash: verse 1, then verse 2, then fade into the app. Tap anywhere to skip. */
+(function(){
+  const s=document.getElementById('splash'), v1=document.getElementById('v1'), v2=document.getElementById('v2');
+  const timers=[];
+  const at=(ms,fn)=>timers.push(setTimeout(fn,ms));
+  // the installed version, small at the bottom ("Athanor · alpha 3"); the web edition's build sets ATHANOR_WEB
+  // (tools/build_web.ps1); none in a plain browser
+  try{ const v=window.Android&&Android.appVersion&&Android.appVersion(); if(v)document.getElementById('ver').textContent='Athanor · '+v;
+    else if(!window.Android&&window.ATHANOR_WEB)document.getElementById('ver').textContent='Athanor web edition · '+ATHANOR_WEB.version; }catch(e){}
+  function done(){ timers.forEach(clearTimeout); s.classList.add('gone'); setTimeout(()=>s.remove(),800); }
+  window.hideSplash=done;   // a reminder opened once the page has loaded (see openRite)
+  // opened by tapping a reminder: go straight to it
+  if(new URLSearchParams(location.search).get('rite')){ done(); return; }
+  at(400,()=>v1.classList.add('on'));
+  at(2600,()=>v1.classList.remove('on'));
+  at(3300,()=>v2.classList.add('on'));
+  at(5500,done);
+  s.addEventListener('click',done);
+})();
+const $=s=>document.querySelector(s);
+const frame=$('#frame'), load=$('#load');
+const NAVS=[...document.querySelectorAll('.nav')];
+const TOOLS=NAVS.map(b=>b.dataset.k);
+const wide=matchMedia('(min-width:800px)');
+let cur=null;
+const hist=[]; let hpos=-1; // tools visited, for ← →
+
+// Links with a download attribute (e.g. "Save this seal") are ignored by Android's
+// WebView, so hand them to the native side, which opens a system "Save as" dialog.
+function toDataUrl(href){
+  if(href.startsWith('data:'))return Promise.resolve(href);
+  return fetch(href).then(r=>r.blob()).then(b=>new Promise((ok,fail)=>{
+    const fr=new FileReader(); fr.onload=()=>ok(fr.result); fr.onerror=fail; fr.readAsDataURL(b);
+  }));
+}
+function hookDownloads(doc){
+  doc.addEventListener('click',e=>{
+    const a=e.target.closest && e.target.closest('a[download]');
+    if(!a||!window.Android)return;
+    e.preventDefault();
+    const name=a.getAttribute('download')||'download';
+    toDataUrl(a.href).then(u=>Android.saveFile(name,u)).catch(err=>alert('Could not save: '+err));
+  },true);
+}
+frame.addEventListener('load',()=>{
+  load.style.display='none';
+  try{hookDownloads(frame.contentDocument);}catch(e){}
+});
+
+/* ---- sidebar show / hide ---- */
+function sidebarOpen(){ return wide.matches?!document.body.classList.contains('closed'):document.body.classList.contains('open'); }
+function setSidebar(open){
+  if(wide.matches){
+    document.body.classList.toggle('closed',!open);
+    try{localStorage.setItem('l777side',open?'1':'0');}catch(e){}
+  }else{
+    document.body.classList.toggle('open',open);
+    if(!open)$('#q').blur();
+  }
+}
+$('#menu').onclick=()=>setSidebar(!sidebarOpen());
+$('#scrim').onclick=()=>setSidebar(false);
+function applyLayout(){
+  let docked=true; try{docked=localStorage.getItem('l777side')!=='0';}catch(e){}
+  document.body.classList.remove('open');
+  document.body.classList.toggle('closed',wide.matches&&!docked);
+}
+wide.addEventListener('change',applyLayout);
+applyLayout();
+
+/* ---- search ---- */
+$('#q').addEventListener('input',()=>{
+  const q=$('#q').value.trim().toLowerCase(); let any=false;
+  NAVS.forEach(b=>{const hit=!q||b.textContent.toLowerCase().includes(q); b.classList.toggle('hide',!hit); any=any||hit;});
+  document.querySelectorAll('.grp').forEach(g=>g.style.display=q?'none':'');
+  $('#none').style.display=any?'none':'block';
+});
+$('#q').addEventListener('keydown',e=>{
+  if(e.key==='Enter'){const b=NAVS.find(b=>!b.classList.contains('hide')); if(b)b.click();}
+});
+
+/* ---- switching tools ----
+   openTool(key, params) — params is an optional query string passed to the tool page,
+   e.g. parent.openTool('chart','open=abc123') from inside a tool. */
+let curParams='';
+function show(k,params){
+  params=params||'';
+  if(k===cur&&params===curParams)return; cur=k; curParams=params;
+  // live sensors (the compass) never outlive the tool that started them; a tool that wants one starts it again
+  try{ window.Android&&Android.compassStop&&Android.compassStop(); }catch(e){}
+  // ...but a reminder open over it keeps its floating compass
+  if(rite.classList.contains('on'))wakeSensors(riteFrame);
+  NAVS.forEach(b=>b.classList.toggle('on',b.dataset.k===k));
+  const b=NAVS.find(b=>b.dataset.k===k);
+  $('#title').innerHTML=b?b.innerHTML:'';
+  load.style.display='flex';
+  // replace() keeps tool switches out of the WebView's own history
+  // absolute URL: when a tool calls parent.openTool(), a relative one would resolve against the tool's page
+  const url=new URL('tools/'+k+'.html'+(params?'?'+params:''),location.href).href;
+  if(frame.contentWindow&&frame.getAttribute('src'))frame.contentWindow.location.replace(url);
+  else frame.setAttribute('src',url);
+  try{localStorage.setItem('l777tool',k);}catch(e){}
+  $('#back').disabled=hpos<=0; $('#fwd').disabled=hpos>=hist.length-1;
+}
+function openTool(k,params){
+  if(!TOOLS.includes(k))return;
+  if(k!==cur){ hist.splice(hpos+1); hist.push(k); hpos=hist.length-1; }
+  show(k,params);
+  if(!wide.matches)setSidebar(false);
+}
+function step(d){ const p=hpos+d; if(p<0||p>=hist.length)return false; hpos=p; show(hist[p]); return true; }
+$('#back').onclick=()=>step(-1);
+$('#fwd').onclick=()=>step(1);
+$('#list').addEventListener('click',e=>{ const b=e.target.closest('.nav'); if(b)openTool(b.dataset.k); });
+
+/* ---- reminders ----
+   openRite(read) — called when a reminder notification is tapped. read is "resh_dawn" | "resh_noon" |
+   "resh_sunset" | "resh_midnight" | "decan:<0-35>" | "spirit:<n>:day|night" | "event:<id>" (one of your events).
+   The prayer, seal or event opens in its own layer over the current tool, so closing it (or Back) returns to that
+   tool exactly as it was. */
+const rite=$('#rite'), riteFrame=$('#riteFrame');
+function openRite(read){
+  if(!read)return;
+  // replace(), like the tool frame: the reminder layer never adds to the WebView's history
+  const url=new URL('tools/rites.html?read='+encodeURIComponent(read),location.href).href;
+  if(riteFrame.contentWindow&&riteFrame.getAttribute('src'))riteFrame.contentWindow.location.replace(url);
+  else riteFrame.setAttribute('src',url);
+  rite.classList.add('on');
+  if(!wide.matches)setSidebar(false);
+  // tapped after Android had reclaimed the app: the page has just reloaded, so no splash over the reading
+  window.hideSplash&&hideSplash();
+}
+function closeRite(){
+  if(!rite.classList.contains('on'))return false;
+  rite.classList.remove('on');
+  // a floating compass in the reminder (Rites' reading view) goes with it: the page lets go of the sensor first, so its
+  // own pagehide, which can come later, doesn't stop it again; then the sensor stops here
+  try{ const w=riteFrame.contentWindow; w&&w.onRiteClose&&w.onRiteClose(); }catch(e){}
+  try{ window.Android&&Android.compassStop&&Android.compassStop(); }catch(e){}
+  if(riteFrame.contentWindow)riteFrame.contentWindow.location.replace('about:blank');
+  // the Magical Compass underneath, if it was live, starts its own again
+  if(cur==='compass')wakeSensors(frame);
+  return true;
+}
+// A page whose live sensor was stopped from outside (a tool switch, the reminder layer closing) is told it is in view
+// again, as when the app comes back to the front: compass.html and Rites' floating compass then start theirs again.
+function wakeSensors(f){ try{ f.contentDocument.dispatchEvent(new Event('visibilitychange')); }catch(e){} }
+$('#riteClose').onclick=closeRite;
+$('#riteFull').onclick=()=>{ closeRite(); openTool('rites'); };
+
+// Android back button: close a reminder, then the drawer, then go back through tools; false lets the app exit
+window.onBack=()=>{
+  if(closeRite())return true;
+  if(!wide.matches&&sidebarOpen()){ setSidebar(false); return true; }
+  // a tool can handle Back itself first (e.g. close a detail view) by returning true
+  try{ const w=frame.contentWindow; if(w&&w.onBack&&w.onBack())return true; }catch(e){}
+  return step(-1);
+};
+
+// The Android side calls this when permissions, location or reminders change
+window.onNativeUpdate=()=>{try{const w=frame.contentWindow; w&&w.onNativeUpdate&&w.onNativeUpdate();}catch(e){}};
+// ...and this when "Stop" is tapped on an ongoing-session notification
+window.onSessionStop=()=>{try{const w=frame.contentWindow; w&&w.onSessionStop&&w.onSessionStop();}catch(e){}};
+// ...and this with each compass reading after a tool calls Android.compassStart(); while a reminder is open over the
+// tool, its page (Rites' reading view, with its floating compass) gets each reading too
+window.onHeading=h=>{
+  try{const w=frame.contentWindow; w&&w.onHeading&&w.onHeading(h);}catch(e){}
+  if(rite.classList.contains('on'))try{const w=riteFrame.contentWindow; w&&w.onHeading&&w.onHeading(h);}catch(e){}
+};
+// ...and this with each read-aloud event (the voices are ready, an utterance started, ended or failed) for the page that
+// speaks through lib/speech.js (Pathworking); each event names its utterance, so only the page that asked takes it up
+window.onSpeech=s=>{
+  try{const w=frame.contentWindow; w&&w.onSpeech&&w.onSpeech(s);}catch(e){}
+  if(rite.classList.contains('on'))try{const w=riteFrame.contentWindow; w&&w.onSpeech&&w.onSpeech(s);}catch(e){}
+};
+
+let start='finder'; try{start=localStorage.getItem('l777tool')||'finder';}catch(e){}
+const asked=new URLSearchParams(location.search).get('tool'); // e.g. from a reminder notification
+if(asked)start=asked;
+if(!TOOLS.includes(start))start='finder';
+openTool(start);
+openRite(new URLSearchParams(location.search).get('rite'));   // the app was started by tapping a reminder
+// your events (Rites & Altar): their coming times are worked out here at each start and handed to the app to ring
+// (lib/events.js); nothing shows, and a failure leaves the reminders already set as they are
+addEventListener('load',()=>{ try{ window.Events&&Events.refresh().catch(()=>{}); }catch(e){} });
+</script><script>
+/* web edition: keep an offline copy of every file (../sw.js); browsers allow it over https and on this computer */
+if('serviceWorker' in navigator&&!window.Android)addEventListener('load',()=>{
+  navigator.serviceWorker.register('../sw.js',{scope:'../'}).catch(e=>console.warn('Athanor: no offline copy - '+(e&&e.message)));
+});
+</script></body></html>

@@ -1,0 +1,45 @@
+{
+ "version": 1,
+ "updated": "2026-09-29",
+ "title": "Of the Dignities — Book T's rule for a card and its neighbours (elemental dignity)",
+ "source": "Golden Dawn, \"A Description of the Cards of the Tarot, with their Attributions; including a Method of Divination by their use\" (Book T), The Equinox Vol. I No. 8 (September 1912), section \"OF THE DIGNITIES\", p. 206. Public domain.",
+ "checked": "Transcribed on 2026-09-29 from the original 1912 letterpress setting: page image and OCR text of https://archive.org/details/crowley-equinox_202110 (file \"The Equinox Vol. 1, No. 8\", leaf 236 = p. 206). The two agree word for word. \"A CARD\" is set in small capitals in print and is written \"A card\" in text. The section follows the table of majorities (pp. 205-206) and comes just before \"A Method of Divination by the Tarot\" (p. 207). This is the same printing that divination.json quotes for the card meanings.",
+ "page": 206,
+ "heading": "OF THE DIGNITIES",
+ "text": [
+  "A card is strong or weak, well dignified or ill dignified, according to the cards next to it on either side.",
+  "Cards of the same suit on either side strengthen it greatly, for good or evil according to their nature.",
+  "Cards of opposite natures on either side weaken it greatly, for either good or evil.",
+  "Swords are inimical to Pentacles.",
+  "Wands are inimical to Cups.",
+  "Swords are friendly with Cups and Wands.",
+  "Wands are friendly with Swords and Pentacles.",
+  "If a card fall between two others which are mutually contrary, it is not much affected by either."
+ ],
+ "rules": [
+  {"id": "same", "when": "Cards of the same suit on either side", "result": "strengthened", "effect": "Strengthened greatly — for good or evil according to their nature", "text": "Cards of the same suit on either side strengthen it greatly, for good or evil according to their nature."},
+  {"id": "opposite", "when": "Cards of opposite natures on either side", "result": "weakened", "effect": "Weakened greatly — for either good or evil", "text": "Cards of opposite natures on either side weaken it greatly, for either good or evil."},
+  {"id": "between", "when": "Its two neighbours are mutually contrary", "result": "unaffected", "effect": "Not much affected by either", "text": "If a card fall between two others which are mutually contrary, it is not much affected by either."}
+ ],
+ "suits": [
+  {"bookT": "Wands", "key": "wands", "thoth": "Wands", "element": "Fire"},
+  {"bookT": "Cups", "key": "cups", "thoth": "Cups", "element": "Water"},
+  {"bookT": "Swords", "key": "swords", "thoth": "Swords", "element": "Air"},
+  {"bookT": "Pentacles", "key": "disks", "thoth": "Disks", "element": "Earth"}
+ ],
+ "inimical": [["Swords", "Pentacles"], ["Wands", "Cups"]],
+ "friendly": [["Swords", "Cups"], ["Swords", "Wands"], ["Wands", "Pentacles"]],
+ "unstated": [["Cups", "Pentacles"]],
+ "majorityNote": {"text": "Aces are always strong cards.", "where": "the table of majorities, row \"A Majority of Aces\" (\"Strength generally. Aces are always strong cards.\"), p. 205 (leaf 235)"},
+ "derived": ["rules", "suits", "inimical", "friendly", "unstated"],
+ "about": "Everything except \"text\" and \"majorityNote\" is derived from the text. The rules are sentences 2, 3 and 8, split into a condition and an effect. \"inimical\" and \"friendly\" are sentences 4 to 7. \"unstated\" is the one pair of suits the text gives no relation for. The elements of the suits are the Golden Dawn / Liber 777 ones: Wands Fire, Cups Water, Swords Air, Pentacles (Thoth: Disks) Earth. In those elements, Fire and Water are contrary, and so are Air and Earth.",
+ "conventions": [
+  "Suits only. The rule speaks of suits and says nothing about the Keys (trumps). The drills therefore use only the 56 suit cards: the Aces, the small cards 2-10 and the court cards. Liber 777 does give the Keys elements: a zodiacal Key's sign has one, and 0, XII and XX are Air, Water and Fire. But Book T never says the rule counts them, and the planetary Keys have no element at all.",
+  "Neighbours. \"The cards next to it on either side\" means the card just before it and the card just after it in the line. Only those two count, however long the spread is.",
+  "Settled cases only. The drills use only the three cases the text rules on. (1) Both neighbours are of the card's own suit: strengthened greatly. (2) Both neighbours are of the suit inimical to it (\"opposite natures\"): weakened greatly. (3) The two neighbours are inimical to each other (Wands with Cups, or Swords with Pentacles): not much affected by either. The text gives no ruling for any other pair of neighbours, for example the card's own suit beside a friendly suit, two Swords beside a Wand, or one inimical neighbour next to a friendly one, so these are never drilled. Two friendly neighbours that are contrary to each other (a Wand and a Cup beside a Sword) come under case (3).",
+  "Friendship. The text names the friends of Swords (Cups, Wands) and of Wands (Swords, Pentacles). It gives no relation between Cups and Pentacles, and it gives friendly neighbours no effect of their own.",
+  "Well and ill dignified. The first sentence pairs \"strong\" with \"well dignified\" and \"weak\" with \"ill dignified\". So a card its neighbours strengthen is read by its Book T meaning, and a card they weaken is read by its \"if ill dignified\" reading, where Book T gives one. In divination.json, 19 suit cards have one: every court card except the Queen of Cups, plus the Ten of Wands, Two of Cups, Eight of Swords and Six of Disks. The Ten of Wands is the only one that also has a \"when well dignified\" reading, and that reading is used for it. Book T adds that same-suit neighbours strengthen a card \"for good or evil according to their nature\".",
+  "Aces. Book T's table of majorities says \"Aces are always strong cards\". So no drill judges an Ace. Aces appear only as neighbours.",
+  "Essential dignity is a separate method. Reading a small card by the planet of its decan, or a planetary Key beside a zodiacal Key, comes from the user's sheet (dignities.json: crossRef, spreadMethod), not from Book T. The two methods are taught side by side and never mixed in one answer."
+ ]
+}

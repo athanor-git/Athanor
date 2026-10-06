@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Athanor — Tree of Life & the 22 Paths</title>
+<style>
+:root{--bg:#faf7f0;--card:#fff;--ink:#1a1712;--sub:#6b6357;--acc:#7a5c2e;--line:#e3ddd0;--hit:#fff3c9;--path:#b9ad93;--seph:#efe9dc}
+@media(prefers-color-scheme:dark){:root{--bg:#14120e;--card:#1e1b15;--ink:#ece5d8;--sub:#9a9184;--acc:#d0a85c;--line:#33302a;--hit:#4a3f1e;--path:#5a5342;--seph:#2a271f}}
+*{box-sizing:border-box}body{margin:0;font:16px/1.45 system-ui,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--ink)}
+header{padding:10px 14px;border-bottom:1px solid var(--line)}
+h1{font-size:16px;margin:0;letter-spacing:.04em}h1 small{color:var(--sub);font-weight:400}
+.wrap{display:flex;flex-wrap:wrap;gap:14px;max-width:1100px;margin:0 auto;padding:12px}
+.treebox{flex:1 1 340px;min-width:300px}
+.panel{flex:1 1 380px;min-width:280px}
+svg{width:100%;height:auto;display:block;background:var(--card);border:1px solid var(--line);border-radius:12px;touch-action:manipulation}
+.seph{fill:var(--seph);stroke:var(--acc);stroke-width:1.5;cursor:pointer}
+.seph:hover{fill:var(--hit)}
+.sephn{font-size:15px;font-weight:700;fill:var(--ink);text-anchor:middle;pointer-events:none}
+.sephnm{font-size:8.5px;fill:var(--sub);text-anchor:middle;pointer-events:none}
+.pline{stroke:var(--path);stroke-width:8;fill:none}
+.phit{stroke:transparent;stroke-width:22;fill:none;cursor:pointer}
+.phit:hover + .plbl,.psel{stroke:var(--acc)!important;stroke-width:11}
+.plbl rect{fill:var(--card);stroke:var(--line)}
+.plbl text{font-size:10px;text-anchor:middle;dominant-baseline:central;fill:var(--ink);pointer-events:none}
+.plbl .heb{font-size:12px}
+.ctrl{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+.chip{border:1px solid var(--line);background:var(--card);border-radius:16px;padding:5px 11px;cursor:pointer;font-size:13px}
+.chip.on{background:var(--acc);color:#fff;border-color:var(--acc)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.bh{font-size:19px;font-weight:700}.bh .sub{color:var(--sub);font-size:13px;font-weight:400}
+.kv{font-size:14px;margin:3px 0}.kv b{color:var(--acc);font-weight:600}
+.sw{display:inline-block;width:13px;height:13px;border-radius:3px;border:1px solid var(--line);vertical-align:-2px;margin-right:3px}
+a.full{color:var(--acc);font-size:13px;cursor:pointer;text-decoration:underline}
+table{border-collapse:collapse;width:100%;margin-top:6px}td{border-top:1px solid var(--line);padding:5px 7px;font-size:13.5px;vertical-align:top}
+td.n{white-space:nowrap;color:var(--acc);font-weight:600;width:1%}td.t{color:var(--sub);width:32%}
+.hint{color:var(--sub);font-size:13.5px}
+.legend{font-size:13px;margin-top:10px}.legend div{padding:3px 0;border-top:1px solid var(--line);cursor:pointer}
+.legend div:hover{background:var(--hit)}
+</style></head><body>
+<header><h1>ATHANOR · THE TREE OF LIFE &amp; ITS 22 PATHS <small>· tap any path or sphere for its correspondences</small></h1></header>
+<div class="wrap">
+<div class="treebox">
+ <div class="ctrl"><span class="hint">Colour the tree by scale:</span>
+  <span class="chip on" data-sc="none" onclick="setScale('none')">plain</span>
+ </div>
+ <div class="ctrl"><span class="hint">Overlay:</span>
+  <span class="chip" id="gradeChip" onclick="toggleGrades()">Rosicrucian grades (planes of consciousness)</span>
+ </div>
+ <svg id="tree" viewBox="0 0 400 640" xmlns="http://www.w3.org/2000/svg"></svg>
+ <div class="hint" id="scnote" style="margin-top:6px"></div>
+ <div class="legend" id="legend"></div>
+</div>
+<div class="panel" id="panel"></div>
+</div>
+<script src="../../data/777.js"></script>
+<script src="../../data/db/core.js"></script>
+<script src="../../data/db/texts.js"></script>
+<script src="../lib/db.js"></script>
+<script>
+const D = D777;
+const COL = {}; for(const c of D.cols) COL[c.label] = c;
+const SEPH = {}; for(const s of D.seph) SEPH[s[0]] = s;
+let showGrades=false;
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+function cv(label,k){ const c=COL[label]; return c&&c.cells[k]?c.cells[k]:''; }
+function swatch(label,k){ const c=COL[label]; if(!c||!c.colors||!c.colors[k])return'';
+  return c.colors[k].map(h=>`<span class="sw" style="background:${h}"></span>`).join(''); }
+function firstColor(scale,k){ const c=COL[scale]; if(!c||!c.colors||!c.colors[k])return null; return c.colors[k][0]; }
+// The Rosicrucian / A∴A∴ grades attributed to each Sephira (plane of attainment): 777 col. CXXI, "10°=1□ Ipsissimus"
+const GRADES = {}; for(const [n] of D.seph) GRADES[n] = [...cv('CXXI',String(n)).matchAll(/(\d+°=\d+□)\s*([^\d]*)/g)].map(m=>[m[1],m[2].trim()]);
+const GRADE = {}, GRADESHORT = {};
+for(const n in GRADES){ GRADE[n] = GRADES[n].map(([g,name])=>name+' '+g).join(' · '); GRADESHORT[n] = (GRADES[n][0]||[''])[0]; }
+// The four colour scales (777 cols. XV–XVIII), one per suit: the Suits tab
+const SCALES=DB.rows('suits').map(s=>[s.scale,s.scale_name+' scale']);
+const SCALENAME=Object.fromEntries(DB.rows('suits').map(s=>[s.scale,s.scale_name]));
+document.querySelector('.chip[data-sc="none"]').insertAdjacentHTML('afterend',DB.rows('suits').map(s=>`\n  <span class="chip" data-sc="${s.scale}" onclick="setScale('${s.scale}')">${s.scale_name}</span>`).join(''));
+let scale='none';
+
+function draw(){
+  const svg=$('#tree'); let h='';
+  // paths first (under spheres)
+  for(const p of D.paths){
+    const [k,se,letter,glyph,mean,attr,atu,title]=p;
+    const a=SEPH[se[0]],b=SEPH[se[1]];
+    const col = scale!=='none' ? firstColor(scale,k) : null;
+    const stroke = col||'var(--path)';
+    h+=`<line class="pline" id="pl${k}" x1="${a[4]}" y1="${a[5]}" x2="${b[4]}" y2="${b[5]}" style="stroke:${stroke}"></line>`;
+    h+=`<line class="phit" x1="${a[4]}" y1="${a[5]}" x2="${b[4]}" y2="${b[5]}" onclick="showPath('${k}')"></line>`;
+  }
+  // path labels (over lines, under spheres)
+  for(const p of D.paths){
+    const [k,se,letter,glyph]=p;
+    const a=SEPH[se[0]],b=SEPH[se[1]];
+    const mx=(a[4]+b[4])/2, my=(a[5]+b[5])/2;
+    h+=`<g class="plbl" onclick="showPath('${k}')" style="cursor:pointer">
+      <rect x="${mx-15}" y="${my-10}" width="30" height="20" rx="5"></rect>
+      <text class="heb" x="${mx-6}" y="${my}">${glyph}</text>
+      <text x="${mx+7}" y="${my}">${k}</text></g>`;
+  }
+  // spheres
+  for(const s of D.seph){
+    const [n,name,mean,pl,x,y]=s;
+    const col = scale!=='none' ? firstColor(scale,String(n)) : null;
+    const fill = col||'var(--seph)';
+    h+=`<g onclick="showSeph(${n})" style="cursor:pointer">
+      <circle class="seph" cx="${x}" cy="${y}" r="26" style="fill:${fill}"></circle>
+      <text class="sephn" x="${x}" y="${y-1}">${n}</text>
+      <text class="sephnm" x="${x}" y="${y+11}">${name}</text>`;
+    if(showGrades) h+=`<text x="${x}" y="${y+34}" style="font-size:9px;fill:var(--acc);text-anchor:middle;font-weight:700;pointer-events:none">${GRADESHORT[n]}</text>`;
+    h+='</g>';
+  }
+  svg.innerHTML=h;
+  // legend
+  $('#legend').innerHTML = '<b>The 22 Paths</b>' + D.paths.map(p=>
+    `<div onclick="showPath('${p[0]}')"><b>${p[0]}</b> ${p[3]} ${p[2]} · ${esc(p[5])} · Atu ${p[6]} ${esc(p[7])} <span class="hint">(${p[1][0]}–${p[1][1]})</span></div>`).join('');
+}
+function setScale(s){
+  scale=s;
+  document.querySelectorAll('.chip[data-sc]').forEach(c=>c.classList.toggle('on',c.dataset.sc===s));
+  $('#scnote').textContent = s==='none' ? '' : DB.text('tree.scale-note',{scale:SCALENAME[s]});
+  draw();
+}
+function chips(pairs,k){
+  let h='';
+  for(const [label,nice] of pairs){ const v=cv(label,k); if(!v)continue;
+    h+=`<div class="kv"><b>${nice}</b> (${label}): ${swatch(label,k)}${esc(v)}</div>`; }
+  return h;
+}
+function showPath(k){
+  const p=D.paths.find(x=>x[0]===k);
+  const [key,se,letter,glyph,mean,attr,atu,title]=p;
+  document.querySelectorAll('.pline').forEach(l=>l.classList.remove('psel'));
+  const pl=$('#pl'+k); if(pl)pl.classList.add('psel');
+  let h=`<div class="card"><div class="bh">Path ${k} — ${glyph} ${letter} <span class="sub">Key Scale ${k}</span></div>
+   <div class="kv"><b>Connects</b>: ${se[0]} ${SEPH[se[0]][1]} ↔ ${se[1]} ${SEPH[se[1]][1]}</div>
+   <div class="kv"><b>Letter meaning</b>: ${esc(mean)}</div>
+   <div class="kv"><b>Attribution</b>: ${esc(attr)}</div>
+   <div class="kv"><b>Tarot</b>: Atu ${atu} — ${esc(title)}</div>`;
+  const pcon=cv('IV',k); if(pcon) h+=`<div class="kv"><b>Consciousness of the Adept</b> (IV †): ${esc(pcon)}</div>`;
+  const pkw=cv('IV-a',k); if(pkw) h+=`<div class="kv"><b>Keyword</b> †: ${esc(pkw)}</div>`;
+  const pmed=cv('IV-b',k); if(pmed) h+=`<div class="kv"><b>Meditation</b> †: ${esc(pmed)}</div>`;
+  const ppr=cv('IV-c',k); if(ppr) h+=`<div class="kv"><b>Practical use</b> †: ${esc(ppr)}</div>`;
+  const pvis=cv('XLV',k); if(pvis) h+=`<div class="kv"><b>Magical power / attainment</b> (XLV): ${esc(pvis)}</div>`;
+  h+='<div style="margin-top:8px">'+chips([['XLII','Perfume'],['XXXIX','Plant'],['XL','Precious stone'],['XLI','Magical weapon'],['XXXVIII','Animal'],['VII','Element/Sign']],k)+'</div>';   // (col. XLV: the line above)
+  h+='<div style="margin-top:6px">'+chips(SCALES,k)+'</div>';
+  h+=`<div style="margin-top:8px"><a class="full" onclick="rowView('${k}')">▸ every correspondence of Path ${k}</a></div></div>`;
+  $('#panel').innerHTML=h;
+}
+function showSeph(n){
+  const s=SEPH[n]; const k=String(n);
+  document.querySelectorAll('.pline').forEach(l=>l.classList.remove('psel'));
+  let h=`<div class="card"><div class="bh">${n}. ${s[1]} <span class="sub">${esc(s[2])} · ${esc(s[3])}</span></div>`;
+  h+=`<div class="kv" style="margin-top:4px"><b>Grade of the Order</b> (CXXI): ${esc(GRADE[n])}</div>`;
+  const con=cv('IV',k); if(con) h+=`<div class="kv"><b>Consciousness of the Adept</b> (IV †): ${esc(con)}</div>`;
+  const kw=cv('IV-a',k); if(kw) h+=`<div class="kv"><b>Keyword</b> †: ${esc(kw)}</div>`;
+  const med=cv('IV-b',k); if(med) h+=`<div class="kv"><b>Meditation</b> †: ${esc(med)}</div>`;
+  const pr=cv('IV-c',k); if(pr) h+=`<div class="kv"><b>Practical use</b> †: ${esc(pr)}</div>`;
+  const vis=cv('XLV',k); if(vis) h+=`<div class="kv"><b>Vision / attainment</b> (XLV): ${esc(vis)}</div>`;
+  const pw=cv('CXIV',k); if(pw) h+=`<div class="kv"><b>Password of the grade</b> (CXIV): ${esc(pw)}</div>`;
+  h+='<div style="margin-top:6px">'+chips([['V','God-Name in Assiah'],['VI','Heaven of Assiah'],['XCIX','Archangel'],['C','Order of Angels'],['XIX','Egyptian god'],['XXXIV','Greek god'],['XLII','Perfume'],['XXXIX','Plant'],['XL','Precious stone']],k)+'</div>';
+  h+='<div style="margin-top:6px">'+chips(SCALES,k)+'</div>';
+  h+=`<div style="margin-top:8px"><a class="full" onclick="rowView('${k}')">▸ every correspondence of ${s[1]}</a></div></div>`;
+  $('#panel').innerHTML=h;
+}
+function rowView(k){
+  let h=`<div class="card"><div class="bh">Key Scale ${k} — full row</div><table>`;
+  for(const c of D.cols){ const v=c.cells[k]; if(!v)continue;
+    h+=`<tr><td class="n">${c.label}</td><td class="t">${esc(c.title)}</td><td>${swatch(c.label,k)}${esc(v)}</td></tr>`; }
+  const back=DB.get('keyscale',k).sephira?`showSeph(${k})`:`showPath('${k}')`;   // back to the sphere or path it came from
+  h+=`</table><div style="margin-top:8px"><a class="full" onclick="${back}">← back</a></div></div>`;
+  $('#panel').innerHTML=h; window.scrollTo({top:0});
+}
+function toggleGrades(){ showGrades=!showGrades;
+  $('#gradeChip').classList.toggle('on',showGrades);
+  // the ladder from the lowest grade (the last on the bottom sphere) to the highest (on the top sphere)
+  const lo=D.seph[D.seph.length-1], hi=D.seph[0], loG=GRADES[lo[0]], hiG=GRADES[hi[0]];
+  $('#scnote').textContent = showGrades ? DB.text('tree.grades-note',{lowest_sphere:lo[1],lowest_grade:loG[loG.length-1][1],highest_sphere:hi[1],highest_grade:hiG[0][1]}) : '';
+  draw();
+}
+draw();
+$('#panel').innerHTML='<div class="card hint">'+DB.text('tree.intro',{scales:DB.rows('suits').map(s=>s.scale_name).join('/')})+'</div>';
+</script></body></html>

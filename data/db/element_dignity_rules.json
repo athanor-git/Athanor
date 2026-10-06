@@ -1,0 +1,5 @@
+{"table": "element_dignity_rules", "rows": [
+{"id": "same", "when": "Cards of the same suit on either side", "result": "strengthened", "effect": "Strengthened greatly — for good or evil according to their nature", "text": "elemental_dignities.text.2"},
+{"id": "opposite", "when": "Cards of opposite natures on either side", "result": "weakened", "effect": "Weakened greatly — for either good or evil", "text": "elemental_dignities.text.3"},
+{"id": "between", "when": "Its two neighbours are mutually contrary", "result": "unaffected", "effect": "Not much affected by either", "text": "elemental_dignities.text.8"}
+]}

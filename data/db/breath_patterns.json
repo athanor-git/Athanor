@@ -1,0 +1,6 @@
+{"table": "breath_patterns", "rows": [
+{"id": "box", "name": "Box", "inhale": 4, "hold_in": 4, "exhale": 4, "hold_out": 4},
+{"id": "relax", "name": "Relax", "inhale": 4, "hold_in": 7, "exhale": 8, "hold_out": 0},
+{"id": "coherent", "name": "Coherent", "inhale": 5, "hold_in": 0, "exhale": 5, "hold_out": 0},
+{"id": "calm", "name": "Calm", "inhale": 6, "hold_in": 0, "exhale": 6, "hold_out": 0}
+]}

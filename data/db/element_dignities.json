@@ -1,0 +1,8 @@
+{"table": "element_dignities", "rows": [
+{"id": "swords-disks", "suit_a": "swords", "suit_b": "disks", "relation": "inimical"},
+{"id": "wands-cups", "suit_a": "wands", "suit_b": "cups", "relation": "inimical"},
+{"id": "swords-cups", "suit_a": "swords", "suit_b": "cups", "relation": "friendly"},
+{"id": "swords-wands", "suit_a": "swords", "suit_b": "wands", "relation": "friendly"},
+{"id": "wands-disks", "suit_a": "wands", "suit_b": "disks", "relation": "friendly"},
+{"id": "cups-disks", "suit_a": "cups", "suit_b": "disks", "relation": "unstated"}
+]}

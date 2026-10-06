@@ -1,0 +1,7 @@
+{"table": "elements", "rows": [
+{"id": "fire", "name": "Fire", "glyph": "🜂", "emblems": "fiery\nagni\npyromancy"},
+{"id": "water", "name": "Water", "glyph": "🜄", "emblems": "watery\nposeidon\nneptune\napas\naquamarine\ncup"},
+{"id": "air", "name": "Air", "glyph": "🜁", "emblems": "airy\naerial\nvayu\ndagger\nfan"},
+{"id": "earth", "name": "Earth", "glyph": "🜃", "emblems": "earthy"},
+{"id": "spirit", "name": "Spirit", "glyph": "🜀"}
+]}

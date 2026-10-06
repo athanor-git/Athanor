@@ -1,0 +1,10 @@
+{"table": "dignity_method_examples", "rows": [
+{"id": "sign", "text": "A planet standing in a sign: its rulership, exaltation, detriment or fall", "method": "essential"},
+{"id": "suits", "text": "The suits of the two cards lying next to a card", "method": "elemental"},
+{"id": "bookt", "text": "Book T's rule “Of the Dignities” (The Equinox I:8, 1912)", "method": "elemental"},
+{"id": "key", "text": "Your sheet's reading key: Ruler, Exaltation, Detriment, Fall", "method": "essential"},
+{"id": "decan", "text": "A small card 2–10 judged by the planet and sign of its decan", "method": "essential"},
+{"id": "cups", "text": "A Cups card lying between two other Cups cards", "method": "elemental"},
+{"id": "xref", "text": "Atu XVI Tower lying beside Atu VIII Adjustment (Mars in Libra)", "method": "essential"},
+{"id": "wands", "text": "A Wands card lying between two Cups cards", "method": "elemental"}
+]}

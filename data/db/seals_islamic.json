@@ -1,0 +1,9 @@
+{"table": "seals_islamic", "rows": [
+{"id": "pentagram", "name": "Star (pentagram)", "weekday": "sunday", "meaning": "the khātam / star of Solomon — sovereignty, the whole under one sign"},
+{"id": "staffs", "name": "Three staffs", "weekday": "monday", "meaning": "the three rods — often read for the threefold Name and increase"},
+{"id": "ladder", "name": "The ladder", "weekday": "tuesday", "meaning": "ascent and descent of power; force disciplined into rungs"},
+{"id": "ring", "name": "The ring", "weekday": "wednesday", "meaning": "the sealing ring of Solomon — binding and command of spirits"},
+{"id": "hook", "name": "The hook (wāw)", "weekday": "thursday", "meaning": "the drawing-in of grace and provision"},
+{"id": "mim", "name": "The tailed mīm", "weekday": "friday", "meaning": "union and attraction; love and concord"},
+{"id": "chain", "name": "The chain", "weekday": "saturday", "meaning": "binding, limit, and the closing of the seal"}
+]}

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Athanor — Planetary Hours</title>
+<style>
+:root{--bg:#faf7f0;--card:#fff;--ink:#1a1712;--sub:#6b6357;--acc:#7a5c2e;--line:#e3ddd0;--hit:#fff3c9;--now:#c8a24a}
+@media(prefers-color-scheme:dark){:root{--bg:#14120e;--card:#1e1b15;--ink:#ece5d8;--sub:#9a9184;--acc:#d0a85c;--line:#33302a;--hit:#4a3f1e;--now:#5a4a1e}}
+*{box-sizing:border-box}body{margin:0;font:16px system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--ink)}
+header{padding:10px 14px;border-bottom:1px solid var(--line)}h1{font-size:16px;margin:0}h1 small{color:var(--sub);font-weight:400}
+main{max-width:640px;margin:0 auto;padding:12px}
+.frm{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px;margin:8px 0}
+.frm label{font-size:12px;color:var(--sub);display:block}
+.frm input{width:100%;font-size:15px;padding:8px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink)}
+button.big{border:1px solid var(--acc);background:var(--acc);color:#fff;border-radius:9px;padding:9px 16px;font-size:15px;cursor:pointer}
+button.ghost{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:8px;padding:9px 14px;cursor:pointer}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin:10px 0}
+table{border-collapse:collapse;width:100%}td,th{border-top:1px solid var(--line);padding:6px 8px;font-size:14px;text-align:left}
+th{color:var(--sub);font-size:12px;border:none}
+tr.now{background:var(--hit)}
+td.pl{font-weight:600;cursor:pointer}td.pl:hover{color:var(--acc)}
+.sub{color:var(--sub);font-size:13px}
+.exp{background:var(--hit);border-radius:8px;padding:9px 12px;font-size:13px;margin-top:10px}
+.day{color:var(--acc);font-weight:700;font-size:12px;letter-spacing:.05em;text-transform:uppercase;padding-top:8px}
+</style></head><body>
+<header><h1>ATHANOR · PLANETARY HOURS <small>· the timing layer</small></h1></header>
+<main>
+<div class="card">
+ <div class="frm">
+  <div><label>Date</label><input type="date" id="d"></div>
+  <div><label>UTC offset (h)</label><input type="number" step="0.25" id="tz"></div>
+  <div><label>Latitude °N</label><input type="number" step="0.0001" id="la" value="40.7"></div>
+  <div><label>Longitude °E (− W)</label><input type="number" step="0.0001" id="lo" value="-74.0"></div>
+ </div>
+ <button class="big" onclick="go()">Compute hours</button>
+ <button class="ghost" onclick="today()">Today</button>
+ <button class="ghost" onclick="geo()">My location</button>
+ <div class="sub" style="margin-top:6px">Coordinates? Grab them from the Chart Calculator's city search. Uses unequal (planetary) hours: day = sunrise→sunset in 12, night = sunset→sunrise in 12.</div>
+</div>
+<div id="out"></div>
+</main>
+<script src="../../data/777.js"></script>
+<script src="../../data/db/core.js"></script>
+<script src="../lib/db.js"></script>
+<script>
+function julianNoon(Y,M,D){const a=Math.floor((14-M)/12),y=Y+4800-a,m=M+12*a-3;
+ return D+Math.floor((153*m+2)/5)+365*y+Math.floor(y/4)-Math.floor(y/100)+Math.floor(y/400)-32045;}
+function sunTimes(Y,M,D,lat,lng){ // lng east positive; returns Julian dates (UT) of rise/set
+ const rad=Math.PI/180;
+ const n=julianNoon(Y,M,D)-2451545.0+0.0008;
+ const Jstar=n-lng/360;
+ const M0=(357.5291+0.98560028*Jstar)%360, Mr=M0*rad;
+ const C=1.9148*Math.sin(Mr)+0.0200*Math.sin(2*Mr)+0.0003*Math.sin(3*Mr);
+ const lam=(M0+C+180+102.9372)%360, lamr=lam*rad;
+ const Jt=2451545.0+Jstar+0.0053*Math.sin(Mr)-0.0069*Math.sin(2*lamr);
+ const sinDec=Math.sin(lamr)*Math.sin(23.44*rad), cosDec=Math.cos(Math.asin(sinDec));
+ const cosH=(Math.sin(-0.833*rad)-Math.sin(lat*rad)*sinDec)/(Math.cos(lat*rad)*cosDec);
+ if(cosH>1)return{polar:'night'}; if(cosH<-1)return{polar:'day'};
+ const H=Math.acos(cosH)/rad;
+ return {rise:Jt-H/360, set:Jt+H/360};
+}
+function localHM(JD,tz){ let f=((JD+0.5+tz/24)%1+1)%1; let h=f*24; let hh=Math.floor(h),mm=Math.round((h-hh)*60); if(mm===60){mm=0;hh++;} return [hh%24,mm]; }
+
+const D = D777; const COL={}; for(const c of D.cols)COL[c.label]=c;
+const $=s=>document.querySelector(s);const esc=s=>String(s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+// The facts come from the content tables (data/db, edited in the content workbook) through lib/db.js
+const PL=DB.where('planets',p=>p.chaldean).sort((a,b)=>a.chaldean-b.chaldean);   // planets.chaldean: slowest first
+const CHAL=PL.map(p=>p.name);                                                     // Saturn … Moon
+const GLY=Object.fromEntries(PL.map(p=>[p.name,p.glyph]));
+const DAYRULER=DB.rows('weekdays').map(w=>DB.ref(w,'planet').name);              // weekdays from Sunday: getDay 0=Sun
+const SEPH=Object.fromEntries(PL.map(p=>[p.name,DB.rev('keyscale','sephira',p.sephira)[0].id])); // its Sephira's 777 row
+const DAYS=DB.rows('weekdays').map(w=>w.name);
+function hm(h){let hh=Math.floor(h),mm=Math.round((h-hh)*60);if(mm===60){mm=0;hh++;}return String(hh%24).padStart(2,'0')+':'+String(mm).padStart(2,'0');}
+let tzAuto=true; // #tz follows the device's offset for the picked date (DST) until the user types one
+function go(){
+ const dv=$('#d').value; if(!dv){alert('Pick a date');return;}
+ const [y,mo,dd]=dv.split('-').map(Number);
+ if(tzAuto)$('#tz').value=-(new Date(y,mo-1,dd,12).getTimezoneOffset())/60;
+ const tz=parseFloat($('#tz').value)||0, la=parseFloat($('#la').value)||0, lo=parseFloat($('#lo').value)||0;
+ const s1=sunTimes(y,mo,dd,la,lo);
+ const nd=new Date(Date.UTC(y,mo-1,dd)); nd.setUTCDate(nd.getUTCDate()+1);
+ const s2=sunTimes(nd.getUTCFullYear(),nd.getUTCMonth()+1,nd.getUTCDate(),la,lo);
+ if(s1.polar||s2.polar){ $('#out').innerHTML='<div class="card">At this latitude/date the Sun doesn\'t rise or set normally (polar day/night) — planetary hours can\'t be divided.</div>'; return; }
+ const [rh,rm]=localHM(s1.rise,tz), [sh,sm]=localHM(s1.set,tz);
+ let rise=rh+rm/60, set=sh+sm/60, rise2=(function(){const [a,b]=localHM(s2.rise,tz);return a+b/60+24;})();
+ if(set<rise)set+=24;
+ const dayLen=(set-rise)/12, nightLen=(rise2-set)/12;
+ const dow=new Date(y,mo-1,dd).getDay();
+ const ruler=DAYRULER[dow]; const start=CHAL.indexOf(ruler);
+ // now marker
+ const now=new Date(); const isToday=(now.getFullYear()===y&&now.getMonth()===mo-1&&now.getDate()===dd);
+ const nx=new Date(y,mo-1,dd+1), isNext=(now.getFullYear()===nx.getFullYear()&&now.getMonth()===nx.getMonth()&&now.getDate()===nx.getDate()); // after midnight the hour belongs to this date's night
+ const nowH=now.getHours()+now.getMinutes()/60;
+ // the 25 instants that bound the 24 hours (edge 12 is sunset, edge 24 the next sunrise), each rounded to the minute
+ // once, as hm() rounds it: an hour ends at the very minute the next one begins
+ const toMin=t=>{const hh=Math.floor(t);return hh*60+Math.round((t-hh)*60);};
+ const edge=[];for(let i=0;i<=24;i++)edge.push(toMin(i<12? rise+i*dayLen : set+(i-12)*nightLen)/60);
+ let rows='';
+ for(let i=0;i<24;i++){
+  const pl=CHAL[(start+i)%7];
+  const t0=edge[i], t1=edge[i+1];
+  const cur=(isToday&&nowH>=t0&&nowH<t1)||(isNext&&nowH+24>=t0&&nowH+24<t1);
+  if(i===0)rows+='<tr><td class="day" colspan="3">Day hours — from sunrise</td></tr>';
+  if(i===12)rows+='<tr><td class="day" colspan="3">Night hours — from sunset</td></tr>';
+  rows+=`<tr class="${cur?'now':''}"><td>${i%12+1}</td><td>${hm(t0)}–${hm(t1)}</td><td class="pl" onclick="rowView('${SEPH[pl]}')">${GLY[pl]} ${pl}${cur?' · now':''}</td></tr>`;
+ }
+ $('#out').innerHTML=`<div class="card"><div class="sub">${DAYS[dow]} · ruled by ${GLY[ruler]} <b>${ruler}</b> · sunrise ${hm(rise)} · sunset ${hm(set%24)}</div>
+  <table><tr><th>#</th><th>Clock</th><th>Ruler</th></tr>${rows}</table>
+  <div class="exp"><b>Planetary hours.</b> The day (sunrise→sunset) and night (sunset→sunrise) are each split into 12 unequal "hours." The first hour after sunrise is ruled by the planet of the weekday (${ruler} today), then they follow the Chaldean order ${CHAL.map(p=>GLY[p]).join(' ')} repeating. To time a working, pick the hour of its planet — tap any ruler to jump to its sephira's correspondences. This is the timing the sigil, wafq, and Seven-Seals traditions rely on.</div></div>`;
+}
+function rowView(k){
+ let t=`<div class="card"><button class="ghost" onclick="go()" style="margin-bottom:8px">← hours</button><div class="sub" style="font-size:16px;color:var(--ink);font-weight:700">Key ${k} — ${esc(D.labels[k]||'')}</div><table>`;
+ for(const c of D.cols){const v=c.cells[k];if(!v)continue;let sw='';if(c.colors&&c.colors[k])sw=c.colors[k].map(h=>`<span style="display:inline-block;width:12px;height:12px;border-radius:3px;border:1px solid var(--line);vertical-align:-1px;margin-right:3px;background:${h}"></span>`).join('');t+=`<tr><td style="color:var(--acc);font-weight:600;white-space:nowrap">${c.label}</td><td>${sw}${esc(v)}</td></tr>`;}
+ t+='</table></div>'; $('#out').innerHTML=t; window.scrollTo(0,0);
+}
+function today(){const n=new Date();$('#d').value=n.getFullYear()+'-'+String(n.getMonth()+1).padStart(2,'0')+'-'+String(n.getDate()).padStart(2,'0');tzAuto=true;go();}
+$('#tz').addEventListener('input',e=>{tzAuto=e.target.value==='';});
+// in a web browser (no Android bridge) a refused or missing location says so instead of doing nothing
+const NO_BRIDGE=(()=>{try{return !((window.parent&&window.parent.Android)||window.Android);}catch(e){return !window.Android;}})();
+const geoFail=()=>alert('Your location is not available here — type the latitude and longitude instead.');
+function geo(){if(!navigator.geolocation){if(NO_BRIDGE)geoFail();return;}
+  navigator.geolocation.getCurrentPosition(p=>{$('#la').value=p.coords.latitude.toFixed(4);$('#lo').value=p.coords.longitude.toFixed(4);go();},NO_BRIDGE?geoFail:undefined);}
+today();
+</script></body></html>

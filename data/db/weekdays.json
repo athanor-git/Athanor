@@ -1,0 +1,9 @@
+{"table": "weekdays", "rows": [
+{"id": "sunday", "name": "Sunday", "planet": "sun"},
+{"id": "monday", "name": "Monday", "planet": "moon"},
+{"id": "tuesday", "name": "Tuesday", "planet": "mars"},
+{"id": "wednesday", "name": "Wednesday", "planet": "mercury"},
+{"id": "thursday", "name": "Thursday", "planet": "jupiter"},
+{"id": "friday", "name": "Friday", "planet": "venus"},
+{"id": "saturday", "name": "Saturday", "planet": "saturn"}
+]}

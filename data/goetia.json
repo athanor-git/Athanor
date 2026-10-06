@@ -1,0 +1,5610 @@
+{
+ "source": "Nightside_777_2.xlsx + Languo_Metallic_Pen_Key.xlsx",
+ "tunnels": [
+  {
+   "path": 11,
+   "letter": "א",
+   "name": "Aleph",
+   "value": "1",
+   "meaning": "Ox",
+   "trump": "0 The Fool",
+   "attribution": "Air",
+   "genius": "Amprodias",
+   "arabic": "أَمْبُرُودِيَاس",
+   "power": "Divination",
+   "averse": "The void as mere vacancy. Folly without innocence; aimless spirit; dissipation into the unformed."
+  },
+  {
+   "path": 12,
+   "letter": "ב",
+   "name": "Beth",
+   "value": "2",
+   "meaning": "House",
+   "trump": "I The Magus",
+   "attribution": "Mercury",
+   "genius": "Baratchial",
+   "arabic": "بَارَاتْشِيَال",
+   "power": "Miracles of healing, gift of tongues, knowledge of sciences",
+   "averse": "The Magus as con-man. Language turned to lies; skill used to deceive; the juggler who palms the truth."
+  },
+  {
+   "path": 13,
+   "letter": "ג",
+   "name": "Gimel",
+   "value": "3",
+   "meaning": "Camel",
+   "trump": "II The Priestess",
+   "attribution": "Moon",
+   "genius": "Gargophias",
+   "arabic": "غَارْغُوفِيَاس",
+   "power": "The white tincture, clairvoyance, divination by dreams",
+   "averse": "The veil become a wall. Barren secrecy, sterile moon, fixation on the hidden for its own sake."
+  },
+  {
+   "path": 14,
+   "letter": "ד",
+   "name": "Daleth",
+   "value": "4",
+   "meaning": "Door",
+   "trump": "III The Empress",
+   "attribution": "Venus",
+   "genius": "Dagdagiel",
+   "arabic": "دَاغْدَاغِيئِيل",
+   "power": "Love-philtres",
+   "averse": "Fertility inverted: the devouring mother. Flesh without love; Venus as appetite."
+  },
+  {
+   "path": 15,
+   "letter": "ה",
+   "name": "He",
+   "value": "5",
+   "meaning": "Window",
+   "trump": "XVII The Star (Crowley/Grant) · IV The Emperor (GD)",
+   "attribution": "Aquarius (Crowley/Grant) · Aries (GD)",
+   "genius": "Hemethterith",
+   "arabic": "هِيمِيثْتِيرِيث",
+   "power": "Power of consecrating things",
+   "averse": "Hope inverted: the false light, the sterile star. Vision that leads nowhere; consecration of the profane."
+  },
+  {
+   "path": 16,
+   "letter": "ו",
+   "name": "Vau",
+   "value": "6",
+   "meaning": "Nail",
+   "trump": "V The Hierophant",
+   "attribution": "Taurus",
+   "genius": "Uriens",
+   "arabic": "أُورِيِنْس",
+   "power": "The secret of physical strength",
+   "averse": "Dogma as tyranny. Hollow ritual, false initiation; the nail that fixes instead of joins."
+  },
+  {
+   "path": 17,
+   "letter": "ז",
+   "name": "Zain",
+   "value": "7",
+   "meaning": "Sword",
+   "trump": "VI The Lovers",
+   "attribution": "Gemini",
+   "genius": "Zamradiel",
+   "arabic": "زَامْرَادِيئِيل",
+   "power": "Being in two or more places at once; prophecy",
+   "averse": "Division: the sword that only cuts apart. Broken union, paralysis of choice, the twin that betrays."
+  },
+  {
+   "path": 18,
+   "letter": "ח",
+   "name": "Cheth",
+   "value": "8",
+   "meaning": "Fence",
+   "trump": "VII The Chariot",
+   "attribution": "Cancer",
+   "genius": "Characith",
+   "arabic": "كَارَاكِيث",
+   "power": "Power of casting enchantments",
+   "averse": "The vehicle without a driver. Momentum with no control; armour that has become a prison."
+  },
+  {
+   "path": 19,
+   "letter": "ט",
+   "name": "Teth",
+   "value": "9",
+   "meaning": "Serpent",
+   "trump": "XI Lust (Strength)",
+   "attribution": "Leo",
+   "genius": "Temphioth",
+   "arabic": "تِمْفِيُوث",
+   "power": "Power of training wild beasts",
+   "averse": "Appetite unbridled. Ecstasy that consumes; the Beast without the Woman riding it."
+  },
+  {
+   "path": 20,
+   "letter": "י",
+   "name": "Yod",
+   "value": "10",
+   "meaning": "Hand",
+   "trump": "IX The Hermit",
+   "attribution": "Virgo",
+   "genius": "Yamatu",
+   "arabic": "يَامَاتُو",
+   "power": "Invisibility, parthenogenesis, initiation",
+   "averse": "Isolation and sterility. The seed unsown; the lamp hoarded; light that never leaves the cell."
+  },
+  {
+   "path": 21,
+   "letter": "כ",
+   "name": "Kaph",
+   "value": "20",
+   "meaning": "Palm of the hand",
+   "trump": "X Fortune",
+   "attribution": "Jupiter",
+   "genius": "Kurgasiax",
+   "arabic": "كُورْغَاسِيَاكْس",
+   "power": "Power of acquiring political and other ascendancy",
+   "averse": "Fatalism: the wheel as a cage. Luck divorced from will; rise and fall with no lesson."
+  },
+  {
+   "path": 22,
+   "letter": "ל",
+   "name": "Lamed",
+   "value": "30",
+   "meaning": "Ox-goad",
+   "trump": "VIII Adjustment (Justice)",
+   "attribution": "Libra",
+   "genius": "Lafcursiax",
+   "arabic": "لَافْكُورْسِيَاكْس",
+   "power": "Works of justice and equilibrium",
+   "averse": "Injustice: the unbalanced scale. Karma as vengeance; judgment with no measure."
+  },
+  {
+   "path": 23,
+   "letter": "מ",
+   "name": "Mem",
+   "value": "40",
+   "meaning": "Water",
+   "trump": "XII The Hanged Man",
+   "attribution": "Water",
+   "genius": "Malkunofat",
+   "arabic": "مَالْكُونُوفَات",
+   "power": "The Great Work, talismans, crystal-gazing",
+   "averse": "Drowning. Surrender become stagnation; the waters of the Abyss closing over the head."
+  },
+  {
+   "path": 24,
+   "letter": "נ",
+   "name": "Nun",
+   "value": "50",
+   "meaning": "Fish",
+   "trump": "XIII Death",
+   "attribution": "Scorpio",
+   "genius": "Niantiel",
+   "arabic": "نِيَانْتِيئِيل",
+   "power": "Necromancy",
+   "averse": "Putrefaction with no renewal. Death fixated upon; the scorpion that stings itself."
+  },
+  {
+   "path": 25,
+   "letter": "ס",
+   "name": "Samekh",
+   "value": "60",
+   "meaning": "Prop / tent-peg",
+   "trump": "XIV Art (Temperance)",
+   "attribution": "Sagittarius",
+   "genius": "Saksaksalim",
+   "arabic": "سَاكْسَاكْسَالِيم",
+   "power": "Transmutations; vision of the Universal Peacock",
+   "averse": "Failed alchemy. Forces mixed that should not mix; poison instead of elixir; the arrow that falls short."
+  },
+  {
+   "path": 26,
+   "letter": "ע",
+   "name": "Ayin",
+   "value": "70",
+   "meaning": "Eye",
+   "trump": "XV The Devil",
+   "attribution": "Capricorn",
+   "genius": "A'ano'nin",
+   "arabic": "أَعَانُوعْنِين",
+   "power": "The Witches' Sabbath (so called); the Evil Eye",
+   "averse": "Bondage: matter taken as the whole. The goat with no eye above it; the joke nobody gets."
+  },
+  {
+   "path": 27,
+   "letter": "פ",
+   "name": "Pe",
+   "value": "80",
+   "meaning": "Mouth",
+   "trump": "XVI The Tower",
+   "attribution": "Mars",
+   "genius": "Parfaxitas",
+   "arabic": "بَارْفَاكْسِيتَاس",
+   "power": "Works of wrath and vengeance",
+   "averse": "Destruction without renewal. War, ruin, catastrophe; the mouth that only curses."
+  },
+  {
+   "path": 28,
+   "letter": "צ",
+   "name": "Tzaddi",
+   "value": "90",
+   "meaning": "Fish-hook",
+   "trump": "IV The Emperor (Crowley/Grant) · XVII The Star (GD)",
+   "attribution": "Aries (Crowley/Grant) · Aquarius (GD)",
+   "genius": "Tzuflifu",
+   "arabic": "صُوفْلِيفُو",
+   "power": "Astrology",
+   "averse": "Tyranny: authority without legitimacy. Sterile rule; the hook that holds but does not feed."
+  },
+  {
+   "path": 29,
+   "letter": "ק",
+   "name": "Qoph",
+   "value": "100",
+   "meaning": "Back of the head",
+   "trump": "XVIII The Moon",
+   "attribution": "Pisces",
+   "genius": "Qulielfi",
+   "arabic": "قُولِيِلْفِي",
+   "power": "Bewitchments, casting illusions",
+   "averse": "Illusion and sorcery. Nightmare, the dark tide, the path that doubles back; fear in the reptile brain."
+  },
+  {
+   "path": 30,
+   "letter": "ר",
+   "name": "Resh",
+   "value": "200",
+   "meaning": "Head / face",
+   "trump": "XIX The Sun",
+   "attribution": "Sun",
+   "genius": "Raflifu",
+   "arabic": "رَافْلِيفُو",
+   "power": "The red tincture; power of acquiring wealth",
+   "averse": "The black sun. Glare that blinds; vanity; false enlightenment; the face with nothing behind it."
+  },
+  {
+   "path": 31,
+   "letter": "ש",
+   "name": "Shin",
+   "value": "300",
+   "meaning": "Tooth",
+   "trump": "XX The Aeon (Judgement)",
+   "attribution": "Fire (and Spirit)",
+   "genius": "Shalicu",
+   "arabic": "شَالِيكُو",
+   "power": "Evocation, pyromancy",
+   "averse": "Fire that annihilates rather than transforms. False judgment; apocalypse as an end, not a birth."
+  },
+  {
+   "path": 32,
+   "letter": "ת",
+   "name": "Tau",
+   "value": "400",
+   "meaning": "Cross / mark",
+   "trump": "XXI The Universe",
+   "attribution": "Saturn (and Earth)",
+   "genius": "Thantifaxath",
+   "arabic": "ثَانْتِيفَاكْسَاث",
+   "power": "Works of malediction and death",
+   "averse": "Matter as tomb. Imprisonment in form; the Universe as dead end; the cross with no resurrection."
+  }
+ ],
+ "qliphoth": [
+  {
+   "n": "1",
+   "sephirah": "Kether",
+   "qliphah": "Thaumiel",
+   "hebrew": "תאומיאל",
+   "arabic": "ثَاؤُمِيئِيل",
+   "alsoCalled": "Thamiel, Thaumiel",
+   "order": "Twins of God (the Divided Ones)",
+   "archdemon": "Satan & Moloch",
+   "hell": "Sheol",
+   "averse": "Duality where there should be unity: two contending heads on one crown. The will to be God rather than to unite with God."
+  },
+  {
+   "n": "2",
+   "sephirah": "Chokmah",
+   "qliphah": "Ghagiel",
+   "hebrew": "עוגיאל",
+   "arabic": "غَاغِيئِيل",
+   "alsoCalled": "Ogiel, Ghogiel, Chaigidel",
+   "order": "The Hinderers",
+   "archdemon": "Beelzebub",
+   "hell": "Sheol",
+   "averse": "Obstruction of the creative impulse: force with no channel, confusion of beginnings, energy that hinders what it should start."
+  },
+  {
+   "n": "3",
+   "sephirah": "Binah",
+   "qliphah": "Satariel",
+   "hebrew": "סאתאריאל",
+   "arabic": "سَاتَارِيئِيل",
+   "alsoCalled": "Sathariel, Sheireil",
+   "order": "The Concealers",
+   "archdemon": "Lucifuge Rofocale",
+   "hell": "Sheol",
+   "averse": "Concealment: the veil that hides instead of reveals. Sterile mystery, secrecy for its own sake, the mother who withholds."
+  },
+  {
+   "n": "4",
+   "sephirah": "Chesed",
+   "qliphah": "Gha'agsheblah",
+   "hebrew": "געשכלה",
+   "arabic": "غَعَشْكِلَاه",
+   "alsoCalled": "Gamchicoth, Agshekeloh",
+   "order": "The Smiters / Breakers in Pieces",
+   "archdemon": "Astaroth",
+   "hell": "Abaddon (Perdition)",
+   "averse": "Mercy inverted into waste: prodigality, gluttony, dissipation. Giving that breaks the receiver."
+  },
+  {
+   "n": "5",
+   "sephirah": "Geburah",
+   "qliphah": "Golachab",
+   "hebrew": "גולחב",
+   "arabic": "غُولَاحَاب",
+   "alsoCalled": "Golab",
+   "order": "The Burners / Flaming Ones",
+   "archdemon": "Asmodeus",
+   "hell": "Titahion (Clay of Death)",
+   "averse": "Severity inverted into cruelty: wrath, destruction for its own sake, fire that consumes the one who wields it."
+  },
+  {
+   "n": "6",
+   "sephirah": "Tiphareth",
+   "qliphah": "Thagirion",
+   "hebrew": "תגרירון",
+   "arabic": "ثَاغِيرِيُون",
+   "alsoCalled": "Tagaririm, Togarini",
+   "order": "The Disputers / Hagglers",
+   "archdemon": "Belphegor",
+   "hell": "Bar Shacheth (Pit of Destruction)",
+   "averse": "The false sun: ego enthroned at the centre. Vanity and ugliness in place of beauty; endless dispute instead of harmony."
+  },
+  {
+   "n": "7",
+   "sephirah": "Netzach",
+   "qliphah": "A'arab Zaraq",
+   "hebrew": "ערב זרק",
+   "arabic": "عَرَب زَرَق",
+   "alsoCalled": "Harab Serapel (Ravens of Death)",
+   "order": "The Ravens of Dispersion",
+   "archdemon": "Baal (Baal Chanan)",
+   "hell": "Tzelmoth (Shadow of Death)",
+   "averse": "Desire scattered: lust that divides rather than unites. Victory picked apart by the ravens."
+  },
+  {
+   "n": "8",
+   "sephirah": "Hod",
+   "qliphah": "Samael",
+   "hebrew": "סמאל",
+   "arabic": "سَمَائِيل",
+   "alsoCalled": "—",
+   "order": "The Poisoners / Deceivers (Desolation of God)",
+   "archdemon": "Adrammelech",
+   "hell": "Shaarimoth (Gates of Death)",
+   "averse": "The intellect as liar: sophistry, falsehood, poison dressed as reason. The Accuser."
+  },
+  {
+   "n": "9",
+   "sephirah": "Yesod",
+   "qliphah": "Gamaliel",
+   "hebrew": "גמליאל",
+   "arabic": "غَمَالِيئِيل",
+   "alsoCalled": "—",
+   "order": "The Obscene Ones",
+   "archdemon": "Lilith",
+   "hell": "Gehinnom",
+   "averse": "The corrupted image: foul dreams, glamour, sexuality severed from meaning. The foundation rotted."
+  },
+  {
+   "n": "10",
+   "sephirah": "Malkuth",
+   "qliphah": "Lilith",
+   "hebrew": "לילית",
+   "arabic": "لِيلِيث",
+   "alsoCalled": "Nahemoth / Nehemoth (the Whisperers)",
+   "order": "Queen of the Night / the Evil Woman",
+   "archdemon": "Naamah",
+   "hell": "Gehinnom",
+   "averse": "Matter without spirit: the world as dead weight. Night with no dawn; the whisperers in the dark."
+  }
+ ],
+ "decans": [
+  {
+   "i": 0,
+   "sign": "Aries",
+   "decan": "I",
+   "degrees": "0°–10°",
+   "element": "Fire",
+   "ruler": "Mars",
+   "card": "2 of Wands",
+   "title": "Dominion",
+   "day": 1,
+   "night": 37,
+   "shem": "49 Vehuel · 50 Daniel",
+   "ingress2026ET": "2026-03-20T10:37:45"
+  },
+  {
+   "i": 1,
+   "sign": "Aries",
+   "decan": "II",
+   "degrees": "10°–20°",
+   "element": "Fire",
+   "ruler": "Sun",
+   "card": "3 of Wands",
+   "title": "Virtue",
+   "day": 2,
+   "night": 38,
+   "shem": "51 Hahasiah · 52 Imamiah",
+   "ingress2026ET": "2026-03-30T12:50:32"
+  },
+  {
+   "i": 2,
+   "sign": "Aries",
+   "decan": "III",
+   "degrees": "20°–30°",
+   "element": "Fire",
+   "ruler": "Venus",
+   "card": "4 of Wands",
+   "title": "Completion",
+   "day": 3,
+   "night": 39,
+   "shem": "53 Nanael · 54 Nithael",
+   "ingress2026ET": "2026-04-09T16:27:50"
+  },
+  {
+   "i": 3,
+   "sign": "Taurus",
+   "decan": "I",
+   "degrees": "0°–10°",
+   "element": "Earth",
+   "ruler": "Mercury",
+   "card": "5 of Disks",
+   "title": "Worry",
+   "day": 4,
+   "night": 40,
+   "shem": "55 Mebahiah · 56 Poyel",
+   "ingress2026ET": "2026-04-19T21:29:56"
+  },
+  {
+   "i": 4,
+   "sign": "Taurus",
+   "decan": "II",
+   "degrees": "10°–20°",
+   "element": "Earth",
+   "ruler": "Moon",
+   "card": "6 of Disks",
+   "title": "Success",
+   "day": 5,
+   "night": 41,
+   "shem": "57 Nemamiah · 58 Yeialel",
+   "ingress2026ET": "2026-04-30T03:54:33"
+  },
+  {
+   "i": 5,
+   "sign": "Taurus",
+   "decan": "III",
+   "degrees": "20°–30°",
+   "element": "Earth",
+   "ruler": "Saturn",
+   "card": "7 of Disks",
+   "title": "Failure",
+   "day": 6,
+   "night": 42,
+   "shem": "59 Harahel · 60 Mitzrael",
+   "ingress2026ET": "2026-05-10T11:36:47"
+  },
+  {
+   "i": 6,
+   "sign": "Gemini",
+   "decan": "I",
+   "degrees": "0°–10°",
+   "element": "Air",
+   "ruler": "Jupiter",
+   "card": "8 of Swords",
+   "title": "Interference",
+   "day": 7,
+   "night": 43,
+   "shem": "61 Umabel · 62 Iah-hel",
+   "ingress2026ET": "2026-05-20T20:29:13"
+  },
+  {
+   "i": 7,
+   "sign": "Gemini",
+   "decan": "II",
+   "degrees": "10°–20°",
+   "element": "Air",
+   "ruler": "Mars",
+   "card": "9 of Swords",
+   "title": "Cruelty",
+   "day": 8,
+   "night": 44,
+   "shem": "63 Anauel · 64 Mehiel",
+   "ingress2026ET": "2026-05-31T06:22:07"
+  },
+  {
+   "i": 8,
+   "sign": "Gemini",
+   "decan": "III",
+   "degrees": "20°–30°",
+   "element": "Air",
+   "ruler": "Sun",
+   "card": "10 of Swords",
+   "title": "Ruin",
+   "day": 9,
+   "night": 45,
+   "shem": "65 Damabiah · 66 Manakel",
+   "ingress2026ET": "2026-06-10T17:03:44"
+  },
+  {
+   "i": 9,
+   "sign": "Cancer",
+   "decan": "I",
+   "degrees": "0°–10°",
+   "element": "Water",
+   "ruler": "Venus",
+   "card": "2 of Cups",
+   "title": "Love",
+   "day": 10,
+   "night": 46,
+   "shem": "67 Eyael · 68 Habuhiah",
+   "ingress2026ET": "2026-06-21T04:20:38"
+  },
+  {
+   "i": 10,
+   "sign": "Cancer",
+   "decan": "II",
+   "degrees": "10°–20°",
+   "element": "Water",
+   "ruler": "Mercury",
+   "card": "3 of Cups",
+   "title": "Abundance",
+   "day": 11,
+   "night": 47,
+   "shem": "69 Rochel · 70 Jabamiah",
+   "ingress2026ET": "2026-07-01T15:58:10"
+  },
+  {
+   "i": 11,
+   "sign": "Cancer",
+   "decan": "III",
+   "degrees": "20°–30°",
+   "element": "Water",
+   "ruler": "Moon",
+   "card": "4 of Cups",
+   "title": "Luxury",
+   "day": 12,
+   "night": 48,
+   "shem": "71 Haiaiel · 72 Mumiah",
+   "ingress2026ET": "2026-07-12T03:41:00"
+  },
+  {
+   "i": 12,
+   "sign": "Leo",
+   "decan": "I",
+   "degrees": "0°–10°",
+   "element": "Fire",
+   "ruler": "Saturn",
+   "card": "5 of Wands",
+   "title": "Strife",
+   "day": 13,
+   "night": 49,
+   "shem": "1 Vehuiah · 2 Yeliel",
+   "ingress2026ET": "2026-07-22T15:13:33"
+  },
+  {
+   "i": 13,
+   "sign": "Leo",
+   "decan": "II",
+   "degrees": "10°–20°",
+   "element": "Fire",
+   "ruler": "Jupiter",
+   "card": "6 of Wands",
+   "title": "Victory",
+   "day": 14,
+   "night": 50,
+   "shem": "3 Sitael · 4 Elemiah",
+   "ingress2026ET": "2026-08-02T02:20:38"
+  },
+  {
+   "i": 14,
+   "sign": "Leo",
+   "decan": "III",
+   "degrees": "20°–30°",
+   "element": "Fire",
+   "ruler": "Mars",
+   "card": "7 of Wands",
+   "title": "Valour",
+   "day": 15,
+   "night": 51,
+   "shem": "5 Mahasiah · 6 Lelahel",
+   "ingress2026ET": "2026-08-12T12:47:57"
+  },
+  {
+   "i": 15,
+   "sign": "Virgo",
+   "decan": "I",
+   "degrees": "0°–10°",
+   "element": "Earth",
+   "ruler": "Sun",
+   "card": "8 of Disks",
+   "title": "Prudence",
+   "day": 16,
+   "night": 52,
+   "shem": "7 Achaiah · 8 Cahetel",
+   "ingress2026ET": "2026-08-22T22:22:34"
+  },
+  {
+   "i": 16,
+   "sign": "Virgo",
+   "decan": "II",
+   "degrees": "10°–20°",
+   "element": "Earth",
+   "ruler": "Venus",
+   "card": "9 of Disks",
+   "title": "Gain",
+   "day": 17,
+   "night": 53,
+   "shem": "9 Haziel · 10 Aladiah",
+   "ingress2026ET": "2026-09-02T06:53:20"
+  },
+  {
+   "i": 17,
+   "sign": "Virgo",
+   "decan": "III",
+   "degrees": "20°–30°",
+   "element": "Earth",
+   "ruler": "Mercury",
+   "card": "10 of Disks",
+   "title": "Wealth",
+   "day": 18,
+   "night": 54,
+   "shem": "11 Lauviah · 12 Hahaiah",
+   "ingress2026ET": "2026-09-12T14:11:16"
+  },
+  {
+   "i": 18,
+   "sign": "Libra",
+   "decan": "I",
+   "degrees": "0°–10°",
+   "element": "Air",
+   "ruler": "Moon",
+   "card": "2 of Swords",
+   "title": "Peace",
+   "day": 19,
+   "night": 55,
+   "shem": "13 Yezalel · 14 Mebahel",
+   "ingress2026ET": "2026-09-22T20:09:43"
+  },
+  {
+   "i": 19,
+   "sign": "Libra",
+   "decan": "II",
+   "degrees": "10°–20°",
+   "element": "Air",
+   "ruler": "Saturn",
+   "card": "3 of Swords",
+   "title": "Sorrow",
+   "day": 20,
+   "night": 56,
+   "shem": "15 Hariel · 16 Hakamiah",
+   "ingress2026ET": "2026-10-03T00:44:38"
+  },
+  {
+   "i": 20,
+   "sign": "Libra",
+   "decan": "III",
+   "degrees": "20°–30°",
+   "element": "Air",
+   "ruler": "Jupiter",
+   "card": "4 of Swords",
+   "title": "Truce",
+   "day": 21,
+   "night": 57,
+   "shem": "17 Lauviah (Leviah) · 18 Caliel",
+   "ingress2026ET": "2026-10-13T03:54:33"
+  },
+  {
+   "i": 21,
+   "sign": "Scorpio",
+   "decan": "I",
+   "degrees": "0°–10°",
+   "element": "Water",
+   "ruler": "Mars",
+   "card": "5 of Cups",
+   "title": "Disappointment",
+   "day": 22,
+   "night": 58,
+   "shem": "19 Leuviah · 20 Pahaliah",
+   "ingress2026ET": "2026-10-23T05:40:37"
+  },
+  {
+   "i": 22,
+   "sign": "Scorpio",
+   "decan": "II",
+   "degrees": "10°–20°",
+   "element": "Water",
+   "ruler": "Sun",
+   "card": "6 of Cups",
+   "title": "Pleasure",
+   "day": 23,
+   "night": 59,
+   "shem": "21 Nelchael · 22 Yeiayel",
+   "ingress2026ET": "2026-11-02T05:06:29"
+  },
+  {
+   "i": 23,
+   "sign": "Scorpio",
+   "decan": "III",
+   "degrees": "20°–30°",
+   "element": "Water",
+   "ruler": "Venus",
+   "card": "7 of Cups",
+   "title": "Debauch",
+   "day": 24,
+   "night": 60,
+   "shem": "23 Melahel · 24 Haheuiah",
+   "ingress2026ET": "2026-11-12T04:18:06"
+  },
+  {
+   "i": 24,
+   "sign": "Sagittarius",
+   "decan": "I",
+   "degrees": "0°–10°",
+   "element": "Fire",
+   "ruler": "Mercury",
+   "card": "8 of Wands",
+   "title": "Swiftness",
+   "day": 25,
+   "night": 61,
+   "shem": "25 Nith-Haiah · 26 Haaiah",
+   "ingress2026ET": "2026-11-22T02:23:33"
+  },
+  {
+   "i": 25,
+   "sign": "Sagittarius",
+   "decan": "II",
+   "degrees": "10°–20°",
+   "element": "Fire",
+   "ruler": "Moon",
+   "card": "9 of Wands",
+   "title": "Strength",
+   "day": 26,
+   "night": 62,
+   "shem": "27 Yerathel · 28 Seheiah",
+   "ingress2026ET": "2026-12-01T23:32:44"
+  },
+  {
+   "i": 26,
+   "sign": "Sagittarius",
+   "decan": "III",
+   "degrees": "20°–30°",
+   "element": "Fire",
+   "ruler": "Saturn",
+   "card": "10 of Wands",
+   "title": "Oppression",
+   "day": 27,
+   "night": 63,
+   "shem": "29 Reiyel · 30 Omael",
+   "ingress2026ET": "2026-12-11T19:57:05"
+  },
+  {
+   "i": 27,
+   "sign": "Capricorn",
+   "decan": "I",
+   "degrees": "0°–10°",
+   "element": "Earth",
+   "ruler": "Jupiter",
+   "card": "2 of Disks",
+   "title": "Change",
+   "day": 28,
+   "night": 64,
+   "shem": "31 Lecabel · 32 Vasariah",
+   "ingress2026ET": "2026-12-21T15:49:13"
+  },
+  {
+   "i": 28,
+   "sign": "Capricorn",
+   "decan": "II",
+   "degrees": "10°–20°",
+   "element": "Earth",
+   "ruler": "Mars",
+   "card": "3 of Disks",
+   "title": "Works",
+   "day": 29,
+   "night": 65,
+   "shem": "33 Yehuiah · 34 Lehahiah",
+   "ingress2026ET": "2026-12-31T11:22:36"
+  },
+  {
+   "i": 29,
+   "sign": "Capricorn",
+   "decan": "III",
+   "degrees": "20°–30°",
+   "element": "Earth",
+   "ruler": "Sun",
+   "card": "4 of Disks",
+   "title": "Power",
+   "day": 30,
+   "night": 66,
+   "shem": "35 Chavakiah · 36 Menadel",
+   "ingress2026ET": "2026-01-10T01:03:37"
+  },
+  {
+   "i": 30,
+   "sign": "Aquarius",
+   "decan": "I",
+   "degrees": "0°–10°",
+   "element": "Air",
+   "ruler": "Venus",
+   "card": "5 of Swords",
+   "title": "Defeat",
+   "day": 31,
+   "night": 67,
+   "shem": "37 Aniel · 38 Haamiah",
+   "ingress2026ET": "2026-01-19T20:41:30"
+  },
+  {
+   "i": 31,
+   "sign": "Aquarius",
+   "decan": "II",
+   "degrees": "10°–20°",
+   "element": "Air",
+   "ruler": "Mercury",
+   "card": "6 of Swords",
+   "title": "Science",
+   "day": 32,
+   "night": 68,
+   "shem": "39 Rehael · 40 Ieiazel",
+   "ingress2026ET": "2026-01-29T16:42:33"
+  },
+  {
+   "i": 32,
+   "sign": "Aquarius",
+   "decan": "III",
+   "degrees": "20°–30°",
+   "element": "Air",
+   "ruler": "Moon",
+   "card": "7 of Swords",
+   "title": "Futility",
+   "day": 33,
+   "night": 69,
+   "shem": "41 Hahahel · 42 Mikael",
+   "ingress2026ET": "2026-02-08T13:20:00"
+  },
+  {
+   "i": 33,
+   "sign": "Pisces",
+   "decan": "I",
+   "degrees": "0°–10°",
+   "element": "Water",
+   "ruler": "Saturn",
+   "card": "8 of Cups",
+   "title": "Indolence",
+   "day": 34,
+   "night": 70,
+   "shem": "43 Veuliah · 44 Yelahiah",
+   "ingress2026ET": "2026-02-18T10:46:07"
+  },
+  {
+   "i": 34,
+   "sign": "Pisces",
+   "decan": "II",
+   "degrees": "10°–20°",
+   "element": "Water",
+   "ruler": "Jupiter",
+   "card": "9 of Cups",
+   "title": "Happiness",
+   "day": 35,
+   "night": 71,
+   "shem": "45 Sealiah · 46 Ariel",
+   "ingress2026ET": "2026-02-28T09:11:52"
+  },
+  {
+   "i": 35,
+   "sign": "Pisces",
+   "decan": "III",
+   "degrees": "20°–30°",
+   "element": "Water",
+   "ruler": "Mars",
+   "card": "10 of Cups",
+   "title": "Satiety",
+   "day": 36,
+   "night": 72,
+   "shem": "47 Asaliah · 48 Mihael",
+   "ingress2026ET": "2026-03-10T09:46:36"
+  }
+ ],
+ "spirits": [
+  {
+   "n": 1,
+   "name": "Bael",
+   "arabic": "بَائِيل",
+   "variant": "",
+   "rank": "King",
+   "office": "Makes thee go invisible. His character must be worn as a lamen before the one who calls him forth, or he will not do homage.",
+   "dayNight": "Day",
+   "decan": "Aries I",
+   "shem": "1 Vehuiah",
+   "workbook": {
+    "name": "Bael",
+    "arabic": "بَائِيل",
+    "variant": "Semitic Baʿal — Ar. بَعْل (Qurʾān 37:125)",
+    "rank": "King",
+    "office": "Invisibility; wisdom. Appears as cat, toad, man, or all three."
+   },
+   "etymology": "Semitic Baʿal — Ar. بَعْل (Qurʾān 37:125)",
+   "rankText": "a King ruling in the East (\"The First Principal Spirit\")",
+   "legions": "66 (\"Legions of Infernal Spirits\")",
+   "appearance": "In divers shapes: sometimes like a cat, sometimes like a toad, sometimes like a man, and sometimes all these forms at once. Speaks hoarsely.",
+   "source": "Mathers/Crowley, The Book of the Goetia of Solomon the King (1904)",
+   "seals": [
+    1
+   ],
+   "offerings": {
+    "offerings": [
+     "Fern (plant)",
+     "Wine or beer",
+     "Water",
+     "Oatmeal with brown sugar",
+     "Dates",
+     "Rutilated quartz"
+    ],
+    "incense": [
+     "Frankincense",
+     "Cedar with amber"
+    ],
+    "colours": [
+     "Yellow",
+     "Black"
+    ],
+    "classical": "Goetia: King ruling in the East; appears as cat, toad, man or all three at once. No offering instruction in the classical texts.",
+    "timing": "Modern decan (Connolly): Mar 21-30.",
+    "notes": "Frankincense has 2+ sources (Connolly, BALG forum). Yellow, frankincense and fern come from Connolly. Wine/beer is 2 forum users. Water, oatmeal, dates and rutilated quartz come only from scarletarosa (single-source UPG). Several forum users stress time and attention over material gifts. Blood is mentioned by forum users but left out here.",
+    "sources": [
+     {
+      "title": "Demon of the Day: King Bael (Connolly/Ford correspondences)",
+      "url": "https://demonsanddemonolatry.com/demon-of-the-day-king-bael/"
+     },
+     {
+      "title": "BALG forum: What offerings does Bael like?",
+      "url": "https://forum.becomealivinggod.com/t/what-offerings-does-bael-like/88504"
+     },
+     {
+      "title": "scarletarosa (Enlightenment Through Hellfire): Bael",
+      "url": "https://scarletarosa.tumblr.com/post/618330503243857920/one-of-the-demons-of-hell-and-a-king-under-the"
+     },
+     {
+      "title": "Goetia (esotericarchives)",
+      "url": "https://www.esotericarchives.com/solomon/goetia.htm"
+     }
+    ]
+   }
+  },
+  {
+   "n": 2,
+   "name": "Agares (Agreas)",
+   "arabic": "أَغَارِيس",
+   "variant": "Agreas",
+   "rank": "Duke",
+   "office": "Makes those who stand still run and brings back runaways; teaches all languages or tongues at once; has power to destroy dignities both spiritual and temporal; causes earthquakes.",
+   "dayNight": "Day",
+   "decan": "Aries II",
+   "shem": "2 Yeliel",
+   "workbook": {
+    "name": "Agares",
+    "arabic": "أَغَارِيس",
+    "variant": "",
+    "rank": "Duke",
+    "office": "Teaches languages; returns runaways; causes earthquakes; destroys dignities."
+   },
+   "rankText": "a Duke, under the Power of the East (he was of the Order of Virtues)",
+   "legions": "31",
+   "appearance": "In the form of an old fair man, riding upon a crocodile, carrying a goshawk upon his fist, and yet mild in appearance.",
+   "source": "Mathers/Crowley, The Book of the Goetia of Solomon the King (1904)",
+   "seals": [
+    2
+   ],
+   "offerings": {
+    "offerings": [
+     "Carnation (plant)"
+    ],
+    "incense": [
+     "Sandalwood",
+     "Myrrh"
+    ],
+    "colours": [
+     "Green"
+    ],
+    "classical": "Goetia/Pseudomonarchia: Duke under the power of the East; old man riding a crocodile with a goshawk. No offering instruction.",
+    "timing": "Modern decan (Connolly): Mar 31-Apr 10. Other date lists run Mar 30-Apr 8.",
+    "notes": "Correspondences come from Connolly's Duke/Venus set (green, sandalwood, copper) plus carnation. Myrrh is an alternate incense on the same page. No practitioner food or drink offerings found. Low information.",
+    "sources": [
+     {
+      "title": "Demon of the Day: Duke Agares",
+      "url": "https://demonsanddemonolatry.com/demon-of-the-day-duke-agares/"
+     },
+     {
+      "title": "List of Demons and Their Ruling Days",
+      "url": "https://demonsanddemonolatry.com/list-of-demons-and-their-ruling-days/"
+     }
+    ]
+   }
+  },
+  {
+   "n": 3,
+   "name": "Vassago",
+   "arabic": "فَاسَاغُو",
+   "variant": "",
+   "rank": "Prince",
+   "office": "Of a good nature. Declares things past and to come, and discovers all things hid or lost.",
+   "dayNight": "Day",
+   "decan": "Aries III",
+   "shem": "3 Sitael",
+   "workbook": {
+    "name": "Vassago",
+    "arabic": "فَاسَاغُو",
+    "variant": "",
+    "rank": "Prince",
+    "office": "Past and future; finds things lost or hidden. Reputedly good-natured."
+   },
+   "rankText": "a Mighty Prince, being of the same nature as Agares",
+   "legions": "26",
+   "appearance": "",
+   "source": "Mathers/Crowley, The Book of the Goetia of Solomon the King (1904)",
+   "seals": [
+    3
+   ],
+   "offerings": {
+    "offerings": [
+     "Leek (plant)",
+     "Earl Grey tea",
+     "White wine",
+     "Books",
+     "Deck of cards",
+     "Blue sapphire/beads"
+    ],
+    "incense": [
+     "Cedar",
+     "White sandalwood",
+     "Frankincense"
+    ],
+    "colours": [
+     "Blue"
+    ],
+    "classical": "Goetia: a Mighty Prince 'of the same nature as Agares', and 'of a Good Nature'. Declares things past and to come, and discovers all things hid or lost. No appearance or offering instruction is given.",
+    "timing": "Modern decan (Connolly): Apr 11-20.",
+    "notes": "Blue, cedar, leek and Jupiter come from Connolly. The teas, wine and cards are single-source (scarletarosa). Cedar appears in 2 sources. Some sites suggest divination tools and crystals as generic tributes.",
+    "sources": [
+     {
+      "title": "Demon of the Day: Prince Vassago",
+      "url": "https://demonsanddemonolatry.com/demon-of-the-day-prince-vassago/"
+     },
+     {
+      "title": "scarletarosa: Vassago",
+      "url": "https://scarletarosa.tumblr.com/post/618697790407802880/vassago-one-of-the-goetic-demons-and-a-prince"
+     }
+    ]
+   }
+  },
+  {
+   "n": 4,
+   "name": "Samigina (Gamigin)",
+   "arabic": "سَامِيغِينَا",
+   "variant": "Gamigin",
+   "rank": "Marquis",
+   "office": "Teaches all liberal sciences; gives account of dead souls that died in sin.",
+   "dayNight": "Day",
+   "decan": "Taurus I",
+   "shem": "4 Elemiah",
+   "workbook": {
+    "name": "Samigina (Gamigin)",
+    "arabic": "سَامِيغِينَا",
+    "variant": "Gamigin: غَامِيغِين",
+    "rank": "Marquis",
+    "office": "Liberal sciences; gives account of souls that died in sin / the drowned."
+   },
+   "etymology": "Gamigin: غَامِيغِين",
+   "rankText": "a Great Marquis",
+   "legions": "30 (\"Legions of Inferiors\")",
+   "appearance": "In the form of a little horse or ass; then, at the request of the Master, he changes himself into human shape. Speaks with a hoarse voice.",
+   "source": "Mathers/Crowley, The Book of the Goetia of Solomon the King (1904)",
+   "seals": [
+    4
+   ],
+   "offerings": {
+    "offerings": [
+     "Juniper (plant)",
+     "Lavender flowers",
+     "Stone-carved sigil"
+    ],
+    "incense": [
+     "Jasmine"
+    ],
+    "colours": [
+     "Purple"
+    ],
+    "classical": "Goetia: Marquis appearing as a little horse or ass; gives account of dead souls that died in sin. No offering instruction.",
+    "timing": "Modern decan (Connolly): Apr 20-29.",
+    "notes": "Purple, jasmine and juniper come from Connolly's Marquis/Moon set. A bed of lavender ringed with juniper plus a stone sigil comes from 1 practitioner comment. Low-quality web guides add bones and ancestor-type offerings (not included). Low information.",
+    "sources": [
+     {
+      "title": "Demon of the Day: Marquis Samigina/Gamigin",
+      "url": "https://demonsanddemonolatry.com/demon-of-the-day-marquis-samigina-gamigin-day-demon/"
+     }
+    ]
+   }
+  },
+  {
+   "n": 5,
+   "name": "Marbas",
+   "arabic": "مَارْبَاس",
+   "variant": "",
+   "rank": "President",
+   "office": "Answers truly of things hidden or secret; causes and cures diseases; gives great wisdom and knowledge in mechanical arts; can change men into other shapes.",
+   "dayNight": "Day",
+   "decan": "Taurus II",
+   "shem": "5 Mahasiah",
+   "workbook": {
+    "name": "Marbas",
+    "arabic": "مَارْبَاس",
+    "variant": "",
+    "rank": "President",
+    "office": "Hidden and secret things; causes and cures disease; mechanical arts; shape-change."
+   },
+   "rankText": "a Great President",
+   "legions": "36",
+   "appearance": "At first in the form of a great lion; afterwards, at the request of the Master, he puts on human shape.",
+   "source": "Mathers/Crowley, The Book of the Goetia of Solomon the King (1904)",
+   "seals": [
+    5
+   ],
+   "offerings": {
+    "offerings": [
+     "Chicory (plant)",
+     "Cinnamon roll",
+     "Whiskey",
+     "Red chili peppers",
+     "Dried oranges",
+     "Carnelian"
+    ],
+    "incense": [
+     "Storax",
+     "Cedar/olibanum blend"
+    ],
+    "colours": [
+     "Orange"
+    ],
+    "classical": "Goetia: President, appears as a great lion; causes and cures diseases and teaches mechanical arts. No offering instruction.",
+    "timing": "Modern decan (Connolly): May 1-10.",
+    "notes": "Orange, storax and chicory come from Connolly's President/Mercury set. The cinnamon roll is from 1 BALG forum user. Whiskey, peppers, oranges and carnelian come only from scarletarosa, which also lists chicory burnt on charcoal, so chicory has 2 sources.",
+    "sources": [
+     {
+      "title": "Demon of the Day: President Marbas",
+      "url": "https://demonsanddemonolatry.com/demon-of-the-day-president-marbas/"
+     },
+     {
+      "title": "BALG forum: Offering to Marbas",
+      "url": "https://forum.becomealivinggod.com/t/offering-to-marbas-am-i-doing-it-right/65741"
+     },
+     {
+      "title": "scarletarosa: Marbas",
+      "url": "https://scarletarosa.tumblr.com/post/618327284736212992/marbas-one-of-the-goetic-demons-of-hell-and-a"
+     }
+    ]
+   }
+  },
+  {
+   "n": 6,
+   "name": "Valefor",
+   "arabic": "فَالِيفُور",
+   "variant": "",
+   "rank": "Duke",
+   "office": "A good familiar, but tempts those he is a familiar of to steal. His seal is worn whether or not you take him as a familiar.",
+   "dayNight": "Day",
+   "decan": "Taurus III",
+   "shem": "6 Lelahel",
+   "workbook": {
+    "name": "Valefor",
+    "arabic": "فَالِيفُور",
+    "variant": "",
+    "rank": "Duke",
+    "office": "Familiar to thieves; tempts to steal. Keep a close hand."
+   },
+   "rankText": "a mighty Duke",
+   "legions": "10",
+   "appearance": "In the shape of a lion with an ass's head, bellowing.",
+   "source": "Mathers/Crowley, The Book of the Goetia of Solomon the King (1904)",
+   "seals": [
+    6
+   ],
+   "offerings": {
+    "offerings": [
+     "Dandelion (plant)",
+     "Wine",
+     "Tobacco"
+    ],
+    "incense": [
+     "Sandalwood"
+    ],
+    "colours": [
+     "Green"
+    ],
+    "classical": "Goetia: a mighty Duke; a lion with an ass's head, bellowing. A good familiar, but tempts those he is a familiar of to steal. No offering instruction.",
+    "timing": "Modern decan (Connolly): May 11-20.",
+    "notes": "Green, sandalwood and dandelion come from Connolly. Wine and tobacco come from low-authority web guides (single-source). Little practitioner data.",
+    "sources": [
+     {
+      "title": "Demon of the Day: Duke Valefor",
+      "url": "https://demonsanddemonolatry.com/duke-valefor/"
+     }
+    ]
+   }
+  },
+  {
+   "n": 7,
+   "name": "Amon",
+   "arabic": "آمُون",
+   "variant": "",
+   "rank": "Marquis",
+   "office": "Tells all things past and to come; procures feuds and reconciles controversies between friends.",
+   "dayNight": "Day",
+   "decan": "Gemini I",
+   "shem": "7 Achaiah",
+   "workbook": {
+    "name": "Amon",
+    "arabic": "آمُون",
+    "variant": "Egyptian Amun — Ar. آمُون",
+    "rank": "Marquis",
+    "office": "Past and future; procures love; reconciles friends and foes."
+   },
+   "etymology": "Egyptian Amun — Ar. آمُون",
+   "rankText": "a Marquis great in power, and most stern",
+   "legions": "40",
+   "appearance": "Like a wolf with a serpent's tail, vomiting flames of fire out of his mouth; at the command of the Magician he puts on the shape of a man with dog's teeth beset in a head like a raven, or else simply a man with a raven's head.",
+   "source": "Mathers/Crowley, The Book of the Goetia of Solomon the King (1904)",
+   "seals": [
+    7
+   ],
+   "offerings": {
+    "offerings": [
+     "Nightshade (plant, symbolic)"
+    ],
+    "incense": [
+     "Jasmine"
+    ],
+    "colours": [
+     "Violet"
+    ],
+    "classical": "Goetia: a Marquis great in power and most stern; a wolf with a serpent's tail vomiting flames of fire. Procures feuds and reconciles controversies between friends. No offering instruction.",
+    "timing": "Modern decan (Connolly): May 21-31.",
+    "notes": "Only Connolly's Marquis/Moon correspondences were found. Nightshade is toxic, so treat it as a symbolic plant, not a food. No reliable practitioner offering list found. Low information.",
+    "sources": [
+     {
+      "title": "Demon of the Day: Marquis Amon",
+      "url": "https://demonsanddemonolatry.com/demon-of-the-day-marquis-amon/"
+     }
+    ]
+   }
+  },
+  {
+   "n": 8,
+   "name": "Barbatos",
+   "arabic": "بَارْبَاتُوس",
+   "variant": "",
+   "rank": "Duke",
+   "office": "Gives understanding of the singing of birds and the voices of other creatures, such as the barking of dogs; breaks open hidden treasures laid by the enchantments of magicians; knows all things past and to come; conciliates friends and those in power.",
+   "dayNight": "Day",
+   "decan": "Gemini II",
+   "shem": "8 Cahetel",
+   "workbook": {
+    "name": "Barbatos",
+    "arabic": "بَارْبَاتُوس",
+    "variant": "",
+    "rank": "Duke",
+    "office": "Speech of animals; treasure hidden by magicians; reconciliation; past and future."
+   },
+   "rankText": "a Great Duke (of the Order of Virtues, of which some part he retaineth still)",
+   "legions": "30",
+   "appearance": "When the Sun is in Sagittary, with four noble Kings and their companies of great troops. No bodily form is described.",
+   "source": "Mathers/Crowley, The Book of the Goetia of Solomon the King (1904)",
+   "seals": [
+    8
+   ],
+   "offerings": {
+    "offerings": [
+     "Ground ivy (plant)"
+    ],
+    "incense": [
+     "Sandalwood"
+    ],
+    "colours": [
+     "Green"
+    ],
+    "classical": "Goetia: a Great Duke who 'appeareth when the Sun is in Sagittary, with four noble Kings and their companies of great troops'. Gives understanding of the singing of birds and breaks open hidden treasures laid by the enchantments of magicians. No offering instruction.",
+    "timing": "Goetia: 'appeareth when the Sun is in Sagittary'. Modern decan (Connolly): Jun 1-10.",
+    "notes": "Only Connolly's Duke set plus ground ivy was found. No specific practitioner offerings. Low information.",
+    "sources": [
+     {
+      "title": "Demon of the Day: Duke Barbatos",
+      "url": "https://demonsanddemonolatry.com/demon-of-the-day-duke-barbatos-day-demon/"
+     },
+     {
+      "title": "Goetia (esotericarchives)",
+      "url": "https://www.esotericarchives.com/solomon/goetia.htm"
+     }
+    ]
+   }
+  },
+  {
+   "n": 9,
+   "name": "Paimon",
+   "arabic": "بَايْمُون",
+   "variant": "",
+   "rank": "King",
+   "office": "Teaches all arts and sciences and other secret things; can tell what the Earth is and what holds it up in the Waters, what Mind is and where it is, or any other thing you desire to know; gives dignity and confirms it; binds or makes any man subject to the Magician; gives good familiars, such as can teach all arts. Is to be observed towards the West. If called alone, he must be made some offering.",
+   "dayNight": "Day",
+   "decan": "Gemini III",
+   "shem": "9 Haziel",
+   "workbook": {
+    "name": "Paimon",
+    "arabic": "بَايْمُون",
+    "variant": "",
+    "rank": "King",
+    "office": "All arts and sciences; binds men to the magician; gives dignities and familiars. Attends Lucifer."
+   },
+   "rankText": "a Great King, and very obedient unto LUCIFER (of the Order of Dominations, or Dominions)",
+   "legions": "200 (part of the Order of Angels, the other part of Potentates). If called alone, two Kings, LABAL and ABALIM, attend him with other spirits of the Order of Potentates in his host, and 25 Legions.",
+   "appearance": "In the form of a man sitting upon a dromedary, with a most glorious crown upon his head. Before him goes a host of spirits like men with trumpets, well-sounding cymbals and all other sorts of musical instruments. He has a great voice and roars at his first coming, and his speech is such that the Magician cannot well understand it unless he can compel him.",
+   "source": "Mathers/Crowley, The Book of the Goetia of Solomon the King (1904)",
+   "seals": [
+    9,
+    10
+   ],
+   "offerings": {
+    "offerings": [
+     "Bindweed (plant)",
+     "Gold / coins / jewellery",
+     "Wine",
+     "Honey / sweets",
+     "Music or poetry",
+     "Feast fit for a king"
+    ],
+    "incense": [
+     "Frankincense",
+     "Sandalwood",
+     "Oud / bakhoor"
+    ],
+    "colours": [
+     "Yellow",
+     "Gold",
+     "Blue",
+     "Black"
+    ],
+    "classical": "Goetia: 'if thou callest this Spirit Paimon alone, thou must make him some offering; and there will attend him two Kings called LABAL and ABALIM', with other spirits of the Order of Potentates and 25 Legions. He is 'to be observed towards the West'. Pseudomonarchia (Weyer): if cited alone 'by an offering or sacrifice', two kings, Bebal and Abalam, follow him; it also speaks of sacrifices and libations, and has the exorcist look north (Scot's English says northwest).",
+    "timing": "Modern decan (Connolly): Jun 11-20. Alternate quinance: Apr 30-May 4 (Runyon).",
+    "notes": "This is the only spirit in 1-36 with an explicit classical offering requirement. Frankincense and gold have 3+ sources. Music, poetry and honey show up across several modern sources. Blue/black colours come from 1 commenter and Black Witch Coven. Oud comes only from scarletarosa. BALG users note that offerings are optional and often given after results.",
+    "sources": [
+     {
+      "title": "Demon of the Day: King Paimon",
+      "url": "https://demonsanddemonolatry.com/demon-of-the-day-king-paimon/"
+     },
+     {
+      "title": "Goetia (esotericarchives)",
+      "url": "https://www.esotericarchives.com/solomon/goetia.htm"
+     },
+     {
+      "title": "Pseudomonarchia Daemonum (esotericarchives)",
+      "url": "https://www.esotericarchives.com/solomon/weyer.htm"
+     },
+     {
+      "title": "scarletarosa: Paimon",
+      "url": "https://scarletarosa.tumblr.com/post/665684505028427777/paimon-one-of-the-goetic-demons-who-serves-under"
+     },
+     {
+      "title": "Black Witch Coven: Paimon",
+      "url": "https://blackwitchcoven.com/demons/paimon/"
+     },
+     {
+      "title": "Eclectic Witchcraft: King Paimon",
+      "url": "https://eclecticwitchcraft.com/demon-spotlight-king-paimon-gnosis-knowledge-and-hidden-wisdom/"
+     }
+    ]
+   }
+  },
+  {
+   "n": 10,
+   "name": "Buer",
+   "arabic": "بُوئِر",
+   "variant": "",
+   "rank": "President",
+   "office": "Teaches moral and natural philosophy, logic, and the virtues of all herbs and plants; heals all distempers in man; gives good familiars.",
+   "dayNight": "Day",
+   "decan": "Cancer I",
+   "shem": "10 Aladiah",
+   "workbook": {
+    "name": "Buer",
+    "arabic": "بُوئِر",
+    "variant": "",
+    "rank": "President",
+    "office": "Philosophy, logic, ethics; virtues of herbs; heals distempers; familiars."
+   },
+   "rankText": "a Great President",
+   "legions": "50",
+   "appearance": "In Sagittary, and that is his shape when the Sun is there.",
+   "source": "Mathers/Crowley, The Book of the Goetia of Solomon the King (1904)",
+   "seals": [
+    11
+   ],
+   "offerings": {
+    "offerings": [
+     "Aloe (plant)",
+     "Herbal tea",
+     "Fresh juice"
+    ],
+    "incense": [
+     "Storax"
+    ],
+    "colours": [
+     "Orange"
+    ],
+    "classical": "Goetia: Great President who 'appeareth in Sagittary, and that is his shape when the Sun is there'; teaches moral and natural philosophy, logic and the virtues of all herbs and plants, heals all distempers in man and gives good familiars.",
+    "timing": "His Goetia entry sets no calling time (the Goetia's general rule for Presidents applies); it says only: 'He appeareth in Sagittary, and that is his shape when the Sun is there.' Modern decan (Connolly): Jun 21-Jul 1.",
+    "notes": "Orange, storax and aloe come from Connolly. 'No alcohol; herbal tea, juice or kombucha instead' is a single channelled source (Bane Belladonna, Medium).",
+    "sources": [
+     {
+      "title": "Demon of the Day: President Buer",
+      "url": "https://demonsanddemonolatry.com/demon-of-the-day-president-buer-day-demon/"
+     },
+     {
+      "title": "Channeled message from Buer (Medium)",
+      "url": "https://medium.com/@banebelladonna/channeled-message-from-the-goetic-president-buer-correspondences-he-shared-561c6559039d"
+     }
+    ]
+   }
+  },
+  {
+   "n": 11,
+   "name": "Gusion",
+   "arabic": "غُوسِيُون",
+   "variant": "",
+   "rank": "Duke",
+   "office": "Tells all things past, present and to come, and shows the meaning and resolution of all questions; conciliates and reconciles friendships; gives honour and dignity.",
+   "dayNight": "Day",
+   "decan": "Cancer II",
+   "shem": "11 Lauviah",
+   "workbook": {
+    "name": "Gusion",
+    "arabic": "غُوسِيُون",
+    "variant": "",
+    "rank": "Duke",
+    "office": "Past, present, future; answers all questions; honour and dignity; reconciles."
+   },
+   "rankText": "a great and strong Duke",
+   "legions": "40",
+   "appearance": "Like a Xenopilus.",
+   "source": "Mathers/Crowley, The Book of the Goetia of Solomon the King (1904)",
+   "seals": [
+    12
+   ],
+   "offerings": {
+    "offerings": [
+     "Aloe (plant)"
+    ],
+    "incense": [
+     "Sandalwood"
+    ],
+    "colours": [
+     "Green"
+    ],
+    "classical": "",
+    "timing": "Modern decan (Connolly): Jul 2-11.",
+    "notes": "Only Connolly's Duke/Venus set was found. The page lists aloe, the same plant as Buer. No practitioner offerings found. Low information.",
+    "sources": [
+     {
+      "title": "Demon of the Day: Duke Gusion",
+      "url": "https://demonsanddemonolatry.com/demon-of-the-day-duke-gusion-day-demon/"
+     }
+    ]
+   }
+  },
+  {
+   "n": 12,
+   "name": "Sitri",
+   "arabic": "سِيتْرِي",
+   "variant": "",
+   "rank": "Prince",
+   "office": "Enflames men with women's love and women with men's love, and causes them to show themselves naked if desired.",
+   "dayNight": "Day",
+   "decan": "Cancer III",
+   "shem": "12 Hahaiah",
+   "workbook": {
+    "name": "Sitri",
+    "arabic": "سِيتْرِي",
+    "variant": "",
+    "rank": "Prince",
+    "office": "Enflames love between the sexes; makes people show themselves naked."
+   },
+   "rankText": "a Great Prince",
+   "legions": "60",
+   "appearance": "At first with a leopard's head and the wings of a gryphon; after the command of the Master of the Exorcism he puts on a very beautiful human shape.",
+   "source": "Mathers/Crowley, The Book of the Goetia of Solomon the King (1904)",
+   "seals": [
+    13
+   ],
+   "offerings": {
+    "offerings": [
+     "Hyacinth (plant)",
+     "Roses",
+     "Perfume",
+     "White wine / champagne",
+     "Citrus fruits",
+     "Quartz / carnelian"
+    ],
+    "incense": [
+     "Cedar",
+     "Jasmine",
+     "Rose",
+     "Geranium + patchouli"
+    ],
+    "colours": [
+     "Blue",
+     "Red",
+     "Pink"
+    ],
+    "classical": "Goetia: Prince with a leopard's head and gryphon wings; causes love and makes people show themselves naked. No offering instruction.",
+    "timing": "Modern decan (Connolly): Jul 12-21.",
+    "notes": "Blue, cedar and hyacinth come from Connolly's Prince/Jupiter set. Roses, perfume and red/pink candles appear in several web guides. The wine and fruit list comes from scarletarosa (single-source), which says Sitri does not want sexual offerings.",
+    "sources": [
+     {
+      "title": "Demon of the Day: Prince Sitri",
+      "url": "https://demonsanddemonolatry.com/demon-of-the-day-prince-sitri-day-demon/"
+     },
+     {
+      "title": "scarletarosa: Sitri",
+      "url": "https://scarletarosa.tumblr.com/post/667674022540197888/sitri-one-of-the-goetic-demons-and-a-prince"
+     },
+     {
+      "title": "Black Witch Coven: Sitri",
+      "url": "https://blackwitchcoven.com/demons/sitri/"
+     }
+    ]
+   }
+  },
+  {
+   "n": 13,
+   "name": "Beleth (Bileth)",
+   "arabic": "بِيلِيث",
+   "variant": "Bileth, Bilet",
+   "rank": "King",
+   "office": "Causes all the love that may be, both of men and of women, until the Master Exorcist has had his desire fulfilled. Of the Order of Powers. The exorcist lays his courage with a hazel wand struck out towards the South and East, makes a triangle outside the circle and commands him into it by the Bonds and Charges; he must be received courteously, with homage, as a great King, and a silver ring is worn on the middle finger of the left hand, held against the face, as before Amaymon.",
+   "dayNight": "Day",
+   "decan": "Leo I",
+   "shem": "13 Yezalel",
+   "workbook": {
+    "name": "Beleth",
+    "arabic": "بِيلِيث",
+    "variant": "",
+    "rank": "King",
+    "office": "Love between men and women. Fierce on arrival; requires a hazel wand and courtesy."
+   },
+   "rankText": "a mighty King and terrible (also 'a Great King'; of the Order of Powers)",
+   "legions": "85",
+   "appearance": "Riding on a pale horse, with trumpets and other kinds of musical instruments playing before him; very furious at his first appearance.",
+   "source": "Mathers/Crowley, The Book of the Goetia of Solomon the King (1904)",
+   "seals": [
+    14,
+    15
+   ],
+   "offerings": {
+    "offerings": [
+     "Dill (plant)",
+     "Wine",
+     "Grapes / apples",
+     "Personal art or poetry"
+    ],
+    "incense": [
+     "Frankincense"
+    ],
+    "colours": [
+     "Yellow"
+    ],
+    "classical": "Goetia: hold a hazel wand toward the South and East, draw a triangle outside the circle, wear a silver ring on the left middle finger held to the face, and receive him courteously and do homage as a great King. Pseudomonarchia adds a bowl of wine to his conjuration.",
+    "timing": "Modern decan (Connolly): Jul 23-Aug 1.",
+    "notes": "Wine has 2+ sources (Pseudomonarchia bowl of wine, BALG forum). The BALG forum stresses heartfelt personal art. Yellow, frankincense and dill come from Connolly. Courtesy and homage are a classical requirement.",
+    "sources": [
+     {
+      "title": "Demon of the Day: King Beleth",
+      "url": "https://demonsanddemonolatry.com/demon-of-the-day-king-beleth-day-demon/"
+     },
+     {
+      "title": "BALG forum: Offerings for Beleth",
+      "url": "https://forum.becomealivinggod.com/t/offerings-for-beleth/59650"
+     },
+     {
+      "title": "Goetia (esotericarchives)",
+      "url": "https://www.esotericarchives.com/solomon/goetia.htm"
+     },
+     {
+      "title": "Pseudomonarchia Daemonum (esotericarchives)",
+      "url": "https://www.esotericarchives.com/solomon/weyer.htm"
+     }
+    ]
+   }
+  },
+  {
+   "n": 14,
+   "name": "Leraje (Leraikha)",
+   "arabic": "لِيرَايِي",
+   "variant": "Leraikha, Leraie",
+   "rank": "Marquis",
+   "office": "Causes all great battles and contests; makes wounds made with arrows by archers putrefy. This belongs unto Sagittary.",
+   "dayNight": "Day",
+   "decan": "Leo II",
+   "shem": "14 Mebahel",
+   "workbook": {
+    "name": "Leraje (Leraikha)",
+    "arabic": "لِيرَايِي",
+    "variant": "Leraikha: لِيرَايْخَا",
+    "rank": "Marquis",
+    "office": "Great battles and contests; makes arrow wounds putrefy."
+   },
+   "etymology": "Leraikha: لِيرَايْخَا",
+   "rankText": "a Marquis Great in Power",
+   "legions": "30",
+   "appearance": "In the likeness of an archer clad in green, carrying a bow and quiver.",
+   "source": "Mathers/Crowley, The Book of the Goetia of Solomon the King (1904)",
+   "seals": [
+    16,
+    17
+   ],
+   "offerings": {
+    "offerings": [
+     "Plantain herb",
+     "Red wine",
+     "Arrow / arrowhead",
+     "Laurel leaves"
+    ],
+    "incense": [
+     "Jasmine",
+     "Bay"
+    ],
+    "colours": [
+     "Violet",
+     "Green"
+    ],
+    "classical": "Goetia: Marquis appearing as an archer clad in green; causes battles and makes arrow wounds putrefy.",
+    "timing": "Modern decan (Connolly): Aug 2-11.",
+    "notes": "Violet, jasmine and plantain come from Connolly, and 1 commenter offered plantain and jasmine (2 sources). Wine, arrowhead and laurel come from web ritual guides (single-source). Green echoes his classical appearance.",
+    "sources": [
+     {
+      "title": "Demon of the Day: Marquis Leraje",
+      "url": "https://demonsanddemonolatry.com/demon-of-the-day-marquis-leraje-day-demon/"
+     },
+     {
+      "title": "Occultist.net: Leraje",
+      "url": "https://occultist.net/leraje-demon-full-summoning-guide/"
+     }
+    ]
+   }
+  },
+  {
+   "n": 15,
+   "name": "Eligos",
+   "arabic": "إِلِيغُوس",
+   "variant": "",
+   "rank": "Duke",
+   "office": "Discovers hidden things and knows things to come, and of wars and how the soldiers will or shall meet; causes the love of lords and great persons.",
+   "dayNight": "Day",
+   "decan": "Leo III",
+   "shem": "15 Hariel",
+   "workbook": {
+    "name": "Eligos",
+    "arabic": "إِلِيغُوس",
+    "variant": "",
+    "rank": "Duke",
+    "office": "Hidden things; knowledge of wars and how they fall out; love of lords and great persons."
+   },
+   "rankText": "a Great Duke",
+   "legions": "60",
+   "appearance": "In the form of a goodly knight, carrying a lance, an ensign and a serpent.",
+   "source": "Mathers/Crowley, The Book of the Goetia of Solomon the King (1904)",
+   "seals": [
+    18
+   ],
+   "offerings": {
+    "offerings": [
+     "Thyme (fresh)",
+     "Stout beer",
+     "Red meat",
+     "Garnet",
+     "Sword / war token"
+    ],
+    "incense": [
+     "Sandalwood",
+     "Dried thyme",
+     "Red sandalwood"
+    ],
+    "colours": [
+     "Green",
+     "Yellow"
+    ],
+    "classical": "Goetia: Duke appearing as a goodly knight with lance, ensign and serpent; knows wars and causes the love of lords.",
+    "timing": "Modern decan (Connolly): Aug 12-22.",
+    "notes": "Thyme has 2 sources (Connolly plant, scarletarosa incense). Green and sandalwood come from Connolly. The beer, meat and war items come only from scarletarosa (listed under Abigor, treated as Eligos).",
+    "sources": [
+     {
+      "title": "Demon of the Day: Duke Eligos",
+      "url": "https://demonsanddemonolatry.com/demon-of-the-day-duke-eligos-day-demon/"
+     },
+     {
+      "title": "scarletarosa: Abigor (Eligos)",
+      "url": "https://scarletarosa.tumblr.com/post/619144906768777216/abigor-one-of-the-goetic-demons-and-is-a-duke"
+     }
+    ]
+   }
+  },
+  {
+   "n": 16,
+   "name": "Zepar",
+   "arabic": "زِيبَار",
+   "variant": "",
+   "rank": "Duke",
+   "office": "Causes women to love men and brings them together in love; also makes them barren.",
+   "dayNight": "Day",
+   "decan": "Virgo I",
+   "shem": "16 Hakamiah",
+   "workbook": {
+    "name": "Zepar",
+    "arabic": "زِيبَار",
+    "variant": "",
+    "rank": "Duke",
+    "office": "Makes women love men; can also make them barren."
+   },
+   "rankText": "a Great Duke",
+   "legions": "26 (notes: 1904 reads '26 Legions of Inferior Spirits')",
+   "appearance": "In red apparel and armour, like a soldier.",
+   "source": "Mathers/Crowley, The Book of the Goetia of Solomon the King (1904)",
+   "seals": [
+    19
+   ],
+   "offerings": {
+    "offerings": [
+     "Mandrake (plant, symbolic)",
+     "Red roses",
+     "Vodka"
+    ],
+    "incense": [
+     "Sandalwood"
+    ],
+    "colours": [
+     "Green",
+     "Red"
+    ],
+    "classical": "Goetia: Duke in red apparel and armour; causes women to love men.",
+    "timing": "Modern decan (Connolly): Aug 23-Sep 1.",
+    "notes": "Sandalwood and green have 2 sources (Connolly and a BALG user). Vodka and red candles come from 1 BALG user. Roses appear in generic love-spirit guides.",
+    "sources": [
+     {
+      "title": "Demon of the Day: Duke Zepar",
+      "url": "https://demonsanddemonolatry.com/demon-of-the-day-duke-zepar-day-demon/"
+     },
+     {
+      "title": "BALG forum: Zepar evocation experience",
+      "url": "https://forum.becomealivinggod.com/t/zepar-envokation-invocation-experience/185173"
+     }
+    ]
+   }
+  },
+  {
+   "n": 17,
+   "name": "Botis",
+   "arabic": "بُوتِيس",
+   "variant": "",
+   "rank": "President / Earl",
+   "office": "Tells all things past and to come; reconciles friends and foes.",
+   "dayNight": "Day",
+   "decan": "Virgo II",
+   "shem": "17 Lauviah (Leviah)",
+   "workbook": {
+    "name": "Botis",
+    "arabic": "بُوتِيس",
+    "variant": "",
+    "rank": "President",
+    "office": "Past and future; reconciles friends and foes."
+   },
+   "rankText": "a Great President, and an Earl",
+   "legions": "60",
+   "appearance": "At first in the form of an ugly viper; then, at the magician's command, he puts on a human shape with great teeth and two horns, carrying a bright and sharp sword in his hand.",
+   "source": "Mathers/Crowley, The Book of the Goetia of Solomon the King (1904)",
+   "seals": [
+    20
+   ],
+   "offerings": {
+    "offerings": [
+     "Lily (plant)",
+     "Fresh mint",
+     "Wine or rum"
+    ],
+    "incense": [
+     "Storax"
+    ],
+    "colours": [
+     "Orange"
+    ],
+    "classical": "Goetia: President and Earl; first a viper, then a man with great teeth and horns; reconciles friends and foes.",
+    "timing": "Modern decan (Connolly): Sep 2-11.",
+    "notes": "Orange, storax and lily come from Connolly. Mint and wine come from a single web ritual guide. Low information.",
+    "sources": [
+     {
+      "title": "Demon of the Day: Earl Botis",
+      "url": "https://demonsanddemonolatry.com/demon-of-the-day-earl-botis-day-demon/"
+     },
+     {
+      "title": "Occultist.net: Botis",
+      "url": "https://occultist.net/working-with-demon-botis-ritual-summoning/"
+     }
+    ]
+   }
+  },
+  {
+   "n": 18,
+   "name": "Bathin",
+   "arabic": "بَاثِين",
+   "variant": "",
+   "rank": "Duke",
+   "office": "Knows the virtues of herbs and precious stones; can transport men suddenly from one country to another.",
+   "dayNight": "Day",
+   "decan": "Virgo III",
+   "shem": "18 Caliel",
+   "workbook": {
+    "name": "Bathin",
+    "arabic": "بَاثِين",
+    "variant": "",
+    "rank": "Duke",
+    "office": "Virtues of herbs and precious stones; carries people from country to country."
+   },
+   "rankText": "a Mighty and Strong Duke",
+   "legions": "30",
+   "appearance": "Like a strong man with the tail of a serpent, sitting upon a pale-coloured [horse?] (Mathers brackets 'horse' as uncertain in the codices; Crowley's editorial note: the Quartos have 'ass').",
+   "source": "Mathers/Crowley, The Book of the Goetia of Solomon the King (1904)",
+   "seals": [
+    21,
+    22
+   ],
+   "offerings": {
+    "offerings": [
+     "Mistletoe (plant, symbolic)",
+     "Herbs",
+     "Travel token / foreign coin"
+    ],
+    "incense": [
+     "Sandalwood"
+    ],
+    "colours": [
+     "Green"
+    ],
+    "classical": "Goetia: Duke; like a strong man with a serpent's tail, sitting upon a 'Pale-coloured [Horse?]' (Mathers brackets 'horse' as uncertain; Crowley's editorial note says the Quartos have 'ass'). Knows the virtues of herbs and precious stones and can transport men suddenly from one country to another.",
+    "timing": "Modern decan (Connolly): Sep 12-22.",
+    "notes": "Green, sandalwood and mistletoe come from Connolly. Herbs and travel tokens are single-source web suggestions. Low information.",
+    "sources": [
+     {
+      "title": "Demon of the Day: Duke Bathin",
+      "url": "https://demonsanddemonolatry.com/demon-of-the-day-duke-bathin-day-demon/"
+     }
+    ]
+   }
+  },
+  {
+   "n": 19,
+   "name": "Sallos (Saleos)",
+   "arabic": "سَالُوس",
+   "variant": "Saleos",
+   "rank": "Duke",
+   "office": "Causes the love of women for men and of men for women.",
+   "dayNight": "Day",
+   "decan": "Libra I",
+   "shem": "19 Leuviah",
+   "workbook": {
+    "name": "Sallos (Saleos)",
+    "arabic": "سَالُوس",
+    "variant": "Saleos: سَالِيُوس",
+    "rank": "Duke",
+    "office": "Love between the sexes. Peaceable."
+   },
+   "etymology": "Saleos: سَالِيُوس",
+   "rankText": "a Great and Mighty Duke",
+   "legions": "30",
+   "appearance": "A gallant soldier riding a crocodile, wearing a ducal crown; comes peaceably.",
+   "source": "Mathers/Crowley, The Book of the Goetia of Solomon the King (1904)",
+   "seals": [
+    23
+   ],
+   "offerings": {
+    "offerings": [
+     "Aster (plant)",
+     "Roses",
+     "Wine",
+     "Chocolate",
+     "Copper coins"
+    ],
+    "incense": [
+     "Sandalwood",
+     "Rose",
+     "Jasmine"
+    ],
+    "colours": [
+     "Green",
+     "Pink"
+    ],
+    "classical": "Goetia: Duke appearing peaceably as a gallant soldier on a crocodile; causes love.",
+    "timing": "Modern decan (Connolly): Sep 23-Oct 2.",
+    "notes": "Sandalwood has 2+ sources. Roses, wine and copper appear in several lower-authority web guides. Green and aster come from Connolly.",
+    "sources": [
+     {
+      "title": "Demon of the Day: Duke Sallos",
+      "url": "https://demonsanddemonolatry.com/demon-of-the-day-duke-sallos-day-demon/"
+     },
+     {
+      "title": "Black Witch Coven: Sallos",
+      "url": "https://blackwitchcoven.com/duke-sallos-the-nineteenth-goetia-spirit/"
+     }
+    ]
+   }
+  },
+  {
+   "n": 20,
+   "name": "Purson",
+   "arabic": "بُورْسُون",
+   "variant": "",
+   "rank": "King",
+   "office": "Knows hidden things and finds treasure; tells past, present and future; answers truly about earthly things, secret and divine, and the creation of the world; gives good familiars.",
+   "dayNight": "Day",
+   "decan": "Libra II",
+   "shem": "20 Pahaliah",
+   "workbook": {
+    "name": "Purson",
+    "arabic": "بُورْسُون",
+    "variant": "",
+    "rank": "King",
+    "office": "Hidden things; finds treasure; past, present, future; good familiars."
+   },
+   "rankText": "a Great King",
+   "legions": "22 (partly of the Order of Virtues and partly of the Order of Thrones)",
+   "appearance": "A comely man with a lion's face, carrying a cruel viper and riding a bear, with many trumpets sounding before him. Can take a human or aerial body.",
+   "source": "Mathers/Crowley, The Book of the Goetia of Solomon the King (1904)",
+   "seals": [
+    24
+   ],
+   "offerings": {
+    "offerings": [
+     "Orchid",
+     "Gold / coins",
+     "Sunflowers"
+    ],
+    "incense": [
+     "Frankincense"
+    ],
+    "colours": [
+     "Yellow",
+     "Gold"
+    ],
+    "classical": "Goetia: King, a man with a lion's face on a bear holding a viper, preceded by trumpets; finds treasure.",
+    "timing": "Modern decan (Connolly): Oct 3-12.",
+    "notes": "Orchid is Connolly's plant, and a second site repeats it as the closing offering. Yellow and frankincense come from Connolly's King/Sun set. Gold and coins come from web guides.",
+    "sources": [
+     {
+      "title": "Demon of the Day: King Purson",
+      "url": "https://demonsanddemonolatry.com/demon-of-the-day-king-purson-day-demon/"
+     },
+     {
+      "title": "Demon Encyclopedia: Purson",
+      "url": "https://demonsanddemonolatry.com/category/knowndemons/p/purson/"
+     }
+    ]
+   }
+  },
+  {
+   "n": 21,
+   "name": "Marax (Morax)",
+   "arabic": "مَارَاكْس",
+   "variant": "Morax",
+   "rank": "Earl / President",
+   "office": "Makes men very knowing in astronomy and all the liberal sciences; gives good, wise familiars who know the virtues of herbs and precious stones.",
+   "dayNight": "Day",
+   "decan": "Libra III",
+   "shem": "21 Nelchael",
+   "workbook": {
+    "name": "Marax (Morax)",
+    "arabic": "مَارَاكْس",
+    "variant": "Morax: مُورَاكْس",
+    "rank": "Earl / President",
+    "office": "Astronomy and liberal sciences; virtues of herbs and precious stones; wise familiars."
+   },
+   "etymology": "Morax: مُورَاكْس",
+   "rankText": "a Great Earl and President",
+   "legions": "30",
+   "appearance": "A great bull with a man's face.",
+   "source": "Mathers/Crowley, The Book of the Goetia of Solomon the King (1904)",
+   "seals": [
+    25
+   ],
+   "offerings": {
+    "offerings": [
+     "Elder (plant)"
+    ],
+    "incense": [
+     "Dragon's blood"
+    ],
+    "colours": [
+     "Red"
+    ],
+    "classical": "Goetia: Earl and President, a great bull with a man's face; makes men knowing in astronomy and the liberal sciences; gives good, wise familiars who know the virtues of herbs and precious stones.",
+    "timing": "Modern decan (Connolly): Oct 12-22.",
+    "notes": "Only Connolly's Earl/Mars set plus elder was found. No practitioner offerings. Low information.",
+    "sources": [
+     {
+      "title": "Demon of the Day: Earl Marax",
+      "url": "https://demonsanddemonolatry.com/demon-of-the-day-earl-marax-day-demon/"
+     }
+    ]
+   }
+  },
+  {
+   "n": 22,
+   "name": "Ipos",
+   "arabic": "إِيبُوس",
+   "variant": "",
+   "rank": "Earl / Prince",
+   "office": "Knows all things past, present and to come; makes men witty and bold.",
+   "dayNight": "Day",
+   "decan": "Scorpio I",
+   "shem": "22 Yeiayel",
+   "workbook": {
+    "name": "Ipos",
+    "arabic": "إِيبُوس",
+    "variant": "",
+    "rank": "Earl / Prince",
+    "office": "Past and future; makes men witty and bold."
+   },
+   "rankText": "an Earl, and a Mighty Prince",
+   "legions": "36",
+   "appearance": "An angel with a lion's head, a goose's foot and a hare's tail.",
+   "source": "Mathers/Crowley, The Book of the Goetia of Solomon the King (1904)",
+   "seals": [
+    26
+   ],
+   "offerings": {
+    "offerings": [
+     "Sandalwood (plant)"
+    ],
+    "incense": [
+     "Cedar"
+    ],
+    "colours": [
+     "Blue"
+    ],
+    "classical": "Goetia: Earl and Prince, an angel with a lion's head, a goose's foot and a hare's tail; knows past, present and future; makes men witty and bold.",
+    "timing": "Modern decan (Connolly): Oct 23-Nov 1.",
+    "notes": "Only Connolly's Prince/Jupiter set was found. No practitioner offerings. Very low information.",
+    "sources": [
+     {
+      "title": "Demon of the Day: Prince Ipos",
+      "url": "https://demonsanddemonolatry.com/demon-of-the-day-prince-ipos-day-demon/"
+     }
+    ]
+   }
+  },
+  {
+   "n": 23,
+   "name": "Aim",
+   "arabic": "آيِم",
+   "variant": "",
+   "rank": "Duke",
+   "office": "Sets cities, castles and great places on fire; makes one witty in all ways; gives true answers about private matters.",
+   "dayNight": "Day",
+   "decan": "Scorpio II",
+   "shem": "23 Melahel",
+   "workbook": {
+    "name": "Aim",
+    "arabic": "آيِم",
+    "variant": "",
+    "rank": "Duke",
+    "office": "Sets cities, castles and great places on fire; makes men witty; secret matters."
+   },
+   "rankText": "a Great Strong Duke",
+   "legions": "26 (of Inferior Spirits)",
+   "appearance": "A very handsome man with three heads: a serpent, a man with two stars on his forehead, and a calf. Rides a viper and carries a firebrand.",
+   "source": "Mathers/Crowley, The Book of the Goetia of Solomon the King (1904)",
+   "seals": [
+    27
+   ],
+   "offerings": {
+    "offerings": [
+     "Lemon (plant)",
+     "Charred wood"
+    ],
+    "incense": [
+     "Sandalwood",
+     "Myrrh"
+    ],
+    "colours": [
+     "Green",
+     "Red"
+    ],
+    "classical": "Goetia: Duke, a handsome man with three heads (serpent, man with two stars on his forehead, calf), riding a viper and carrying a firebrand; sets cities, castles and great places on fire.",
+    "timing": "Modern decan (Connolly): Nov 2-12. One web source says he is strongest at noon (single-source).",
+    "notes": "Green, sandalwood and lemon come from Connolly. Charred wood, red and myrrh are single-source fire-themed suggestions. Low information.",
+    "sources": [
+     {
+      "title": "Demon of the Day: Duke Aim",
+      "url": "https://demonsanddemonolatry.com/demon-of-the-day-duke-aim/"
+     }
+    ]
+   }
+  },
+  {
+   "n": 24,
+   "name": "Naberius",
+   "arabic": "نَابِيرِيُوس",
+   "variant": "",
+   "rank": "Marquis",
+   "office": "Makes men cunning in all arts and sciences, especially rhetoric; restores lost dignities and honours.",
+   "dayNight": "Day",
+   "decan": "Scorpio III",
+   "shem": "24 Haheuiah",
+   "workbook": {
+    "name": "Naberius",
+    "arabic": "نَابِيرِيُوس",
+    "variant": "",
+    "rank": "Marquis",
+    "office": "Arts and sciences, especially rhetoric; restores lost dignities and honours."
+   },
+   "rankText": "a most valiant Marquis",
+   "legions": "19",
+   "appearance": "A black crane fluttering about the circle; speaks with a hoarse voice.",
+   "source": "Mathers/Crowley, The Book of the Goetia of Solomon the King (1904)",
+   "seals": [
+    28
+   ],
+   "offerings": {
+    "offerings": [
+     "Ash (plant)"
+    ],
+    "incense": [
+     "Jasmine"
+    ],
+    "colours": [
+     "Violet"
+    ],
+    "classical": "Goetia: Marquis appearing as a black crane with a hoarse voice; restores lost dignities and honours.",
+    "timing": "Modern decan (Connolly): Nov 13-22.",
+    "notes": "Only Connolly's Marquis/Moon set was found. No practitioner offerings. Low information.",
+    "sources": [
+     {
+      "title": "Demon of the Day: Marquis Naberius",
+      "url": "https://demonsanddemonolatry.com/demon-of-the-day-marquis-naberius-day-demon/"
+     }
+    ]
+   }
+  },
+  {
+   "n": 25,
+   "name": "Glasya-Labolas",
+   "arabic": "غِلَاسْيَا لَابُولَاس",
+   "variant": "",
+   "rank": "President / Earl",
+   "office": "Teaches all arts and sciences in an instant, and all things past and to come; author of bloodshed and manslaughter; causes the love of friends and foes; makes a man invisible.",
+   "dayNight": "Day",
+   "decan": "Sagittarius I",
+   "shem": "25 Nith-Haiah",
+   "workbook": {
+    "name": "Glasya-Labolas",
+    "arabic": "غِلَاسْيَا لَابُولَاس",
+    "variant": "",
+    "rank": "President / Earl",
+    "office": "Arts and sciences instantly; author of bloodshed and manslaughter; invisibility; love of friends and foes."
+   },
+   "rankText": "a Mighty President and Earl",
+   "legions": "36",
+   "appearance": "A dog with wings like a gryphon.",
+   "source": "Mathers/Crowley, The Book of the Goetia of Solomon the King (1904)",
+   "seals": [
+    29
+   ],
+   "offerings": {
+    "offerings": [
+     "Fresh rosemary",
+     "Gold rings",
+     "Old coins",
+     "Dog figurines",
+     "Skulls"
+    ],
+    "incense": [
+     "Storax",
+     "Rosemary"
+    ],
+    "colours": [
+     "Orange",
+     "Yellow",
+     "Gold"
+    ],
+    "classical": "Goetia: President and Earl, a dog with gryphon wings; author of bloodshed; teaches all arts.",
+    "timing": "Modern decan (Connolly): Nov 23-Dec 2. One BALG user describes bright overhead sunlight (UPG).",
+    "notes": "Rosemary and storax have 2+ sources (Connolly and BALG users). Yellow/gold altar cloth, gold rings and dog ornaments come from BALG forum threads (1-2 users).",
+    "sources": [
+     {
+      "title": "Demon of the Day: President Glasya-Labolas",
+      "url": "https://demonsanddemonolatry.com/demon-of-the-day-president-glasya-labolas-day-demon/"
+     },
+     {
+      "title": "BALG forum: Sharing details from my Glasya-Labolas ritual",
+      "url": "https://forum.becomealivinggod.com/t/sharing-details-from-my-glasya-labolas-ritual/57494"
+     }
+    ]
+   }
+  },
+  {
+   "n": 26,
+   "name": "Bune (Bimé)",
+   "arabic": "بُونِي",
+   "variant": "Bimé, Buné, Bim",
+   "rank": "Duke",
+   "office": "Changes the place of the dead and makes the spirits under him gather on your sepulchres; gives riches, wisdom and eloquence; gives true answers to demands. Has two seals; the second (fig. 31) is the better.",
+   "dayNight": "Day",
+   "decan": "Sagittarius II",
+   "shem": "26 Haaiah",
+   "workbook": {
+    "name": "Bune (Bime)",
+    "arabic": "بُونِي",
+    "variant": "Bime: بِيمِي",
+    "rank": "Duke",
+    "office": "Changes the place of the dead; gives riches, wisdom and eloquence; his demons gather on sepulchres."
+   },
+   "etymology": "Bime: بِيمِي",
+   "rankText": "a Strong, Great and Mighty Duke",
+   "legions": "30",
+   "appearance": "A dragon with three heads: one like a dog, one like a gryphon, one like a man. Speaks with a high and comely voice.",
+   "source": "Mathers/Crowley, The Book of the Goetia of Solomon the King (1904)",
+   "seals": [
+    30,
+    31
+   ],
+   "offerings": {
+    "offerings": [
+     "Orange / citrus",
+     "Copper coins",
+     "Sweets / cakes",
+     "Bread",
+     "Flowers",
+     "Wine / rum / honey",
+     "Public praise"
+    ],
+    "incense": [
+     "Sandalwood",
+     "Jasmine + sandalwood",
+     "Amber + musk"
+    ],
+    "colours": [
+     "Green",
+     "Red"
+    ],
+    "classical": "Goetia: Duke, a dragon with three heads (dog, gryphon, man); speaks with a high, comely voice; changes the place of the dead and makes his spirits gather on your sepulchres; gives riches, wisdom, eloquence and true answers. Two seals, the second the better. No offering instruction.",
+    "timing": "Modern decan (Connolly): Dec 3-12.",
+    "notes": "One of the best documented. Sandalwood, citrus, copper and sweets each have 2+ sources (Connolly, DD comments, BALG, scarletarosa). Public praise and testimonials are a well-known modern practice (BALG, bunesuccess). Blood is mentioned by some users but not included.",
+    "sources": [
+     {
+      "title": "Demon of the Day: Duchess Bune",
+      "url": "https://demonsanddemonolatry.com/demoness-of-the-day-duchess-bune-day-demoness/"
+     },
+     {
+      "title": "BALG forum: Success with Bune and offerings",
+      "url": "https://forum.becomealivinggod.com/t/success-with-bune-and-question-about-offerings/21051"
+     },
+     {
+      "title": "scarletarosa: Bune",
+      "url": "https://scarletarosa.tumblr.com/post/640425226808819712/bune-one-of-the-goetic-demonesses-who-serves-under"
+     },
+     {
+      "title": "BuneSuccess",
+      "url": "https://www.bunesuccess.com/"
+     }
+    ]
+   }
+  },
+  {
+   "n": 27,
+   "name": "Ronové",
+   "arabic": "رُونُوفِي",
+   "variant": "",
+   "rank": "Marquis / Earl",
+   "office": "Teaches rhetoric very well; gives good servants, knowledge of tongues, and favour with friends or foes.",
+   "dayNight": "Day",
+   "decan": "Sagittarius III",
+   "shem": "27 Yerathel",
+   "workbook": {
+    "name": "Ronove",
+    "arabic": "رُونُوفِي",
+    "variant": "",
+    "rank": "Marquis / Earl",
+    "office": "Rhetoric, languages; good servants; favour of friends and foes."
+   },
+   "rankText": "a Marquis and Great Earl",
+   "legions": "19",
+   "appearance": "In the form of a monster.",
+   "source": "Mathers/Crowley, The Book of the Goetia of Solomon the King (1904)",
+   "seals": [
+    32
+   ],
+   "offerings": {
+    "offerings": [
+     "Cinnamon (plant)"
+    ],
+    "incense": [
+     "Jasmine"
+    ],
+    "colours": [
+     "Violet"
+    ],
+    "classical": "Goetia: Marquis and Great Earl appearing as a monster; teaches rhetoric; gives good servants, knowledge of tongues, and favour with friends or foes.",
+    "timing": "Modern decan (Connolly): Dec 13-21.",
+    "notes": "Only Connolly's Marquis/Moon set plus cinnamon was found. No practitioner offerings. Low information.",
+    "sources": [
+     {
+      "title": "Demon of the Day: Marquis Ronove",
+      "url": "https://demonsanddemonolatry.com/demon-of-the-day-marquis-ronove/"
+     }
+    ]
+   }
+  },
+  {
+   "n": 28,
+   "name": "Berith (Beale)",
+   "arabic": "بِيرِيث",
+   "variant": "Beale, Beal, Bofry, Bolfry",
+   "rank": "Duke",
+   "office": "Gives true answers of past, present and to come; turns all metals into gold; gives dignities and confirms them. A great liar, not to be trusted (a footnote remarks this hardly agrees with his true answers). Use a ring in calling him, as with Beleth.",
+   "dayNight": "Day",
+   "decan": "Capricorn I",
+   "shem": "28 Seheiah",
+   "workbook": {
+    "name": "Berith",
+    "arabic": "بِيرِيث",
+    "variant": "Heb. berīt 'covenant'; Baal-Berith — Ar. Bible بَعْل بَرِيث (Judg 8:33)",
+    "rank": "Duke",
+    "office": "Turns all metals to gold; gives dignities; past, present, future. A great liar; use the ring."
+   },
+   "etymology": "Heb. berīt 'covenant'; Baal-Berith — Ar. Bible بَعْل بَرِيث (Judg 8:33)",
+   "rankText": "a Mighty, Great, and Terrible Duke",
+   "legions": "26",
+   "appearance": "A soldier in red clothing, riding a red horse, with a crown of gold on his head. Speaks with a very clear and subtle voice.",
+   "source": "Mathers/Crowley, The Book of the Goetia of Solomon the King (1904)",
+   "seals": [
+    33
+   ],
+   "offerings": {
+    "offerings": [
+     "Heliotrope (plant)",
+     "Gold",
+     "Small metal objects"
+    ],
+    "incense": [
+     "Sandalwood"
+    ],
+    "colours": [
+     "Green",
+     "Red"
+    ],
+    "classical": "Goetia: Duke, a soldier in red clothing on a red horse, with a crown of gold; use a ring in calling him, as with Beleth; also named Beale or Beal, and Bofry or Bolfry; turns all metals into gold; 'a Great Liar, and not to be trusted unto' (a footnote remarks this hardly agrees with his giving true answers). Pseudomonarchia: compelled at a certain hour by a ring of art magic.",
+    "timing": "Modern decan (Connolly): Dec 22-30.",
+    "notes": "Green and sandalwood come from Connolly. Red follows his classical appearance and is argued by commenters. Gold and metal items come from web guides. The black-chicken crossroads rite in some folk sources is left out.",
+    "sources": [
+     {
+      "title": "Demon of the Day: Duke Berith",
+      "url": "https://demonsanddemonolatry.com/demon-of-the-day-duke-berith-day-demon/"
+     },
+     {
+      "title": "Goetia (esotericarchives)",
+      "url": "https://www.esotericarchives.com/solomon/goetia.htm"
+     },
+     {
+      "title": "Pseudomonarchia Daemonum (esotericarchives)",
+      "url": "https://www.esotericarchives.com/solomon/weyer.htm"
+     }
+    ]
+   }
+  },
+  {
+   "n": 29,
+   "name": "Astaroth",
+   "arabic": "أَسْتَارُوث",
+   "variant": "",
+   "rank": "Duke",
+   "office": "Gives true answers of past, present and to come; discovers all secrets; declares, if desired, how the spirits fell and the reason of his own fall; makes men wonderfully knowing in all liberal sciences. Hold the magical ring near your face against his breath, and wear his seal as a lamen or he will not appear or obey.",
+   "dayNight": "Day",
+   "decan": "Capricorn II",
+   "shem": "29 Reiyel",
+   "workbook": {
+    "name": "Astaroth",
+    "arabic": "أَسْتَارُوث",
+    "variant": "Semitic ʿAshtoreth / Ishtar — Ar. Bible عَشْتَارُوث; Ar. عِشْتَار",
+    "rank": "Duke",
+    "office": "Past, present, future; all secrets; liberal sciences; how the spirits fell. Hold the ring against his breath."
+   },
+   "etymology": "Semitic ʿAshtoreth / Ishtar — Ar. Bible عَشْتَارُوث; Ar. عِشْتَار",
+   "rankText": "a Mighty, Strong Duke",
+   "legions": "40",
+   "appearance": "A hurtful angel riding an infernal beast like a dragon, carrying a viper in his right hand. His noisome breath does damage if he comes too near.",
+   "source": "Mathers/Crowley, The Book of the Goetia of Solomon the King (1904)",
+   "seals": [
+    34
+   ],
+   "offerings": {
+    "offerings": [
+     "Laurel (plant)",
+     "Roses",
+     "Cinnamon",
+     "Lemon",
+     "Perfume"
+    ],
+    "incense": [
+     "Sandalwood"
+    ],
+    "colours": [
+     "Green",
+     "Black"
+    ],
+    "classical": "Goetia: Duke, a hurtful angel riding an infernal beast like a dragon, with a viper in his right hand; do not let him come too near, lest his noisome breath do you damage; hold the magical ring near your face; wear his seal as a lamen or he will not appear or obey.",
+    "timing": "Modern decan (Connolly): Dec 31-Jan 9.",
+    "notes": "Sandalwood has 2 sources (Connolly and a BALG altar). Roses, cinnamon, lemon, perfume and a black candle come from 1 BALG user. scarletarosa says Astaroth dislikes being pampered with desserts (single-source).",
+    "sources": [
+     {
+      "title": "Demon of the Day: Duke/Duchess Astaroth",
+      "url": "https://demonsanddemonolatry.com/demon-of-the-day-dukeduchess-astaroth/"
+     },
+     {
+      "title": "BALG forum: Astaroth altar and offerings",
+      "url": "https://forum.becomealivinggod.com/t/astaroth-altar-set-up-offerings/38862"
+     },
+     {
+      "title": "scarletarosa: Astaroth",
+      "url": "https://scarletarosa.tumblr.com/post/640752660627210240/c-lupus-albus-astaroth-the-29th-demon-of-goetia"
+     }
+    ]
+   }
+  },
+  {
+   "n": 30,
+   "name": "Forneus",
+   "arabic": "فُورْنِيُوس",
+   "variant": "",
+   "rank": "Marquis",
+   "office": "Teaches rhetoric and makes men wonderfully knowing in it; gives a good name and the knowledge and understanding of tongues; makes one beloved of foes as well as friends.",
+   "dayNight": "Day",
+   "decan": "Capricorn III",
+   "shem": "30 Omael",
+   "workbook": {
+    "name": "Forneus",
+    "arabic": "فُورْنِيُوس",
+    "variant": "",
+    "rank": "Marquis",
+    "office": "Rhetoric; languages; good name; makes enemies love you."
+   },
+   "rankText": "a Mighty and Great Marquis",
+   "legions": "29 (partly of the Order of Thrones, partly of that of Angels)",
+   "appearance": "A great sea-monster.",
+   "source": "Mathers/Crowley, The Book of the Goetia of Solomon the King (1904)",
+   "seals": [
+    35
+   ],
+   "offerings": {
+    "offerings": [
+     "Sunflower (plant)"
+    ],
+    "incense": [
+     "Jasmine"
+    ],
+    "colours": [
+     "Violet"
+    ],
+    "classical": "Goetia: Marquis appearing as a great sea-monster; teaches rhetoric and gives a good name.",
+    "timing": "Modern decan (Connolly): Jan 10-19.",
+    "notes": "Only Connolly's Marquis/Moon set was found. No practitioner offerings. Low information.",
+    "sources": [
+     {
+      "title": "Demon of the Day: Marquis Forneus",
+      "url": "https://demonsanddemonolatry.com/demon-of-the-day-marquis-forneus-day-demon/"
+     }
+    ]
+   }
+  },
+  {
+   "n": 31,
+   "name": "Foras",
+   "arabic": "فُورَاس",
+   "variant": "",
+   "rank": "President",
+   "office": "Gives understanding of the virtues of all herbs and precious stones; teaches logic and ethics in all their parts; if desired, makes men invisible (one or two codices: 'invincible'), long-lived and eloquent; discovers treasures and recovers things lost.",
+   "dayNight": "Day",
+   "decan": "Aquarius I",
+   "shem": "31 Lecabel",
+   "workbook": {
+    "name": "Foras",
+    "arabic": "فُورَاس",
+    "variant": "",
+    "rank": "President",
+    "office": "Virtues of herbs and stones; logic and ethics; invisibility; long life; eloquence; finds treasure."
+   },
+   "rankText": "a Mighty President",
+   "legions": "29",
+   "appearance": "A strong man in human shape.",
+   "source": "Mathers/Crowley, The Book of the Goetia of Solomon the King (1904)",
+   "seals": [
+    36
+   ],
+   "offerings": {
+    "offerings": [
+     "Century plant",
+     "Sage",
+     "Rosemary",
+     "Bay leaves"
+    ],
+    "incense": [
+     "Storax",
+     "Sandalwood"
+    ],
+    "colours": [
+     "Orange",
+     "Green"
+    ],
+    "classical": "Goetia: President appearing as a strong man; teaches logic, ethics and the virtues of herbs and stones.",
+    "timing": "Modern decan (Connolly): Jan 20-29.",
+    "notes": "Orange, storax and century plant come from Connolly. Herbs (sage, rosemary, bay) come from a single web guide. Commenters on the DD page asked for offerings and got no answer. Low information.",
+    "sources": [
+     {
+      "title": "Demon of the Day: President Foras",
+      "url": "https://demonsanddemonolatry.com/demon-of-the-day-president-foras-day-demon/"
+     },
+     {
+      "title": "Eclectic Witchcraft: President Foras",
+      "url": "https://eclecticwitchcraft.com/demon-spotlight-president-foras-wealth-of-knowledge-eloquence-and-integrity/"
+     }
+    ]
+   }
+  },
+  {
+   "n": 32,
+   "name": "Asmoday (Asmodai)",
+   "arabic": "أَسْمُودَاي",
+   "variant": "Asmodai",
+   "rank": "King",
+   "office": "Gives the Ring of Virtues; teaches arithmetic, astronomy, geometry and all handicrafts; gives true and full answers; makes one invincible; shows where treasure lies and guards it. First and choicest under Amaymon, going before all others. Call him abroad, standing, with cap or head-dress off (if it is on, Amaymon will deceive you and bewray your actions); ask 'Art thou Asmoday?' and he will not deny it but will bow to the ground. Wear his seal as a lamen on your breast.",
+   "dayNight": "Day",
+   "decan": "Aquarius II",
+   "shem": "32 Vasariah",
+   "workbook": {
+    "name": "Asmoday",
+    "arabic": "أَسْمُودَاي",
+    "variant": "Heb./Aram. Ashmedai أَشْمَدَاي; Ar. Tobit أَسْمُودَاوُس",
+    "rank": "King",
+    "office": "The ring of virtues; arithmetic, astronomy, geometry, handicrafts; treasure; invincibility. Attends Amaymon."
+   },
+   "etymology": "Heb./Aram. Ashmedai أَشْمَدَاي; Ar. Tobit أَسْمُودَاوُس",
+   "rankText": "a Great King, Strong, and Powerful",
+   "legions": "72 (Inferior Spirits, among the Legions of Amaymon)",
+   "appearance": "Three heads (bull, man, ram), a serpent's tail, flames of fire from his mouth, and feet webbed like a goose's. Sits on an infernal dragon and bears a lance with a banner.",
+   "source": "Mathers/Crowley, The Book of the Goetia of Solomon the King (1904)",
+   "seals": [
+    37
+   ],
+   "offerings": {
+    "offerings": [
+     "Mint (plant)",
+     "Lemonade with spearmint",
+     "Sweet wine / absinthe",
+     "Pineapple / lemons",
+     "Honey",
+     "Orchids / sunflowers"
+    ],
+    "incense": [
+     "Frankincense",
+     "Dragon's blood"
+    ],
+    "colours": [
+     "Yellow",
+     "Red",
+     "Black"
+    ],
+    "classical": "Goetia: King under Amaymon with three heads (bull, man, ram). Call him abroad (outdoors), standing on your feet, with your cap or headdress off. If you stay covered, Amaymon will deceive you.",
+    "timing": "Modern decan (Connolly): Jan 30-Feb 8.",
+    "notes": "Mint has 2 sources (Connolly plant, scarletarosa spearmint lemonade). Frankincense has 2+ sources. The drink and fruit list comes mainly from scarletarosa, echoed by Eclectic Witchcraft. Standing bareheaded is a classical etiquette note.",
+    "sources": [
+     {
+      "title": "Demon of the Day: King Asmoday",
+      "url": "https://demonsanddemonolatry.com/demon-of-the-day-king-asmoday-day-demon/"
+     },
+     {
+      "title": "scarletarosa: Asmodeus",
+      "url": "https://www.tumblr.com/scarletarosa/614860682874290176/asmodeus-one-of-the-goetic-demons-of-hell-and-a"
+     },
+     {
+      "title": "Eclectic Witchcraft: Offerings for Asmodeus",
+      "url": "https://eclecticwitchcraft.com/offerings-for-demon-asmodeus/"
+     },
+     {
+      "title": "Goetia (esotericarchives)",
+      "url": "https://www.esotericarchives.com/solomon/goetia.htm"
+     }
+    ]
+   }
+  },
+  {
+   "n": 33,
+   "name": "Gäap",
+   "arabic": "غَاءَب",
+   "variant": "",
+   "rank": "President / Prince",
+   "office": "Makes men insensible or ignorant, or knowing in philosophy and all liberal sciences; causes love or hatred; teaches how to consecrate the things of the dominion of Amaymon, his King; delivers familiars out of the custody of other magicians; answers truly and perfectly of past, present and to come; carries men speedily from one kingdom to another at the exorcist's will. He was of the Order of Potentates.",
+   "dayNight": "Day",
+   "decan": "Aquarius III",
+   "shem": "33 Yehuiah",
+   "workbook": {
+    "name": "Gaap",
+    "arabic": "غَاب",
+    "variant": "",
+    "rank": "President / Prince",
+    "office": "Philosophy and liberal sciences; love and hatred; carries men between kingdoms; familiars of other magicians. Governs the South (Goetia)."
+   },
+   "rankText": "a Great President and a Mighty Prince",
+   "legions": "66",
+   "appearance": "Human shape. He appears when the Sun is in some of the southern signs, going before four great and mighty kings as if he were a guide to conduct them on their way.",
+   "source": "Mathers/Crowley, The Book of the Goetia of Solomon the King (1904)",
+   "seals": [
+    38
+   ],
+   "offerings": {
+    "offerings": [
+     "Moss (plant)",
+     "Tobacco"
+    ],
+    "incense": [
+     "Storax",
+     "Frankincense"
+    ],
+    "colours": [
+     "Orange"
+    ],
+    "classical": "Goetia: President and Prince who appears in human shape when the Sun is in some of the southern signs, going before four great and mighty kings as if he were a guide to conduct them. Pseudomonarchia: necromancers offered him 'sacrifices and burnt offerings', a practice Weyer traces to Noah's son Cham, not Solomon.",
+    "timing": "Goetia: appears when the Sun is in some of the southern signs. Modern decan (Connolly): Feb 9-18.",
+    "notes": "There is a classical precedent for offerings (burnt offerings). Orange, storax and moss come from Connolly. Tobacco and frankincense come from single web guides.",
+    "sources": [
+     {
+      "title": "Demon of the Day: President/Prince Gaap",
+      "url": "https://demonsanddemonolatry.com/demon-of-the-day-president-prince-gaap-day-demon/"
+     },
+     {
+      "title": "Pseudomonarchia Daemonum (esotericarchives)",
+      "url": "https://www.esotericarchives.com/solomon/weyer.htm"
+     }
+    ]
+   }
+  },
+  {
+   "n": 34,
+   "name": "Furfur",
+   "arabic": "فُورْفُور",
+   "variant": "",
+   "rank": "Earl",
+   "office": "Never speaks truth unless compelled or brought up within a triangle; urges love between man and woman; raises lightnings and thunders, blasts and great tempestuous storms; if commanded, gives true answers of things secret and divine.",
+   "dayNight": "Day",
+   "decan": "Pisces I",
+   "shem": "34 Lehahiah",
+   "workbook": {
+    "name": "Furfur",
+    "arabic": "فُورْفُور",
+    "variant": "",
+    "rank": "Earl",
+    "office": "Love between man and wife; thunder, lightning, storms; secret and divine things. Lies unless in the triangle."
+   },
+   "rankText": "a Great and Mighty Earl",
+   "legions": "26",
+   "appearance": "A hart with a fiery tail. Within the triangle he takes the form of an angel, and when bidden speaks with a hoarse voice.",
+   "source": "Mathers/Crowley, The Book of the Goetia of Solomon the King (1904)",
+   "seals": [
+    39
+   ],
+   "offerings": {
+    "offerings": [
+     "Cypress (plant)"
+    ],
+    "incense": [
+     "Dragon's blood"
+    ],
+    "colours": [
+     "Red"
+    ],
+    "classical": "Goetia: Earl appearing as a hart with a fiery tail. He never speaks truth unless compelled, or brought up within a triangle; there he takes the form of an angel and, when bidden, speaks with a hoarse voice. Raises lightning, thunder, blasts and great storms.",
+    "timing": "Modern decan (Connolly): Feb 19-28.",
+    "notes": "Only Connolly's Earl/Mars set plus cypress was found. Forum users mention only blood on the sigil (not included). Low information.",
+    "sources": [
+     {
+      "title": "Demon of the Day: Earl Furfur",
+      "url": "https://demonsanddemonolatry.com/demon-of-the-day-earl-furfur-day-demon/"
+     },
+     {
+      "title": "BALG forum: About the demon Furfur",
+      "url": "https://forum.becomealivinggod.com/t/about-the-demon-furfur/5924"
+     }
+    ]
+   }
+  },
+  {
+   "n": 35,
+   "name": "Marchosias",
+   "arabic": "مَارْكُوسِيَاس",
+   "variant": "",
+   "rank": "Marquis",
+   "office": "A strong fighter. He was of the Order of Dominations; told his chief, Solomon, that after 1,200 years he hoped to return to the Seventh Throne.",
+   "dayNight": "Day",
+   "decan": "Pisces II",
+   "shem": "35 Chavakiah",
+   "workbook": {
+    "name": "Marchosias",
+    "arabic": "مَارْكُوسِيَاس",
+    "variant": "",
+    "rank": "Marquis",
+    "office": "Strong fighter; true answers; faithful to the exorcist. Hopes to return to the Seventh Throne."
+   },
+   "rankText": "a Great and Mighty Marquis",
+   "legions": "30",
+   "appearance": "At first a wolf with gryphon's wings and a serpent's tail, vomiting fire; after a time, at the exorcist's command, he takes the shape of a man. A footnote says one badly written seventeenth-century codex might read 'Ox' for 'Wolf'; Crowley (ED.) adds that for him he always appeared as an ox, and very dazed.",
+   "source": "Mathers/Crowley, The Book of the Goetia of Solomon the King (1904)",
+   "seals": [
+    40
+   ],
+   "offerings": {
+    "offerings": [
+     "Pennyroyal (plant, symbolic)",
+     "Silver",
+     "Public praise"
+    ],
+    "incense": [
+     "Jasmine"
+    ],
+    "colours": [
+     "Violet"
+    ],
+    "classical": "Goetia: Marquis, a wolf with gryphon wings and a serpent's tail vomiting fire; a strong fighter. Told Solomon he hoped to return to the Seventh Throne after 1200 years.",
+    "timing": "Modern decan (Connolly): Mar 1-10.",
+    "notes": "Violet, jasmine and pennyroyal come from Connolly (pennyroyal is toxic, so treat it as symbolic). Public praise comes from 1 commenter. scarletarosa lists silver and dark rubies but says Marchosias rarely accepts offerings (single-source).",
+    "sources": [
+     {
+      "title": "Demon Encyclopedia: Marchosias",
+      "url": "https://demonsanddemonolatry.com/demoness-of-the-night-marquess-marchosias-night-demon/"
+     },
+     {
+      "title": "scarletarosa: Marchosias",
+      "url": "https://scarletarosa.tumblr.com/post/645319261807673344/marchosias-one-of-the-demonic-goddesses-and-is"
+     }
+    ]
+   }
+  },
+  {
+   "n": 36,
+   "name": "Stolas (Stolos)",
+   "arabic": "إِسْتُولَاس",
+   "variant": "Stolos",
+   "rank": "Prince",
+   "office": "Teaches the art of astronomy and the virtues of herbs and precious stones.",
+   "dayNight": "Day",
+   "decan": "Pisces III",
+   "shem": "36 Menadel",
+   "workbook": {
+    "name": "Stolas (Stolos)",
+    "arabic": "إِسْتُولَاس",
+    "variant": "Stolos: إِسْتُولُوس",
+    "rank": "Prince",
+    "office": "Astronomy; virtues of herbs and precious stones."
+   },
+   "etymology": "Stolos: إِسْتُولُوس",
+   "rankText": "a Great and Powerful Prince",
+   "legions": "26",
+   "appearance": "At first a mighty raven before the exorcist; afterwards the image of a man.",
+   "source": "Mathers/Crowley, The Book of the Goetia of Solomon the King (1904)",
+   "seals": [
+    41
+   ],
+   "offerings": {
+    "offerings": [
+     "Flax (plant)",
+     "Herbs",
+     "Crystals (amethyst, moonstone)",
+     "Owl figurine",
+     "Chamomile tea",
+     "Parchment / ink"
+    ],
+    "incense": [
+     "Cedar",
+     "Frankincense or myrrh",
+     "Calming incense"
+    ],
+    "colours": [
+     "Blue",
+     "Black"
+    ],
+    "classical": "Goetia: Prince appearing first as a mighty raven, then as a man; teaches astronomy and the virtues of herbs and precious stones.",
+    "timing": "Modern decan (Connolly): Mar 11-20.",
+    "notes": "Herbs and crystals have 2+ sources and match his classical office. Blue, cedar and flax come from Connolly. Owls, chamomile, ink and black candles come from scarletarosa, which says to avoid caffeine and sugar (single-source).",
+    "sources": [
+     {
+      "title": "Demon of the Day: Prince Stolas",
+      "url": "https://demonsanddemonolatry.com/demon-of-the-day-prince-stolas/"
+     },
+     {
+      "title": "scarletarosa: Stolas",
+      "url": "https://scarletarosa.tumblr.com/post/640680646679953408/one-of-the-goetic-demons-and-a-prince-who-serves"
+     },
+     {
+      "title": "Eclectic Witchcraft: Crystals to offer Stolas",
+      "url": "https://eclecticwitchcraft.com/10-crystals-to-offer-demon-stolas/"
+     }
+    ]
+   }
+  },
+  {
+   "n": 37,
+   "name": "Phenex (Pheynix)",
+   "arabic": "فِينِكْس",
+   "variant": "Pheynix",
+   "rank": "Marquis",
+   "office": "Once in human shape, speaks marvellously of all wonderful sciences if required; a good and excellent poet, willing to perform requests. Hopes to return to the Seventh Throne after 1,200 years more.",
+   "dayNight": "Night",
+   "decan": "Aries I",
+   "shem": "37 Aniel",
+   "workbook": {
+    "name": "Phenex",
+    "arabic": "فِينِكْس",
+    "variant": "Greek phoînix — Ar. فِينِيق / عَنْقَاء",
+    "rank": "Marquis",
+    "office": "All wonderful sciences; excellent poet. Hopes to return to the Seventh Throne."
+   },
+   "etymology": "Greek phoînix — Ar. فِينِيق / عَنْقَاء",
+   "rankText": "a Great Marquis",
+   "legions": "20",
+   "appearance": "Like the bird Phœnix, having the voice of a child. He sings many sweet notes before the exorcist, which the exorcist must not heed; by-and-by the exorcist must bid him put on human shape.",
+   "source": "Mathers/Crowley, The Book of the Goetia of Solomon the King (1904)",
+   "seals": [
+    42
+   ],
+   "offerings": {
+    "offerings": [
+     "poetry",
+     "music/song",
+     "artwork",
+     "roses"
+    ],
+    "incense": [
+     "frankincense",
+     "jasmine",
+     "sandalwood"
+    ],
+    "colours": [
+     "yellow",
+     "violet",
+     "red/orange"
+    ],
+    "classical": "Goetia (1904): appears like the bird Phœnix, having the voice of a child; sings many sweet notes, which the exorcist must not heed, and by-and-by is bidden to put on human shape; a good and excellent poet; hopes to return to the Seventh Throne after 1,200 years more.",
+    "timing": "Night spirit; Libra 0-4° (~Sep 23-27, Runyon scheme via BWC). Connolly/Tikaboo alt: Mar 21-30.",
+    "notes": "modern/UPG. Poetry/creative offerings consistent across BALG forum + blogs (medium). Colours/incense disagree between sources (low).",
+    "sources": [
+     {
+      "title": "Black Witch Coven - Phenex",
+      "url": "https://blackwitchcoven.com/phenex-the-37th-spirit-of-ars-goetia/"
+     },
+     {
+      "title": "BALG forum - Phenex threads",
+      "url": "https://forum.becomealivinggod.com/t/has-anyone-here-worked-with-the-demon-phenex/159700"
+     },
+     {
+      "title": "Occultist.net - Phenex",
+      "url": "https://occultist.net/phenex-demon-powers-ritual-guide/"
+     },
+     {
+      "title": "littledoomwitch Demon-A-Day: Phenex",
+      "url": "https://littledoomwitch.tumblr.com/post/61535718750/demon-a-day-phenex-phenex-marquis-color"
+     }
+    ]
+   }
+  },
+  {
+   "n": 38,
+   "name": "Halphas (Malthus)",
+   "arabic": "هَالْفَاس",
+   "variant": "Malthus, Malthas",
+   "rank": "Earl",
+   "office": "Builds up towers and furnishes them with ammunition and weapons; sends men-of-war (warriors, men-at-arms) to places appointed.",
+   "dayNight": "Night",
+   "decan": "Aries II",
+   "shem": "38 Haamiah",
+   "workbook": {
+    "name": "Halphas (Malthus)",
+    "arabic": "هَالْفَاس",
+    "variant": "Malthus: مَالْثُوس",
+    "rank": "Earl",
+    "office": "Builds towers and furnishes them with ammunition and weapons; sends men to war."
+   },
+   "etymology": "Malthus: مَالْثُوس",
+   "rankText": "a Great Earl",
+   "legions": "26",
+   "appearance": "In the form of a stock-dove, speaking with a hoarse voice.",
+   "source": "Mathers/Crowley, The Book of the Goetia of Solomon the King (1904)",
+   "seals": [
+    43
+   ],
+   "offerings": {
+    "offerings": [
+     "wind chimes"
+    ],
+    "incense": [
+     "myrrh"
+    ],
+    "colours": [],
+    "classical": "Goetia: Earl; appears as a stock-dove with a hoarse voice; builds towers, furnishes munitions, sends men-of-war.",
+    "timing": "Night spirit; Libra 5-9° (~Sep 28-Oct 2, Runyon scheme).",
+    "notes": "Little specific info. Chimes (single source, as a presence sign); myrrh single low-quality source. BALG 'Halphas offerings' thread gave no concrete items. Use rank fallback.",
+    "sources": [
+     {
+      "title": "BALG forum - Halphas offerings",
+      "url": "https://forum.becomealivinggod.com/t/halphas-offerings/177402"
+     },
+     {
+      "title": "The Esoteric Witch - Halphas",
+      "url": "https://esotericwitch.com/goetic-demons/38-halphas/"
+     }
+    ]
+   }
+  },
+  {
+   "n": 39,
+   "name": "Malphas",
+   "arabic": "مَالْفَاس",
+   "variant": "",
+   "rank": "President",
+   "office": "Builds houses and high towers; reveals enemies' desires, thoughts and deeds; gives good familiars. Receives sacrifice kindly and willingly but deceives the one who offers it.",
+   "dayNight": "Night",
+   "decan": "Aries III",
+   "shem": "39 Rehael",
+   "workbook": {
+    "name": "Malphas",
+    "arabic": "مَالْفَاس",
+    "variant": "",
+    "rank": "President",
+    "office": "Builds houses and high towers; brings artificers; destroys enemies' desires and works; familiars."
+   },
+   "rankText": "a Mighty President and Powerful",
+   "legions": "40",
+   "appearance": "At first like a crow; afterwards puts on human shape at the exorcist's request and speaks with a hoarse voice.",
+   "source": "Mathers/Crowley, The Book of the Goetia of Solomon the King (1904)",
+   "seals": [
+    44
+   ],
+   "offerings": {
+    "offerings": [
+     "red wine",
+     "cinnamon chips",
+     "black feather",
+     "red jasper",
+     "marigold"
+    ],
+    "incense": [
+     "storax",
+     "sandalwood"
+    ],
+    "colours": [
+     "orange"
+    ],
+    "classical": "Goetia (1904): 'If thou makest a Sacrifice unto him he will receive it kindly and willingly, but he will deceive him that doth it.' Appears at first like a crow, then in human shape with a hoarse voice; builds houses and high towers.",
+    "timing": "Night spirit; Libra 10-14° (~Oct 3-7, Runyon scheme).",
+    "notes": "modern/UPG. Offering list mostly from one ritual write-up (BWC; low-medium). Storax/orange = President/Mercury correspondences (littledoomwitch). Classical warning about deceit is well attested.",
+    "sources": [
+     {
+      "title": "Black Witch Coven - Malphas",
+      "url": "https://blackwitchcoven.com/malphas-the-deceitful-demon/"
+     },
+     {
+      "title": "littledoomwitch Demon-A-Day: Malphas",
+      "url": "https://littledoomwitch.tumblr.com/post/64742764811/demon-a-day-malphas-malphas-president"
+     },
+     {
+      "title": "Crazy Alchemist - Malphas",
+      "url": "https://www.crazyalchemist.com/bestiary/malphas/"
+     }
+    ]
+   }
+  },
+  {
+   "n": 40,
+   "name": "Räum",
+   "arabic": "رَاوُم",
+   "variant": "",
+   "rank": "Earl",
+   "office": "Steals treasures out of kings' houses and carries them where commanded; destroys cities and dignities of men; tells all things past, present and to come; causes love between friends and foes. Formerly of the Order of Thrones.",
+   "dayNight": "Night",
+   "decan": "Taurus I",
+   "shem": "40 Ieiazel",
+   "workbook": {
+    "name": "Raum",
+    "arabic": "رَاوُم",
+    "variant": "",
+    "rank": "Earl",
+    "office": "Steals treasure out of kings' houses; destroys cities and dignities; past, present, future; love between friends and foes."
+   },
+   "rankText": "a Great Earl",
+   "legions": "30",
+   "appearance": "At first in the form of a crow; at the exorcist's command he puts on human shape.",
+   "source": "Mathers/Crowley, The Book of the Goetia of Solomon the King (1904)",
+   "seals": [
+    45
+   ],
+   "offerings": {
+    "offerings": [
+     "gin",
+     "rum",
+     "tobacco",
+     "oysters",
+     "coins",
+     "crow/raven figures"
+    ],
+    "incense": [
+     "dragon's blood",
+     "patchouli"
+    ],
+    "colours": [
+     "black",
+     "grey",
+     "red"
+    ],
+    "classical": "Goetia (1904): Great Earl; appears at first as a crow, then puts on human shape at the exorcist's command; steals treasures out of kings' houses, destroys cities and dignities of men, tells all things past, present and to come, and causes love between friends and foes. He was of the Order of Thrones.",
+    "timing": "Night spirit; Libra 15-19° (~Oct 8-12, Runyon scheme).",
+    "notes": "modern/UPG. Long UPG list from scarletarosa (single); coins/wealth items and black candles echoed by Esoteric Witch (medium).",
+    "sources": [
+     {
+      "title": "scarletarosa - Raum",
+      "url": "https://www.tumblr.com/scarletarosa/639509450631348224/one-of-the-goetic-demons-who-serves-under-the-high"
+     },
+     {
+      "title": "The Esoteric Witch - Raum",
+      "url": "https://esotericwitch.com/goetic-demons/40-raum"
+     },
+     {
+      "title": "littledoomwitch Demon-A-Day: Raum",
+      "url": "https://www.tumblr.com/sarkos/66742837703/littledoomwitch-demon-a-day-raum-raum"
+     }
+    ]
+   }
+  },
+  {
+   "n": 41,
+   "name": "Focalor (Forcalor)",
+   "arabic": "فُوكَالُور",
+   "variant": "Forcalor, Furcalor",
+   "rank": "Duke",
+   "office": "Slays men and drowns them in the waters; overthrows ships of war, having power over both winds and seas; but will not hurt any man or thing if the exorcist commands to the contrary. Hopes to return to the Seventh Throne after 1,000 years.",
+   "dayNight": "Night",
+   "decan": "Taurus II",
+   "shem": "41 Hahahel",
+   "workbook": {
+    "name": "Focalor",
+    "arabic": "فُوكَالُور",
+    "variant": "",
+    "rank": "Duke",
+    "office": "Kills men, drowns them, overthrows ships; power over winds and seas."
+   },
+   "rankText": "a Mighty Duke and Strong",
+   "legions": "30 (Mathers' footnote: several codices give three instead of 30, but 30 is probably more correct)",
+   "appearance": "In the form of a man with gryphon's wings.",
+   "source": "Mathers/Crowley, The Book of the Goetia of Solomon the King (1904)",
+   "seals": [
+    46
+   ],
+   "offerings": {
+    "offerings": [
+     "sea/spring water",
+     "sea salt",
+     "seashells",
+     "seaweed"
+    ],
+    "incense": [
+     "oakmoss"
+    ],
+    "colours": [
+     "blue",
+     "silver",
+     "teal"
+    ],
+    "classical": "Goetia: man with gryphon wings; drowns men and overthrows warships; hopes to return to the Seventh Throne after 1,000 years.",
+    "timing": "Night spirit; Libra 20-24° (~Oct 13-17, Runyon scheme).",
+    "notes": "modern/UPG. Sea-themed offerings consistent across several blogs (medium). Oakmoss single low-quality source.",
+    "sources": [
+     {
+      "title": "The Esoteric Witch - Focalor",
+      "url": "https://esotericwitch.com/esoteric-library/goetic-demons/41-focalor"
+     },
+     {
+      "title": "Black Witch Coven - Focalor",
+      "url": "https://blackwitchcoven.com/folcalor/"
+     },
+     {
+      "title": "Occultist.net - Focalor",
+      "url": "https://occultist.net/demon-focalor-summoning-rituals/"
+     }
+    ]
+   }
+  },
+  {
+   "n": 42,
+   "name": "Vepar (Vephar)",
+   "arabic": "فِيبَار",
+   "variant": "Vephar",
+   "rank": "Duke",
+   "office": "Governs the waters and guides ships laden with arms, armour and ammunition; at request makes the seas stormy and appear full of ships; makes men die in three days of putrefying wounds or sores in which worms breed.",
+   "dayNight": "Night",
+   "decan": "Taurus III",
+   "shem": "42 Mikael",
+   "workbook": {
+    "name": "Vepar (Vephar)",
+    "arabic": "فِيبَار",
+    "variant": "Vephar: فِيفَار",
+    "rank": "Duke",
+    "office": "Governs the waters; guides ships laden with arms; storms at sea; makes wounds putrefy."
+   },
+   "etymology": "Vephar: فِيفَار",
+   "rankText": "a Duke Great and Strong",
+   "legions": "29",
+   "appearance": "Like a mermaid.",
+   "source": "Mathers/Crowley, The Book of the Goetia of Solomon the King (1904)",
+   "seals": [
+    47,
+    48
+   ],
+   "offerings": {
+    "offerings": [
+     "seawater",
+     "seashells",
+     "alcohol",
+     "licorice",
+     "coins",
+     "jewelry",
+     "star-shaped items",
+     "public proclamation"
+    ],
+    "incense": [
+     "sandalwood"
+    ],
+    "colours": [
+     "blue",
+     "silver",
+     "green"
+    ],
+    "classical": "Goetia (1904): a Duke, Great and Strong, appearing like a mermaid; governs the waters and guides ships laden with arms, armour and ammunition; at the exorcist's request makes the seas right stormy and appear full of ships; makes men die in three days of putrefying wounds or sores, causing worms to breed in them.",
+    "timing": "Night spirit; Libra 25-29° (~Oct 18-22, Runyon scheme).",
+    "notes": "modern/UPG. Order of Dark Arts list (single); sea items from Esoteric Witch; green/sandalwood = Duke/Venus correspondences (littledoomwitch). Mugwort held while chanting (single).",
+    "sources": [
+     {
+      "title": "Order of Dark Arts - Vepar",
+      "url": "https://www.theorderofdarkarts.com/blogs/news/vepar-demon"
+     },
+     {
+      "title": "The Esoteric Witch - Vepar",
+      "url": "https://esotericwitch.com/goetic-demons/42-vepar/"
+     },
+     {
+      "title": "littledoomwitch Demon-A-Day: Vepar",
+      "url": "https://littledoomwitch.tumblr.com/post/63686939185/demon-a-day-vepar-vepar-duke-color"
+     }
+    ]
+   }
+  },
+  {
+   "n": 43,
+   "name": "Sabnock (Savnok)",
+   "arabic": "سَابْنُوك",
+   "variant": "Savnok",
+   "rank": "Marquis",
+   "office": "Builds high towers, castles and cities and furnishes them with armour; afflicts men for many days with wounds and sores, rotten and full of worms; gives good familiars at the exorcist's request.",
+   "dayNight": "Night",
+   "decan": "Gemini I",
+   "shem": "43 Veuliah",
+   "workbook": {
+    "name": "Sabnock",
+    "arabic": "سَابْنُوك",
+    "variant": "",
+    "rank": "Marquis",
+    "office": "Builds high towers, castles and cities; afflicts with wounds and worms; good familiars."
+   },
+   "rankText": "a Marquis, Mighty, Great and Strong",
+   "legions": "50",
+   "appearance": "In the form of an armed soldier with a lion's head, riding on a pale-coloured horse.",
+   "source": "Mathers/Crowley, The Book of the Goetia of Solomon the King (1904)",
+   "seals": [
+    49
+   ],
+   "offerings": {
+    "offerings": [
+     "red wine",
+     "stones",
+     "building tools",
+     "medicinal herbs"
+    ],
+    "incense": [
+     "myrrh",
+     "cedar",
+     "dragon's blood"
+    ],
+    "colours": [
+     "black",
+     "silver"
+    ],
+    "classical": "Goetia: armed soldier with lion's head on a pale horse; builds towers and castles, afflicts men with wounds, gives good familiars.",
+    "timing": "Night spirit; Scorpio 0-4° (~Oct 23-27, Runyon scheme).",
+    "notes": "modern/UPG, low-medium. Mostly symbolic items from generic blog templates; myrrh appears in 2 sources.",
+    "sources": [
+     {
+      "title": "The Esoteric Witch - Sabnock",
+      "url": "https://esotericwitch.com/goetic-demons/43-sabnock/"
+     },
+     {
+      "title": "Occultist.net - Sabnock",
+      "url": "https://occultist.net/sabnock-rituals-and-powers-of-the-infernal-marquis/"
+     }
+    ]
+   }
+  },
+  {
+   "n": 44,
+   "name": "Shax (Shaz)",
+   "arabic": "شَاكْس",
+   "variant": "Shaz, Shass",
+   "rank": "Marquis",
+   "office": "At the exorcist's command takes away the sight, hearing or understanding of any man or woman; steals money out of the houses of kings and carries it again in 1,200 years; fetches horses or any other thing when commanded; discovers all hidden things not kept by wicked spirits; sometimes gives good familiars. Must first be commanded into a triangle, or he deceives and tells many lies.",
+   "dayNight": "Night",
+   "decan": "Gemini II",
+   "shem": "44 Yelahiah",
+   "workbook": {
+    "name": "Shax",
+    "arabic": "شَاكْس",
+    "variant": "",
+    "rank": "Marquis",
+    "office": "Takes away sight, hearing and understanding; steals money; fetches horses; hidden things. Lies unless in the triangle."
+   },
+   "rankText": "a Great Marquis",
+   "legions": "30",
+   "appearance": "In the form of a stock-dove, speaking with a hoarse but subtle voice.",
+   "source": "Mathers/Crowley, The Book of the Goetia of Solomon the King (1904)",
+   "seals": [
+    50
+   ],
+   "offerings": {
+    "offerings": [
+     "wine",
+     "apple",
+     "keys",
+     "feathers",
+     "coins"
+    ],
+    "incense": [
+     "sandalwood",
+     "myrrh"
+    ],
+    "colours": [
+     "grey",
+     "black"
+    ],
+    "classical": "Goetia (1904): a stock-dove with a hoarse but subtle voice; takes away sight, hearing or understanding; steals money out of kings' houses and carries it again in 1,200 years; fetches horses or any other thing when commanded; must first be commanded into the Triangle or he will deceive and tell many lies; discovers hidden things not kept by wicked spirits; sometimes gives good familiars.",
+    "timing": "Night spirit; Scorpio 5-9° (~Oct 28-Nov 1, Runyon scheme).",
+    "notes": "modern/UPG, low. Wine and apple each from single BALG posters; other items generic blog suggestions.",
+    "sources": [
+     {
+      "title": "BALG forum - Offerings for Shax",
+      "url": "https://forum.becomealivinggod.com/t/offerings-for-shax/159745"
+     },
+     {
+      "title": "The Esoteric Witch - Shax",
+      "url": "https://esotericwitch.com/esoteric-library/goetic-demons/44-shax"
+     }
+    ]
+   }
+  },
+  {
+   "n": 45,
+   "name": "Viné (Vinea)",
+   "arabic": "فِينِي",
+   "variant": "Vinea",
+   "rank": "King / Earl",
+   "office": "Discovers things hidden, witches, wizards, and things present, past and to come; at the exorcist's command builds towers, overthrows great stone walls and makes the waters rough with storms.",
+   "dayNight": "Night",
+   "decan": "Gemini III",
+   "shem": "45 Sealiah",
+   "workbook": {
+    "name": "Vine",
+    "arabic": "فِينِي",
+    "variant": "",
+    "rank": "King / Earl",
+    "office": "Hidden things; witches and wizards; past, present, future; builds towers; overthrows walls; troubles waters."
+   },
+   "rankText": "a Great King, and an Earl",
+   "legions": "36",
+   "appearance": "In the form of a lion (Mathers' note: some codices say with a lion's head), riding a black horse and bearing a viper in his hand.",
+   "source": "Mathers/Crowley, The Book of the Goetia of Solomon the King (1904)",
+   "seals": [
+    51
+   ],
+   "offerings": {
+    "offerings": [
+     "wine libation",
+     "bread",
+     "herbs",
+     "mallow",
+     "anointing oil"
+    ],
+    "incense": [
+     "frankincense",
+     "myrrh"
+    ],
+    "colours": [],
+    "classical": "Goetia: lion on a black horse holding a viper; discovers witches, builds towers, overthrows stone walls, makes waters rough.",
+    "timing": "Night spirit; Scorpio 10-14° (~Nov 2-6, Runyon scheme).",
+    "notes": "modern/UPG, low-medium. Frankincense/mallow from demonological correspondence tables (King/Sun). No reliable colour info.",
+    "sources": [
+     {
+      "title": "Delirium's Realm - Vine",
+      "url": "https://www.deliriumsrealm.com/vine/"
+     },
+     {
+      "title": "Occultist.net - Vine",
+      "url": "https://occultist.net/vine-demon-king-of-the-night/"
+     }
+    ]
+   }
+  },
+  {
+   "n": 46,
+   "name": "Bifrons (Bifröus)",
+   "arabic": "بِيفْرُونْس",
+   "variant": "Bifröus, Bifrovs",
+   "rank": "Earl",
+   "office": "Astrology, geometry and other arts and sciences; virtues of precious stones and woods; changes dead bodies and puts them in another place; lights seeming candles on graves.",
+   "dayNight": "Night",
+   "decan": "Cancer I",
+   "shem": "46 Ariel",
+   "workbook": {
+    "name": "Bifrons",
+    "arabic": "بِيفْرُونْس",
+    "variant": "Latin bifrons 'two-faced'",
+    "rank": "Earl",
+    "office": "Astrology, geometry, arts and sciences; herbs, stones, woods; moves bodies and lights candles on graves."
+   },
+   "etymology": "Latin bifrons 'two-faced'",
+   "rankText": "an Earl",
+   "legions": "6 (note: unsigned footnote, by Mathers as translator: 'Should probably be 60 instead of 6.')",
+   "appearance": "A monster; after a while, at the exorcist's command, he takes the shape of a man.",
+   "source": "Mathers/Crowley, The Book of the Goetia of Solomon the King (1904)",
+   "seals": [
+    52
+   ],
+   "offerings": {
+    "offerings": [
+     "grave candles",
+     "small gift"
+    ],
+    "incense": [
+     "frankincense",
+     "myrrh"
+    ],
+    "colours": [
+     "purple"
+    ],
+    "classical": "Goetia: appears as a monster, then at the exorcist's command in the shape of a man; teaches astrology, geometry and other arts and sciences, and the virtues of precious stones and woods; changes dead bodies and puts them in another place, and 'lighteth seeming Candles upon the Graves of the Dead'.",
+    "timing": "Night spirit; Scorpio 15-19° (~Nov 7-11, Runyon scheme).",
+    "notes": "modern/UPG, low. Candle offering ties to the classical grave-candle image. Frankincense/myrrh in 2 sources.",
+    "sources": [
+     {
+      "title": "Solitary Morrigan - Bifrons",
+      "url": "https://solitarymorrigan.co.uk/blogs/bifrons-the-demon-of-knowledge-transformation-and-hidden-wisdom"
+     },
+     {
+      "title": "World of Amulets - Bifrons",
+      "url": "https://worldofamulets.com/blogs/ars-goetia-demons/how-summoning-demon-bifrons-can-help-you-access-your-creativity-and-wisdom"
+     },
+     {
+      "title": "Black Witch Coven - Bifrons",
+      "url": "https://blackwitchcoven.com/bifrons-the-demon-that-rules-the-souls-of-the-dead/"
+     }
+    ]
+   }
+  },
+  {
+   "n": 47,
+   "name": "Uvall (Vual)",
+   "arabic": "أُوفَال",
+   "variant": "Vual, Voval",
+   "rank": "Duke",
+   "office": "Love of women; past, present, future; friendship between friends and foes.",
+   "dayNight": "Night",
+   "decan": "Cancer II",
+   "shem": "47 Asaliah",
+   "workbook": {
+    "name": "Uvall (Vual)",
+    "arabic": "أُوفَال",
+    "variant": "Vual: فُوَال",
+    "rank": "Duke",
+    "office": "Love of women; past, present, future; friendship between friends and foes."
+   },
+   "etymology": "Vual: فُوَال",
+   "rankText": "a Duke, Great, Mighty, and Strong",
+   "legions": "37",
+   "appearance": "At first a mighty dromedary; after a while, at the exorcist's command, he takes human shape and speaks the Egyptian tongue, but not perfectly. (Crowley's note: 'He can nowadays converse in sound though colloquial Coptic.')",
+   "source": "Mathers/Crowley, The Book of the Goetia of Solomon the King (1904)",
+   "seals": [
+    53,
+    54
+   ],
+   "offerings": {
+    "offerings": [
+     "red wine",
+     "written petition"
+    ],
+    "incense": [
+     "myrrh",
+     "dragon's blood",
+     "storax"
+    ],
+    "colours": [],
+    "classical": "Goetia: at first a mighty dromedary, then human shape, speaking the Egyptian tongue but not perfectly; procures the love of women, tells things past, present and to come, and procures friendship between friends and foes. Formerly of the Order of Potestates (Powers).",
+    "timing": "Night spirit; Scorpio 20-24° (~Nov 12-16, Runyon scheme).",
+    "notes": "modern/UPG, low. Wine (with a drop of blood) from one ritual write-up; incense list single-source.",
+    "sources": [
+     {
+      "title": "Occultist.net - Vual",
+      "url": "https://occultist.net/summoning-demon-vual-ritual-for-love-and-attraction/"
+     },
+     {
+      "title": "Solitary Morrigan - Vual",
+      "url": "https://solitarymorrigan.co.uk/blogs/vual-the-demon-of-influence-persuasion-and-hidden-authority"
+     }
+    ]
+   }
+  },
+  {
+   "n": 48,
+   "name": "Haagenti",
+   "arabic": "هَاغِنْتِي",
+   "variant": "",
+   "rank": "President",
+   "office": "Makes men wise and instructs them in divers things; transmutes all metals into gold; changes wine into water and water into wine.",
+   "dayNight": "Night",
+   "decan": "Cancer III",
+   "shem": "48 Mihael",
+   "workbook": {
+    "name": "Haagenti",
+    "arabic": "هَاغِنْتِي",
+    "variant": "",
+    "rank": "President",
+    "office": "Wisdom; transmutes metals into gold, wine into water and water into wine."
+   },
+   "rankText": "a President",
+   "legions": "33",
+   "appearance": "At first a mighty bull with gryphon's wings; afterwards, at the exorcist's command, human shape.",
+   "source": "Mathers/Crowley, The Book of the Goetia of Solomon the King (1904)",
+   "seals": [
+    55
+   ],
+   "offerings": {
+    "offerings": [
+     "wine",
+     "gold/coins",
+     "pink lotus"
+    ],
+    "incense": [
+     "storax",
+     "vetiver",
+     "patchouli"
+    ],
+    "colours": [
+     "orange",
+     "yellow",
+     "green"
+    ],
+    "classical": "Goetia: bull with gryphon wings; transmutes metals into gold, wine into water and water into wine.",
+    "timing": "Night spirit; Scorpio 25-29° (~Nov 17-21, Runyon). V.K. Jehannum: Jul 12-21, autumn favoured.",
+    "notes": "modern/UPG. Wine links to classical office; storax in 2 sources (medium); rest single-source.",
+    "sources": [
+     {
+      "title": "V.K. Jehannum - Haagenti",
+      "url": "https://vkjehannum.wordpress.com/2025/10/17/haagenti-goetia-48/"
+     },
+     {
+      "title": "The Esoteric Witch - Haagenti",
+      "url": "https://esotericwitch.com/goetic-demons/48-haagenti/"
+     }
+    ]
+   }
+  },
+  {
+   "n": 49,
+   "name": "Crocell (Crokel)",
+   "arabic": "كُرُوسِيل",
+   "variant": "Crokel",
+   "rank": "Duke",
+   "office": "Teaches the art of geometry and the liberal sciences; at the exorcist's command makes great noises like the rushings of many waters, although there be none; warms waters and discovers baths.",
+   "dayNight": "Night",
+   "decan": "Leo I",
+   "shem": "49 Vehuel",
+   "workbook": {
+    "name": "Crocell",
+    "arabic": "كُرُوسِيل",
+    "variant": "",
+    "rank": "Duke",
+    "office": "Geometry and liberal sciences; hidden things; warms waters and discovers baths."
+   },
+   "rankText": "a Duke Great and Strong",
+   "legions": "48",
+   "appearance": "An angel; speaks somewhat mystically of hidden things.",
+   "source": "Mathers/Crowley, The Book of the Goetia of Solomon the King (1904)",
+   "seals": [
+    56
+   ],
+   "offerings": {
+    "offerings": [
+     "fresh water",
+     "wine",
+     "mint tea",
+     "blue flowers",
+     "amethyst",
+     "music"
+    ],
+    "incense": [
+     "frankincense",
+     "sandalwood",
+     "lavender"
+    ],
+    "colours": [
+     "blue",
+     "silver"
+    ],
+    "classical": "Goetia: appears as an angel, speaking somewhat mystically of hidden things; teaches geometry and the liberal sciences; at the exorcist's command makes great noises like rushing waters where there are none; warms waters and discovers baths. Of the Order of Potestates (Powers) before his fall.",
+    "timing": "Night spirit; Sagittarius 0-4° (~Nov 22-26, Runyon scheme).",
+    "notes": "modern/UPG, medium. Water offerings consistent across 3 sources; tea/amethyst single-source.",
+    "sources": [
+     {
+      "title": "Temple of the Black Serpent - Crocell",
+      "url": "https://templeoftheblackserpent.com/crocell/"
+     },
+     {
+      "title": "Occultist.net - Crocell",
+      "url": "https://occultist.net/demon-crocell-full-ritual-summoning-guide/"
+     },
+     {
+      "title": "Solitary Morrigan - Crocell",
+      "url": "https://solitarymorrigan.co.uk/blogs/crocell-the-whisperer-of-hidden-waters-and-keeper-of-occult-knowledge"
+     }
+    ]
+   }
+  },
+  {
+   "n": 50,
+   "name": "Furcas",
+   "arabic": "فُورْكَاس",
+   "variant": "",
+   "rank": "Knight",
+   "office": "Philosophy, astrology, rhetoric, logic, cheiromancy and pyromancy, in all their parts and perfectly.",
+   "dayNight": "Night",
+   "decan": "Leo II",
+   "shem": "50 Daniel",
+   "workbook": {
+    "name": "Furcas",
+    "arabic": "فُورْكَاس",
+    "variant": "",
+    "rank": "Knight",
+    "office": "Philosophy, astronomy, rhetoric, logic, chiromancy, pyromancy."
+   },
+   "rankText": "a Knight",
+   "legions": "20",
+   "appearance": "A cruel old man with a long beard and a hoary head, riding a pale-coloured horse, with a sharp weapon in his hand.",
+   "source": "Mathers/Crowley, The Book of the Goetia of Solomon the King (1904)",
+   "seals": [
+    57
+   ],
+   "offerings": {
+    "offerings": [
+     "book or writing",
+     "written questions",
+     "century plant leaves"
+    ],
+    "incense": [
+     "myrrh"
+    ],
+    "colours": [
+     "black",
+     "orange"
+    ],
+    "classical": "Goetia: a Knight (the only spirit of that rank among the 72); a cruel old man with a long beard and a hoary head, riding a pale-coloured horse, with a sharp weapon in his hand; teaches philosophy, astrology, rhetoric, logic, cheiromancy and pyromancy, in all their parts and perfectly.",
+    "timing": "Night spirit; Sagittarius 5-9° (~Nov 27-Dec 1, Runyon scheme).",
+    "notes": "modern/UPG, low. Single ritual write-up; myrrh/black also match Knight/Saturn rank correspondences.",
+    "sources": [
+     {
+      "title": "Occultist.net - Furcas",
+      "url": "https://occultist.net/furcas-ritual-imbue-your-mind-with-demonic-insight/"
+     }
+    ]
+   }
+  },
+  {
+   "n": 51,
+   "name": "Balam (Balaam)",
+   "arabic": "بَالَام",
+   "variant": "Balaam",
+   "rank": "King",
+   "office": "Gives true answers of things past, present and to come; makes men go invisible, and also to be witty.",
+   "dayNight": "Night",
+   "decan": "Leo III",
+   "shem": "51 Hahasiah",
+   "workbook": {
+    "name": "Balam",
+    "arabic": "بَالَام",
+    "variant": "Biblical Balaam — Ar. بَلْعَام",
+    "rank": "King",
+    "office": "Past, present, future; invisibility; wit."
+   },
+   "etymology": "Biblical Balaam — Ar. بَلْعَام",
+   "rankText": "a Terrible, Great, and Powerful King",
+   "legions": "40",
+   "appearance": "Three heads (a bull's, a man's, a ram's), a serpent's tail and flaming eyes; rides a furious bear and carries a goshawk on his fist; speaks with a hoarse voice.",
+   "source": "Mathers/Crowley, The Book of the Goetia of Solomon the King (1904)",
+   "seals": [
+    58
+   ],
+   "offerings": {
+    "offerings": [
+     "gold",
+     "books/scrolls"
+    ],
+    "incense": [],
+    "colours": [
+     "gold",
+     "blue"
+    ],
+    "classical": "Goetia: three heads (bull, man, ram), serpent's tail, flaming eyes, rides a bear with a goshawk; gives true answers, makes men invisible and witty.",
+    "timing": "Night spirit; Sagittarius 10-14° (~Dec 2-6, Runyon scheme).",
+    "notes": "Little specific info (low). Use rank fallback for incense.",
+    "sources": [
+     {
+      "title": "Demons and Demonolatry - Balam",
+      "url": "https://demonsanddemonolatry.com/demon-of-the-night-king-balam-night-demon/"
+     },
+     {
+      "title": "The Esoteric Witch - Balam",
+      "url": "https://esotericwitch.com/goetic-demons/51-balam/"
+     }
+    ]
+   }
+  },
+  {
+   "n": 52,
+   "name": "Alloces (Alocas)",
+   "arabic": "أَلُّوسِيس",
+   "variant": "Alocas",
+   "rank": "Duke",
+   "office": "Teaches the art of astronomy and all the liberal sciences; brings good familiars.",
+   "dayNight": "Night",
+   "decan": "Virgo I",
+   "shem": "52 Imamiah",
+   "workbook": {
+    "name": "Alloces (Allocer)",
+    "arabic": "أَلُّوسِيس",
+    "variant": "Allocer: أَلُّوسِير",
+    "rank": "Duke",
+    "office": "Astronomy and liberal sciences; good familiars."
+   },
+   "etymology": "Allocer: أَلُّوسِير",
+   "rankText": "a Duke, Great, Mighty, and Strong",
+   "legions": "36",
+   "appearance": "A soldier (Mathers's note: 'Or Warrior') riding a great horse; his face like a lion's, very red, with flaming eyes; his speech hoarse and very big.",
+   "source": "Mathers/Crowley, The Book of the Goetia of Solomon the King (1904)",
+   "seals": [
+    59
+   ],
+   "offerings": {
+    "offerings": [
+     "food",
+     "flowers",
+     "star symbols"
+    ],
+    "incense": [
+     "sandalwood",
+     "frankincense"
+    ],
+    "colours": [
+     "red",
+     "gold"
+    ],
+    "classical": "Goetia: soldier on a great horse, lion's face very red with flaming eyes, hoarse voice; teaches astronomy and liberal sciences, gives good familiars.",
+    "timing": "Night spirit; Sagittarius 15-19° (~Dec 7-11, Runyon via BWC).",
+    "notes": "Little specific info (low); generic suggestions only.",
+    "sources": [
+     {
+      "title": "Black Witch Coven - Allocen",
+      "url": "https://blackwitchcoven.com/demons/allocen/"
+     },
+     {
+      "title": "The Esoteric Witch - Alloces",
+      "url": "https://esotericwitch.com/goetic-demons/52-alloces/"
+     }
+    ]
+   }
+  },
+  {
+   "n": 53,
+   "name": "Camio (Caïm)",
+   "arabic": "كَامِيُو",
+   "variant": "Caïm",
+   "rank": "President",
+   "office": "Understanding of all birds, the lowing of bullocks, the barking of dogs and other creatures, and the voice of the waters; true answers of things to come.",
+   "dayNight": "Night",
+   "decan": "Virgo II",
+   "shem": "53 Nanael",
+   "workbook": {
+    "name": "Camio (Caim)",
+    "arabic": "كَامِيُو",
+    "variant": "Caim: كَايِم",
+    "rank": "President",
+    "office": "Speech of birds, cattle, dogs and waters; things to come."
+   },
+   "etymology": "Caim: كَايِم",
+   "rankText": "a Great President",
+   "legions": "30",
+   "appearance": "At first a thrush; afterwards a man carrying a sharp sword in his hand; seems to answer in burning ashes or coals of fire. A good disputer.",
+   "source": "Mathers/Crowley, The Book of the Goetia of Solomon the King (1904)",
+   "seals": [
+    60
+   ],
+   "offerings": {
+    "offerings": [
+     "feathers",
+     "ink",
+     "manuscripts",
+     "divination tools"
+    ],
+    "incense": [
+     "storax"
+    ],
+    "colours": [],
+    "classical": "Goetia: first a thrush, then a man carrying a sharp sword; seems to answer in burning ashes or coals of fire; a good disputer; gives understanding of all birds, the lowing of bullocks, the barking of dogs and other creatures, and the voice of the waters; gives true answers of things to come. Formerly of the Order of Angels.",
+    "timing": "Night spirit; Sagittarius 20-24° (~Dec 12-16, Runyon scheme).",
+    "notes": "modern/UPG, low. Storax is the President/Mercury correspondence.",
+    "sources": [
+     {
+      "title": "NKH Tarot - Caim",
+      "url": "https://nkhtarot.com/blogs/hexe-and-hearth-by-nkh/caim-camio-demon-of-animal-communication-nature-and-environmental-insight"
+     },
+     {
+      "title": "Solitary Morrigan - Camio",
+      "url": "https://solitarymorrigan.co.uk/blogs/camio-the-infernal-seeker-of-hidden-knowledge"
+     }
+    ]
+   }
+  },
+  {
+   "n": 54,
+   "name": "Murmur (Murmus)",
+   "arabic": "مُورْمُور",
+   "variant": "Murmus, Murmux",
+   "rank": "Duke / Earl",
+   "office": "Philosophy; constrains souls of the dead to appear and answer.",
+   "dayNight": "Night",
+   "decan": "Virgo III",
+   "shem": "54 Nithael",
+   "workbook": {
+    "name": "Murmur",
+    "arabic": "مُورْمُور",
+    "variant": "Latin murmur",
+    "rank": "Duke / Earl",
+    "office": "Philosophy; constrains souls of the dead to appear and answer."
+   },
+   "etymology": "Latin murmur",
+   "rankText": "a Great Duke, and an Earl",
+   "legions": "30",
+   "appearance": "A warrior riding a gryphon, with a ducal crown on his head; his ministers go before him sounding great trumpets.",
+   "source": "Mathers/Crowley, The Book of the Goetia of Solomon the King (1904)",
+   "seals": [
+    61
+   ],
+   "offerings": {
+    "offerings": [
+     "rosemary",
+     "rue",
+     "oak bark",
+     "parsley"
+    ],
+    "incense": [
+     "myrrh",
+     "frankincense",
+     "sandalwood"
+    ],
+    "colours": [
+     "dark blue",
+     "green"
+    ],
+    "classical": "Goetia: a Great Duke and an Earl; a warrior riding a gryphon with a ducal crown, his ministers going before him sounding great trumpets; teaches philosophy perfectly and constrains souls deceased to come before the exorcist and answer his questions. Partly of the Order of Thrones, partly of Angels.",
+    "timing": "Night spirit; Sagittarius 25-29° (~Dec 17-21, Runyon via BWC). Dark moon, Samhain; Saturday for necromantic work (BWC).",
+    "notes": "modern/UPG, medium. Myrrh/sandalwood in 2+ sources; herb list from BWC echoed by Solitary Morrigan.",
+    "sources": [
+     {
+      "title": "Black Witch Coven - Murmur",
+      "url": "https://blackwitchcoven.com/demons/murmur/"
+     },
+     {
+      "title": "Solitary Morrigan - Murmur",
+      "url": "https://solitarymorrigan.co.uk/blogs/murmur-the-whispering-duke-of-hell"
+     }
+    ]
+   }
+  },
+  {
+   "n": 55,
+   "name": "Orobas",
+   "arabic": "أُورُوبَاس",
+   "variant": "",
+   "rank": "Prince",
+   "office": "Discovers all things past, present and to come; gives dignities and prelacies, and the favour of friends and foes; gives true answers of divinity and of the creation of the world. Very faithful to the exorcist, whom he will not suffer to be tempted by any spirit.",
+   "dayNight": "Night",
+   "decan": "Libra I",
+   "shem": "55 Mebahiah",
+   "workbook": {
+    "name": "Orobas",
+    "arabic": "أُورُوبَاس",
+    "variant": "",
+    "rank": "Prince",
+    "office": "Past, present, future; dignities and prelacies; favour of friends and foes. Faithful; will not deceive."
+   },
+   "rankText": "a Great and Mighty Prince",
+   "legions": "20",
+   "appearance": "At first like a horse; after the exorcist's command he puts on the image of a man.",
+   "source": "Mathers/Crowley, The Book of the Goetia of Solomon the King (1904)",
+   "seals": [
+    62
+   ],
+   "offerings": {
+    "offerings": [
+     "copper coins",
+     "horseshoe",
+     "fragrant flowers",
+     "chocolate cake",
+     "coffee",
+     "grains/hay"
+    ],
+    "incense": [
+     "frankincense",
+     "cedar",
+     "sandalwood"
+    ],
+    "colours": [
+     "blue",
+     "orange",
+     "gold"
+    ],
+    "classical": "Goetia: at first like a horse, then a man at the exorcist's command; tells past, present and future; 'very faithful unto the Exorcist, and will not suffer him to be tempted of any Spirit'; gives true answers of divinity and of the creation of the world.",
+    "timing": "Night spirit; Capricorn 0-4° (~Dec 22-26, Runyon via BWC). Flowers in spring/summer (scarletarosa).",
+    "notes": "modern/UPG, medium. Blue appears in 3 sources; list of foods from scarletarosa (single). Sources advise simple offerings suffice.",
+    "sources": [
+     {
+      "title": "scarletarosa - Orobas",
+      "url": "https://www.tumblr.com/scarletarosa/623479296051347456/orobas-one-of-the-goetic-demons-and-a-prince"
+     },
+     {
+      "title": "Occultist.net - Orobas",
+      "url": "https://occultist.net/demon-orobas-powers-attributes-summoning-ritual/"
+     },
+     {
+      "title": "Black Witch Coven - Orobas",
+      "url": "https://blackwitchcoven.com/demons/orobas/"
+     },
+     {
+      "title": "littledoomwitch Demon-A-Day: Orobas",
+      "url": "https://www.tumblr.com/littledoomwitch/62124901523/demon-a-day-orobas-orobas-prince-color"
+     }
+    ]
+   }
+  },
+  {
+   "n": 56,
+   "name": "Gremory (Gamori)",
+   "arabic": "غِرِيمُورِي",
+   "variant": "Gamori",
+   "rank": "Duke",
+   "office": "Tells of all things past, present and to come, and of treasures hid, and what they lie in; procures the love of women both young and old.",
+   "dayNight": "Night",
+   "decan": "Libra II",
+   "shem": "56 Poyel",
+   "workbook": {
+    "name": "Gremory (Gamori)",
+    "arabic": "غِرِيمُورِي",
+    "variant": "Gamori: غَامُورِي",
+    "rank": "Duke",
+    "office": "Past, present, future; hidden treasure; love of women, young and old."
+   },
+   "etymology": "Gamori: غَامُورِي",
+   "rankText": "a Duke Strong and Powerful",
+   "legions": "26",
+   "appearance": "A beautiful woman with a duchess's crown tied about her waist, riding a great camel.",
+   "source": "Mathers/Crowley, The Book of the Goetia of Solomon the King (1904)",
+   "seals": [
+    63
+   ],
+   "offerings": {
+    "offerings": [
+     "red wine",
+     "roses",
+     "perfume",
+     "dark chocolate",
+     "jewelry/gems",
+     "copper coins",
+     "desserts",
+     "art/poetry"
+    ],
+    "incense": [
+     "rose",
+     "sandalwood"
+    ],
+    "colours": [
+     "green",
+     "pink",
+     "orange"
+    ],
+    "classical": "Goetia: beautiful woman with a duchess's crown, riding a great camel; tells of hidden treasures; procures the love of women young and old.",
+    "timing": "Venus hour; Friday evening; waxing moon. Night spirit; Capricorn 5-9° (~Dec 27-31, BWC).",
+    "notes": "modern/UPG, high consensus. Roses/perfume/wine/chocolate reported by many sources.",
+    "sources": [
+     {
+      "title": "Black Witch Coven - Gremory",
+      "url": "https://blackwitchcoven.com/gremory-the-56th-spirit/"
+     },
+     {
+      "title": "Demons and Demonolatry - Gremory",
+      "url": "https://demonsanddemonolatry.com/demoness-of-the-night-duchess-gremory-night-demoness/"
+     },
+     {
+      "title": "Eclectic Witchcraft - Gremory",
+      "url": "https://eclecticwitchcraft.com/demon-spotlight-duchess-gremory-love-attraction-and-revealing-hidden-treasures/"
+     },
+     {
+      "title": "littledoomwitch Demon-A-Day: Gremory",
+      "url": "https://www.tumblr.com/littledoomwitch/66739997772/demon-a-day-gremory-gremory-duke-color"
+     }
+    ]
+   }
+  },
+  {
+   "n": 57,
+   "name": "Osé (Voso)",
+   "arabic": "أُوسِي",
+   "variant": "Voso, Oso",
+   "rank": "President",
+   "office": "Makes one cunning in the liberal sciences; gives true answers of divine and secret things; changes a man into any shape the exorcist pleases, so that he believes he truly is the creature or thing he is changed into.",
+   "dayNight": "Night",
+   "decan": "Libra III",
+   "shem": "57 Nemamiah",
+   "workbook": {
+    "name": "Ose (Voso)",
+    "arabic": "أُوسِي",
+    "variant": "Voso: فُوسُو",
+    "rank": "President",
+    "office": "Liberal sciences; true answers on divine and secret things; changes a man into any shape; delusion."
+   },
+   "etymology": "Voso: فُوسُو",
+   "rankText": "a Great President",
+   "legions": "3 (1904 footnote: \"Should probably be 30. For these 72 Great Spirits of the Book Goetia are all Princes and Leaders of numbers.\")",
+   "appearance": "At first like a leopard; after a little time he puts on the shape of a man.",
+   "source": "Mathers/Crowley, The Book of the Goetia of Solomon the King (1904)",
+   "seals": [
+    64
+   ],
+   "offerings": {
+    "offerings": [
+     "wine",
+     "fruity alcohol",
+     "rare meat",
+     "grape-flavoured items"
+    ],
+    "incense": [
+     "storax"
+    ],
+    "colours": [
+     "orange",
+     "purple",
+     "green"
+    ],
+    "classical": "Goetia: leopard, then man; makes one cunning in liberal sciences, answers of divine and secret things; changes a man into any shape so he believes it.",
+    "timing": "Night spirit; Capricorn 10-14° (~Jan 1-5, Runyon). BWC also gives Oct 13-22.",
+    "notes": "modern/UPG, medium. Wine in 2+ sources. Reportedly dislikes patchouli, tobacco, mint (V.K. Jehannum, single).",
+    "sources": [
+     {
+      "title": "V.K. Jehannum - Ose",
+      "url": "https://vkjehannum.wordpress.com/2025/01/09/ose-goetia-57/"
+     },
+     {
+      "title": "Black Witch Coven - Ose",
+      "url": "https://blackwitchcoven.com/demons/ose/"
+     }
+    ]
+   }
+  },
+  {
+   "n": 58,
+   "name": "Amy (Avnas)",
+   "arabic": "آمِي",
+   "variant": "Avnas",
+   "rank": "President",
+   "office": "Makes one wonderfully knowing in astrology and all the liberal sciences; gives good familiars; can bewray treasure that is kept by spirits.",
+   "dayNight": "Night",
+   "decan": "Scorpio I",
+   "shem": "58 Yeialel",
+   "workbook": {
+    "name": "Amy (Avnas)",
+    "arabic": "آمِي",
+    "variant": "Avnas: أَفْنَاس",
+    "rank": "President",
+    "office": "Astrology and liberal sciences; good familiars; treasure kept by spirits."
+   },
+   "etymology": "Avnas: أَفْنَاس",
+   "rankText": "a Great President",
+   "legions": "36",
+   "appearance": "At first a flaming fire; after a while he puts on the shape of a man.",
+   "source": "Mathers/Crowley, The Book of the Goetia of Solomon the King (1904)",
+   "seals": [
+    65
+   ],
+   "offerings": {
+    "offerings": [
+     "beer",
+     "snake skin"
+    ],
+    "incense": [
+     "musk",
+     "myrrh"
+    ],
+    "colours": [
+     "red"
+    ],
+    "classical": "Goetia: at first a flaming fire, then a man; makes one 'Wonderful Knowing' in astrology and all the liberal sciences; gives good familiars; 'can bewray Treasure that is kept by Spirits.'",
+    "timing": "Runyon scheme: night, Capricorn 15-19° (~Jan 6-10). BWC Amy page contradicts: solar/noon.",
+    "notes": "modern/UPG, low. Items mostly from single practitioners.",
+    "sources": [
+     {
+      "title": "BALG forum - Amy is very reliable",
+      "url": "https://forum.becomealivinggod.com/t/amy-or-auns-from-the-goetia-is-very-reliable/49409"
+     },
+     {
+      "title": "Black Witch Coven - Amy",
+      "url": "https://blackwitchcoven.com/demons/amy/"
+     }
+    ]
+   }
+  },
+  {
+   "n": 59,
+   "name": "Oriax (Orias)",
+   "arabic": "أُورِيَاكْس",
+   "variant": "Orias",
+   "rank": "Marquis",
+   "office": "Teaches the virtues of the stars, the mansions of the planets and how to understand their virtues; transforms men; gives dignities, prelacies and their confirmation; favour with friends and foes.",
+   "dayNight": "Night",
+   "decan": "Scorpio II",
+   "shem": "59 Harahel",
+   "workbook": {
+    "name": "Oriax (Orias)",
+    "arabic": "أُورِيَاكْس",
+    "variant": "Orias: أُورِيَاس",
+    "rank": "Marquis",
+    "office": "Virtues of the stars and planets; transforms men; dignities and confirmations; favour."
+   },
+   "etymology": "Orias: أُورِيَاس",
+   "rankText": "a Great Marquis",
+   "legions": "30",
+   "appearance": "A lion (note: or 'with the face of a lion') riding a mighty, strong horse with a serpent's tail (editor's note asks whether the tail is the horse's or the Marquis's), holding two great hissing serpents in his right hand.",
+   "source": "Mathers/Crowley, The Book of the Goetia of Solomon the King (1904)",
+   "seals": [
+    66
+   ],
+   "offerings": {
+    "offerings": [
+     "star charts",
+     "astrological charts"
+    ],
+    "incense": [],
+    "colours": [
+     "gold",
+     "purple"
+    ],
+    "classical": "Goetia: lion on a strong horse with serpent's tail, holding two hissing serpents; teaches virtues of the stars and mansions of the planets; transforms men; gives dignities.",
+    "timing": "Night spirit; Capricorn 20-24° (~Jan 11-15, Runyon scheme).",
+    "notes": "Very little specific info (low); symbolic suggestions only. Use rank fallback.",
+    "sources": [
+     {
+      "title": "The Esoteric Witch - Orias",
+      "url": "https://esotericwitch.com/esoteric-library/goetic-demons/59-orias"
+     }
+    ]
+   }
+  },
+  {
+   "n": 60,
+   "name": "Vapula (Naphula)",
+   "arabic": "فَابُولَا",
+   "variant": "Naphula",
+   "rank": "Duke",
+   "office": "Makes men knowing in all handicrafts and professions, also in philosophy and other sciences.",
+   "dayNight": "Night",
+   "decan": "Scorpio III",
+   "shem": "60 Mitzrael",
+   "workbook": {
+    "name": "Vapula (Naphula)",
+    "arabic": "فَابُولَا",
+    "variant": "Naphula: نَافُولَا",
+    "rank": "Duke",
+    "office": "Handicrafts and professions; philosophy and sciences."
+   },
+   "etymology": "Naphula: نَافُولَا",
+   "rankText": "a Duke Great, Mighty, and Strong",
+   "legions": "36",
+   "appearance": "A lion with gryphon's wings.",
+   "source": "Mathers/Crowley, The Book of the Goetia of Solomon the King (1904)",
+   "seals": [
+    67
+   ],
+   "offerings": {
+    "offerings": [
+     "tools",
+     "books",
+     "craft items",
+     "allspice",
+     "walnut"
+    ],
+    "incense": [
+     "sandalwood"
+    ],
+    "colours": [
+     "dark blue",
+     "green"
+    ],
+    "classical": "Goetia: lion with gryphon wings; makes men skilful in handicrafts, professions, philosophy and sciences.",
+    "timing": "Night spirit; Capricorn 25-29° (~Jan 16-19, BWC). BWC alt: Nov 13-22.",
+    "notes": "modern/UPG, low. Mostly BWC (single) plus generic craft-themed items.",
+    "sources": [
+     {
+      "title": "Black Witch Coven - Vapula",
+      "url": "https://blackwitchcoven.com/demons/vapula-or-naphula/"
+     },
+     {
+      "title": "The Esoteric Witch - Vapula",
+      "url": "https://esotericwitch.com/esoteric-library/goetic-demons/60-vapula"
+     }
+    ]
+   }
+  },
+  {
+   "n": 61,
+   "name": "Zagan",
+   "arabic": "زَاغَان",
+   "variant": "",
+   "rank": "King / President",
+   "office": "Makes men witty; turns wine into water, blood into wine, water into wine; turns all metals into coin of the dominion that metal is of; can make even fools wise.",
+   "dayNight": "Night",
+   "decan": "Sagittarius I",
+   "shem": "61 Umabel",
+   "workbook": {
+    "name": "Zagan",
+    "arabic": "زَاغَان",
+    "variant": "",
+    "rank": "King / President",
+    "office": "Makes men witty; turns wine into water, blood into wine, water into wine, metals into coin; makes fools wise."
+   },
+   "rankText": "a Great King and President",
+   "legions": "33",
+   "appearance": "At first a bull with gryphon's wings; after a while he puts on human shape.",
+   "source": "Mathers/Crowley, The Book of the Goetia of Solomon the King (1904)",
+   "seals": [
+    68
+   ],
+   "offerings": {
+    "offerings": [
+     "wine with silver coin",
+     "gold",
+     "vervain",
+     "hyssop",
+     "dittany of Crete"
+    ],
+    "incense": [
+     "frankincense",
+     "dragon's blood",
+     "storax"
+    ],
+    "colours": [
+     "white"
+    ],
+    "classical": "Goetia: bull with gryphon wings; makes men witty; turns wine into water, blood into wine, water into wine; metals into coin.",
+    "timing": "Night spirit; Aquarius 0-4° (~Jan 20-24, BWC).",
+    "notes": "modern/UPG, medium. Wine offering fits classical office; hyssop in 2 sources; white candle single (BWC).",
+    "sources": [
+     {
+      "title": "Clay Cyanide - Zagan",
+      "url": "https://www.claycyanide.net/demons/zagan.html"
+     },
+     {
+      "title": "Occultist.net - Zagan",
+      "url": "https://occultist.net/zagan-demon-ritual-summoning/"
+     },
+     {
+      "title": "Black Witch Coven - Zagan",
+      "url": "https://blackwitchcoven.com/demons/zagan/"
+     }
+    ]
+   }
+  },
+  {
+   "n": 62,
+   "name": "Volac (Valak)",
+   "arabic": "فُولَاك",
+   "variant": "Valak, Valu, Ualac",
+   "rank": "President",
+   "office": "Gives true answers of hidden treasures; tells where serpents may be seen, and brings them to the exorciser without any force or strength being employed by him.",
+   "dayNight": "Night",
+   "decan": "Sagittarius II",
+   "shem": "62 Iah-hel",
+   "workbook": {
+    "name": "Valac (Volac)",
+    "arabic": "فَالَاك",
+    "variant": "Volac: فُولَاك",
+    "rank": "President",
+    "office": "Hidden treasures; where serpents may be seen."
+   },
+   "etymology": "Volac: فُولَاك",
+   "rankText": "a President Mighty and Great",
+   "legions": "38",
+   "appearance": "A child with angel's wings, riding a two-headed dragon.",
+   "source": "Mathers/Crowley, The Book of the Goetia of Solomon the King (1904)",
+   "seals": [
+    69
+   ],
+   "offerings": {
+    "offerings": [
+     "coins",
+     "licorice",
+     "gin",
+     "snakeskin",
+     "sesame seeds"
+    ],
+    "incense": [],
+    "colours": [],
+    "classical": "Goetia: a child with angel's wings riding a two-headed dragon; gives true answers of hidden treasures; tells where serpents may be seen and brings them to the exorciser 'without any Force or Strength being by him employed.'",
+    "timing": "Night spirit; Aquarius 5-9° (~Jan 25-29, Runyon scheme).",
+    "notes": "modern/UPG, low. Order of Dark Arts says he dislikes blood and sexual offerings (single). Snake items fit classical image.",
+    "sources": [
+     {
+      "title": "Order of Dark Arts - Valac",
+      "url": "https://www.theorderofdarkarts.com/blogs/news/valac-demon"
+     },
+     {
+      "title": "Black Witch Coven - Valac",
+      "url": "https://blackwitchcoven.com/valac-the-demon-that-finds-hidden-treasures/"
+     }
+    ]
+   }
+  },
+  {
+   "n": 63,
+   "name": "Andras",
+   "arabic": "أَنْدَرَاس",
+   "variant": "",
+   "rank": "Marquis",
+   "office": "Sows discords. If the exorcist is not careful, he will slay both him and his fellows.",
+   "dayNight": "Night",
+   "decan": "Sagittarius III",
+   "shem": "63 Anauel",
+   "workbook": {
+    "name": "Andras",
+    "arabic": "أَنْدَرَاس",
+    "variant": "",
+    "rank": "Marquis",
+    "office": "Sows discord. Will kill the magician and assistants if not careful."
+   },
+   "rankText": "a Great Marquis",
+   "legions": "30",
+   "appearance": "An angel with a head like a black night raven, riding a strong black wolf, with a sharp, bright sword flourished aloft in his hand.",
+   "source": "Mathers/Crowley, The Book of the Goetia of Solomon the King (1904)",
+   "seals": [
+    70
+   ],
+   "offerings": {
+    "offerings": [
+     "cayenne pepper",
+     "battle/metal music",
+     "weapon symbols"
+    ],
+    "incense": [
+     "dragon's blood",
+     "patchouli",
+     "amber"
+    ],
+    "colours": [
+     "red",
+     "black",
+     "orange",
+     "teal"
+    ],
+    "classical": "Goetia: angel with raven's head on a black wolf with sharp sword; sows discord; 'if the Exorcist have not a care, he will slay both him and his fellows.'",
+    "timing": "Runyon: night, Aquarius 10-14° (~Jan 30-Feb 3). My Little Occult Shop: Dec 13-21, night hours.",
+    "notes": "modern/UPG, medium. Red/black candles in 2 sources; rest from one lecture page. Widely flagged as dangerous.",
+    "sources": [
+     {
+      "title": "My Little Occult Shop - Andras",
+      "url": "https://mylittleoccultshop.blogspot.com/p/lecture-demon-marquis-andras.html"
+     },
+     {
+      "title": "Satan and Suns - Andras",
+      "url": "https://satanandsuns.com/blog/demon-of-the-night-marquis-andras/"
+     }
+    ]
+   }
+  },
+  {
+   "n": 64,
+   "name": "Haures (Hauras)",
+   "arabic": "هَاوْرِيس",
+   "variant": "Hauras, Havres, Flauros",
+   "rank": "Duke",
+   "office": "Gives true answers of all things present, past and to come, but if he is not commanded into a triangle he lies in all these things and deceives and beguiles the exorcist. Lastly, talks of the creation of the world, of divinity, and of how he and other spirits fell. Destroys and burns up the exorcist's enemies if he so desires, and will not let him be tempted by any other spirit or otherwise.",
+   "dayNight": "Night",
+   "decan": "Capricorn I",
+   "shem": "64 Mehiel",
+   "workbook": {
+    "name": "Haures (Flauros)",
+    "arabic": "هَاوْرِيس",
+    "variant": "Flauros: فِلَاوْرُوس",
+    "rank": "Duke",
+    "office": "Past, present, future; destroys and burns enemies; true answers on divinity and the fall. Lies unless in the triangle."
+   },
+   "etymology": "Flauros: فِلَاوْرُوس",
+   "rankText": "a Great Duke",
+   "legions": "36",
+   "appearance": "At first like a leopard, mighty, terrible and strong; after a while, at the exorcist's command, he puts on human shape with eyes flaming and fiery, and a most terrible countenance.",
+   "source": "Mathers/Crowley, The Book of the Goetia of Solomon the King (1904)",
+   "seals": [
+    71
+   ],
+   "offerings": {
+    "offerings": [
+     "rum",
+     "wine",
+     "lamb",
+     "spicy food",
+     "burnt offerings"
+    ],
+    "incense": [
+     "dragon's blood",
+     "frankincense",
+     "sandalwood"
+    ],
+    "colours": [
+     "red",
+     "black",
+     "gold"
+    ],
+    "classical": "Goetia: leopard, then man with fiery eyes; lies unless in the Triangle; speaks of creation and fall of spirits; burns the exorcist's enemies; will not let him be tempted.",
+    "timing": "Runyon: night, Aquarius 15-19° (~Feb 4-8). Liber Daemon: Dec 22-30.",
+    "notes": "modern/UPG, low-medium. Food list single-source; symbolic burnt offerings from Liber Daemon. Not for beginners per sources.",
+    "sources": [
+     {
+      "title": "Liber Daemon - Haures",
+      "url": "https://leewjohnson.com/liberdaemon/haures-flauros-flereous/"
+     },
+     {
+      "title": "Occultist.net - Flauros",
+      "url": "https://occultist.net/summoning-flauros-rituals-for-protection-retaliation/"
+     }
+    ]
+   }
+  },
+  {
+   "n": 65,
+   "name": "Andrealphus",
+   "arabic": "أَنْدِرِيَالْفُوس",
+   "variant": "",
+   "rank": "Marquis",
+   "office": "Teaches geometry perfectly and makes men very subtle in it and in everything to do with mensuration or astronomy; can transform a man into the likeness of a bird.",
+   "dayNight": "Night",
+   "decan": "Capricorn II",
+   "shem": "65 Damabiah",
+   "workbook": {
+    "name": "Andrealphus",
+    "arabic": "أَنْدِرِيَالْفُوس",
+    "variant": "",
+    "rank": "Marquis",
+    "office": "Geometry and mensuration; astronomy; transforms men into birds."
+   },
+   "rankText": "a Mighty Marquis",
+   "legions": "30",
+   "appearance": "At first in the form of a peacock, with great noises; after a time he puts on human shape.",
+   "source": "Mathers/Crowley, The Book of the Goetia of Solomon the King (1904)",
+   "seals": [
+    72
+   ],
+   "offerings": {
+    "offerings": [
+     "brandy",
+     "peacock feathers",
+     "geometry items"
+    ],
+    "incense": [
+     "patchouli"
+    ],
+    "colours": [],
+    "classical": "Goetia: peacock with great noises; teaches geometry, measurement and astronomy; can turn a man into a bird.",
+    "timing": "Night spirit; Aquarius 20-24° (~Feb 9-13, Runyon scheme).",
+    "notes": "Little info (low). Brandy/patchouli single-source.",
+    "sources": [
+     {
+      "title": "Demons and Demonolatry - Andrealphus",
+      "url": "https://demonsanddemonolatry.com/demon-of-the-night-marquis-andrealphus/"
+     },
+     {
+      "title": "The Esoteric Witch - Andrealphus",
+      "url": "https://esotericwitch.com/goetic-demons/65-andrealphus/"
+     }
+    ]
+   }
+  },
+  {
+   "n": 66,
+   "name": "Cimejes (Cimeies)",
+   "arabic": "كِيمَايِس",
+   "variant": "Cimeies, Kimaris",
+   "rank": "Marquis",
+   "office": "Rules all spirits in the parts of Africa; teaches grammar, logic and rhetoric perfectly; discovers things lost or hidden, and treasures.",
+   "dayNight": "Night",
+   "decan": "Capricorn III",
+   "shem": "66 Manakel",
+   "workbook": {
+    "name": "Cimejes (Kimaris)",
+    "arabic": "كِيمَايِس",
+    "variant": "Kimaris: كِيمَارِيس",
+    "rank": "Marquis",
+    "office": "Grammar, logic, rhetoric; lost and hidden things; treasure; rules the spirits of Africa."
+   },
+   "etymology": "Kimaris: كِيمَارِيس",
+   "rankText": "a Marquis, Mighty, Great, Strong and Powerful",
+   "legions": "20",
+   "appearance": "Like a valiant warrior riding upon a goodly black horse.",
+   "source": "Mathers/Crowley, The Book of the Goetia of Solomon the King (1904)",
+   "seals": [
+    73
+   ],
+   "offerings": {
+    "offerings": [
+     "weapon/armour symbols"
+    ],
+    "incense": [],
+    "colours": [
+     "red",
+     "black"
+    ],
+    "classical": "Goetia: valiant warrior riding a goodly black horse; rules all spirits in the parts of Africa; teaches grammar, logic and rhetoric perfectly; discovers things lost or hidden, and treasures.",
+    "timing": "Night spirit; Aquarius 25-29° (~Feb 14-18, Runyon scheme).",
+    "notes": "Very little specific info (low); symbolic suggestions only. Use rank fallback.",
+    "sources": [
+     {
+      "title": "The Esoteric Witch - Cimeies",
+      "url": "https://esotericwitch.com/goetic-demons/66-cimeies/"
+     }
+    ]
+   }
+  },
+  {
+   "n": 67,
+   "name": "Amdusias (Amdukias)",
+   "arabic": "أَمْدُوسِيَاس",
+   "variant": "Amdukias",
+   "rank": "Duke",
+   "office": "Causes trumpets and all manner of musical instruments to be heard, 'but not soon or immediately'; makes trees bend and incline at the exorcist's will; gives excellent familiars.",
+   "dayNight": "Night",
+   "decan": "Aquarius I",
+   "shem": "67 Eyael",
+   "workbook": {
+    "name": "Amdusias",
+    "arabic": "أَمْدُوسِيَاس",
+    "variant": "",
+    "rank": "Duke",
+    "office": "Music heard but unseen; makes trees bend; excellent familiars."
+   },
+   "rankText": "a Duke Great and Strong",
+   "legions": "29",
+   "appearance": "At first like a unicorn; at the exorcist's request he stands before him in human shape.",
+   "source": "Mathers/Crowley, The Book of the Goetia of Solomon the King (1904)",
+   "seals": [
+    74
+   ],
+   "offerings": {
+    "offerings": [
+     "honey",
+     "sweets",
+     "music",
+     "wind instruments"
+    ],
+    "incense": [
+     "sandalwood",
+     "cinnamon"
+    ],
+    "colours": [
+     "light blue",
+     "green"
+    ],
+    "classical": "Goetia: unicorn, then human shape at the exorcist's request; causes trumpets and all manner of musical instruments to be heard 'but not soon or immediately'; makes trees bend and incline at the exorcist's will; gives excellent familiars.",
+    "timing": "Night spirit; Pisces 0-4° (~Feb 19-23, BWC).",
+    "notes": "modern/UPG, medium. Music offerings and honey in 2+ sources.",
+    "sources": [
+     {
+      "title": "Black Witch Coven - Amdusias",
+      "url": "https://blackwitchcoven.com/demons/amdusias/"
+     },
+     {
+      "title": "The Esoteric Witch - Amdusias",
+      "url": "https://esotericwitch.com/goetic-demons/67-amdusias/"
+     }
+    ]
+   }
+  },
+  {
+   "n": 68,
+   "name": "Belial",
+   "arabic": "بِيلِيَال",
+   "variant": "",
+   "rank": "King",
+   "office": "Created next after Lucifer; declares that he fell first from among the worthier sort that were before Michael and other heavenly angels. Distributes presentations and senatorships; causes favour of friends and of foes; gives excellent familiars. He must have offerings, sacrifices and gifts presented by the exorcist or he will not give true answers, and even then he does not stay one hour in the truth unless constrained by divine power.",
+   "dayNight": "Night",
+   "decan": "Aquarius II",
+   "shem": "68 Habuhiah",
+   "workbook": {
+    "name": "Belial",
+    "arabic": "بِيلِيَال",
+    "variant": "Heb. Beliyaʿal — Ar. Bible بَلِيعَال (2 Cor 6:15)",
+    "rank": "King",
+    "office": "Dignities; favour of friends and foes; excellent familiars. Requires offerings; created next after Lucifer."
+   },
+   "etymology": "Heb. Beliyaʿal — Ar. Bible بَلِيعَال (2 Cor 6:15)",
+   "rankText": "a Mighty and a Powerful King",
+   "legions": "80 (notes: Mathers suggests 30; Crowley says 50, 'at least it was in 1898')",
+   "appearance": "In the form of two beautiful angels sitting in a chariot of fire; speaks with a comely voice.",
+   "source": "Mathers/Crowley, The Book of the Goetia of Solomon the King (1904)",
+   "seals": [
+    75
+   ],
+   "offerings": {
+    "offerings": [
+     "spiced rum",
+     "dark chocolate",
+     "tobacco",
+     "berries",
+     "coffee",
+     "gold"
+    ],
+    "incense": [
+     "patchouli",
+     "dragon's blood",
+     "frankincense"
+    ],
+    "colours": [
+     "red",
+     "black"
+    ],
+    "classical": "Goetia & Pseudomonarchia (quoted words are the 1904 Goetia's): 'must have Offerings, Sacrifices and Gifts presented unto him by the Exorcist, or else he will not give True Answers'; but then he 'tarrieth not one hour in the Truth' unless constrained by Divine Power; created next after Lucifer; appears as two beautiful angels sitting in a chariot of fire.",
+    "timing": "Night spirit; Pisces 5-9° (~Feb 24-28, Runyon scheme).",
+    "notes": "modern/UPG, high. Alcohol, blood (3 BALG posters each), chocolate (2+) best attested. 'Not very picky' per BALG. Address as King Belial.",
+    "sources": [
+     {
+      "title": "BALG forum - Belial Offering",
+      "url": "https://forum.becomealivinggod.com/t/belial-offering/98053"
+     },
+     {
+      "title": "anamelesghoul - Offerings for Belial",
+      "url": "https://www.tumblr.com/anamelesghoul/168510789321/offerings-for-belial"
+     },
+     {
+      "title": "Demons and Demonolatry - Belial",
+      "url": "https://demonsanddemonolatry.com/demon-of-the-night-king-belial-night-demon/"
+     },
+     {
+      "title": "Occult World - Belial",
+      "url": "https://occult-world.com/belial/"
+     }
+    ]
+   }
+  },
+  {
+   "n": 69,
+   "name": "Decarabia",
+   "arabic": "دِيكَارَابِيَا",
+   "variant": "",
+   "rank": "Marquis",
+   "office": "Discovers the virtues of birds and precious stones; makes the likeness of all kinds of birds fly before the exorcist, singing and drinking as natural birds do.",
+   "dayNight": "Night",
+   "decan": "Aquarius III",
+   "shem": "69 Rochel",
+   "workbook": {
+    "name": "Decarabia",
+    "arabic": "دِيكَارَابِيَا",
+    "variant": "",
+    "rank": "Marquis",
+    "office": "Virtues of birds and precious stones; bird familiars."
+   },
+   "rankText": "a Great Marquis (\"being himself a Great Marquis\")",
+   "legions": "30",
+   "appearance": "At first in the form of a star in a pentacle (⛤); after, at the exorcist's command, he puts on the image of a man.",
+   "source": "Mathers/Crowley, The Book of the Goetia of Solomon the King (1904)",
+   "seals": [
+    76
+   ],
+   "offerings": {
+    "offerings": [
+     "pomegranate",
+     "berries/cherries",
+     "feathers",
+     "crystals/gems",
+     "art or song"
+    ],
+    "incense": [
+     "dragon's blood"
+    ],
+    "colours": [
+     "green",
+     "blue"
+    ],
+    "classical": "Goetia: appears at first as a star in a pentacle (⛤), then as a man; discovers the virtues of birds and precious stones; makes the likeness of all kinds of birds fly before the exorcist, singing and drinking as natural birds do.",
+    "timing": "Night spirit; Pisces 10-14° (~Mar 1-5, Runyon scheme).",
+    "notes": "modern/UPG, medium. Fruit list from Theistic Satanic Witchcraft blog (single); feathers/stones fit classical office.",
+    "sources": [
+     {
+      "title": "Theistic Satanic Witchcraft - Offerings for Decarabia",
+      "url": "https://diableriax.tumblr.com/post/169740800158/offerings-for-decarabia"
+     },
+     {
+      "title": "Solitary Morrigan - Decarabia",
+      "url": "https://solitarymorrigan.co.uk/blogs/decarabia-the-enigmatic-stardemon-of-the-goetia"
+     }
+    ]
+   }
+  },
+  {
+   "n": 70,
+   "name": "Seere (Sear)",
+   "arabic": "سِير",
+   "variant": "Sear, Seir",
+   "rank": "Prince",
+   "office": "Goes and comes; brings abundance of things to pass on a sudden; carries or re-carries anything to or from wherever wished; passes over the whole earth in the twinkling of an eye; gives a true relation of all sorts of theft, of treasure hid, and of many other things. Of an indifferent good nature and willing to do anything the exorcist desires.",
+   "dayNight": "Night",
+   "decan": "Pisces I",
+   "shem": "70 Jabamiah",
+   "workbook": {
+    "name": "Seere (Seir)",
+    "arabic": "سِير",
+    "variant": "Seir — Ar. Bible سَعِير",
+    "rank": "Prince",
+    "office": "Goes and returns in an instant; brings abundance; theft and hidden things. Good-natured; under Amaymon."
+   },
+   "etymology": "Seir — Ar. Bible سَعِير",
+   "rankText": "a Mighty Prince, and Powerful, under AMAYMON, King of the East",
+   "legions": "26",
+   "appearance": "In the form of a beautiful man riding upon a winged horse.",
+   "source": "Mathers/Crowley, The Book of the Goetia of Solomon the King (1904)",
+   "seals": [
+    77,
+    78
+   ],
+   "offerings": {
+    "offerings": [
+     "whiskey",
+     "white wine",
+     "grey/white feathers",
+     "pearls",
+     "oats",
+     "white chocolate",
+     "cigars"
+    ],
+    "incense": [],
+    "colours": [],
+    "classical": "Goetia (not in Weyer's Pseudomonarchia): Prince under Amaymon, King of the East; beautiful man on a winged horse; brings abundance of things to pass on a sudden, carries or re-carries anything anywhere, passes over the whole earth in the twinkling of an eye; tells of theft and hidden treasure; 'of an indifferent Good Nature'.",
+    "timing": "Night spirit; Pisces 15-19° (~Mar 6-10, Runyon scheme).",
+    "notes": "modern/UPG, medium. Alcohol in 2 sources; other items single-source (scarletarosa / Order of Dark Arts).",
+    "sources": [
+     {
+      "title": "scarletarosa - Seere",
+      "url": "https://scarletarosa.tumblr.com/post/618139314800525312/do-you-know-anything-about-seere"
+     },
+     {
+      "title": "Order of Dark Arts - Seere",
+      "url": "https://www.theorderofdarkarts.com/blogs/news/seere"
+     }
+    ]
+   }
+  },
+  {
+   "n": 71,
+   "name": "Dantalion",
+   "arabic": "دَانْتَالِيُون",
+   "variant": "",
+   "rank": "Duke",
+   "office": "Teaches all arts and sciences to anyone; declares the secret counsels of anyone, for he knows the thoughts of all men and women and can change them at his will; causes love; shows the likeness of any person in a vision, wherever in the world they are.",
+   "dayNight": "Night",
+   "decan": "Pisces II",
+   "shem": "71 Haiaiel",
+   "workbook": {
+    "name": "Dantalion",
+    "arabic": "دَانْتَالِيُون",
+    "variant": "",
+    "rank": "Duke",
+    "office": "All arts and sciences; secret counsels; changes thoughts; causes love; shows likenesses of any person."
+   },
+   "rankText": "a Duke Great and Mighty",
+   "legions": "36",
+   "appearance": "In the form of a man with many countenances, all men's and women's faces, with a book in his right hand.",
+   "source": "Mathers/Crowley, The Book of the Goetia of Solomon the King (1904)",
+   "seals": [
+    79
+   ],
+   "offerings": {
+    "offerings": [
+     "red wine",
+     "letters/tokens",
+     "books"
+    ],
+    "incense": [
+     "frankincense",
+     "sandalwood"
+    ],
+    "colours": [
+     "purple",
+     "green",
+     "blue"
+    ],
+    "classical": "Goetia (not in Pseudomonarchia): many faces of men and women, book in right hand; teaches arts and sciences, knows and changes thoughts, causes love.",
+    "timing": "Night spirit; Pisces 20-24° (~Mar 11-15, BWC).",
+    "notes": "modern/UPG, low-medium. Wine in 2 sources; green/sandalwood = Duke/Venus correspondence.",
+    "sources": [
+     {
+      "title": "Black Witch Coven - Dantalian",
+      "url": "https://blackwitchcoven.com/demons/dantalian/"
+     },
+     {
+      "title": "Demon-A-Day: Dantalion",
+      "url": "https://www.tumblr.com/goeticdaemons/183863429630/littledoomwitch-demon-a-day-dantalion"
+     },
+     {
+      "title": "The Esoteric Witch - Dantalion",
+      "url": "https://esotericwitch.com/esoteric-library/goetic-demons/71-dantalion"
+     }
+    ]
+   }
+  },
+  {
+   "n": 72,
+   "name": "Andromalius",
+   "arabic": "أَنْدُرُومَالِيُوس",
+   "variant": "",
+   "rank": "Earl",
+   "office": "Brings back both the thief and the stolen goods; discovers all wickedness and underhand dealing; punishes all thieves and other wicked people; discovers hidden treasures.",
+   "dayNight": "Night",
+   "decan": "Pisces III",
+   "shem": "72 Mumiah",
+   "workbook": {
+    "name": "Andromalius",
+    "arabic": "أَنْدُرُومَالِيُوس",
+    "variant": "",
+    "rank": "Earl",
+    "office": "Returns thieves and stolen goods; discovers wickedness and underhand dealing; punishes thieves; hidden treasure."
+   },
+   "rankText": "an Earl, Great and Mighty",
+   "legions": "36",
+   "appearance": "In the form of a man holding a great serpent in his hand.",
+   "source": "Mathers/Crowley, The Book of the Goetia of Solomon the King (1904)",
+   "seals": [
+    80
+   ],
+   "offerings": {
+    "offerings": [
+     "wine",
+     "bread",
+     "coins",
+     "keys/locks",
+     "mirror"
+    ],
+    "incense": [
+     "dragon's blood"
+    ],
+    "colours": [
+     "red",
+     "black",
+     "indigo"
+    ],
+    "classical": "Goetia (not in Pseudomonarchia): man holding a great serpent; brings back thieves and stolen goods, exposes wickedness, finds hidden treasures.",
+    "timing": "Night spirit; Pisces 25-29° (~Mar 16-20, BWC). Jupiter hour for money work (BWC).",
+    "notes": "modern/UPG, low-medium. Red candle in 2 sources; rest single-source.",
+    "sources": [
+     {
+      "title": "Black Witch Coven - Andromalius",
+      "url": "https://blackwitchcoven.com/demons/andromalius/"
+     },
+     {
+      "title": "The Esoteric Witch - Andromalius",
+      "url": "https://esotericwitch.com/esoteric-library/goetic-demons/72-andromalius"
+     }
+    ]
+   }
+  }
+ ],
+ "ranks": {
+  "King": {
+   "planet": "Sun",
+   "metal": "Gold",
+   "pen": {
+    "code": "MC003",
+    "label": "MC003 Gold"
+   },
+   "alt": {
+    "code": "MC026",
+    "label": "MC026 Amber gold"
+   },
+   "gd": {
+    "code": "MC003",
+    "label": "MC003 Gold (yellow)"
+   }
+  },
+  "Duke": {
+   "planet": "Venus",
+   "metal": "Copper",
+   "pen": {
+    "code": "MC022",
+    "label": "MC022 Copper"
+   },
+   "alt": {
+    "code": "MC027",
+    "label": "MC027 Light copper (brighter on black)"
+   },
+   "gd": {
+    "code": "MC040",
+    "label": "MC040 Green"
+   }
+  },
+  "Prince": {
+   "planet": "Jupiter",
+   "metal": "Tin",
+   "pen": {
+    "code": "MC012",
+    "label": "MC012 Ice blue silver"
+   },
+   "alt": {
+    "code": "MC024",
+    "label": "MC024 Pearl white"
+   },
+   "gd": {
+    "code": "MC010",
+    "label": "MC010 Royal blue"
+   }
+  },
+  "Marquis": {
+   "planet": "Moon",
+   "metal": "Silver",
+   "pen": {
+    "code": "MC036",
+    "label": "MC036 Silver"
+   },
+   "alt": {
+    "code": "MC031",
+    "label": "MC031 Silver gray"
+   },
+   "gd": {
+    "code": "MC024",
+    "label": "MC024 Pearl white"
+   }
+  },
+  "President": {
+   "planet": "Mercury",
+   "metal": "Mercury (quicksilver)",
+   "pen": {
+    "code": "MC024",
+    "label": "MC024 Pearl white"
+   },
+   "alt": {
+    "code": "MC043",
+    "label": "MC043 Silver blue-green"
+   },
+   "gd": {
+    "code": "MC014",
+    "label": "MC014 Orange"
+   }
+  },
+  "Earl": {
+   "planet": "Mars",
+   "metal": "Copper + silver",
+   "pen": {
+    "code": "MC001",
+    "label": "MC001 Rose gold"
+   },
+   "alt": {
+    "code": "MC023",
+    "label": "MC023 Bronze"
+   },
+   "gd": {
+    "code": "MC033",
+    "label": "MC033 Red"
+   }
+  },
+  "Knight": {
+   "planet": "Saturn",
+   "metal": "Lead",
+   "pen": {
+    "code": "MC020",
+    "label": "MC020 Gunmetal"
+   },
+   "alt": {
+    "code": "MC031",
+    "label": "MC031 Silver gray"
+   },
+   "gd": {
+    "code": "MC020",
+    "label": "MC020 Gunmetal (no black in set)"
+   }
+  }
+ },
+ "pens": {
+  "MC001": {
+   "name": "Rose gold",
+   "family": "Copper / bronze",
+   "hex": "#C48A74",
+   "notes": "Pinkish copper"
+  },
+  "MC002": {
+   "name": "Champagne gold",
+   "family": "Gold",
+   "hex": "#C9B37A",
+   "notes": "Pale gold, slightly greenish"
+  },
+  "MC003": {
+   "name": "Gold",
+   "family": "Gold",
+   "hex": "#D4AF37",
+   "notes": "Classic yellow gold; brightest gold in the set"
+  },
+  "MC004": {
+   "name": "Mustard gold",
+   "family": "Gold",
+   "hex": "#BCB35A",
+   "notes": "Yellow gold with a green tint"
+  },
+  "MC005": {
+   "name": "Olive green",
+   "family": "Green",
+   "hex": "#8A944A",
+   "notes": "Yellow-green olive"
+  },
+  "MC006": {
+   "name": "Mint teal",
+   "family": "Green / teal",
+   "hex": "#8AAFAF",
+   "notes": "Box chart shows dark teal; cap is pale mint"
+  },
+  "MC007": {
+   "name": "Aqua",
+   "family": "Blue",
+   "hex": "#8ABFD0",
+   "notes": "Light cyan / ice blue"
+  },
+  "MC008": {
+   "name": "Sea green",
+   "family": "Green / teal",
+   "hex": "#7FAF9A",
+   "notes": "Mint green"
+  },
+  "MC009": {
+   "name": "Turquoise blue",
+   "family": "Blue",
+   "hex": "#4A7A94",
+   "notes": "Blue leaning teal"
+  },
+  "MC010": {
+   "name": "Royal blue",
+   "family": "Blue",
+   "hex": "#2F6EBF",
+   "notes": "Bright true blue"
+  },
+  "MC011": {
+   "name": "Periwinkle blue",
+   "family": "Blue",
+   "hex": "#7A8CC8",
+   "notes": "Blue-violet; box chart shows it as navy"
+  },
+  "MC012": {
+   "name": "Ice blue silver",
+   "family": "Silver / gray",
+   "hex": "#8A9EB8",
+   "notes": "Light steel blue; reads as bluish silver"
+  },
+  "MC013": {
+   "name": "Pink",
+   "family": "Pink / red",
+   "hex": "#C48CA0",
+   "notes": "Rose pink"
+  },
+  "MC014": {
+   "name": "Orange",
+   "family": "Orange",
+   "hex": "#C87A3A",
+   "notes": "Bright orange"
+  },
+  "MC015": {
+   "name": "Coral",
+   "family": "Pink / red",
+   "hex": "#CC6A5A",
+   "notes": "Red-orange"
+  },
+  "MC016": {
+   "name": "Magenta",
+   "family": "Pink / red",
+   "hex": "#B0507A",
+   "notes": "Fuchsia / deep pink"
+  },
+  "MC017": {
+   "name": "Orchid",
+   "family": "Purple",
+   "hex": "#A070A0",
+   "notes": "Mauve purple"
+  },
+  "MC018": {
+   "name": "Plum",
+   "family": "Purple",
+   "hex": "#A05A90",
+   "notes": "Berry / magenta-purple"
+  },
+  "MC019": {
+   "name": "Lavender blue",
+   "family": "Purple",
+   "hex": "#7070B0",
+   "notes": "Periwinkle violet"
+  },
+  "MC020": {
+   "name": "Gunmetal",
+   "family": "Silver / gray",
+   "hex": "#4A4A4E",
+   "notes": "Dark charcoal; darkest pen in the set"
+  },
+  "MC021": {
+   "name": "Dark bronze",
+   "family": "Copper / bronze",
+   "hex": "#6E5C55",
+   "notes": "Brown-gray taupe"
+  },
+  "MC022": {
+   "name": "Copper",
+   "family": "Copper / bronze",
+   "hex": "#8E5A45",
+   "notes": "True reddish copper"
+  },
+  "MC023": {
+   "name": "Bronze",
+   "family": "Copper / bronze",
+   "hex": "#B08A65",
+   "notes": "Light bronze / caramel"
+  },
+  "MC024": {
+   "name": "Pearl white",
+   "family": "Silver / gray",
+   "hex": "#B8BCC0",
+   "notes": "Brightest silver-white in the set"
+  },
+  "MC025": {
+   "name": "Pale gold",
+   "family": "Gold",
+   "hex": "#A99A6B",
+   "notes": "Muted khaki gold"
+  },
+  "MC026": {
+   "name": "Amber gold",
+   "family": "Gold",
+   "hex": "#D2A84E",
+   "notes": "Warm orange-gold"
+  },
+  "MC027": {
+   "name": "Light copper",
+   "family": "Copper / bronze",
+   "hex": "#B98A4F",
+   "notes": "Orange-gold copper; brighter than MC022"
+  },
+  "MC028": {
+   "name": "Orange copper",
+   "family": "Copper / bronze",
+   "hex": "#BC7F3A",
+   "notes": "Burnt orange"
+  },
+  "MC029": {
+   "name": "Caramel bronze",
+   "family": "Copper / bronze",
+   "hex": "#A0703A",
+   "notes": "Brown-orange"
+  },
+  "MC030": {
+   "name": "Antique gold",
+   "family": "Gold",
+   "hex": "#9A7F4A",
+   "notes": "Dark brownish gold"
+  },
+  "MC031": {
+   "name": "Silver gray",
+   "family": "Silver / gray",
+   "hex": "#8A8A88",
+   "notes": "Slightly darker, warmer than MC036"
+  },
+  "MC032": {
+   "name": "Rose red",
+   "family": "Pink / red",
+   "hex": "#B5556A",
+   "notes": "Raspberry; box chart shows maroon"
+  },
+  "MC033": {
+   "name": "Red",
+   "family": "Pink / red",
+   "hex": "#B04A4A",
+   "notes": "Truest red in the set"
+  },
+  "MC034": {
+   "name": "Dusty rose",
+   "family": "Pink / red",
+   "hex": "#B57070",
+   "notes": "Muted red-pink"
+  },
+  "MC035": {
+   "name": "Pearl lilac",
+   "family": "Silver / gray",
+   "hex": "#B0A8B4",
+   "notes": "Very pale purple-gray silver"
+  },
+  "MC036": {
+   "name": "Silver",
+   "family": "Silver / gray",
+   "hex": "#9A9A98",
+   "notes": "Neutral silver"
+  },
+  "MC037": {
+   "name": "Khaki",
+   "family": "Green",
+   "hex": "#9A9A78",
+   "notes": "Olive-champagne"
+  },
+  "MC038": {
+   "name": "Yellow-green",
+   "family": "Green",
+   "hex": "#9EA355",
+   "notes": "Lime olive (box chart only)"
+  },
+  "MC039": {
+   "name": "Lime gold",
+   "family": "Green",
+   "hex": "#9A9448",
+   "notes": "Yellowish lime (box chart only)"
+  },
+  "MC040": {
+   "name": "Green",
+   "family": "Green",
+   "hex": "#6A9A7A",
+   "notes": "Jade / grass green"
+  },
+  "MC041": {
+   "name": "Emerald",
+   "family": "Green / teal",
+   "hex": "#4A7C74",
+   "notes": "Deep green-teal"
+  },
+  "MC042": {
+   "name": "Sage",
+   "family": "Green",
+   "hex": "#A8C0B8",
+   "notes": "Pale gray-green"
+  },
+  "MC043": {
+   "name": "Silver blue-green",
+   "family": "Silver / gray",
+   "hex": "#9AB4C0",
+   "notes": "Pale gray-teal silver"
+  },
+  "MC044": {
+   "name": "Steel blue",
+   "family": "Blue",
+   "hex": "#3F6CA0",
+   "notes": "Medium blue, grayer than MC010"
+  },
+  "MC045": {
+   "name": "Violet",
+   "family": "Purple",
+   "hex": "#6A4A88",
+   "notes": "Blue-purple"
+  },
+  "MC046": {
+   "name": "Indigo",
+   "family": "Purple",
+   "hex": "#4A4A88",
+   "notes": "Dark blue-violet"
+  },
+  "MC047": {
+   "name": "Purple",
+   "family": "Purple",
+   "hex": "#8A5A9A",
+   "notes": "Violet-magenta"
+  },
+  "MC048": {
+   "name": "Lilac",
+   "family": "Purple",
+   "hex": "#A080B0",
+   "notes": "Light purple; box chart shows it dark gray"
+  }
+ },
+ "offeringsGeneral": {
+  "rankHoursQuote": "And the Chief Kings may be bound from 9 till 12 o'clock at Noon, and from 3 till Sunset; Marquises may be bound from 3 in the afternoon till 9 at Night, and from 9 at Night till Sunrise; Dukes may be bound from Sunrise till Noonday in Clear Weather; Prelates may be bound any hour of the Day; Knights may from Dawning of Day till Sunrise, or from 4 o'clock till Sunset; Presidents may be bound any time, excepting Twilight, at Night, unless the King whom they are under be Invocated; and Counties or Earls any hour of the Day, so it be in Woods, or in any other places whither men resort not, or where no noise is, etc.",
+  "rankHoursQuoteManuscript": "The chife [chief] kings may be bound from 9 to 12 of ye Clock at noone & from 3 till sunset. Marquizes may be bound from 3 of ye Clock in ye after Noon till nine at night and from 9 at nt [night] till sunrising. Dukes may be bound from sunrising till Noonday in clear weather. Prelates may be bound in any hour of the day. Knights may be bound from ye dawning of ye day till sunrising or from four of ye Clock till sunset. Presidents may be bound in any hour of ye day, Excepting Twilight, at Night, or [if] the king whome he is under, be also Invocated &c. Counts or Earles may be bound in any hour of the day so [if] it be in woods or any other place where Men resort Not, or where No Noise is &c.",
+  "rankHoursSource": {
+   "title": "The Goetia, ed. S. L. MacGregor Mathers / A. Crowley (1904), commentary after spirit 68 (Belial) section on the four Kings of the cardinal points; manuscript wording from J. H. Peterson's transcription of the Lemegeton (Sloane 3825), Esoteric Archives",
+   "url": "https://www.esotericarchives.com/solomon/goetia.htm"
+  },
+  "ranks": {
+   "King": {
+    "planet": "Sun",
+    "metal": "Gold",
+    "day": "Sunday",
+    "hours": "Chief Kings may be bound from 9 till 12 o'clock at noon, and from 3 till sunset.",
+    "hoursWindows": [
+     {
+      "start": "09:00",
+      "end": "12:00"
+     },
+     {
+      "start": "15:00",
+      "end": "sunset"
+     }
+    ],
+    "place": "No special place stated. The four Kings of the cardinal points (Amaymon, Corson, Ziminiar, Goap) are only to be called on great occasions; otherwise they are invoked to send spirits under them.",
+    "incense": [
+     "Frankincense/olibanum",
+     "Saffron",
+     "Ambergris",
+     "Musk",
+     "Lignum aloes",
+     "Balsam",
+     "Bay/laurel fruit",
+     "Cloves",
+     "Myrrh",
+     "Mastic",
+     "Cinnamon (777)",
+     "Red sanders (Heptameron, Sunday)"
+    ],
+    "colours": [
+     "Gold",
+     "Yellow",
+     "Saffron",
+     "Orange (Golden Dawn King scale for Sol)"
+    ],
+    "offerings": [
+     "Frankincense",
+     "Gold-coloured candles",
+     "Wine",
+     "Honey",
+     "Oranges/citrus",
+     "Sunflowers/marigolds",
+     "Formal courtesy and praise"
+    ],
+    "notes": "Classical: Belial 'must have Offerings, Sacrifices and Gifts' or he will not answer truly, and Paimon called alone requires 'some offering'. Beleth must be received courteously and done homage 'because he is a great King'. The Goetia has a Hazel Wand and silver ring for Beleth (and for Purson/Amaymon). The offerings list is modern and solar in theme."
+   },
+   "Duke": {
+    "planet": "Venus",
+    "metal": "Copper",
+    "day": "Friday",
+    "hours": "Dukes may be bound from sunrise till noonday in clear weather.",
+    "hoursWindows": [
+     {
+      "start": "sunrise",
+      "end": "12:00"
+     }
+    ],
+    "place": "No place stated; the condition is clear weather.",
+    "incense": [
+     "Musk",
+     "Ambergris",
+     "Lignum aloes",
+     "Red roses",
+     "Violets",
+     "Saffron",
+     "Pepperwort/costus (Heptameron, Friday)",
+     "Sandalwood, myrtle (777)",
+     "Benzoin, rose, red sandal (777, Netzach)"
+    ],
+    "colours": [
+     "Green",
+     "Emerald green (Golden Dawn King scale)",
+     "Rose/pink",
+     "White/ruddy mixes (Agrippa)"
+    ],
+    "offerings": [
+     "Roses and other flowers",
+     "Perfume",
+     "Sweets, chocolate, honey",
+     "Sweet wine",
+     "Music, art, poetry",
+     "Green or pink candles"
+    ],
+    "notes": "The Goetia gives no offering rule for Dukes as a class. The offerings are modern Venusian conventions."
+   },
+   "Prince": {
+    "planet": "Jupiter",
+    "metal": "Tin",
+    "day": "Thursday",
+    "hours": "Prelates may be bound any hour of the day.",
+    "hoursWindows": [
+     {
+      "start": "sunrise",
+      "end": "sunset"
+     }
+    ],
+    "place": "No place stated.",
+    "incense": [
+     "Saffron (Heptameron, Thursday; 777)",
+     "Storax",
+     "Benzoin",
+     "Lignum aloes",
+     "Ash seed",
+     "Nutmeg, cloves (Agrippa: odoriferous fruits)",
+     "Cedar (777, Chesed)"
+    ],
+    "colours": [
+     "Blue",
+     "Violet (Golden Dawn King scale)",
+     "Purple",
+     "Sapphire/sky blue (Agrippa)"
+    ],
+    "offerings": [
+     "Cedar or saffron incense",
+     "Fine wine",
+     "Rich, generous food",
+     "Blue/purple candles",
+     "Charitable donation in the spirit's name"
+    ],
+    "notes": "The text says 'Prelates', and Mathers notes that 'Prince' and 'Prelate' are 'apparently used as interchangeable terms'. His rank list gives Princes/Prelates seals in tin. The offerings are modern Jovian conventions."
+   },
+   "Marquis": {
+    "planet": "Moon",
+    "metal": "Silver",
+    "day": "Monday",
+    "hours": "Marquises may be bound from 3 in the afternoon till 9 at night, and from 9 at night till sunrise.",
+    "hoursWindows": [
+     {
+      "start": "15:00",
+      "end": "21:00"
+     },
+     {
+      "start": "21:00",
+      "end": "sunrise"
+     }
+    ],
+    "place": "No place stated.",
+    "incense": [
+     "Aloes (Heptameron, Monday)",
+     "Camphor",
+     "White poppy seed",
+     "Frankincense",
+     "Myrtle and bay leaves (Agrippa: leaves)",
+     "Jasmine (777, Yesod)"
+    ],
+    "colours": [
+     "Silver",
+     "White",
+     "Blue (Golden Dawn King scale for Luna)",
+     "Violet (Yesod)"
+    ],
+    "offerings": [
+     "Clean water",
+     "Milk",
+     "White flowers",
+     "Jasmine",
+     "White or silver candles",
+     "Silver items"
+    ],
+    "notes": "These are the only rank whose hours run through the night. The offerings are modern lunar conventions."
+   },
+   "President": {
+    "planet": "Mercury",
+    "metal": "Quicksilver (mercury)",
+    "day": "Wednesday",
+    "hours": "Presidents may be bound any time, excepting twilight, at night, unless the King whom they are under be invocated. (Manuscript: 'any hour of ye day, Excepting Twilight, at Night...')",
+    "hoursWindows": [
+     {
+      "start": "sunrise",
+      "end": "sunset"
+     }
+    ],
+    "place": "No place stated.",
+    "incense": [
+     "Mastic (Heptameron, Wednesday; Agrippa)",
+     "Frankincense",
+     "Cloves",
+     "Cinquefoil",
+     "Cinnamon, cassia, mace, citron peel (Agrippa: peels)",
+     "Storax, white sandal, nutmeg (777)"
+    ],
+    "colours": [
+     "Yellow (Golden Dawn King scale)",
+     "Orange (Hod)",
+     "Mixed/multicolour"
+    ],
+    "offerings": [
+     "Storax or mastic incense",
+     "Written praise or a published write-up",
+     "Coins",
+     "Orange/yellow candles",
+     "Study or teaching done in the spirit's name"
+    ],
+    "notes": "Twilight is excluded, and night is excluded unless the ruling King is also invoked. The mercury metal is impractical and toxic. Peterson suggests electrum, and Mathers suggested silver+mercury or copper+silver alloys. The offerings are modern Mercurial conventions."
+   },
+   "Earl": {
+    "planet": "Mars",
+    "metal": "Copper and silver equally (text); iron suggested by Mathers",
+    "day": "Tuesday",
+    "hours": "Counts or Earls may be bound any hour of the day, so it be in woods, or in any other places whither men resort not, or where no noise is.",
+    "hoursWindows": [
+     {
+      "start": "sunrise",
+      "end": "sunset"
+     }
+    ],
+    "place": "Woods or forests, or any place where people do not go, or where there is no noise.",
+    "incense": [
+     "Pepper (Heptameron, Tuesday; 777)",
+     "Dragon's blood (777)",
+     "Euphorbium, bdellium, gum ammoniac, sulphur (Agrippa)",
+     "Sandalwood, cypress, lignum aloes (Agrippa: odoriferous woods)",
+     "Tobacco (777, Geburah)"
+    ],
+    "colours": [
+     "Red",
+     "Scarlet (Golden Dawn King scale)",
+     "Fiery/iron colours (Agrippa)"
+    ],
+    "offerings": [
+     "Dragon's blood or pepper incense",
+     "Strong spirits (e.g. whisky, rum)",
+     "Tobacco",
+     "Red candles",
+     "Physical effort or exercise dedicated to the spirit"
+    ],
+    "notes": "The Goetia gives Earls copper+silver, not a Mars metal. Mathers wrote that Earls' seals 'should probably' be iron so Mars is not excluded, and the Mars attribution comes from that. The offerings are modern Martial conventions."
+   },
+   "Knight": {
+    "planet": "Saturn",
+    "metal": "Lead",
+    "day": "Saturday",
+    "hours": "Knights may be bound from dawning of day till sunrise, or from 4 o'clock till sunset.",
+    "hoursWindows": [
+     {
+      "start": "dawn",
+      "end": "sunrise"
+     },
+     {
+      "start": "16:00",
+      "end": "sunset"
+     }
+    ],
+    "place": "No place stated.",
+    "incense": [
+     "Sulphur (Heptameron, Saturday)",
+     "Myrrh",
+     "Black poppy seed, henbane, mandrake root (Agrippa; toxic, not for burning)",
+     "Pepperwort root (Agrippa: odoriferous roots)",
+     "Assafoetida, scammony, indigo, sulphur (777: 'all Evil Odours')",
+     "Civet/myrrh (777, Binah)"
+    ],
+    "colours": [
+     "Black",
+     "Indigo (Golden Dawn King scale)",
+     "Lead/dark grey",
+     "Brown (Agrippa)"
+    ],
+    "offerings": [
+     "Myrrh",
+     "Black candles",
+     "Dark red wine or strong coffee",
+     "Salt",
+     "Silence, fasting or disciplined work"
+    ],
+    "notes": "Furcas is the only Knight. Henbane, mandrake and some 777 Saturn items are poisonous or foul. The app should present them as historical data only and suggest myrrh instead. The offerings are modern Saturnian conventions."
+   }
+  },
+  "general": {
+   "classical": "The Goetia's method is compulsion: conjurations, constraints, curses, seals worn as lamens, and the Brass Vessel. It does not prescribe offerings as a general rule. The exceptions are Belial ('must have Offerings, Sacrifices and Gifts presented unto him by the Exorcist, or else he will not give True Answers') and Paimon ('if thou callest this Spirit Paimon alone, thou must make him some offering'). Malphas is a warning: he receives sacrifices 'kindly and willingly' but will deceive the one who makes them. Beleth must be received courteously and done homage. Neighbouring grimoires go further: the Grand Grimoire's pact with Lucifuge Rofocale demands a coin each month, and the Grimoire of Pope Honorius involves sacrificing a black cock.",
+   "modern": "Modern practitioners broadly treat offerings as relationship-building or as payment for a completed task. Common offerings are incense, candles, alcohol, water, food (sweets, bread, honey, fruit), music, art, written praise, public thanks and charity. Aaron Leitch advises small offerings to attract a spirit and full payment only after results. He warns against paying unvetted or deceptive spirits up front (he cites Malphas). Many writers stress promising only what you can actually give. Blood offerings are controversial: some demonolatry currents use a few drops, while most Solomonic-leaning sources and sites like Goetic Impressions advise against them.",
+   "disposal": "Classical sources say nothing on disposal. A common modern rule is to remove perishable food and drink after about a day, or once it has visibly 'been taken'. Then bury it, leave it at a crossroads or in nature (if it is biodegradable and safe for wildlife), pour liquids onto earth, or compost it, rather than throwing it in household trash. Candles and incense are usually left to burn out, with remains buried or discarded respectfully.",
+   "timingAdvice": "The Goetia itself says to observe the Moon's age: 'The best days be when the Moon Luna is 2, 4, 6, 8, 10, 12, or 14 days old... and no other days be profitable.' That is even days of the waxing moon, alongside the rank hours above. Modern practice adds the planetary day and planetary hour of the rank's planet (e.g. a King on Sunday in a Sun hour) and a waxing moon for constructive aims. Another modern option uses the Golden Dawn / 777 decan attributions, where spirits 1-36 are day spirits and 37-72 night spirits across the 36 decans; many practitioners work when the Sun is in the spirit's decan or 5-degree quinance.",
+   "cautions": "Agrippa's planetary fumes include animal brains and blood, and Saturnian recipes include poisonous henbane, mandrake and black poppy. Treat these as historical data and do not burn or offer them. Quicksilver is toxic, so use electrum or plated metal for Presidents' seals. Alcohol, flame and incense safety apply. Rank-to-planet-to-day links beyond the metals are later inference, not stated outright in the Goetia."
+  },
+  "sources": [
+   {
+    "title": "Lemegeton / Goetia, transcription and notes by Joseph H. Peterson (Esoteric Archives) - rank hours, Moon-age rule, seal metals, Belial/Paimon/Malphas/Beleth passages",
+    "url": "https://www.esotericarchives.com/solomon/goetia.htm",
+    "kind": "primary"
+   },
+   {
+    "title": "The Goetia, ed. Mathers/Crowley 1904 (text copy incl. 'Classified List of the 72 Chief Spirits... According to Respective Rank' and Mathers' metal note)",
+    "url": "https://vbook.pub/documents/lemegeton-ge2x3lm30120",
+    "kind": "primary"
+   },
+   {
+    "title": "H. C. Agrippa, Three Books of Occult Philosophy, Book I ch. 44 'The Composition of some fumes appropriated to the Planets' (Peterson ed.)",
+    "url": "https://www.esotericarchives.com/agrippa/agripp1b.htm",
+    "kind": "primary"
+   },
+   {
+    "title": "H. C. Agrippa, Three Books of Occult Philosophy, Book I ch. 49 'Of Light, Colours...' (planetary colours)",
+    "url": "https://www.esotericarchives.com/agrippa/agripp1c.htm",
+    "kind": "primary"
+   },
+   {
+    "title": "Heptameron, or Magical Elements (ps.-Peter de Abano), daily perfumes (Peterson ed.)",
+    "url": "https://www.esotericarchives.com/solomon/heptamer.htm",
+    "kind": "primary"
+   },
+   {
+    "title": "A. Crowley, Liber 777, Column XLII Perfumes (via Thelemapedia)",
+    "url": "http://www.thelemapedia.org/index.php/Tree_of_Life:Perfumes",
+    "kind": "primary"
+   },
+   {
+    "title": "Grand Grimoire (Wikipedia overview; Lucifuge Rofocale pact)",
+    "url": "https://en.wikipedia.org/wiki/Grand_Grimoire",
+    "kind": "primary"
+   },
+   {
+    "title": "The Grimoire of Pope Honorius (Wikipedia overview)",
+    "url": "https://en.wikipedia.org/wiki/The_Grimoire_of_Pope_Honorius",
+    "kind": "primary"
+   },
+   {
+    "title": "S. Skinner & D. Rankine, The Goetia of Dr Rudd (Golden Hoard, 2007) - Shem ha-Mephorash angels as binding angels",
+    "url": "https://www.goodreads.com/book/show/1657415.The_Goetia_of_Dr_Rudd",
+    "kind": "modern"
+   },
+   {
+    "title": "Aaron Leitch, 'When NOT to Make Offerings', Llewellyn blog (2016)",
+    "url": "https://www.llewellyn.com/blog/2016/06/when-not-to-make-offerings/",
+    "kind": "modern"
+   },
+   {
+    "title": "Goetic Impressions, 'Ars Goetia: Goetic Correspondence Guide'",
+    "url": "https://goeticimpressions.com/blogs/goetia/ars-goetia-goetic-correspondence-guide",
+    "kind": "modern"
+   },
+   {
+    "title": "Goetic Impressions, 'Introduction to Goetia - 101 Course' (offerings, disposal, blood caution)",
+    "url": "https://goeticimpressions.com/blogs/goetia/goetia-101-course",
+    "kind": "modern"
+   },
+   {
+    "title": "Black Witch Coven, 'Goetia Demon Ranks' (rank-to-day table)",
+    "url": "https://blackwitchcoven.com.au/student-resources/daemonic-hierarchies/goetia-demon-ranks/",
+    "kind": "modern"
+   }
+  ]
+ }
+}

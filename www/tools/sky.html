@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Athanor — Sky &amp; Transits</title>
+<style>
+:root{--bg:#faf7f0;--card:#fff;--ink:#1a1712;--sub:#6b6357;--acc:#7a5c2e;--line:#e3ddd0;--chip:#f0ebe0;--hl:#f6efdd}
+@media(prefers-color-scheme:dark){:root{--bg:#14120e;--card:#1e1b15;--ink:#ece5d8;--sub:#9a9184;--acc:#d0a85c;--line:#33302a;--chip:#2a261e;--hl:#2b2519}}
+*{box-sizing:border-box}html,body{margin:0}
+body{font:16px system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--ink);-webkit-text-size-adjust:100%}
+header{padding:10px 14px;border-bottom:1px solid var(--line)}h1{font-size:16px;margin:0}h1 small{color:var(--sub);font-weight:400}
+main{max-width:620px;margin:0 auto;padding:12px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;margin:0 0 14px}
+.ct{font-size:12px;letter-spacing:1.5px;color:var(--acc);font-weight:700;margin:0 0 10px}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+select,input[type=datetime-local]{font-size:15px;padding:9px 10px;border:1px solid var(--line);border-radius:9px;background:var(--card);color:var(--ink)}
+select{flex:1;min-width:120px}
+button{border:1px solid var(--acc);background:var(--acc);color:#fff;border-radius:9px;padding:10px 18px;font-size:15px;cursor:pointer}
+button.ghost{background:var(--card);color:var(--ink);border-color:var(--line)}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.chip{border:1px solid var(--line);background:var(--chip);border-radius:14px;padding:5px 11px;cursor:pointer;font-size:12.5px;color:var(--sub)}
+.hl{font-size:20px;font-weight:700;margin:0 0 2px}
+.dig{display:inline-block;font-size:11.5px;border:1px solid var(--line);background:var(--chip);border-radius:10px;padding:2px 9px;color:var(--acc);font-weight:600;margin:4px 0}
+.mean{font-size:14px;line-height:1.5;color:var(--ink);margin:6px 0}
+.s777{font-size:12.5px;color:var(--sub);line-height:1.5;border-top:1px dashed var(--line);padding-top:8px;margin-top:8px}
+.win{border:1px solid var(--line);border-radius:10px;padding:9px 12px;margin:8px 0;font-size:14px;line-height:1.5}
+.win.cur{background:var(--hl);border-color:var(--acc)}
+.win b{font-size:14.5px}
+.win .sub{color:var(--sub);font-size:12.5px}
+.rx{color:var(--acc);font-weight:700}
+.note{color:var(--sub);font-size:11.5px;line-height:1.45;margin-top:8px}
+#wheelbox{display:flex;justify-content:center}
+#wheel{width:100%;max-width:400px;height:auto}
+.leg{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;font-size:11.5px;color:var(--sub);margin-top:6px}
+.leg span{display:flex;align-items:center;gap:5px}
+.leg svg{width:26px;height:8px}
+table.pos{width:100%;border-collapse:collapse;margin-top:10px;font-size:14px}
+table.pos td{padding:5px 4px;border-bottom:1px solid var(--line)}
+table.pos td:first-child{width:30px;font-size:16px}
+table.pos td:last-child{text-align:right;font-variant-numeric:tabular-nums}
+.sg{color:var(--sub)}
+</style></head><body>
+<header><h1>ATHANOR · SKY &amp; TRANSITS <small>· when is a planet in a sign — and what the sky holds now</small></h1></header>
+<main>
+
+<div class="card">
+ <p class="ct">FIND — WHEN IS …</p>
+ <div class="row">
+  <select id="pl"></select>
+  <span style="color:var(--sub)">in</span>
+  <select id="sg"></select>
+  <button onclick="runFind()">Find</button>
+ </div>
+ <div class="chips"></div>
+</div>
+
+<div class="card" id="res" style="display:none"></div>
+
+<div class="card">
+ <p class="ct">THE SKY</p>
+ <div class="row" style="margin-bottom:8px">
+  <input type="datetime-local" id="when" style="flex:1">
+  <button class="ghost" onclick="setNow()">Now</button>
+ </div>
+ <div id="wheelbox"><svg id="wheel" viewBox="0 0 340 340"></svg></div>
+ <div class="leg"></div>
+ <table class="pos" id="poslist"></table>
+ <p class="note"></p>
+</div>
+
+</main>
+<script src="../../data/db/core.js"></script>
+<script src="../../data/db/texts.js"></script>
+<script src="../lib/db.js"></script>
+<script>
+// Compact ephemeris: JPL Keplerian elements (1800-2050) + truncated lunar theory.
+const D2R = Math.PI/180;
+function jd(y,mo,d,h){ if(mo<=2){y--;mo+=12;} const A=Math.floor(y/100),B=2-A+Math.floor(A/4);
+  return Math.floor(365.25*(y+4716))+Math.floor(30.6001*(mo+1))+d+B-1524.5+h/24; }
+const EL = { // a, e, I, L, varpi, Omega  + rates/century
+ mercury:[0.38709927,0.20563593,7.00497902,252.25032350,77.45779628,48.33076593,
+          0.00000037,0.00001906,-0.00594749,149472.67411175,0.16047689,-0.12534081],
+ venus:[0.72333566,0.00677672,3.39467605,181.97909950,131.60246718,76.67984255,
+        0.00000390,-0.00004107,-0.00078890,58517.81538729,0.00268329,-0.27769418],
+ earth:[1.00000261,0.01671123,-0.00001531,100.46457166,102.93768193,0.0,
+        0.00000562,-0.00004392,-0.01294668,35999.37244981,0.32327364,0.0],
+ mars:[1.52371034,0.09339410,1.84969142,-4.55343205,-23.94362959,49.55953891,
+       0.00001847,0.00007882,-0.00813131,19140.30268499,0.44441088,-0.29257343],
+ jupiter:[5.20288700,0.04838624,1.30439695,34.39644051,14.72847983,100.47390909,
+          -0.00011607,-0.00013253,-0.00183714,3034.74612775,0.21252668,0.20469106],
+ saturn:[9.53667594,0.05386179,2.48599187,49.95424423,92.59887831,113.66242448,
+         -0.00125060,-0.00050991,0.00193609,1222.49362201,-0.41897216,-0.28867794],
+ uranus:[19.18916464,0.04725744,0.77263783,313.23810451,170.95427630,74.01692503,
+         -0.00196176,-0.00004397,-0.00242939,428.48202785,0.40805281,0.04240589],
+ neptune:[30.06992276,0.00859048,1.77004347,-55.12002969,44.96476227,131.78422574,
+          0.00026291,0.00005105,0.00035372,218.45945325,-0.32241464,-0.00508664],
+ pluto:[39.48211675,0.24882730,17.14001206,238.92903833,224.06891629,110.30393684,
+        -0.00031596,0.00005170,0.00004818,145.20780515,-0.04062942,-0.01183482]};
+function helio(p, T){
+  const e0=EL[p], a=e0[0]+e0[6]*T, ec=e0[1]+e0[7]*T, I=(e0[2]+e0[8]*T)*D2R,
+        L=e0[3]+e0[9]*T, vp=e0[4]+e0[10]*T, Om=(e0[5]+e0[11]*T);
+  let M=(L-vp)%360; if(M>180)M-=360; if(M<-180)M+=360;
+  const w=(vp-Om)*D2R, OmR=Om*D2R;
+  let E=M*D2R + ec*Math.sin(M*D2R);
+  for(let i=0;i<8;i++){ const dE=(E-ec*Math.sin(E)-M*D2R)/(1-ec*Math.cos(E)); E-=dE; }
+  const xp=a*(Math.cos(E)-ec), yp=a*Math.sqrt(1-ec*ec)*Math.sin(E);
+  const cw=Math.cos(w),sw=Math.sin(w),cO=Math.cos(OmR),sO=Math.sin(OmR),ci=Math.cos(I),si=Math.sin(I);
+  return [ (cw*cO-sw*sO*ci)*xp + (-sw*cO-cw*sO*ci)*yp,
+           (cw*sO+sw*cO*ci)*xp + (-sw*sO+cw*cO*ci)*yp,
+           (sw*si)*xp + (cw*si)*yp ];
+}
+function lon(x,y){ let l=Math.atan2(y,x)/D2R; return (l%360+360)%360; }
+function positions(JD){
+  const T=(JD-2451545)/36525, E=helio('earth',T), out={};
+  out.sun = lon(-E[0],-E[1]);
+  for(const p of ['mercury','venus','mars','jupiter','saturn','uranus','neptune','pluto']){
+    const P=helio(p,T); out[p]=lon(P[0]-E[0],P[1]-E[1]);
+  }
+  // Moon (Meeus ch.47, principal terms)
+  const Lp=218.3164477+481267.88123421*T-0.0015786*T*T,
+        D=297.8501921+445267.1114034*T-0.0018819*T*T,
+        M=357.5291092+35999.0502909*T-0.0001536*T*T,
+        Mp=134.9633964+477198.8675055*T+0.0087414*T*T,
+        F=93.2720950+483202.0175233*T-0.0036539*T*T;
+  const t=[[6288774,0,0,1,0],[1274027,2,0,-1,0],[658314,2,0,0,0],[213618,0,0,2,0],
+    [-185116,0,1,0,0],[-114332,0,0,0,2],[58793,2,0,-2,0],[57066,2,-1,-1,0],
+    [53322,2,0,1,0],[45758,2,-1,0,0],[-40923,0,1,-1,0],[-34720,1,0,0,0],
+    [-30383,0,1,1,0],[15327,2,0,0,-2],[-12528,0,0,1,2],[10980,0,0,1,-2],
+    [10675,4,0,-1,0],[10034,0,0,3,0],[8548,4,0,-2,0],[-7888,2,1,-1,0],
+    [-6766,2,1,0,0],[-5163,1,0,-1,0],[4987,1,1,0,0],[4036,2,-1,1,0]];
+  let s=0;
+  for(const [c,d1,m1,mp1,f1] of t){
+    let arg=(d1*D+m1*M+mp1*Mp+f1*F)*D2R, coef=c;
+    if(m1) coef*= (1-0.002516*T-0.0000074*T*T)**Math.abs(m1);
+    s+=coef*Math.sin(arg);
+  }
+  out.moon=((Lp+s/1e6)%360+360)%360;
+  const _pr=(5029.0966*T+1.11161*T*T)/3600;
+  for(const _k in out){ if(_k!=='moon'){ out[_k]=((out[_k]+_pr)%360+360)%360; } }
+  out.sun=((out.sun-20.4955/3600)%360+360)%360;
+  return out;
+}
+function ascmc(JD, lat, lonE){
+  const T=(JD-2451545)/36525;
+  let th=280.46061837+360.98564736629*(JD-2451545)+0.000387933*T*T + lonE;
+  th=((th%360)+360)%360;
+  const eps=(23.4392911-0.0130042*T)*D2R, thR=th*D2R, phi=lat*D2R;
+  let asc=Math.atan2(Math.cos(thR), -(Math.sin(thR)*Math.cos(eps)+Math.tan(phi)*Math.sin(eps)))/D2R;
+  asc=((asc%360)+360)%360;
+  let mc=Math.atan2(Math.sin(thR), Math.cos(thR)*Math.cos(eps))/D2R;
+  mc=((mc%360)+360)%360;
+  return {asc, mc, lst:th};
+}
+
+
+// The facts come from the content tables (data/db, edited in the content workbook) through lib/db.js
+const SIGNS=DB.rows('signs').map(s=>[s.name,s.glyph]);
+const ROMAN=['0','I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII','XIII','XIV','XV','XVI','XVII','XVIII','XIX','XX','XXI'];
+// [element, quality, ruler, path, letter, trump] of each sign: its ruler (dignities: domicile), its path on the Tree
+// (keyscale), and the path's letter and trump (Golden Dawn number, with the Tree's title: "VIII Strength / Lust")
+const SIGN777=DB.rows('signs').map(s=>{
+ const k=DB.where('keyscale',{sign:s.id})[0], L=DB.ref(k,'letter'), c=DB.rev('cards','keyscale',k.id)[0];
+ return [DB.ref(s,'element').name, s.quality, DB.ref(DB.where('dignities',{sign:s.id,kind:'domicile'})[0],'planet').name,
+  k.id, L.name+' '+L.glyph, ROMAN[c.gd_n]+' '+(k.tree_trump||c.name)];
+});
+// [id, glyph, name, scan horizon (days), search step (days), windows to list]: the bodies the ephemeris gives, named
+// from the planets table; the numbers are this page's search settings
+const BODIES=[['sun',420,0.5,3],['moon',75,0.2,4],['mercury',800,0.4,3],['venus',1000,0.4,3],['mars',1500,0.5,3],
+ ['jupiter',4900,1,3],['saturn',11500,1.5,2],['uranus',33000,2,2],['neptune',62000,3,2],['pluto',95000,3,2]]
+ .map(([k,H,st,n])=>{const p=DB.get('planets',k);return [k,p.glyph,p.name,H,st,n];});
+// what a planet stands for and how a sign colours it (planets.keynote, signs.keynote)
+const PMEAN=Object.fromEntries(BODIES.map(([k])=>[k,DB.get('planets',k).keynote]));
+const SMEAN=DB.rows('signs').map(s=>s.keynote);
+// The dignity of planet p in sign s (index): the dignities table (the traditional rulers, as on the dignity sheet).
+// Like Crowley, the app gives the outer planets no rulerships, so they take no dignity (signs.modern_ruler is not used)
+function dignity(p,s){
+ const sg=DB.rows('signs')[s], is=k=>DB.where('dignities',{planet:p,sign:sg.id,kind:k}).length>0, K=k=>DB.get('dignity_kinds',k).name;
+ if(is('domicile'))return[K('domicile'),DB.text('sky.dignity-domicile')];
+ if(is('exaltation'))return[K('exaltation'),DB.text('sky.dignity-exaltation')];
+ if(is('detriment'))return[K('detriment'),DB.text('sky.dignity-detriment')];
+ if(is('fall'))return[K('fall'),DB.text('sky.dignity-fall')];
+ if(DB.get('planets',p).kind==='outer')return['None',DB.text('sky.dignity-outer')];
+ return ['Peregrine',DB.text('sky.dignity-peregrine')];
+}
+const $=s=>document.querySelector(s);
+const nowJD=()=>2440587.5+Date.now()/86400000;
+const toDate=j=>new Date((j-2440587.5)*86400000);
+const an=a=>((a%360)+360)%360;
+function lonOf(p,JD){
+ if(p==='moon')return positions(JD).moon;
+ const T=(JD-2451545)/36525,E=helio('earth',T),_pr=(5029.0966*T+1.11161*T*T)/3600;
+ if(p==='sun')return an(lon(-E[0],-E[1])+_pr-20.4955/3600);
+ const P=helio(p,T);return an(lon(P[0]-E[0],P[1]-E[1])+_pr);
+}
+const rateOf=(p,j)=>{let d=an(lonOf(p,j+0.02))-an(lonOf(p,j-0.02));if(d>180)d-=360;if(d<-180)d+=360;return d;};
+const fmtD=j=>toDate(j).toLocaleDateString(undefined,{weekday:'short',year:'numeric',month:'short',day:'numeric'});
+const fmtT=j=>toDate(j).toLocaleTimeString(undefined,{hour:'numeric',minute:'2-digit'});
+function bisect(p,sign,a,b){
+ const inS=j=>Math.floor(an(lonOf(p,j))/30)===sign;const sa=inS(a);
+ for(let i=0;i<38;i++){const m=(a+b)/2;if(inS(m)===sa)a=m;else b=m;}
+ return (a+b)/2;
+}
+function findWindows(p,sign){
+ const cfg=BODIES.find(b=>b[0]===p),H=cfg[3],st=cfg[4],want=cfg[5];
+ const inS=j=>Math.floor(an(lonOf(p,j))/30)===sign;
+ const J0=nowJD(),out=[];let t=J0;
+ if(inS(t)){
+  let tb=t;while(inS(tb)&&t-tb<H)tb-=st;
+  let tf=t;while(inS(tf)&&tf-t<H)tf+=st;
+  out.push({start:bisect(p,sign,tb,tb+st),end:bisect(p,sign,tf-st,tf),current:true});
+  t=out[0].end+st/2;
+ }
+ while(out.length<want&&t<J0+H){
+  while(!inS(t)&&t<J0+H)t+=st;
+  if(t>=J0+H)break;
+  const start=bisect(p,sign,t-st,t);
+  const cap=J0+H*1.4;while(inS(t)&&t<cap)t+=st;
+  out.push({start,end:bisect(p,sign,t-st,t),current:false,open:t>=cap});
+  t+=st/2;
+ }
+ return out;
+}
+function preset(p,s){$('#pl').value=p;$('#sg').value=s;runFind();}
+function durTxt(d){
+ if(d<10)return Math.floor(d)+' d '+Math.round((d-Math.floor(d))*24)+' h';
+ if(d<400)return Math.round(d)+' days';
+ return (d/365.25).toFixed(1)+' years';
+}
+function runFind(){
+ const p=$('#pl').value,s=+$('#sg').value;
+ const B=BODIES.find(b=>b[0]===p),[nmS,glS]=SIGNS[s];
+ const wins=findWindows(p,s),[dg,dgTxt]=dignity(p,s),c7=SIGN777[s];
+ let h='<p class="ct">RESULT</p>';
+ h+='<p class="hl">'+B[1]+'︎ '+B[2]+' in '+glS+'︎ '+nmS+'</p>';
+ h+='<span class="dig">'+dg+'</span>';
+ h+='<p class="mean">'+DB.text('sky.reading',{planet:PMEAN[p],sign:SMEAN[s],dignity:dgTxt})+'</p>';
+ if(!wins.length){h+='<div class="win">Not within the scan horizon ('+Math.round(B[3]/365.25)+' years).</div>';}
+ wins.forEach(w=>{
+  const rx=rateOf(p,w.start+0.05)<0,dur=w.end-w.start;
+  h+='<div class="win'+(w.current?' cur':'')+'">';
+  if(w.current)h+='<b>In '+nmS+' now</b><br><span class="sub">since '+fmtD(w.start)+', '+fmtT(w.start)+'</span><br>leaves: <b>'+fmtD(w.end)+'</b>, '+fmtT(w.end)+' <span class="sub">('+durTxt(dur)+' total)</span>';
+  else h+='enters: <b>'+fmtD(w.start)+'</b>, '+fmtT(w.start)+(rx?' <span class="rx">℞ retrograde re-entry</span>':'')+'<br>leaves: '+(w.open?'<span class="sub">beyond scan horizon</span>':'<b>'+fmtD(w.end)+'</b>, '+fmtT(w.end)+' <span class="sub">('+durTxt(dur)+')</span>');
+  h+='</div>';
+ });
+ h+='<p class="s777">'+glS+'︎ <b>'+nmS+'</b> — '+c7[0]+' · '+c7[1]+' · ruled by '+c7[2]+' · Path '+c7[3]+' · '+c7[4]+' · '+c7[5]+'</p>';
+ const el=$('#res');el.style.display='block';el.innerHTML=h;
+}
+function pt(cx,cy,r,lam){const a=lam*Math.PI/180;return [cx-r*Math.cos(a),cy+r*Math.sin(a)];}
+function drawWheel(JD){
+ const cx=170,cy=170,pos=positions(JD);
+ let s='';
+ for(let i=0;i<12;i++){
+  const a0=i*30,a1=a0+30;
+  const [x0o,y0o]=pt(cx,cy,160,a0),[x1o,y1o]=pt(cx,cy,160,a1);
+  const [x0i,y0i]=pt(cx,cy,132,a0),[x1i,y1i]=pt(cx,cy,132,a1);
+  s+='<path d="M '+x0o.toFixed(1)+','+y0o.toFixed(1)+' A 160,160 0 0,1 '+x1o.toFixed(1)+','+y1o.toFixed(1)+' L '+x1i.toFixed(1)+','+y1i.toFixed(1)+' A 132,132 0 0,0 '+x0i.toFixed(1)+','+y0i.toFixed(1)+' Z" fill="'+(i%2?'var(--chip)':'var(--card)')+'" stroke="var(--line)" stroke-width="1"/>';
+  const [gx,gy]=pt(cx,cy,146,a0+15);
+  s+='<text x="'+gx.toFixed(1)+'" y="'+(gy+5).toFixed(1)+'" text-anchor="middle" font-size="14" fill="var(--sub)">'+SIGNS[i][1]+'︎</text>';
+ }
+ s+='<circle cx="170" cy="170" r="132" fill="none" stroke="var(--line)" stroke-width="1.4"/>';
+ s+='<circle cx="170" cy="170" r="78" fill="none" stroke="var(--line)" stroke-width="1"/>';
+ const list=BODIES.map(b=>({k:b[0],g:b[1],n:b[2],lam:an(pos[b[0]]),r:rateOf(b[0],JD)}));
+ // aspects
+ const ASP=[[180,7,'stroke-width="2.4"'],[120,6,'stroke-width="1.1"'],[90,6,'stroke-width="1.7" stroke-dasharray="6 4"'],[60,4,'stroke-width="1.5" stroke-dasharray="1.5 4"']];
+ for(let i=0;i<list.length;i++)for(let j2=i+1;j2<list.length;j2++){
+  let d=Math.abs(list[i].lam-list[j2].lam);if(d>180)d=360-d;
+  for(const [ang,orb,style] of ASP){ if(Math.abs(d-ang)<=orb){
+   const [xa,ya]=pt(cx,cy,78,list[i].lam),[xb,yb]=pt(cx,cy,78,list[j2].lam);
+   s+='<line x1="'+xa.toFixed(1)+'" y1="'+ya.toFixed(1)+'" x2="'+xb.toFixed(1)+'" y2="'+yb.toFixed(1)+'" stroke="var(--sub)" opacity="0.75" '+style+'/>';
+   break; } }
+ }
+ // planets with collision-avoiding radii
+ const sorted=[...list].sort((a,b)=>a.lam-b.lam);
+ const rad={};let cluster=[];
+ const flush=()=>{cluster.forEach((it,ix)=>rad[it.k]=112-ix*17);cluster=[];};
+ for(let i=0;i<sorted.length;i++){
+  if(cluster.length&&an(sorted[i].lam-cluster[cluster.length-1].lam)>=8)flush();
+  cluster.push(sorted[i]);
+ }
+ flush();
+ if(sorted.length>1&&an(sorted[0].lam-sorted[sorted.length-1].lam+360)<8&&rad[sorted[0].k]===112)rad[sorted[0].k]=95;
+ for(const it of list){
+  const [tx,ty]=pt(cx,cy,rad[it.k]||112,it.lam);
+  const [k1x,k1y]=pt(cx,cy,126,it.lam),[k2x,k2y]=pt(cx,cy,132,it.lam);
+  s+='<line x1="'+k1x.toFixed(1)+'" y1="'+k1y.toFixed(1)+'" x2="'+k2x.toFixed(1)+'" y2="'+k2y.toFixed(1)+'" stroke="var(--acc)" stroke-width="1.6"/>';
+  s+='<text x="'+tx.toFixed(1)+'" y="'+(ty+5.5).toFixed(1)+'" text-anchor="middle" font-size="16" fill="var(--acc)" font-weight="600">'+it.g+'︎</text>';
+ }
+ $('#wheel').innerHTML=s;
+ let rows='';
+ for(const it of list){
+  const sg=Math.floor(it.lam/30),dg=it.lam-sg*30,d0=Math.floor(dg),m0=Math.floor((dg-d0)*60);
+  rows+='<tr><td>'+it.g+'︎</td><td>'+it.n+(it.r<0?' <span class="rx">℞</span>':'')+'</td><td class="sg">'+SIGNS[sg][1]+'︎ '+SIGNS[sg][0]+'</td><td>'+d0+'°'+String(m0).padStart(2,'0')+'′</td></tr>';
+ }
+ $('#poslist').innerHTML=rows;
+}
+function setNow(){
+ const n=new Date(),p2=x=>String(x).padStart(2,'0');
+ $('#when').value=n.getFullYear()+'-'+p2(n.getMonth()+1)+'-'+p2(n.getDate())+'T'+p2(n.getHours())+':'+p2(n.getMinutes());
+ drawWheel(nowJD());
+}
+$('#when').addEventListener('change',()=>{const v=$('#when').value;if(!v)return;drawWheel(2440587.5+new Date(v).getTime()/86400000);});
+// the search presets, the wheel's legend (aspect names: the aspects table) and the small print
+document.querySelector('.chips').innerHTML=[['venus',0],['mercury',2],['mars',7],['jupiter',11],['saturn',10],['moon',4]]
+ .map(([p,s])=>`<span class="chip" onclick="preset('${p}',${s})">${DB.get('planets',p).name} in ${SIGNS[s][0]}</span>`).join('');
+document.querySelector('.leg').innerHTML=[['opposition','stroke-width="2.4"'],['trine','stroke-width="1.2"'],
+ ['square','stroke-width="1.8" stroke-dasharray="6 4"'],['sextile','stroke-width="1.6" stroke-dasharray="1.5 4"']]
+ .map(([a,w])=>`<span><svg><line x1="0" y1="4" x2="26" y2="4" stroke="currentColor" ${w}/></svg>${DB.get('aspects',a).name.toLowerCase()}</span>`).join('');
+document.querySelector('p.note').innerHTML=DB.text('sky.note');
+BODIES.forEach(b=>{const o=document.createElement('option');o.value=b[0];o.textContent=b[1]+'︎ '+b[2];$('#pl').appendChild(o);});
+SIGNS.forEach((sg,i)=>{const o=document.createElement('option');o.value=i;o.textContent=sg[1]+'︎ '+sg[0];$('#sg').appendChild(o);});
+$('#pl').value='venus';$('#sg').value=0;
+setNow();runFind();
+</script></body></html>
